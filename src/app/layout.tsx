@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { GoogleAdsenseScript } from '@/components/ads/GoogleAdsense';
 import { HeaderBannerAd, MobileStickyAd, AdBlockerDetector } from '@/components/ads/AdPlacements';
-import SessionProvider from '@/components/SessionProvider';
+import ClientProviders from '@/components/ClientProviders';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -72,14 +72,14 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://securepubads.g.doubleclick.net" />
       </head>
       <body className={`${inter.className} bg-gradient-to-br from-slate-50 via-white to-slate-100 text-gray-900`}>
-        <SessionProvider>
+        <ClientProviders>
           <HeaderBannerAd />
           <main className="min-h-screen pt-16">
             {children}
           </main>
           <MobileStickyAd />
           <AdBlockerDetector />
-        </SessionProvider>
+        </ClientProviders>
       </body>
     </html>
   );

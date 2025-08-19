@@ -404,7 +404,7 @@ export class UserService {
       { returnDocument: 'after' }
     );
     
-    return result || null;
+    return result?.value || null;
   }
 
   static async updateLastLogin(email: string): Promise<void> {

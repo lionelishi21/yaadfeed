@@ -73,7 +73,7 @@
         [
           ".music-note",
           { opacity: [0, 1], y: [20, 0], scale: [0.5, 1] },
-          { duration: 1, ease: "easeOut", delay: stagger(0.3, { start: 0.5 }) },
+          { duration: 1, ease: "easeOut", delay: stagger(0.3) },
         ],
         [
           ".sparkle",
@@ -84,7 +84,7 @@
           {
             duration: 0.8,
             ease: "easeOut",
-            delay: stagger(0.2, { from: "last", start: 0.8 }),
+            delay: stagger(0.2, { from: "last" }),
           },
         ],
       ];
