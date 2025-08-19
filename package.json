@@ -39,7 +39,7 @@
     "firebase": "^11.9.1",
     "google-auth-library": "^10.1.0",
     "lucide-react": "^0.305.0",
-    "mongodb": "^6.17.0",
+    "mongodb": "^5.9.2",
     "motion": "^12.23.6",
     "next": "14.0.4",
     "next-auth": "^4.24.11",
