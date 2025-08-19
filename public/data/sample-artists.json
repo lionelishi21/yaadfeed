@@ -1,0 +1,346 @@
+{
+  "artists": [
+    {
+      "id": "1",
+      "name": "Bob Marley",
+      "bio": "Robert Nesta Marley was a Jamaican singer, songwriter, and musician. Considered one of the pioneers of reggae, his musical career was marked by fusing elements of reggae, ska, and rocksteady, as well as his distinctive vocal and songwriting style. Marley's contributions to music increased the visibility of Jamaican music worldwide, and made him a global figure in popular culture for over a decade after his death.",
+      "imageUrl": "/images/bob-marley.jpg",
+      "spotifyId": "2QsynagSdAqZj3U9HgDzjD",
+      "genres": ["reggae", "roots-reggae", "ska", "rocksteady"],
+      "popularity": 100,
+      "followers": 8500000,
+      "netWorth": 32000000,
+      "birthDate": "1945-02-06",
+      "birthPlace": "Nine Mile, Saint Ann Parish, Jamaica",
+      "socialMedia": {
+        "instagram": "https://instagram.com/bobmarley",
+        "twitter": "https://twitter.com/bobmarley",
+        "facebook": "https://facebook.com/BobMarley",
+        "youtube": "https://youtube.com/c/BobMarleyOfficial",
+        "spotify": "https://open.spotify.com/artist/2QsynagSdAqZj3U9HgDzjD",
+        "website": "https://bobmarley.com"
+      },
+      "discography": [
+        {
+          "id": "album1",
+          "name": "Legend",
+          "artistId": "1",
+          "releaseDate": "1984-05-08",
+          "imageUrl": "/images/bob-marley-legend.jpg",
+          "genre": "reggae",
+          "tracks": []
+        }
+      ],
+      "upcomingEvents": [],
+      "isJamaican": true,
+      "isVerified": true
+    },
+    {
+      "id": "2",
+      "name": "Koffee",
+      "bio": "Mikayla Simpson, known professionally as Koffee, is a Jamaican reggae singer, songwriter, rapper, deejay and guitarist from Spanish Town, Jamaica. She released her debut single 'Burning' in 2017, and in 2019 signed with Columbia Records. Her 2019 EP Rapture won the Grammy Award for Best Reggae Album at the 62nd Annual Grammy Awards, making her the youngest person and only female to win the award.",
+      "imageUrl": "/images/koffee.jpg",
+      "spotifyId": "4Gso3d4CscCijv0lmajZWs",
+      "genres": ["reggae", "dancehall", "reggae-fusion"],
+      "popularity": 85,
+      "followers": 1200000,
+      "netWorth": 2500000,
+      "birthDate": "2000-02-16",
+      "birthPlace": "Spanish Town, Jamaica",
+      "socialMedia": {
+        "instagram": "https://instagram.com/originalkoffee",
+        "twitter": "https://twitter.com/originalkoffee",
+        "facebook": "https://facebook.com/OriginalKoffee",
+        "youtube": "https://youtube.com/c/KoffeeOfficial",
+        "spotify": "https://open.spotify.com/artist/4Gso3d4CscCijv0lmajZWs"
+      },
+      "discography": [
+        {
+          "id": "album2",
+          "name": "Rapture",
+          "artistId": "2",
+          "releaseDate": "2019-03-14",
+          "imageUrl": "/images/koffee-rapture.jpg",
+          "genre": "reggae",
+          "tracks": []
+        }
+      ],
+      "upcomingEvents": [
+        {
+          "id": "event1",
+          "title": "Koffee Live at Reggae Sumfest",
+          "description": "Grammy-winning artist Koffee performs at Jamaica's premier music festival",
+          "artistId": "2",
+          "artistName": "Koffee",
+          "venue": "Catherine Hall Entertainment Centre",
+          "location": "Montego Bay, Jamaica",
+          "date": "2025-07-18",
+          "time": "21:00",
+          "ticketUrl": "https://reggaesumfest.com/tickets",
+          "price": "$75-150",
+          "imageUrl": "/images/reggae-sumfest-koffee.jpg",
+          "category": "festival",
+          "isPopular": true
+        }
+      ],
+      "isJamaican": true,
+      "isVerified": true
+    },
+    {
+      "id": "3",
+      "name": "Sean Paul",
+      "bio": "Sean Paul Ryan Francis Henriques is a Jamaican rapper and singer who is regarded as one of dancehall's most prolific artists. Paul's first album, Stage One was released in 2000. He gained international fame with his second album, Dutty Rock (2002), which contained the worldwide hits 'Get Busy' and 'Like Glue'.",
+      "imageUrl": "/images/sean-paul.jpg",
+      "spotifyId": "3Isy6kedDrgPYoTS1dazA9",
+      "genres": ["dancehall", "reggae-fusion", "pop"],
+      "popularity": 90,
+      "followers": 3500000,
+      "netWorth": 25000000,
+      "birthDate": "1973-01-09",
+      "birthPlace": "Kingston, Jamaica",
+      "socialMedia": {
+        "instagram": "https://instagram.com/duttypaul",
+        "twitter": "https://twitter.com/duttypaul",
+        "facebook": "https://facebook.com/SeanPaulDuttyRock",
+        "youtube": "https://youtube.com/c/SeanPaulOfficial",
+        "spotify": "https://open.spotify.com/artist/3Isy6kedDrgPYoTS1dazA9",
+        "website": "https://seanpaul.com"
+      },
+      "discography": [
+        {
+          "id": "album3",
+          "name": "Dutty Rock",
+          "artistId": "3",
+          "releaseDate": "2002-11-12",
+          "imageUrl": "/images/sean-paul-dutty-rock.jpg",
+          "genre": "dancehall",
+          "tracks": []
+        }
+      ],
+      "upcomingEvents": [
+        {
+          "id": "event2",
+          "title": "Sean Paul: Dutty Rock Tour",
+          "description": "Celebrating 20+ years of dancehall hits",
+          "artistId": "3",
+          "artistName": "Sean Paul",
+          "venue": "National Arena",
+          "location": "Kingston, Jamaica",
+          "date": "2025-08-15",
+          "time": "20:00",
+          "ticketUrl": "https://ticketmaster.com/sean-paul",
+          "price": "$50-120",
+          "imageUrl": "/images/sean-paul-tour.jpg",
+          "category": "concert",
+          "isPopular": true
+        }
+      ],
+      "isJamaican": true,
+      "isVerified": true
+    },
+    {
+      "id": "4",
+      "name": "Protoje",
+      "bio": "Oje Ken Ollivierre, known by his stage name Protoje, is a Jamaican reggae singer and songwriter. He is an artist known for his conscious and thought-provoking lyrics. Protoje's music blends traditional reggae with contemporary sounds, earning him recognition as one of the leaders of the reggae revival movement.",
+      "imageUrl": "/images/protoje.jpg",
+      "spotifyId": "1Y8cdTmTgSg4F4kfPMDKP9",
+      "genres": ["reggae", "roots-reggae", "alternative-reggae"],
+      "popularity": 75,
+      "followers": 850000,
+      "netWorth": 3500000,
+      "birthDate": "1981-06-14",
+      "birthPlace": "Saint Elizabeth Parish, Jamaica",
+      "socialMedia": {
+        "instagram": "https://instagram.com/protoje",
+        "twitter": "https://twitter.com/protoje",
+        "facebook": "https://facebook.com/ProtojeMusic",
+        "youtube": "https://youtube.com/c/ProtojeOfficial",
+        "spotify": "https://open.spotify.com/artist/1Y8cdTmTgSg4F4kfPMDKP9"
+      },
+      "discography": [
+        {
+          "id": "album4",
+          "name": "A Matter of Time",
+          "artistId": "4",
+          "releaseDate": "2018-02-23",
+          "imageUrl": "/images/protoje-matter-time.jpg",
+          "genre": "reggae",
+          "tracks": []
+        }
+      ],
+      "upcomingEvents": [],
+      "isJamaican": true,
+      "isVerified": true
+    },
+    {
+      "id": "5",
+      "name": "Shaggy",
+      "bio": "Orville Richard Burrell, known professionally as Shaggy, is a Jamaican-American reggae musician, singer, DJ, and actor who scored hits with the songs 'It Wasn't Me', 'Boombastic', 'In The Summertime', 'Oh Carolina', and 'Angel'. He has been nominated for seven Grammy Awards, winning twice for Best Reggae Album.",
+      "imageUrl": "/images/shaggy.jpg",
+      "spotifyId": "6Ag0U8GgD7eFkpD7Jib9w9",
+      "genres": ["reggae-fusion", "dancehall", "pop"],
+      "popularity": 88,
+      "followers": 2800000,
+      "netWorth": 14000000,
+      "birthDate": "1968-10-22",
+      "birthPlace": "Kingston, Jamaica",
+      "socialMedia": {
+        "instagram": "https://instagram.com/direalshaggy",
+        "twitter": "https://twitter.com/DiRealShaggy",
+        "facebook": "https://facebook.com/DiRealShaggy",
+        "youtube": "https://youtube.com/c/ShaggyVEVO",
+        "spotify": "https://open.spotify.com/artist/6Ag0U8GgD7eFkpD7Jib9w9",
+        "website": "https://shaggy.com"
+      },
+      "discography": [
+        {
+          "id": "album5",
+          "name": "Hot Shot",
+          "artistId": "5",
+          "releaseDate": "2000-08-08",
+          "imageUrl": "/images/shaggy-hot-shot.jpg",
+          "genre": "reggae-fusion",
+          "tracks": []
+        }
+      ],
+      "upcomingEvents": [
+        {
+          "id": "event3",
+          "title": "Shaggy & Friends Benefit Concert",
+          "description": "Annual charity concert supporting children's hospital",
+          "artistId": "5",
+          "artistName": "Shaggy",
+          "venue": "Emancipation Park",
+          "location": "Kingston, Jamaica",
+          "date": "2025-09-21",
+          "time": "19:00",
+          "ticketUrl": "https://shaggybenefitconcert.com",
+          "price": "$40-100",
+          "imageUrl": "/images/shaggy-benefit.jpg",
+          "category": "charity",
+          "isPopular": false
+        }
+      ],
+      "isJamaican": true,
+      "isVerified": true
+    },
+    {
+      "id": "6",
+      "name": "Popcaan",
+      "bio": "Andre Hugh Sutherland, known professionally as Popcaan, is a Jamaican deejay, singer, and songwriter from the parish of St. Thomas. In 2008, Popcaan joined Vybz Kartel's Gaza Music Empire. In 2010, he released his breakthrough single 'Clarks' with Kartel, an ode to the popular shoe brand.",
+      "imageUrl": "/images/popcaan.jpg",
+      "spotifyId": "4kbTGNTweOQaPhzWWF1e56",
+      "genres": ["dancehall", "reggae", "afrobeats"],
+      "popularity": 82,
+      "followers": 1800000,
+      "netWorth": 5000000,
+      "birthDate": "1988-07-19",
+      "birthPlace": "St. Thomas, Jamaica",
+      "socialMedia": {
+        "instagram": "https://instagram.com/popcaanmusic",
+        "twitter": "https://twitter.com/PopcaanMusic",
+        "facebook": "https://facebook.com/PopcaanMusic",
+        "youtube": "https://youtube.com/c/PopcaanMusic",
+        "spotify": "https://open.spotify.com/artist/4kbTGNTweOQaPhzWWF1e56"
+      },
+      "discography": [
+        {
+          "id": "album6",
+          "name": "Fixtape",
+          "artistId": "6",
+          "releaseDate": "2020-08-07",
+          "imageUrl": "/images/popcaan-fixtape.jpg",
+          "genre": "dancehall",
+          "tracks": []
+        }
+      ],
+      "upcomingEvents": [],
+      "isJamaican": true,
+      "isVerified": true
+    },
+    {
+      "id": "7",
+      "name": "Chronixx",
+      "bio": "Jamar Rolando McNaughton, popularly known as Chronixx, is a Jamaican reggae artist. His stage name replaced the name 'Little Chronicle' which he was given because of his father, the singer 'Chronicle'. Chronixx and his music has been branded as a 'reggae revival', alongside other reggae musicians including Alborosie, Jah Bouks, Jesse Royal, Protoje and Kabaka Pyramid.",
+      "imageUrl": "/images/chronixx.jpg",
+      "spotifyId": "2VfaZuzgRUqpD8fVZSzewE",
+      "genres": ["reggae", "roots-reggae", "conscious-reggae"],
+      "popularity": 78,
+      "followers": 950000,
+      "netWorth": 2800000,
+      "birthDate": "1992-10-10",
+      "birthPlace": "Spanish Town, Jamaica",
+      "socialMedia": {
+        "instagram": "https://instagram.com/chronixxmusic",
+        "twitter": "https://twitter.com/ChronixxMusic",
+        "facebook": "https://facebook.com/ChronixxMusic",
+        "youtube": "https://youtube.com/c/ChronixxMusic",
+        "spotify": "https://open.spotify.com/artist/2VfaZuzgRUqpD8fVZSzewE"
+      },
+      "discography": [
+        {
+          "id": "album7",
+          "name": "Chronology",
+          "artistId": "7",
+          "releaseDate": "2017-07-07",
+          "imageUrl": "/images/chronixx-chronology.jpg",
+          "genre": "reggae",
+          "tracks": []
+        }
+      ],
+      "upcomingEvents": [],
+      "isJamaican": true,
+      "isVerified": true
+    },
+    {
+      "id": "8",
+      "name": "Skillibeng",
+      "bio": "Emwah Warmington, known professionally as Skillibeng, is a Jamaican dancehall deejay from St. Thomas. He is known for his aggressive delivery and his incorporation of elements from trap music into traditional dancehall. His breakout single 'Brik Pan Brik' gained popularity in 2019.",
+      "imageUrl": "/images/skillibeng.jpg",
+      "spotifyId": "4OMznWYOtdMKlLR0eLhHSl",
+      "genres": ["dancehall", "trap-dancehall", "reggae"],
+      "popularity": 80,
+      "followers": 750000,
+      "netWorth": 1500000,
+      "birthDate": "1996-12-23",
+      "birthPlace": "St. Thomas, Jamaica",
+      "socialMedia": {
+        "instagram": "https://instagram.com/skillibeng",
+        "twitter": "https://twitter.com/skillibeng",
+        "facebook": "https://facebook.com/SkillibengOfficial",
+        "youtube": "https://youtube.com/c/SkillibengOfficial",
+        "spotify": "https://open.spotify.com/artist/4OMznWYOtdMKlLR0eLhHSl"
+      },
+      "discography": [
+        {
+          "id": "album8",
+          "name": "The Prodigy",
+          "artistId": "8",
+          "releaseDate": "2021-11-26",
+          "imageUrl": "/images/skillibeng-prodigy.jpg",
+          "genre": "dancehall",
+          "tracks": []
+        }
+      ],
+      "upcomingEvents": [
+        {
+          "id": "event4",
+          "title": "Skillibeng: Bad Energy Tour",
+          "description": "Rising dancehall star's first major tour",
+          "artistId": "8",
+          "artistName": "Skillibeng",
+          "venue": "Hope Gardens",
+          "location": "Kingston, Jamaica",
+          "date": "2025-07-30",
+          "time": "20:30",
+          "price": "$30-80",
+          "imageUrl": "/images/skillibeng-tour.jpg",
+          "category": "concert",
+          "isPopular": false
+        }
+      ],
+      "isJamaican": true,
+      "isVerified": true
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://yaadfeed.com/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /out/
+
+# Allow news articles with slugs
+Allow: /news/
+
+# Allow important pages
+Allow: /artists/
+Allow: /events/
+Allow: /newsletter/ 

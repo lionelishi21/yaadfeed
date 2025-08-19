@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YaadFeed - Article Viewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .text-gradient {
+            background: linear-gradient(135deg, #16a34a, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .article-modal {
+            backdrop-filter: blur(8px);
+        }
+        
+        .modal-content {
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-lg border-b border-green-100 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="/" class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-yellow-500 rounded-lg flex items-center justify-center">
+                            <span class="text-white font-bold text-xl">Y</span>
+                        </div>
+                        <span class="text-2xl font-bold text-gradient">YaadFeed</span>
+                    </a>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="/" class="text-gray-700 hover:text-green-600 font-medium transition-colors">Home</a>
+                    <a href="/news/" class="text-green-600 font-medium">News</a>
+                    <a href="/artists/" class="text-gray-700 hover:text-green-600 font-medium transition-colors">Artists</a>
+                    <a href="/events/" class="text-gray-700 hover:text-green-600 font-medium transition-colors">Events</a>
+                    <a href="/newsletter/" class="text-gray-700 hover:text-green-600 font-medium transition-colors">Newsletter</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- News Grid -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-8">Jamaica News</h1>
+            
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Articles will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Article Modal -->
+    <div id="article-modal" class="fixed inset-0 bg-black bg-opacity-50 article-modal hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg max-w-4xl w-full modal-content">
+            <div class="p-6">
+                <!-- Modal Header -->
+                <div class="flex justify-between items-center mb-6 border-b pb-4">
+                    <h2 id="modal-title" class="text-2xl font-bold text-gray-900">Article Title</h2>
+                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+                </div>
+                
+                <!-- Modal Content -->
+                <div id="modal-content" class="space-y-6">
+                    <!-- Content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample news data
+        const newsData = [
+            {
+                id: 1,
+                title: "Jamaica Tourism Board Reports Record 4.3 Million Visitors",
+                summary: "Jamaica's Tourism Board announced that the island welcomed a record-breaking 4.3 million visitors this year, marking the highest numbers in the country's tourism history.",
+                category: "general",
+                imageUrl: "/images/jamaica-tourism.jpg",
+                publishedAt: "2024-01-15T10:00:00Z",
+                author: "YaadFeed Team",
+                content: "Jamaica's Tourism Board announced that the island welcomed a record-breaking 4.3 million visitors this year, marking the highest numbers in the country's tourism history. The achievement comes after significant investments in infrastructure and marketing campaigns targeting the Caribbean diaspora.\\n\\nMinister of Tourism Edmund Bartlett praised the collaborative efforts between government and private sector partners. 'This milestone represents not just numbers, but the strengthening of Jamaica's position as the premier Caribbean destination,' he stated during the announcement.\\n\\nThe tourism surge has had a positive impact on local employment, with over 200,000 Jamaicans now working directly in the tourism sector. Popular destinations like Negril, Montego Bay, and Ocho Rios have seen unprecedented growth in visitor numbers.\\n\\nLooking ahead, the Tourism Board plans to invest further in sustainable tourism practices and infrastructure improvements to maintain this upward trajectory while preserving Jamaica's natural beauty and cultural heritage."
+            },
+            {
+                id: 2,
+                title: "Shenseea Announces Massive Caribbean Tour Starting in Kingston",
+                summary: "Dancehall sensation Shenseea has announced her biggest Caribbean tour yet, with 15 dates across the region starting in Kingston this December.",
+                category: "entertainment",
+                imageUrl: "/images/koffee.jpg",
+                publishedAt: "2024-01-14T14:30:00Z",
+                author: "Music Reporter",
+                content: "Dancehall sensation Shenseea has announced her biggest Caribbean tour yet, with 15 dates across the region starting in Kingston this December. The 'Alpha' tour will feature special guests and celebrate her rise to international stardom.\\n\\nThe tour kicks off at the National Stadium in Kingston on December 15th, followed by shows in Barbados, Trinidad, and other Caribbean islands. Each concert promises to showcase Shenseea's latest hits along with classic fan favorites.\\n\\n'I'm so excited to bring this energy back home to the Caribbean,' Shenseea said in a statement. 'This tour is for all my fans who have supported me from day one.'\\n\\nTickets go on sale Friday with early access for YaadFeed newsletter subscribers. VIP packages include meet-and-greet opportunities and exclusive merchandise."
+            },
+            {
+                id: 3,
+                title: "Usain Bolt Launches Youth Athletics Foundation in Spanish Town",
+                summary: "Olympic legend Usain Bolt officially opened his new youth athletics foundation in Spanish Town, aimed at developing the next generation of Jamaican sprinters.",
+                category: "sports",
+                imageUrl: "/images/jamaica-athletics.jpg",
+                publishedAt: "2024-01-13T09:15:00Z",
+                author: "Sports Desk",
+                content: "Olympic legend Usain Bolt officially opened his new youth athletics foundation in Spanish Town, aimed at developing the next generation of Jamaican sprinters. The facility includes a state-of-the-art track, training equipment, and coaching programs for aspiring athletes aged 8-18.\\n\\n'Giving back to Jamaica's youth has always been close to my heart,' Bolt said at the opening ceremony. 'This foundation will help identify and nurture the next generation of world champions.'\\n\\nThe foundation offers free training programs, nutritional guidance, and educational support for young athletes. World-class coaches, including some of Bolt's former training partners, will work with the youth participants.\\n\\nThe facility also features a museum dedicated to Jamaica's rich athletics history and Bolt's legendary career achievements."
+            },
+            {
+                id: 4,
+                title: "Bob Marley Museum Unveils New Interactive Experience",
+                summary: "The Bob Marley Museum in Kingston has unveiled a new interactive experience featuring virtual reality tours, rare recordings, and previously unseen photographs.",
+                category: "entertainment",
+                imageUrl: "/images/bob-marley-legacy.jpg",
+                publishedAt: "2024-01-12T16:45:00Z",
+                author: "Culture Reporter",
+                content: "The Bob Marley Museum in Kingston has unveiled a new interactive experience featuring virtual reality tours, rare recordings, and previously unseen photographs. The upgrade celebrates what would have been Marley's 79th birthday and aims to attract younger generations to reggae culture.\\n\\nVisitors can now experience a virtual reality journey through Marley's life, from his early days in Trench Town to international stardom. The experience includes rare studio recordings and never-before-seen family photographs.\\n\\n'This new experience brings Bob's message of love, unity, and social justice to a new generation,' said Cedella Marley, Bob's daughter and CEO of the museum.\\n\\nThe museum reported a 30% increase in international visitors since the renovation, with particular interest from young people discovering reggae music for the first time."
+            },
+            {
+                id: 5,
+                title: "Government Announces New Infrastructure Investment for Rural Jamaica",
+                summary: "Prime Minister Andrew Holness announced a $2 billion infrastructure investment package targeting rural parishes across Jamaica.",
+                category: "politics",
+                imageUrl: "/images/kingston-tech-hub.jpg",
+                publishedAt: "2024-01-11T12:20:00Z",
+                author: "Political Correspondent",
+                content: "Prime Minister Andrew Holness announced a $2 billion infrastructure investment package targeting rural parishes across Jamaica. The initiative includes road improvements, broadband expansion, and water system upgrades.\\n\\nThe comprehensive plan will focus on connecting rural communities to urban centers through improved transportation networks and digital infrastructure. Priority will be given to parishes that have historically been underserved.\\n\\nOpposition leader Mark Golding welcomed the announcement but called for transparency in project implementation. 'While we support infrastructure development, we need clear timelines and accountability measures,' he stated.\\n\\nThe investment is expected to create thousands of jobs and significantly improve quality of life for rural Jamaicans over the next five years."
+            },
+            {
+                id: 6,
+                title: "Jamaica's Blue Mountains Coffee Wins International Recognition",
+                summary: "Jamaica Blue Mountain Coffee has been awarded the prestigious International Coffee Excellence Award for the third consecutive year.",
+                category: "general",
+                imageUrl: "/images/coral-reef-conservation.png",
+                publishedAt: "2024-01-10T11:30:00Z",
+                author: "Agriculture Reporter",
+                content: "Jamaica Blue Mountain Coffee has been awarded the prestigious International Coffee Excellence Award for the third consecutive year. The recognition highlights the exceptional quality and unique characteristics of coffee grown in the Blue Mountains region.\\n\\nThe award ceremony took place in Tokyo, Japan, where Jamaica's coffee was praised for its mild flavor, lack of bitterness, and perfect balance. Coffee connoisseurs from around the world participated in the blind tasting competition.\\n\\n'This award reinforces Jamaica's position as a producer of the world's finest coffee,' said Minister of Agriculture Floyd Green. 'Our farmers' dedication to quality and sustainable practices continues to pay dividends.'\\n\\nThe Blue Mountains region's unique climate and soil conditions create ideal growing conditions for this world-renowned coffee variety."
+            }
+        ];
+
+        // Load and display articles
+        function loadArticles() {
+            const newsGrid = document.getElementById('news-grid');
+            newsGrid.innerHTML = '';
+
+            newsData.forEach(article => {
+                const articleCard = createArticleCard(article);
+                newsGrid.appendChild(articleCard);
+            });
+        }
+
+        // Create article card
+        function createArticleCard(article) {
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer';
+            card.onclick = () => openModal(article);
+
+            const categoryColors = {
+                'general': 'bg-blue-100 text-blue-800',
+                'entertainment': 'bg-purple-100 text-purple-800',
+                'sports': 'bg-green-100 text-green-800',
+                'politics': 'bg-red-100 text-red-800'
+            };
+
+            card.innerHTML = `
+                <div class="aspect-video overflow-hidden">
+                    <img src="${article.imageUrl}" alt="${article.title}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-200">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center space-x-2 mb-3">
+                        <span class="${categoryColors[article.category] || 'bg-gray-100 text-gray-800'} px-2 py-1 rounded-full text-xs font-medium">
+                            ${article.category.charAt(0).toUpperCase() + article.category.slice(1)}
+                        </span>
+                        <span class="text-gray-500 text-xs">${formatDate(article.publishedAt)}</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 line-clamp-2 hover:text-green-600 transition-colors">
+                        ${article.title}
+                    </h3>
+                    <p class="text-gray-600 text-sm line-clamp-3 mb-4">
+                        ${article.summary}
+                    </p>
+                    <div class="flex items-center justify-between text-sm text-gray-500">
+                        <span>By ${article.author}</span>
+                        <span class="text-green-600 font-medium">Read More →</span>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Open article modal
+        function openModal(article) {
+            const modal = document.getElementById('article-modal');
+            const modalTitle = document.getElementById('modal-title');
+            const modalContent = document.getElementById('modal-content');
+
+            modalTitle.textContent = article.title;
+            
+            const categoryColors = {
+                'general': 'bg-blue-100 text-blue-800',
+                'entertainment': 'bg-purple-100 text-purple-800',
+                'sports': 'bg-green-100 text-green-800',
+                'politics': 'bg-red-100 text-red-800'
+            };
+
+            modalContent.innerHTML = `
+                <div class="aspect-video overflow-hidden rounded-lg mb-6">
+                    <img src="${article.imageUrl}" alt="${article.title}" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="flex items-center space-x-4 mb-6">
+                    <span class="${categoryColors[article.category] || 'bg-gray-100 text-gray-800'} px-3 py-1 rounded-full text-sm font-medium">
+                        ${article.category.charAt(0).toUpperCase() + article.category.slice(1)}
+                    </span>
+                    <span class="text-gray-500 text-sm">By ${article.author}</span>
+                    <span class="text-gray-500 text-sm">${formatDate(article.publishedAt)}</span>
+                </div>
+                
+                <div class="prose prose-lg max-w-none">
+                    ${article.content.split('\\n\\n').map(paragraph => `<p class="mb-4 leading-relaxed">${paragraph}</p>`).join('')}
+                </div>
+                
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div class="flex space-x-4">
+                            <button onclick="shareArticle('${article.title}')" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                Share Article
+                            </button>
+                            <button onclick="closeModal()" class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+                                Close
+                            </button>
+                        </div>
+                        <span class="text-sm text-gray-500">YaadFeed - Jamaica's Voice, Amplified</span>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('article-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Share article
+        function shareArticle(title) {
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    text: 'Check out this article from YaadFeed',
+                    url: window.location.href,
+                });
+            } else {
+                // Fallback
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Article link copied to clipboard!');
+                });
+            }
+        }
+
+        // Format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('article-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Load articles when page loads
+        window.addEventListener('load', loadArticles);
+    </script>
+</body>
+</html>
