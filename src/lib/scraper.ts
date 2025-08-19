@@ -537,6 +537,30 @@ const ARTIST_INFO_SOURCES = {
   youtube: 'https://www.youtube.com/c/'
 };
 
+// Standalone function to fetch RSS feed
+async function fetchRSSFeed(feed: any): Promise<any[]> {
+  try {
+    const response = await fetch(feed.url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const xmlText = await response.text();
+    // For now, return empty array as we need to implement RSS parsing
+    // This is a simplified version - you may want to add proper RSS parsing
+    return [];
+    
+  } catch (error) {
+    console.error(`Error fetching RSS for ${feed.source}:`, error);
+    return [];
+  }
+}
+
 // Enhanced scraping with pagination and artist linking
 export async function scrapeNewsWithPagination(page: number = 1, limit: number = 20): Promise<{ 
   articlesAdded: number; 
@@ -619,7 +643,7 @@ export async function scrapeNewsWithPagination(page: number = 1, limit: number =
           console.log(`✅ Added: ${article.title.substring(0, 60)}...`);
           
           // Update artist mentions in database
-          if (mentionedArtists.length > 0) {
+          if (mentionedArtists.length > 0 && createdNews._id) {
             await updateArtistMentions(createdNews._id, mentionedArtists);
           }
         }
