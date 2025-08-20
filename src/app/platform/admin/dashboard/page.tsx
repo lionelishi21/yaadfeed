@@ -17,8 +17,10 @@ import {
   CheckCircle,
   AlertCircle,
   Music,
-  Globe
+  Globe,
+  Database
 } from 'lucide-react';
+import MongoDBStatus from '@/components/admin/MongoDBStatus';
 
 interface DashboardStats {
   totalArticles: number;
@@ -300,6 +302,11 @@ export default function AdminDashboard() {
             );
           })}
         </div>
+      </div>
+
+      {/* MongoDB Status */}
+      <div className="mb-6">
+        <MongoDBStatus />
       </div>
 
       {/* Dashboard Grid */}

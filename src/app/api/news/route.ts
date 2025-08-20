@@ -1,8 +1,35 @@
 import { NextRequest, NextResponse } from 'next/server';
 import NewsService from '@/lib/mongodb';
+import { getConnectionStatus, testConnection } from '@/lib/mongodb';
 
 export async function GET(request: NextRequest) {
+  const startTime = Date.now();
+  
   try {
+    console.log('📰 [NEWS API] Starting news fetch request...');
+    
+    // Check connection status first
+    const connectionStatus = getConnectionStatus();
+    console.log('📰 [NEWS API] Connection status:', connectionStatus);
+    
+    // Test connection if not connected
+    if (!connectionStatus.isConnected) {
+      console.log('📰 [NEWS API] Testing MongoDB connection...');
+      const testResult = await testConnection();
+      console.log('📰 [NEWS API] Connection test result:', testResult);
+      
+      if (!testResult.success) {
+        return NextResponse.json({
+          error: 'Database connection failed',
+          details: testResult.error,
+          connection_status: connectionStatus,
+          test_result: testResult,
+          hint: 'Check MongoDB connection and environment variables',
+          timestamp: new Date().toISOString()
+        }, { status: 503 });
+      }
+    }
+    
     const { searchParams } = new URL(request.url);
     
     // Parse query parameters
@@ -10,6 +37,8 @@ export async function GET(request: NextRequest) {
     const source = searchParams.get('source');
     const limit = searchParams.get('limit');
     const search = searchParams.get('search');
+
+    console.log('📰 [NEWS API] Query parameters:', { category, source, limit, search });
 
     // Build filters object
     const filters: any = {};
@@ -30,8 +59,15 @@ export async function GET(request: NextRequest) {
       filters.search = search;
     }
 
+    console.log('📰 [NEWS API] Fetching news with filters:', filters);
+
     // Fetch news from MongoDB
     const news = await NewsService.getAllNews(filters);
+    
+    const endTime = Date.now();
+    const duration = endTime - startTime;
+    
+    console.log(`📰 [NEWS API] Successfully fetched ${news.length} articles in ${duration}ms`);
 
     return NextResponse.json({
       news: news.map(item => ({
@@ -52,16 +88,37 @@ export async function GET(request: NextRequest) {
         readTime: Math.ceil(item.content.length / 1000) // Approximate reading time
       })),
       total: news.length,
-      filters: filters
+      filters: filters,
+      performance: {
+        duration_ms: duration,
+        timestamp: new Date().toISOString()
+      }
     });
 
-  } catch (error) {
-    console.error('Error fetching news:', error);
+  } catch (error: any) {
+    const endTime = Date.now();
+    const duration = endTime - startTime;
+    
+    console.error('📰 [NEWS API] Error fetching news:', {
+      error: error.message,
+      stack: error.stack,
+      duration_ms: duration,
+      timestamp: new Date().toISOString()
+    });
+    
+    // Get connection status for debugging
+    const connectionStatus = getConnectionStatus();
+    
     return NextResponse.json({ 
       error: 'Failed to fetch news',
-      details: error instanceof Error ? error.message : 'Unknown error',
-      hint: 'Make sure MongoDB is running locally',
-      code: ''
+      details: error.message || 'Unknown error',
+      connection_status: connectionStatus,
+      performance: {
+        duration_ms: duration,
+        timestamp: new Date().toISOString()
+      },
+      hint: 'Check MongoDB connection and database status',
+      environment: process.env.NODE_ENV || 'development'
     }, { status: 500 });
   }
 } 

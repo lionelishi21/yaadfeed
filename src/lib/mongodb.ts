@@ -3,9 +3,72 @@ import { MongoClient, Db, Collection } from 'mongodb';
 // Global MongoDB connection
 let client: MongoClient | null = null;
 let db: Db | null = null;
+let isConnected = false;
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 const MONGODB_DB = process.env.MONGODB_DB || 'yaadfeed';
+
+// Enhanced logging function
+function log(message: string, level: 'info' | 'error' | 'warn' | 'success' = 'info') {
+  const timestamp = new Date().toISOString();
+  const env = process.env.NODE_ENV || 'development';
+  
+  const emoji = {
+    info: 'ℹ️',
+    error: '❌',
+    warn: '⚠️',
+    success: '✅'
+  };
+  
+  console.log(`${emoji[level]} [${timestamp}] [${env}] MongoDB: ${message}`);
+}
+
+// Connection status checker
+export function getConnectionStatus() {
+  return {
+    isConnected,
+    hasClient: !!client,
+    hasDb: !!db,
+    uri: MONGODB_URI ? `${MONGODB_URI.substring(0, 20)}...` : 'not set',
+    database: MONGODB_DB
+  };
+}
+
+// Test connection function
+export async function testConnection(): Promise<{ success: boolean; error?: string; details?: any }> {
+  try {
+    log('Testing MongoDB connection...', 'info');
+    
+    if (!MONGODB_URI) {
+      throw new Error('MONGODB_URI environment variable is not set');
+    }
+    
+    const testClient = new MongoClient(MONGODB_URI);
+    await testClient.connect();
+    
+    const testDb = testClient.db(MONGODB_DB);
+    
+    // Test a simple operation
+    await testDb.admin().ping();
+    
+    await testClient.close();
+    
+    log('MongoDB connection test successful', 'success');
+    return { success: true };
+  } catch (error: any) {
+    const errorMessage = error.message || 'Unknown error';
+    log(`Connection test failed: ${errorMessage}`, 'error');
+    return { 
+      success: false, 
+      error: errorMessage,
+      details: {
+        uri: MONGODB_URI ? `${MONGODB_URI.substring(0, 20)}...` : 'not set',
+        database: MONGODB_DB,
+        nodeEnv: process.env.NODE_ENV
+      }
+    };
+  }
+}
 
 export interface NewsItem {
   _id?: string;
@@ -49,18 +112,40 @@ export interface Poll {
 }
 
 export async function connectToDatabase(): Promise<{ db: Db; client: MongoClient }> {
-  if (client && db) {
+  if (client && db && isConnected) {
+    log('Using existing MongoDB connection', 'info');
     return { db, client };
   }
 
   try {
-    console.log('🔌 Connecting to MongoDB...');
-    client = new MongoClient(MONGODB_URI);
+    log('Initializing MongoDB connection...', 'info');
+    log(`URI: ${MONGODB_URI ? `${MONGODB_URI.substring(0, 30)}...` : 'not set'}`, 'info');
+    log(`Database: ${MONGODB_DB}`, 'info');
+    log(`Environment: ${process.env.NODE_ENV || 'development'}`, 'info');
+    
+    if (!MONGODB_URI) {
+      throw new Error('MONGODB_URI environment variable is not set');
+    }
+    
+    client = new MongoClient(MONGODB_URI, {
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+      connectTimeoutMS: 10000,
+    });
+    
+    log('Connecting to MongoDB server...', 'info');
     await client.connect();
     
+    log('Connected to MongoDB server, accessing database...', 'info');
     db = client.db(MONGODB_DB);
     
+    // Test the connection with a ping
+    await db.admin().ping();
+    log('Database ping successful', 'success');
+    
     // Create indexes for better performance
+    log('Creating database indexes...', 'info');
     const newsCollection = db.collection('news_items');
     const usersCollection = db.collection('users');
     
@@ -80,10 +165,23 @@ export async function connectToDatabase(): Promise<{ db: Db; client: MongoClient
       usersCollection.createIndex({ isActive: 1 })
     ]);
     
-    console.log('✅ Connected to MongoDB successfully');
+    isConnected = true;
+    log('MongoDB connection established successfully', 'success');
+    log(`Connected to database: ${MONGODB_DB}`, 'success');
+    
     return { db, client };
-  } catch (error) {
-    console.error('❌ MongoDB connection error:', error);
+  } catch (error: any) {
+    isConnected = false;
+    const errorMessage = error.message || 'Unknown error';
+    log(`MongoDB connection failed: ${errorMessage}`, 'error');
+    log(`Error details: ${JSON.stringify(error, null, 2)}`, 'error');
+    
+    // Log environment info for debugging
+    log(`Environment variables check:`, 'warn');
+    log(`- NODE_ENV: ${process.env.NODE_ENV || 'not set'}`, 'warn');
+    log(`- MONGODB_URI: ${MONGODB_URI ? 'set' : 'not set'}`, 'warn');
+    log(`- MONGODB_DB: ${MONGODB_DB}`, 'warn');
+    
     throw error;
   }
 }
@@ -110,10 +208,12 @@ export async function getPollsCollection(): Promise<Collection<Poll>> {
 
 export async function closeConnection(): Promise<void> {
   if (client) {
+    log('Closing MongoDB connection...', 'info');
     await client.close();
     client = null;
     db = null;
-    console.log('🔌 MongoDB connection closed');
+    isConnected = false;
+    log('MongoDB connection closed', 'success');
   }
 }
 
