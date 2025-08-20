@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test:mongodb": "node scripts/test-mongodb-connection.js",
     "regenerate": "node scripts/regenerate-articles.js",
     "regenerate:15": "node scripts/regenerate-articles.js --count=15",
     "regenerate:images": "node scripts/regenerate-articles.js --mode=update-images",
