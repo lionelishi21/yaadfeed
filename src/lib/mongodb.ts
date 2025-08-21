@@ -8,6 +8,26 @@ let isConnected = false;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 const MONGODB_DB = process.env.MONGODB_DB || 'yaadfeed';
 
+// Client promise for NextAuth compatibility
+let clientPromise: Promise<MongoClient>;
+
+if (!process.env.MONGODB_URI) {
+  throw new Error("Please add MONGODB_URI to Vercel Environment Variables");
+}
+
+if (process.env.NODE_ENV === "development") {
+  if (!(global as any)._mongoClientPromise) {
+    client = new MongoClient(MONGODB_URI);
+    (global as any)._mongoClientPromise = client.connect();
+  }
+  clientPromise = (global as any)._mongoClientPromise;
+} else {
+  client = new MongoClient(MONGODB_URI);
+  clientPromise = client.connect();
+}
+
+export { clientPromise };
+
 // Enhanced logging function
 function log(message: string, level: 'info' | 'error' | 'warn' | 'success' = 'info') {
   const timestamp = new Date().toISOString();
