@@ -161,7 +161,7 @@ export default function MongoDBStatus() {
               {Object.entries(status.database.collections).map(([name, count]) => (
                 <div key={name} className="bg-gray-50 p-2 rounded">
                   <div className="font-medium">{name}</div>
-                  <div className="text-gray-600">{count} documents</div>
+                  <div className="text-gray-600">{count as number} documents</div>
                 </div>
               ))}
             </div>

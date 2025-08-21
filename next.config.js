@@ -1,5 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Disable static generation completely
+  experimental: {
+    serverComponentsExternalPackages: ['sharp'],
+    // Disable static generation
+    isrMemoryCacheSize: 0,
+    // Force dynamic rendering
+    workerThreads: false,
+  },
+  
   images: {
     domains: [
       'localhost',
@@ -12,9 +21,6 @@ const nextConfig = {
       'images.unsplash.com'
     ],
     remotePatterns: []
-  },
-  experimental: {
-    serverComponentsExternalPackages: ['sharp']
   },
   
   // SEO optimizations
