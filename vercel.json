@@ -1,19 +1,14 @@
 {
-  "crons": [
-    {
-      "path": "/api/cron/scrape",
-      "schedule": "0 0 * * *"
-    }
-  ],
   "functions": {
-    "src/app/api/cron/scrape/route.ts": {
-      "maxDuration": 300
-    },
-    "src/app/api/scrape/route.ts": {
-      "maxDuration": 300
+    "src/app/api/**/*.ts": {
+      "maxDuration": 30
     }
   },
-  "env": {
-    "NEXT_PUBLIC_SITE_URL": "https://yaadfeed.vercel.app"
-  }
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
+  "regions": ["iad1"],
+  "framework": "nextjs"
 } 

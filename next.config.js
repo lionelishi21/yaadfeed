@@ -1,14 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Disable static generation completely
+  // Optimize bundle size
   experimental: {
     serverComponentsExternalPackages: ['sharp'],
     // Disable static generation
     isrMemoryCacheSize: 0,
     // Force dynamic rendering
     workerThreads: false,
+    // Optimize bundle
+    optimizePackageImports: ['@heroicons/react', 'lucide-react'],
   },
   
+  // Optimize images
   images: {
     domains: [
       'localhost',
@@ -20,57 +23,48 @@ const nextConfig = {
       'source.unsplash.com',
       'images.unsplash.com'
     ],
-    remotePatterns: []
+    remotePatterns: [],
+    // Optimize image formats
+    formats: ['image/webp', 'image/avif'],
   },
-  
-  // SEO optimizations
-  poweredByHeader: false,
-  generateEtags: false,
-  
-  // Custom headers for SEO
-  async headers() {
-    return [
-      {
-        source: '/api/:path*',
-        headers: [
-          { key: 'Access-Control-Allow-Origin', value: '*' },
-          { key: 'Access-Control-Allow-Methods', value: 'GET,OPTIONS,PATCH,DELETE,POST,PUT' },
-          { key: 'Access-Control-Allow-Headers', value: 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version' },
-        ],
-      },
-      {
-        source: '/news/:slug*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=3600, stale-while-revalidate=86400',
-          },
-        ],
-      },
-    ]
-  },
-  
-  // Redirects for SEO
-  async redirects() {
-    return [
-      // Redirect old ID-based URLs to slug-based URLs if needed
-      {
-        source: '/news/:id(\\d+)',
-        destination: '/news',
-        permanent: true,
-      },
-    ];
-  },
-  
-  // URL rewrites for clean URLs
-  async rewrites() {
-    return [
-      {
-        source: '/sitemap.xml',
-        destination: '/api/sitemap',
-      },
-    ];
-  },
-}
 
-module.exports = nextConfig
+  // Optimize webpack
+  webpack: (config, { isServer }) => {
+    // Reduce bundle size
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        net: false,
+        tls: false,
+      };
+    }
+
+    // Tree shake unused code
+    config.optimization = {
+      ...config.optimization,
+      usedExports: true,
+      sideEffects: false,
+    };
+
+    return config;
+  },
+
+  // Reduce output size
+  output: 'standalone',
+  
+  // Disable source maps in production
+  productionBrowserSourceMaps: false,
+  
+  // Optimize CSS
+  swcMinify: true,
+  
+  // Reduce bundle size
+  compress: true,
+  
+  // Optimize static generation
+  trailingSlash: false,
+  generateEtags: false,
+};
+
+module.exports = nextConfig;
