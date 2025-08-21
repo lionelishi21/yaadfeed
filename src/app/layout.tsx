@@ -5,6 +5,9 @@ import { GoogleAdsenseScript } from '@/components/ads/GoogleAdsense';
 import { HeaderBannerAd, MobileStickyAd, AdBlockerDetector } from '@/components/ads/AdPlacements';
 import ClientProviders from '@/components/ClientProviders';
 
+// Force dynamic rendering for the entire app
+export const dynamic = 'force-dynamic';
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {

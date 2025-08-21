@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     
     // Try to get some basic stats if connected
     let dbStats = null;
-    let collectionCounts = null;
+    let collectionCounts: Record<string, number> | null = null;
     
     if (testResult.success) {
       try {
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
         
         // Get collection counts
         const collections = await db.listCollections().toArray();
-        collectionCounts = {};
+        collectionCounts = {} as Record<string, number>;
         
         for (const collection of collections) {
           const count = await db.collection(collection.name).countDocuments();
