@@ -1,4 +1,5 @@
-import OpenAI from 'openai';
+// Using stub to reduce bundle size
+import OpenAI from '@/lib/stubs/openai';
 import { ImageService } from './imageService';
 import { connectToDatabase, NewsService } from './mongodb';
 

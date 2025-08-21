@@ -9,6 +9,14 @@ const nextConfig = {
     workerThreads: false,
     // Optimize bundle
     optimizePackageImports: ['@heroicons/react', 'lucide-react'],
+    // Reduce bundle size
+    bundlePagesExternals: true,
+    // Disable features that increase bundle size
+    optimizeCss: true,
+    // Reduce memory usage
+    memoryBasedWorkers: true,
+    // Disable static optimization
+    staticPageGenerationTimeout: 0,
   },
   
   // Optimize images
@@ -26,10 +34,12 @@ const nextConfig = {
     remotePatterns: [],
     // Optimize image formats
     formats: ['image/webp', 'image/avif'],
+    // Disable image optimization to reduce bundle size
+    unoptimized: true,
   },
 
   // Optimize webpack
-  webpack: (config, { isServer }) => {
+  webpack: (config, { isServer, dev }) => {
     // Reduce bundle size
     if (!isServer) {
       config.resolve.fallback = {
@@ -37,6 +47,38 @@ const nextConfig = {
         fs: false,
         net: false,
         tls: false,
+        crypto: false,
+        stream: false,
+        url: false,
+        zlib: false,
+        http: false,
+        https: false,
+        assert: false,
+        os: false,
+        path: false,
+        buffer: false,
+        util: false,
+        querystring: false,
+        punycode: false,
+        domain: false,
+        dns: false,
+        dgram: false,
+        cluster: false,
+        child_process: false,
+        worker_threads: false,
+        vm: false,
+        inspector: false,
+        async_hooks: false,
+        events: false,
+        string_decoder: false,
+        timers: false,
+        tty: false,
+        readline: false,
+        repl: false,
+        v8: false,
+        perf_hooks: false,
+        trace_events: false,
+        wasi: false,
       };
     }
 
@@ -45,7 +87,40 @@ const nextConfig = {
       ...config.optimization,
       usedExports: true,
       sideEffects: false,
+      // Split chunks more aggressively
+      splitChunks: {
+        chunks: 'all',
+        cacheGroups: {
+          default: false,
+          vendors: false,
+          // Vendor chunk
+          vendor: {
+            name: 'vendor',
+            chunks: 'all',
+            test: /node_modules/,
+            priority: 20,
+          },
+          // Common chunk
+          common: {
+            name: 'common',
+            minChunks: 2,
+            chunks: 'all',
+            priority: 10,
+            reuseExistingChunk: true,
+            enforce: true,
+          },
+        },
+      },
+      // Remove unused modules
+      minimize: !dev,
+      // Remove console logs in production
+      minimizer: config.optimization.minimizer || [],
     };
+
+    // Remove unused modules
+    if (!dev) {
+      config.optimization.minimize = true;
+    }
 
     return config;
   },
@@ -65,6 +140,17 @@ const nextConfig = {
   // Optimize static generation
   trailingSlash: false,
   generateEtags: false,
+
+  // Disable features to reduce bundle size
+  poweredByHeader: false,
+  
+  // Optimize for serverless
+  experimental: {
+    // Reduce serverless function size
+    serverComponentsExternalPackages: ['sharp'],
+    // Disable features that increase bundle size
+    optimizeCss: true,
+  },
 };
 
 module.exports = nextConfig;

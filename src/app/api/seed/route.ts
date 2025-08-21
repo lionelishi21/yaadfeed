@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerClient } from '@/lib/supabase';
+import { NewsService } from '@/lib/mongodb';
 
 // Sample news data to seed the database
 const sampleNewsData = [
@@ -75,26 +75,33 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const supabase = createServerClient();
-
-    // Clear existing news items (optional - remove this line if you want to keep existing data)
-    // await supabase.from('news_items').delete().neq('id', '');
+    // Clear existing news items (optional)
+    // await NewsService.deleteAllNews();
 
     // Insert sample news data
-    const { data, error } = await supabase
-      .from('news_items')
-      .insert(sampleNewsData)
-      .select();
-
-    if (error) {
-      console.error('Error seeding database:', error);
-      return NextResponse.json({ error: 'Failed to seed database', details: error.message }, { status: 500 });
+    const insertedArticles = [];
+    for (const articleData of sampleNewsData) {
+      try {
+        const article = await NewsService.createNews({
+          ...articleData,
+          imageUrl: articleData.image_url,
+          publishedAt: new Date(articleData.published_at),
+          url: `https://example.com/${articleData.slug}`,
+          viewCount: articleData.view_count,
+          isPopular: articleData.is_popular
+        });
+        if (article) {
+          insertedArticles.push(article);
+        }
+      } catch (err) {
+        console.error('Error inserting article:', err);
+      }
     }
 
     return NextResponse.json({ 
       message: 'Database seeded successfully',
-      insertedCount: data?.length || 0,
-      articles: data
+      insertedCount: insertedArticles.length,
+      articles: insertedArticles
     });
 
   } catch (error) {
