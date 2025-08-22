@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic';
+// Removed dynamic directive for static export compatibility
 
 import React from 'react';
 import Image from 'next/image';

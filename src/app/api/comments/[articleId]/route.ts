@@ -1,4 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
+
+// Generate static params for static export
+export async function generateStaticParams() {
+  return [
+    { articleId: '1' },
+    { articleId: '2' },
+    { articleId: '3' }
+  ];
+}
 import { connectToDatabase } from '@/lib/mongodb';
 
 interface CommentWithReplies {

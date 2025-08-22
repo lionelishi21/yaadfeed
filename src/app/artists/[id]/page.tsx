@@ -3,8 +3,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, Users, ExternalLink, Music, DollarSign, MapPin } from 'lucide-react';
 
+// Generate static params for static export
+export async function generateStaticParams() {
+  return [
+    { id: '1' },
+    { id: '2' },
+    { id: '3' },
+    { id: '4' },
+    { id: '5' }
+  ];
+}
+
 async function getArtist(id: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/artists/${id}`, { cache: 'no-store' });
+  // For static export, use localhost during build
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const res = await fetch(`${baseUrl}/api/artists/${id}`, { cache: 'no-store' });
   if (!res.ok) return null;
   const data = await res.json();
   return data.artist || null;

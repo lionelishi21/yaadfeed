@@ -3,6 +3,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { ArrowLeft, Calendar, User, Eye, Share2, Tag, Clock, Bookmark } from 'lucide-react';
+
+// Generate static params for static export
+export async function generateStaticParams() {
+  return [
+    { slug: 'bob-marleys-legacy-continues-to-inspire-new-generation-of-jamaican-artists' },
+    { slug: 'jamaicas-tourism-industry-shows-strong-recovery-post-pandemic' },
+    { slug: 'reggae-sumfest-2025-lineup-announced-featuring-international-and-local-stars' }
+  ];
+}
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Footer from '@/components/Footer';
@@ -31,38 +40,18 @@ export default async function NewsArticlePage({ params }: { params: { slug: stri
   return <ArticleContent article={article} relatedArticles={relatedArticles} slug={params.slug} />;
 }
 
-// Fetch article from MongoDB API
-async function fetchArticle(slug: string) {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:4000';
-    const response = await fetch(`${baseUrl}/api/news/${slug}`, {
-      next: { revalidate: 300 } // Revalidate every 5 minutes
-    });
-    
-    if (!response.ok) {
-      return null;
-    }
-    
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching article:', error);
-    return null;
-  }
-}
+// Removed unused fetchArticle function for static export compatibility
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const data = await fetchArticle(params.slug);
+  const article = await NewsService.getNewsBySlug(params.slug) || await NewsService.getNewsById(params.slug);
   
-  if (!data || !data.article) {
+  if (!article) {
     return {
       title: 'Article Not Found - YaadFeed',
       description: 'The requested article could not be found.'
     };
   }
-
-  const { article } = data;
 
   return {
     title: `${article.title} - YaadFeed`,
@@ -72,7 +61,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       description: article.summary,
       images: article.imageUrl ? [article.imageUrl] : undefined,
       type: 'article',
-      publishedTime: article.publishedAt,
+      publishedTime: article.publishedAt?.toISOString(),
       authors: article.author ? [article.author] : undefined,
     },
     twitter: {

@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Enable static export only for production builds
+  ...(process.env.NODE_ENV === 'production' && {
+    output: 'export',
+    trailingSlash: true,
+  }),
+  
   // Optimize bundle size
   experimental: {
     serverComponentsExternalPackages: ['sharp'],
@@ -13,14 +19,11 @@ const nextConfig = {
     bundlePagesExternals: true,
     // Disable features that increase bundle size
     optimizeCss: true,
-    // Reduce memory usage
-    memoryBasedWorkers: true,
-    // Disable static optimization
-    staticPageGenerationTimeout: 0,
   },
   
-  // Optimize images
+  // Optimize images for static export
   images: {
+    unoptimized: process.env.NODE_ENV === 'production',
     domains: [
       'localhost',
       'i.scdn.co',
@@ -34,8 +37,6 @@ const nextConfig = {
     remotePatterns: [],
     // Optimize image formats
     formats: ['image/webp', 'image/avif'],
-    // Disable image optimization to reduce bundle size
-    unoptimized: true,
   },
 
   // Optimize webpack
@@ -113,21 +114,11 @@ const nextConfig = {
       },
       // Remove unused modules
       minimize: !dev,
-      // Remove console logs in production
-      minimizer: config.optimization.minimizer || [],
     };
-
-    // Remove unused modules
-    if (!dev) {
-      config.optimization.minimize = true;
-    }
 
     return config;
   },
 
-  // Reduce output size
-  output: 'standalone',
-  
   // Disable source maps in production
   productionBrowserSourceMaps: false,
   
@@ -136,21 +127,9 @@ const nextConfig = {
   
   // Reduce bundle size
   compress: true,
-  
-  // Optimize static generation
-  trailingSlash: false,
-  generateEtags: false,
 
   // Disable features to reduce bundle size
   poweredByHeader: false,
-  
-  // Optimize for serverless
-  experimental: {
-    // Reduce serverless function size
-    serverComponentsExternalPackages: ['sharp'],
-    // Disable features that increase bundle size
-    optimizeCss: true,
-  },
 };
 
 module.exports = nextConfig;

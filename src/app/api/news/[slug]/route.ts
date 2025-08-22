@@ -1,4 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
+
+// Generate static params for static export
+export async function generateStaticParams() {
+  return [
+    { slug: 'bob-marleys-legacy-continues-to-inspire-new-generation-of-jamaican-artists' },
+    { slug: 'jamaicas-tourism-industry-shows-strong-recovery-post-pandemic' },
+    { slug: 'reggae-sumfest-2025-lineup-announced-featuring-international-and-local-stars' }
+  ];
+}
 import NewsService from '@/lib/mongodb';
 
 export async function GET(

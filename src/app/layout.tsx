@@ -6,7 +6,7 @@ import { HeaderBannerAd, MobileStickyAd, AdBlockerDetector } from '@/components/
 import ClientProviders from '@/components/ClientProviders';
 
 // Force dynamic rendering for the entire app
-export const dynamic = 'force-dynamic';
+// Removed dynamic directive for static export compatibility
 
 const inter = Inter({ subsets: ['latin'] });
 
