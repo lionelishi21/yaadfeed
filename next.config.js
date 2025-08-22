@@ -1,30 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable static export only for production builds
-  ...(process.env.NODE_ENV === 'production' && {
-    output: 'export',
-    trailingSlash: true,
-  }),
+  // Keep trailing slash for consistency
+  trailingSlash: true,
   
-  // Optimize images for static export
+  // Optimize images for SSR (remove unoptimized flag)
   images: {
-      domains: [
-        'localhost',
-        'i.scdn.co',
-        'img.discogs.com',
-        'api.dicebear.com',
-        'www.jamaica-gleaner.com',
-        'www.jamaicaobserver.com',
-        'source.unsplash.com',
-        'images.unsplash.com'
-      ],
-      formats: ['image/webp', 'image/avif'],
-    },
-    productionBrowserSourceMaps: false,
-    swcMinify: true,
-    compress: true,
-    poweredByHeader: false,
-  };
+    domains: [
+      'localhost',
+      'i.scdn.co',
+      'img.discogs.com',
+      'api.dicebear.com',
+      'www.jamaica-gleaner.com',
+      'www.jamaicaobserver.com',
+      'source.unsplash.com',
+      'images.unsplash.com'
+    ],
+    remotePatterns: [],
+    // Optimize image formats
+    formats: ['image/webp', 'image/avif'],
+  },
 
   // Disable source maps in production
   productionBrowserSourceMaps: false,
