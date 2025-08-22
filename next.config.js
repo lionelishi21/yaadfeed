@@ -2,9 +2,8 @@
 const nextConfig = {
   // Keep trailing slash for consistency
   trailingSlash: true,
-  output: 'export',
   
-  // Optimize images for SSR (remove unoptimized flag)
+  // Optimize images
   images: {
     domains: [
       'localhost',
