@@ -1,24 +1,18 @@
 version: 1
 applications:
-  - frontend:
+  - appRoot: .
+    frontend:
       phases:
         preBuild:
           commands:
-            - npm install --production=false --cache .npm --prefer-offline --no-audit --no-fund
+            - npm install
         build:
           commands:
             - npm run build
       artifacts:
-        baseDirectory: .next
+        baseDirectory: build
         files:
           - '**/*'
       cache:
         paths:
-          - .next/cache/**/*
-          - .npm/**/*
           - node_modules/**/*
-  - backend:
-      phases:
-        build:
-          commands:
-            - echo "No backend build required"
