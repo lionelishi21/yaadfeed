@@ -8,21 +8,23 @@ const nextConfig = {
   
   // Optimize images for static export
   images: {
-    unoptimized: process.env.NODE_ENV === 'production',
-    domains: [
-      'localhost',
-      'i.scdn.co',
-      'img.discogs.com',
-      'api.dicebear.com',
-      'www.jamaica-gleaner.com',
-      'www.jamaicaobserver.com',
-      'source.unsplash.com',
-      'images.unsplash.com'
-    ],
-    remotePatterns: [],
-    // Optimize image formats
-    formats: ['image/webp', 'image/avif'],
-  },
+      domains: [
+        'localhost',
+        'i.scdn.co',
+        'img.discogs.com',
+        'api.dicebear.com',
+        'www.jamaica-gleaner.com',
+        'www.jamaicaobserver.com',
+        'source.unsplash.com',
+        'images.unsplash.com'
+      ],
+      formats: ['image/webp', 'image/avif'],
+    },
+    productionBrowserSourceMaps: false,
+    swcMinify: true,
+    compress: true,
+    poweredByHeader: false,
+  };
 
   // Disable source maps in production
   productionBrowserSourceMaps: false,
