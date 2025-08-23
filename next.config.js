@@ -31,6 +31,16 @@ const nextConfig = {
 
   // Disable features to reduce bundle size
   poweredByHeader: false,
+
+  // Experimental features to help with build issues
+  experimental: {
+    // Disable static generation for problematic pages
+    workerThreads: false,
+    // Reduce memory usage during build
+    isrMemoryCacheSize: 0,
+    // Disable static generation for client components
+    staticPageGenerationTimeout: 0,
+  },
 };
 
 module.exports = nextConfig;

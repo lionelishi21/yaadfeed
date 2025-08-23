@@ -61,8 +61,50 @@ export async function GET(request: NextRequest) {
 
     console.log('📰 [NEWS API] Fetching news with filters:', filters);
 
-    // Fetch news from MongoDB
-    const news = await NewsService.getAllNews(filters);
+    // Fetch news from MongoDB with better error handling
+    let news;
+    try {
+      news = await NewsService.getAllNews(filters);
+      console.log(`📰 [NEWS API] Raw news data length: ${news?.length || 0}`);
+      
+      if (!news || news.length === 0) {
+        console.log('📰 [NEWS API] No news found, checking database collection...');
+        
+        // Try to get collection info for debugging
+        try {
+          const { db } = await import('@/lib/mongodb').then(m => m.connectToDatabase());
+          const collection = db.collection('news_items');
+          const count = await collection.countDocuments();
+          const sample = await collection.findOne({});
+          
+          console.log(`📰 [NEWS API] Collection info - Total documents: ${count}`);
+          console.log(`📰 [NEWS API] Sample document:`, sample ? 'Found' : 'None');
+          
+          if (count === 0) {
+            return NextResponse.json({
+              news: [],
+              total: 0,
+              filters: filters,
+              debug: {
+                collection_count: count,
+                collection_name: 'news_items',
+                database: process.env.MONGODB_DB || 'not set',
+                environment: process.env.NODE_ENV || 'development'
+              },
+              performance: {
+                duration_ms: Date.now() - startTime,
+                timestamp: new Date().toISOString()
+              }
+            });
+          }
+        } catch (dbError) {
+          console.error('📰 [NEWS API] Error checking collection:', dbError);
+        }
+      }
+    } catch (newsError) {
+      console.error('📰 [NEWS API] Error in NewsService.getAllNews:', newsError);
+      throw newsError;
+    }
     
     const endTime = Date.now();
     const duration = endTime - startTime;

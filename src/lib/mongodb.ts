@@ -147,12 +147,22 @@ export async function connectToDatabase(): Promise<{ db: Db; client: MongoClient
       throw new Error('MONGODB_URI environment variable is not set');
     }
     
-    client = new MongoClient(MONGODB_URI, {
-      maxPoolSize: 10,
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
-      connectTimeoutMS: 10000,
-    });
+    // Enhanced connection options for Vercel production
+    const connectionOptions = {
+      maxPoolSize: 5, // Reduced for serverless
+      minPoolSize: 1,
+      serverSelectionTimeoutMS: 30000, // Increased timeout
+      socketTimeoutMS: 60000, // Increased socket timeout
+      connectTimeoutMS: 30000, // Increased connection timeout
+      maxIdleTimeMS: 30000,
+      retryWrites: true,
+      retryReads: true,
+      w: 'majority' as const,
+      // Add heartbeat frequency for better connection monitoring
+      heartbeatFrequencyMS: 10000,
+    };
+    
+    client = new MongoClient(MONGODB_URI, connectionOptions);
     
     log('Connecting to MongoDB server...', 'info');
     await client.connect();
