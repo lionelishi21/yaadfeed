@@ -31,7 +31,11 @@ export type NewsCategory =
   | 'culture' 
   | 'health' 
   | 'international' 
-  | 'local';
+  | 'local'
+  | 'music'
+  | 'dancehall'
+  | 'reggae'
+  | 'afrobeats';
 
 export type NewsSource = 
   | 'jamaica-gleaner' 
