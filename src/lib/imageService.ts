@@ -1,14 +1,24 @@
-// Using stub to reduce bundle size
-import OpenAI from '@/lib/stubs/openai';
+// Prefer real OpenAI SDK when API key is present; fallback to stub otherwise
+let OpenAIClient: any = null;
+if (typeof window === 'undefined') {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    OpenAIClient = require('openai').default;
+  } catch (e) {
+    try {
+      OpenAIClient = require('@/lib/stubs/openai').default;
+    } catch {}
+  }
+}
 import { writeFile, mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 
 // Only initialize OpenAI on server-side
-const openai = typeof window === 'undefined' ? new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || '',
-}) : null;
+const openai = (typeof window === 'undefined' && OpenAIClient && process.env.OPENAI_API_KEY)
+  ? new OpenAIClient({ apiKey: process.env.OPENAI_API_KEY || '' })
+  : null;
 
 interface ImageCache {
   [key: string]: string;
@@ -121,12 +131,13 @@ class ImageServiceClass {
       // Server-side only check
       if (!this.isServerSide()) {
         console.warn('DALL-E generation attempted on client-side, using fallback');
-        return this.getFallbackImage(category, 800, 600);
+        return `/images/placeholder-${category}.jpg`;
       }
 
-      if (!process.env.OPENAI_API_KEY || !openai) {
-        console.log('OpenAI API key not configured, using fallback');
-        return this.getFallbackImage(category, 800, 600);
+      // Check if OpenAI API key is properly configured
+      if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === 'your_openai_api_key_here' || !openai) {
+        console.log('OpenAI API key not configured, using local placeholder images');
+        return `/images/placeholder-${category}.jpg`;
       }
 
       // Ensure directory exists
@@ -145,7 +156,7 @@ class ImageServiceClass {
       if (this.generatingImages.has(filename)) {
         await new Promise(resolve => setTimeout(resolve, 3000));
         const retryPath = this.getLocalImagePath(filename);
-        return retryPath || this.getFallbackImage(category, 800, 600);
+        return retryPath || `/images/placeholder-${category}.jpg`;
       }
 
       this.generatingImages.add(filename);
@@ -183,7 +194,10 @@ class ImageServiceClass {
 
     } catch (error) {
       console.error('❌ DALL-E generation failed:', error);
-      return this.getFallbackImage(category, 800, 600);
+      const safeCategory = (category || 'general').toLowerCase();
+      const known = ['sports','politics','business','entertainment','health','education','culture','music','dancehall','general','technology'];
+      const normalized = known.includes(safeCategory) ? safeCategory : 'general';
+      return `/images/placeholder-${normalized}.jpg`;
     } finally {
       const filename = this.generateImageFilename(title, category, keywords);
       this.generatingImages.delete(filename);
@@ -244,24 +258,18 @@ class ImageServiceClass {
   // Get fallback image (AI-generated instead of Unsplash)
   async getFallbackImage(category: string, width: number, height: number): Promise<string> {
     try {
-      // Try to generate an AI image for the fallback
-      const keywords = this.getCategoryKeywords(category);
-      const prompt = this.createImagePrompt(`Jamaica ${category}`, category, keywords, '');
+      // Check if we have a local placeholder image first
+      const placeholderPath = `/images/placeholder-${category}.jpg`;
       
-      console.log(`🎨 Generating AI fallback image for ${category}...`);
+      // For now, just return the placeholder to prevent infinite loops
+      // In the future, this could be enhanced to generate images offline
+      console.log(`🖼️ Using local placeholder for ${category} (fallback mode)`);
+      return placeholderPath;
       
-      const imageUrl = await this.generateAndSaveDALLEImage(
-        `Jamaica ${category}`,
-        category,
-        keywords,
-        ''
-      );
-      
-      return imageUrl;
     } catch (error) {
-      console.error('❌ AI fallback generation failed, using local placeholder:', error);
-      // Use a local placeholder image instead of external service
-      return `/images/placeholder-${category}.jpg`;
+      console.error('❌ Fallback image failed, using default placeholder:', error);
+      // Use a default placeholder image
+      return `/images/placeholder-general.jpg`;
     }
   }
 
@@ -307,12 +315,17 @@ class ImageServiceClass {
         console.log(`🎨 Generating AI image for: ${title?.substring(0, 50)}...`);
         return await this.generateAndSaveDALLEImage(title, category, keywords, summary);
       } else {
-        // For client-side, use AI fallback instead of Unsplash
-        return await this.getFallbackImage(category, 800, 600);
+        // For client-side, use local placeholder instead of recursive call
+        console.log(`🖼️ Using local placeholder for client-side: ${category}`);
+        return `/images/placeholder-${category}.jpg`;
       }
     } catch (error) {
       console.error('Error getting image for article:', error);
-      return await this.getFallbackImage(category, 800, 600);
+      // Use local placeholder instead of recursive call
+      const safeCategory = (category || 'general').toLowerCase();
+      const known = ['sports','politics','business','entertainment','health','education','culture','music','dancehall','general','technology'];
+      const normalized = known.includes(safeCategory) ? safeCategory : 'general';
+      return `/images/placeholder-${normalized}.jpg`;
     }
   }
 

@@ -79,7 +79,7 @@ class JamaicanNewsScraper {
       }
     }
 
-    return 'local'; // Default category
+    return 'general'; // Default category
   }
 
   // Generate SEO-friendly slug from title
@@ -187,6 +187,17 @@ class JamaicanNewsScraper {
       
     } catch (error) {
       console.error(`Error fetching RSS for ${source.name}:`, error);
+      // Attempt insecure fetch as last resort for misconfigured SSL feeds in dev
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const https = require('https');
+        const agent = new https.Agent({ rejectUnauthorized: false });
+        const response = await fetch(source.rssUrl, { agent, headers: { 'User-Agent': 'Mozilla/5.0' } });
+        if (response.ok) {
+          const xmlText = await response.text();
+          return parseRSSXML(xmlText, source);
+        }
+      } catch {}
       return [];
     }
   }
@@ -210,8 +221,15 @@ class JamaicanNewsScraper {
         console.log(`✅ AI image generated: ${imageUrl}`);
       } catch (error) {
         console.error(`❌ Failed to generate AI image for: ${article.title}`, error);
-        // Use fallback image if AI generation fails
-        imageUrl = await ImageService.getFallbackImage(article.category, 800, 600);
+        // Use category-specific placeholder image if AI generation fails
+        imageUrl = `/images/placeholder-${article.category}.jpg`;
+        console.log(`🖼️ Using placeholder image: ${imageUrl}`);
+      }
+      
+      // Ensure we always have a valid image URL
+      if (!imageUrl || imageUrl === '') {
+        imageUrl = `/images/placeholder-${article.category}.jpg`;
+        console.log(`🖼️ Fallback to placeholder: ${imageUrl}`);
       }
       
       const newsData = {
@@ -277,13 +295,15 @@ class JamaicanNewsScraper {
       .map(([word]) => word);
   }
 
-  // Main scraping method
+  // Main scraping method - APPENDS NEW ARTICLES ONLY
+  // This method preserves all existing articles and only adds new ones
+  // This is essential for maintaining content history and SEO
   public async scrapeAllSources(): Promise<{ added: number; skipped: number; errors: number }> {
     let added = 0;
     let skipped = 0;
     let errors = 0;
     
-    console.log('🔍 Starting news scraping...');
+    console.log('🔍 Starting news scraping (APPEND-ONLY mode)...');
     
     for (const source of this.sources) {
       console.log(`📰 Scraping ${source.displayName}...`);
@@ -293,7 +313,7 @@ class JamaicanNewsScraper {
         
         for (const item of rssItems) {
           try {
-            // Check if article already exists
+            // Check if article already exists - if yes, skip (preserve existing)
             if (await NewsService.newsExists(item.title, item.link)) {
               skipped++;
               continue;
@@ -312,7 +332,7 @@ class JamaicanNewsScraper {
               author: undefined // Will be extracted from content if available
             };
             
-            // Save to database
+            // Save to database (APPEND - never replaces existing articles)
             if (await this.saveArticle(article)) {
               added++;
               console.log(`✅ Added: ${article.title}`);
@@ -336,21 +356,14 @@ class JamaicanNewsScraper {
     }
     
     console.log(`🎉 Scraping complete! Added: ${added}, Skipped: ${skipped}, Errors: ${errors}`);
+    console.log(`📚 IMPORTANT: All existing articles are preserved - this is APPEND-ONLY mode`);
     
     return { added, skipped, errors };
   }
 
-  // Clean up old articles (optional - keep only last 30 days)
-  public async cleanupOldArticles(): Promise<number> {
-    try {
-      const deletedCount = await NewsService.deleteOldNews(30);
-      console.log(`🧹 Cleaned up ${deletedCount} old articles`);
-      return deletedCount;
-    } catch (error) {
-      console.error('Error cleaning up old articles:', error);
-      return 0;
-    }
-  }
+  // NOTE: We do NOT cleanup old articles - this ensures content history is preserved
+  // Old articles remain accessible for SEO benefits and user experience
+  // If cleanup is needed, it should be done manually and carefully
 }
 
 export default JamaicanNewsScraper; 
@@ -540,6 +553,8 @@ const ARTIST_INFO_SOURCES = {
 // Standalone function to fetch RSS feed
 async function fetchRSSFeed(feed: any): Promise<any[]> {
   try {
+    console.log(`📡 Fetching RSS feed: ${feed.source} (${feed.url})`);
+    
     const response = await fetch(feed.url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
@@ -551,14 +566,178 @@ async function fetchRSSFeed(feed: any): Promise<any[]> {
     }
     
     const xmlText = await response.text();
-    // For now, return empty array as we need to implement RSS parsing
-    // This is a simplified version - you may want to add proper RSS parsing
-    return [];
+    
+    // Parse RSS XML and extract articles
+    const articles = parseRSSXML(xmlText, feed);
+    console.log(`📰 Parsed ${articles.length} articles from ${feed.source}`);
+    
+    return articles;
     
   } catch (error) {
     console.error(`Error fetching RSS for ${feed.source}:`, error);
     return [];
   }
+}
+
+// Parse RSS XML and extract articles
+function parseRSSXML(xmlText: string, feed: any): any[] {
+  const articles: any[] = [];
+  
+  try {
+    // Simple XML parsing using regex (for basic RSS feeds)
+    // This is a simplified parser - you may want to use a proper XML parser library
+    
+    // Extract item tags
+    const itemRegex = /<item[^>]*>([\s\S]*?)<\/item>/gi;
+    const items = xmlText.match(itemRegex);
+    
+    if (!items) {
+      console.log(`No items found in RSS feed for ${feed.source}`);
+      return [];
+    }
+    
+    for (const item of items) {
+      try {
+        // Extract title
+        const titleMatch = item.match(/<title[^>]*>([^<]+)<\/title>/i);
+        const title = titleMatch ? titleMatch[1].trim() : '';
+        
+        // Extract link/url
+        const linkMatch = item.match(/<link[^>]*>([^<]+)<\/link>/i);
+        const url = linkMatch ? linkMatch[1].trim() : '';
+        
+        // Extract description/summary
+        const descMatch = item.match(/<description[^>]*>([\s\S]*?)<\/description>/i);
+        const summary = descMatch ? cleanHtmlInline(descMatch[1].trim()) : '';
+
+        // Extract full content if provided
+        const contentEncodedMatch = item.match(/<content:encoded[^>]*>([\s\S]*?)<\/content:encoded>/i);
+        const contentEncoded = contentEncodedMatch ? contentEncodedMatch[1].trim() : '';
+        
+        // Extract publication date
+        const pubDateMatch = item.match(/<pubDate[^>]*>([^<]+)<\/pubDate>/i);
+        let publishedAt = new Date();
+        
+        if (pubDateMatch) {
+          const pubDate = new Date(pubDateMatch[1].trim());
+          if (!isNaN(pubDate.getTime())) {
+            publishedAt = pubDate;
+          }
+        }
+        
+        // Extract author
+        const authorMatch = item.match(/<author[^>]*>([^<]+)<\/author>/i);
+        const author = authorMatch ? authorMatch[1].trim() : '';
+        
+        // Prefer content:encoded, fallback to description, else title
+        const content = contentEncoded ? cleanPreserveParagraphs(contentEncoded) : (summary || title);
+        
+        // Generate slug from title
+        const slug = generateSlug(title);
+        
+        // Categorize article
+        const category = categorizeArticle(title, content);
+        
+        // Create article object
+        if (title && url) {
+          articles.push({
+            title,
+            slug,
+            summary,
+            content,
+            category,
+            source: feed.source,
+            url,
+            publishedAt,
+            author,
+            tags: [category, feed.source.toLowerCase()],
+            imageUrl: '' // Will be generated by AI if needed
+          });
+        }
+      } catch (itemError) {
+        console.error(`Error parsing RSS item:`, itemError);
+        continue;
+      }
+    }
+    
+  } catch (parseError) {
+    console.error(`Error parsing RSS XML for ${feed.source}:`, parseError);
+  }
+  
+  return articles;
+}
+
+// Helper function to generate slug (moved from class)
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '') // Remove special characters except spaces and hyphens
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+    .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+}
+// Clean HTML but preserve basic paragraph breaks from content:encoded
+function cleanPreserveParagraphs(html: string): string {
+  if (!html) return '';
+  // Replace common block elements with double line breaks to keep structure
+  const withBreaks = html
+    .replace(/\r/g, '')
+    .replace(/<\/(p|div|section|article|h\d|li)>/gi, '\n\n')
+    .replace(/<br\s*\/?\s*>/gi, '\n')
+    .replace(/<li>/gi, '• ');
+  return cleanHTML(withBreaks);
+}
+
+// Clean inline fragments (short strings like description)
+function cleanHtmlInline(html: string): string {
+  return cleanHTML(html).replace(/\n+/g, ' ').trim();
+}
+
+
+// Helper function to categorize article (moved from class)
+function categorizeArticle(title: string, content: string): string {
+  const titleLower = title.toLowerCase();
+  const contentLower = content.toLowerCase();
+  const text = `${titleLower} ${contentLower}`;
+
+  const categories = [
+    {
+      name: 'sports',
+      keywords: ['football', 'cricket', 'athletics', 'track', 'field', 'olympic', 'world cup', 'reggae boyz', 'netball', 'basketball', 'swimming', 'boxing', 'usain bolt', 'shelly-ann', 'athlete']
+    },
+    {
+      name: 'entertainment',
+      keywords: ['music', 'reggae', 'dancehall', 'concert', 'festival', 'artist', 'singer', 'bob marley', 'shaggy', 'sean paul', 'koffee', 'spice', 'popcaan', 'skillibeng', 'movie', 'film', 'celebrity']
+    },
+    {
+      name: 'politics',
+      keywords: ['government', 'minister', 'parliament', 'election', 'political', 'policy', 'andrew holness', 'mark golding', 'pnp', 'jlp', 'constituency', 'mp', 'senator']
+    },
+    {
+      name: 'business',
+      keywords: ['economy', 'business', 'trade', 'investment', 'gdp', 'financial', 'bank', 'tourism', 'hotel', 'export', 'import', 'dollar', 'economic', 'market', 'company', 'corporate']
+    },
+    {
+      name: 'culture',
+      keywords: ['culture', 'heritage', 'tradition', 'patois', 'jamaica cultural', 'festival', 'art', 'craft', 'food', 'cuisine', 'history', 'independence', 'emancipation']
+    },
+    {
+      name: 'health',
+      keywords: ['health', 'hospital', 'medical', 'doctor', 'covid', 'pandemic', 'vaccine', 'disease', 'treatment', 'healthcare', 'medicine', 'clinic']
+    },
+    {
+      name: 'education',
+      keywords: ['school', 'university', 'education', 'student', 'teacher', 'exam', 'csec', 'cape', 'utech', 'uwi', 'learning', 'academic']
+    }
+  ];
+
+  for (const category of categories) {
+    if (category.keywords.some(keyword => text.includes(keyword))) {
+      return category.name;
+    }
+  }
+
+  return 'general'; // Default category
 }
 
 // Enhanced scraping with pagination and artist linking
@@ -619,11 +798,25 @@ export async function scrapeNewsWithPagination(page: number = 1, limit: number =
           console.log(`🎵 Found artists in article: ${mentionedArtists.join(', ')}`);
         }
         
+        // If content is too short, try to fetch full page and extract main content
+        let contentText: string = article.content || '';
+        if ((contentText || '').length < 600 && article.url) {
+          try {
+            console.log('🧩 Content short, fetching full page for:', article.url);
+            const full = await fetchFullArticleContent(article.url);
+            if (full && full.length > contentText.length) {
+              contentText = full;
+            }
+          } catch (e) {
+            console.warn('Unable to fetch full content for', article.url);
+          }
+        }
+        
         const newsData = {
           title: article.title,
           slug: article.slug,
-          summary: article.summary,
-          content: article.content,
+          summary: article.summary || (contentText ? contentText.slice(0, 320) + '…' : ''),
+          content: contentText,
           category: article.category,
           source: article.source,
           url: article.url,
@@ -702,3 +895,35 @@ async function updateArtistMentions(articleId: string, artists: string[]): Promi
     console.error('Error updating artist mentions:', error);
   }
 } 
+
+// Try to fetch and extract main article content from a webpage
+async function fetchFullArticleContent(url: string): Promise<string> {
+  const res = await fetch(url, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    }
+  });
+  if (!res.ok) return '';
+  const html = await res.text();
+  return extractMainContentFromHtml(html);
+}
+
+function extractMainContentFromHtml(html: string): string {
+  // Heuristics: look for <article>, then main content containers by common class names
+  const lower = html.toLowerCase();
+  let segment = '';
+  const articleMatch = html.match(/<article[\s\S]*?>([\s\S]*?)<\/article>/i);
+  if (articleMatch) segment = articleMatch[1];
+  if (!segment) {
+    const mainMatch = html.match(/<main[\s\S]*?>([\s\S]*?)<\/main>/i);
+    if (mainMatch) segment = mainMatch[1];
+  }
+  if (!segment) {
+    const divMatch = html.match(/<div[^>]*(class|id)=["']([^"']*(article|content|post|story|entry)[^"']*)["'][^>]*>([\s\S]*?)<\/div>/i);
+    if (divMatch) segment = divMatch[4];
+  }
+  const cleaned = cleanPreserveParagraphs(segment || html);
+  // Trim to a reasonable max to avoid gigantic blobs
+  return cleaned.split('\n').filter(Boolean).join('\n').slice(0, 20000);
+}

@@ -20,7 +20,8 @@
     "create-placeholders": "node scripts/create-placeholder-images.js",
     "seed-admin": "node scripts/seed-admin-user.js",
     "scrape-artists": "node scripts/scrape-all-artists.js",
-    "scrape-w-artists": "ts-node scripts/scrape-w-artists.ts"
+    "scrape-w-artists": "ts-node scripts/scrape-w-artists.ts",
+    "fix-images": "node scripts/fix-article-images.js"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

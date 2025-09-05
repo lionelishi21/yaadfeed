@@ -184,8 +184,8 @@ export interface CardProps {
 
 export interface ButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'accent' | 'soft' | 'glamour';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
   onClick?: () => void;
   disabled?: boolean;

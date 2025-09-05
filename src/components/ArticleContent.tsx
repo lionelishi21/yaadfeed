@@ -76,6 +76,44 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
   const [heroImage, setHeroImage] = useState<string>('');
   const [relatedImage, setRelatedImage] = useState<string>('');
   const [loading, setLoading] = useState(true);
+  const [paragraphs, setParagraphs] = useState<string[]>([]);
+
+  const stripHtmlToText = (html: string): string => {
+    if (!html) return '';
+    return html
+      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+      .replace(/<br\s*\/?\s*>/gi, '\n')
+      .replace(/<\/(p|div|section|article|h\d|li)>/gi, '\n\n')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&quot;/g, '"')
+      .replace(/&apos;/g, "'")
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/\r/g, '')
+      .replace(/\t/g, ' ')
+      .replace(/ +/g, ' ')
+      .trim();
+  };
+
+  const splitIntoParagraphs = (text: string): string[] => {
+    if (!text) return [];
+    const raw = text.split(/\n\n+/).map(p => p.trim()).filter(Boolean);
+    if (raw.length > 0) return raw;
+    const sentences = text.split(/(?<=[.!?])\s+/);
+    const blocks: string[] = [];
+    let buf = '';
+    sentences.forEach((s, i) => {
+      buf = buf ? `${buf} ${s}` : s;
+      if (buf.length > 280 || i === sentences.length - 1) {
+        blocks.push(buf.trim());
+        buf = '';
+      }
+    });
+    return blocks.filter(Boolean);
+  };
 
   useEffect(() => {
     const loadImages = async () => {
@@ -96,6 +134,8 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
     };
 
     loadImages();
+    const text = stripHtmlToText(article?.content || article?.summary || '');
+    setParagraphs(splitIntoParagraphs(text));
   }, [article]);
 
   return (
@@ -190,7 +230,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
                   <Card className="overflow-hidden bg-white/90 backdrop-blur-sm border border-white/20 shadow-xl">
                     <div className="aspect-[4/3] overflow-hidden">
                   <Image
-                        src={heroImage}
+                        src={heroImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
                     alt={article.title}
                         width={1200}
                         height={600}
@@ -199,9 +239,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
                   />
                     </div>
                     <div className="p-4">
-                      <p className="text-sm text-gray-500 text-center">
-                        Featured image related to {article.category}
-                      </p>
+                      <p className="text-sm text-gray-500 text-center">{stringUtils.capitalize(article.category)} illustration</p>
                     </div>
                   </Card>
                 </div>
@@ -218,64 +256,63 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
                 <Card className="p-8 lg:p-12 bg-white/90 backdrop-blur-sm border border-white/20 shadow-xl">
                   <article className="prose prose-lg prose-gray max-w-none">
                     <div className="article-content">
-                      {/* Enhanced content formatting */}
-                      <div className="text-gray-700 leading-relaxed space-y-6">
-                {article.content ? (
-                          <div 
-                            className="formatted-content"
-                            dangerouslySetInnerHTML={{ 
-                              __html: article.content
-                                .replace(/\n\n/g, '</p><p class="mb-6">')
-                                .replace(/\n/g, '<br>')
-                                .replace(/^/, '<p class="mb-6">')
-                                .replace(/$/, '</p>')
-                            }} 
-                          />
-                ) : (
-                  <div className="space-y-6">
-                            <p className="text-lg leading-relaxed">
-                      {article.summary}
-                    </p>
-                            
-                            <div className="bg-gradient-to-r from-jamaica-green-50 to-jamaica-gold-50 border-l-4 border-jamaica-green-500 p-6 rounded-r-xl">
-                              <p className="text-gray-700 font-medium">
-                                This is a developing story from Jamaica's dynamic news landscape. 
-                                Our editorial team is working to bring you comprehensive coverage 
-                                of this important {article.category} story.
-                              </p>
+                      <div className="text-gray-800 leading-relaxed space-y-6">
+                        {paragraphs.length > 0 ? (
+                          <>
+                            {paragraphs.map((p, idx) => (
+                              <div key={idx}>
+                                <p className="mb-6">{p}</p>
+                                {idx === 0 && (
+                                  <div className="my-8">
+                                    <Card className="overflow-hidden">
+                                      <div className="aspect-[16/9] overflow-hidden">
+                                        <Image
+                                          src={relatedImage || heroImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
+                                          alt={article.title}
+                                          width={1200}
+                                          height={675}
+                                          className="w-full h-full object-cover"
+                                        />
+                                      </div>
+                                      <div className="p-4 text-sm text-gray-600">Illustration: {stringUtils.capitalize(article.category)} context</div>
+                                    </Card>
+                                  </div>
+                                )}
+                                {idx === 2 && (
+                                  <blockquote className="bg-gradient-to-r from-jamaica-green-50 to-jamaica-gold-50 border-l-4 border-jamaica-gold-500 p-6 rounded-r-xl italic text-lg">
+                                    {article.summary || 'Authentic voices from Jamaica shaping the narrative.'}
+                                  </blockquote>
+                                )}
                             </div>
+                            ))}
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
                               <div>
                                 <Image
-                                  src={relatedImage}
+                                  src={relatedImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
                                   alt="Related to story"
-                                  width={400}
-                                  height={300}
-                                  className="w-full h-48 object-cover rounded-xl shadow-md"
+                                  width={600}
+                                  height={400}
+                                  className="w-full h-56 object-cover rounded-xl shadow-md"
                                 />
                               </div>
                               <div>
                                 <Image
-                                  src={relatedImage}
-                                  alt="Jamaica community"
-                                  width={400}
-                                  height={300}
-                                  className="w-full h-48 object-cover rounded-xl shadow-md"
+                                  src={heroImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
+                                  alt="Related visual"
+                                  width={600}
+                                  height={400}
+                                  className="w-full h-56 object-cover rounded-xl shadow-md"
                                 />
                               </div>
                             </div>
-
-                            <p className="text-lg leading-relaxed">
-                              Stay tuned to YaadFeed for updates on this story and other breaking news 
-                              from Jamaica and the Caribbean diaspora. We're committed to bringing you 
-                              authentic, verified reporting on the stories that matter most to our community.
-                            </p>
-
-                            <blockquote className="bg-white/60 backdrop-blur-sm border-l-4 border-jamaica-gold-500 p-6 rounded-r-xl italic text-lg">
-                              "At YaadFeed, we believe in the power of authentic Jamaican voices to 
-                              tell our own stories and share our rich culture with the world."
-                            </blockquote>
+                          </>
+                        ) : (
+                          <div className="space-y-6">
+                            <p className="text-lg leading-relaxed">{article.summary}</p>
+                            <div className="bg-gradient-to-r from-jamaica-green-50 to-jamaica-gold-50 border-l-4 border-jamaica-green-500 p-6 rounded-r-xl">
+                              <p className="text-gray-700 font-medium">This is a developing story from Jamaica's dynamic news landscape. Our editorial team is working to bring you comprehensive coverage of this important {article.category} story.</p>
+                            </div>
                   </div>
                 )}
               </div>
@@ -313,6 +350,15 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
               {/* Sidebar */}
               <div className="lg:col-span-1">
                 <div className="sticky top-24 space-y-8">
+                  {/* Key Facts */}
+                  <Card className="p-6 bg-white/90 backdrop-blur-sm border border-white/20">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">Key Facts</h3>
+                    <ul className="list-disc pl-5 text-gray-700 space-y-2">
+                      {(article.tags && article.tags.length > 0 ? article.tags.slice(0, 5) : (article.summary || '').split(/(?<=[.!?])\s+/).slice(0, 3)).map((fact: string, i: number) => (
+                        <li key={i}>{fact}</li>
+                      ))}
+                    </ul>
+                  </Card>
                   {/* Newsletter Signup */}
                   <Card className="p-6 bg-gradient-to-br from-jamaica-green-50 to-jamaica-gold-50 border border-jamaica-green-200">
                     <h3 className="text-xl font-bold text-gray-900 mb-4">Stay Updated</h3>
@@ -344,7 +390,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
                           >
                             <div className="flex space-x-3">
                         <Image
-                                src={relatedImage}
+                                src={relatedImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
                           alt={relatedArticle.title}
                                 width={80}
                                 height={60}
@@ -370,7 +416,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
                           >
                             <div className="flex space-x-3">
                               <Image
-                                src={relatedImage}
+                                src={relatedImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
                                 alt={`Related story ${item}`}
                                 width={80}
                                 height={60}

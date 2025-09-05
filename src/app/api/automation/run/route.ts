@@ -6,11 +6,34 @@ const execAsync = promisify(exec);
 
 export async function POST(request: NextRequest) {
   try {
-    const { action } = await request.json();
+    const body = await request.json();
+    const { action, tasks } = body;
     
-    if (!action) {
+    // Handle both old 'action' format and new 'tasks' format
+    let actionsToRun: string[] = [];
+    
+    if (tasks && Array.isArray(tasks)) {
+      // New format: tasks array
+      actionsToRun = tasks.map(task => {
+        switch (task) {
+          case 'generate-images':
+            return 'content_optimization';
+          case 'link-artists':
+            return 'content_optimization';
+          case 'optimize-content':
+            return 'content_optimization';
+          case 'categorize-articles':
+            return 'content_optimization';
+          default:
+            return task;
+        }
+      });
+    } else if (action) {
+      // Old format: single action
+      actionsToRun = [action];
+    } else {
       return NextResponse.json(
-        { error: 'Action parameter is required' },
+        { error: 'Either action or tasks parameter is required' },
         { status: 400 }
       );
     }
@@ -22,42 +45,69 @@ export async function POST(request: NextRequest) {
       'full_automation_cycle'
     ];
 
-    if (!allowedActions.includes(action)) {
-      return NextResponse.json(
-        { error: 'Invalid action specified' },
-        { status: 400 }
-      );
+    // Validate all actions
+    for (const actionToRun of actionsToRun) {
+      if (!allowedActions.includes(actionToRun)) {
+        return NextResponse.json(
+          { error: `Invalid action specified: ${actionToRun}` },
+          { status: 400 }
+        );
+      }
     }
 
-    let command = '';
+    console.log(`🤖 Running automation tasks: ${actionsToRun.join(', ')}`);
+
+    const results = [];
     const automationPath = '/workspace/yaadfeed/automation';
 
-    switch (action) {
-      case 'content_optimization':
-        command = `cd ${automationPath} && python ai_content_optimizer.py`;
-        break;
-      case 'video_generation':
-        command = `cd ${automationPath} && python video_generator.py`;
-        break;
-      case 'social_media_posting':
-        command = `cd ${automationPath} && python social_media_automation.py`;
-        break;
-      case 'full_automation_cycle':
-        command = `cd ${automationPath} && python automation_orchestrator.py`;
-        break;
-    }
+    for (const actionToRun of actionsToRun) {
+      let command = '';
 
-    // Execute automation script
-    const { stdout, stderr } = await execAsync(command);
+      switch (actionToRun) {
+        case 'content_optimization':
+          command = `cd ${automationPath} && python ai_content_optimizer.py`;
+          break;
+        case 'video_generation':
+          command = `cd ${automationPath} && python video_generator.py`;
+          break;
+        case 'social_media_posting':
+          command = `cd ${automationPath} && python social_media_automation.py`;
+          break;
+        case 'full_automation_cycle':
+          command = `cd ${automationPath} && python automation_orchestrator.py`;
+          break;
+      }
 
-    if (stderr) {
-      console.error('Automation stderr:', stderr);
+      if (command) {
+        try {
+          // Execute automation script
+          const { stdout, stderr } = await execAsync(command);
+
+          if (stderr) {
+            console.error(`Automation stderr for ${actionToRun}:`, stderr);
+          }
+
+          results.push({
+            action: actionToRun,
+            success: true,
+            output: stdout,
+            error: stderr || null
+          });
+        } catch (error) {
+          console.error(`Automation execution error for ${actionToRun}:`, error);
+          results.push({
+            action: actionToRun,
+            success: false,
+            error: error instanceof Error ? error.message : 'Unknown error'
+          });
+        }
+      }
     }
 
     return NextResponse.json({
       success: true,
-      action,
-      output: stdout,
+      actions: actionsToRun,
+      results,
       timestamp: new Date().toISOString()
     });
 

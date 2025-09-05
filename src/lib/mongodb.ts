@@ -324,6 +324,10 @@ export class NewsService {
     );
   }
   
+  // ⚠️ WARNING: This method deletes old articles and should NOT be used automatically
+  // Deleting old articles breaks content history, SEO, and user experience
+  // Only use this method manually when absolutely necessary
+  // For news platforms, articles should be APPENDED, not deleted
   static async deleteOldNews(daysOld: number = 30): Promise<number> {
     const collection = await getNewsCollection();
     const cutoffDate = new Date();
@@ -460,6 +464,32 @@ export class NewsService {
   static async getAllArtists(): Promise<any[]> {
     const collection = await getArtistsCollection();
     return await collection.find({}).sort({ popularity: -1 }).toArray();
+  }
+
+  static async getArtistById(id: string): Promise<any> {
+    const collection = await getArtistsCollection();
+    
+    try {
+      // Try to find by _id first (assuming it's a valid ObjectId)
+      let artist = await collection.findOne({ _id: id as any });
+      
+      if (!artist) {
+        // If not found by _id, try to find by string id field
+        artist = await collection.findOne({ id: id });
+      }
+      
+      if (!artist) {
+        // If still not found, try to find by name (case-insensitive)
+        artist = await collection.findOne({ 
+          name: { $regex: new RegExp(`^${id}$`, 'i') } 
+        });
+      }
+      
+      return artist || null;
+    } catch (error) {
+      console.error('Error in getArtistById:', error);
+      return null;
+    }
   }
 
   static async createArtist(artistData: any): Promise<any> {

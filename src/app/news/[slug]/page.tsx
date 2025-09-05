@@ -37,7 +37,50 @@ export default async function NewsArticlePage({ params }: { params: { slug: stri
     ? await NewsService.getRelatedNews(article.category, article.slug)
     : [];
 
-  return <ArticleContent article={article} relatedArticles={relatedArticles} slug={params.slug} />;
+  // Serialize MongoDB docs to plain JSON-safe objects for Client Components
+  const serializeArticle = (a: any) => ({
+    id: typeof a._id?.toString === 'function' ? a._id.toString() : a.id || '',
+    title: a.title || '',
+    slug: a.slug || '',
+    summary: a.summary || '',
+    content: typeof a.content === 'string' ? a.content : (a.content ? String(a.content) : ''),
+    imageUrl: a.imageUrl || '',
+    category: a.category || 'general',
+    source: a.source || '',
+    publishedAt: typeof a.publishedAt === 'string' ? a.publishedAt : (a.publishedAt ? new Date(a.publishedAt).toISOString() : ''),
+    author: a.author || '',
+    tags: Array.isArray(a.tags) ? a.tags : [],
+    keywords: Array.isArray(a.keywords) ? a.keywords : [],
+    isPopular: !!a.isPopular,
+    viewCount: typeof a.viewCount === 'number' ? a.viewCount : 0,
+  });
+
+  const safeArticle = serializeArticle(article);
+  const safeRelated = Array.isArray(relatedArticles) ? relatedArticles.map(serializeArticle) : [];
+
+  // Inject JSON-LD for Article
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:4000';
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: safeArticle.title,
+    image: safeArticle.imageUrl ? [safeArticle.imageUrl] : undefined,
+    datePublished: safeArticle.publishedAt,
+    dateModified: safeArticle.publishedAt,
+    author: safeArticle.author ? { '@type': 'Person', name: safeArticle.author } : { '@type': 'Organization', name: 'YaadFeed' },
+    publisher: { '@type': 'Organization', name: 'YaadFeed', logo: { '@type': 'ImageObject', url: `${siteUrl}/images/jamaica-flag-bg.jpg` } },
+    description: safeArticle.summary,
+    mainEntityOfPage: `${siteUrl}/news/${safeArticle.slug}`,
+  };
+
+  return (
+    <>
+      {/* Canonical */}
+      <link rel="canonical" href={`${siteUrl}/news/${safeArticle.slug}`} />
+      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <ArticleContent article={safeArticle} relatedArticles={safeRelated} slug={params.slug} />
+    </>
+  );
 }
 
 // Removed unused fetchArticle function for static export compatibility

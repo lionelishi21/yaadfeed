@@ -42,7 +42,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-logo-dark text-white">
+    <footer className="bg-gray-900 text-white">
       {/* Newsletter Signup Section */}
       <div className="bg-logo-primary py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,16 +50,16 @@ const Footer = () => {
             <h3 className="text-3xl font-bold text-white mb-4">
               Stay Connected with Jamaica
             </h3>
-            <p className="text-white text-lg mb-6 max-w-2xl mx-auto">
+            <p className="text-white/90 text-lg mb-6 max-w-2xl mx-auto">
               Get the latest news, artist updates, and event announcements delivered to your inbox
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white shadow-soft"
+                className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/30 border-0"
               />
-              <button className="bg-white text-logo-primary px-8 py-3 rounded-lg font-medium hover:bg-gray-100 transition-colors duration-200 shadow-soft">
+              <button className="bg-white text-logo-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
                 Subscribe
               </button>
             </div>
@@ -74,18 +74,18 @@ const Footer = () => {
             {/* Brand Section */}
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
-                <div className="w-10 h-10 bg-logo-primary rounded-lg flex items-center justify-center shadow-soft">
+                <div className="w-10 h-10 bg-logo-primary rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-xl">Y</span>
                 </div>
                 <span className="text-2xl font-bold text-white">YaadFeed</span>
               </div>
-              <p className="text-gray-200 mb-6 max-w-xs">
+              <p className="text-gray-300 mb-6 max-w-xs">
                 Jamaica's premier platform for news, music, and cultural content. 
                 Connecting the diaspora with the heartbeat of Jamaica.
               </p>
               
               {/* Contact Info */}
-              <div className="space-y-2 text-sm text-gray-300">
+              <div className="space-y-2 text-sm text-gray-400">
                 <div className="flex items-center space-x-2">
                   <MapPin className="w-4 h-4" />
                   <span>Kingston, Jamaica</span>
@@ -103,13 +103,13 @@ const Footer = () => {
 
             {/* Platform Links */}
             <div>
-              <h4 className="text-lg font-semibold mb-4 text-logo-secondary">Platform</h4>
+              <h4 className="text-lg font-semibold text-white mb-4">Platform</h4>
               <ul className="space-y-2">
                 {footerLinks.platform.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-200 hover:text-logo-secondary transition-colors duration-200"
+                      className="text-gray-300 hover:text-white transition-colors duration-200"
                     >
                       {link.name}
                     </Link>
@@ -120,13 +120,13 @@ const Footer = () => {
 
             {/* Company Links */}
             <div>
-              <h4 className="text-lg font-semibold mb-4 text-logo-secondary">Company</h4>
+              <h4 className="text-lg font-semibold text-white mb-4">Company</h4>
               <ul className="space-y-2">
                 {footerLinks.company.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-200 hover:text-logo-secondary transition-colors duration-200"
+                      className="text-gray-300 hover:text-white transition-colors duration-200"
                     >
                       {link.name}
                     </Link>
@@ -137,13 +137,13 @@ const Footer = () => {
 
             {/* Support Links */}
             <div>
-              <h4 className="text-lg font-semibold mb-4 text-logo-secondary">Support</h4>
+              <h4 className="text-lg font-semibold text-white mb-4">Support</h4>
               <ul className="space-y-2">
                 {footerLinks.support.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-200 hover:text-logo-secondary transition-colors duration-200"
+                      className="text-gray-300 hover:text-white transition-colors duration-200"
                     >
                       {link.name}
                     </Link>
@@ -154,13 +154,13 @@ const Footer = () => {
 
             {/* Categories */}
             <div>
-              <h4 className="text-lg font-semibold mb-4 text-logo-secondary">Categories</h4>
+              <h4 className="text-lg font-semibold text-white mb-4">Categories</h4>
               <ul className="space-y-2">
                 {footerLinks.categories.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-200 hover:text-logo-secondary transition-colors duration-200"
+                      className="text-gray-300 hover:text-white transition-colors duration-200"
                     >
                       {link.name}
                     </Link>
@@ -170,36 +170,27 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Social Media & Bottom Bar */}
-          <div className="mt-12 pt-8 border-t border-gray-600">
+          {/* Bottom Section */}
+          <div className="border-t border-gray-800 mt-12 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
-              {/* Social Media Links */}
-              <div className="flex space-x-6 mb-4 md:mb-0">
-                {socialLinks.map((social) => {
-                  const IconComponent = social.icon;
-                  return (
-                    <a
-                      key={social.name}
-                      href={social.href}
-                      className={`text-gray-300 hover:text-logo-secondary transition-colors duration-200`}
-                      aria-label={social.name}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <IconComponent className="w-6 h-6" />
-                    </a>
-                  );
-                })}
+              <div className="text-gray-400 text-sm mb-4 md:mb-0">
+                © {currentYear} YaadFeed. All rights reserved.
               </div>
-
-              {/* Copyright */}
-              <div className="text-center md:text-right">
-                <p className="text-gray-300 text-sm">
-                  © {currentYear} YaadFeed. All rights reserved.
-                </p>
-                <p className="text-gray-400 text-xs mt-1">
-                  Made with ❤️ in Jamaica
-                </p>
+              
+              {/* Social Links */}
+              <div className="flex space-x-4">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`text-gray-400 ${social.color} transition-colors duration-200`}
+                    aria-label={social.name}
+                  >
+                    <social.icon className="w-5 h-5" />
+                  </a>
+                ))}
               </div>
             </div>
           </div>

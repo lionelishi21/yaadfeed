@@ -6,78 +6,24 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from "motion/react"
-import { Play, ArrowRight, Calendar,Share2,ExternalLink,  Music, Newspaper, Users, TrendingUp, Star, Clock, Sparkles, Zap, Globe, Heart } from 'lucide-react';
+import { Play, ArrowRight, Calendar, Share2, ExternalLink, Music, Newspaper, Users, TrendingUp, Star, Clock, Sparkles, Zap, Globe, Heart, Eye, ChevronRight } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import {  Card, CardContent, CardFooter  } from '@/components/Card';
+import { Card, CardContent, CardFooter } from '@/components/Card';
 import Button from '@/components/ui/Button';
-import { PlayfulHeroSection } from '@/components/heros/PlayfulHeroSection';
+import Preloader from '@/components/ui/Preloader';
+import { NewsGridSkeleton, ArtistSkeleton, EventSkeleton, HeroSkeleton } from '@/components/ui/LoadingSkeleton';
 import { NewsItem, Artist, Event } from '@/types';
 import { formatters, stringUtils } from '@/utils';
-import SimpleThreeColumnWithSmallIcons from '@/components/blocks/feature-sections/simple-three-column-with-small-icons';
 
 // Helper function for AI-generated fallback images (replaces Unsplash)
 const getFallbackImage = async (category: string, width: number, height: number): Promise<string> => {
-  try {
-    // Try to generate an AI image for the fallback
-    const response = await fetch('/api/generate-image', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        title: `Jamaica ${category}`,
-        category,
-        keywords: getCategoryKeywords(category),
-        summary: '',
-        forceGenerate: true
-      }),
-    });
-
-    if (response.ok) {
-      const result = await response.json();
-      if (result.success) {
-        return result.imageUrl;
-      }
-    }
-  } catch (error) {
-    console.error('AI fallback generation failed:', error);
-  }
-  // Use local placeholder as fallback
+  // Use local placeholder images by default for better performance
+  // AI image generation should only happen during article creation, not on every page load
   return `/images/placeholder-${category}.jpg`;
 };
 
-// Helper function to get category keywords
-const getCategoryKeywords = (category: string): string[] => {
-  const categoryMap: { [key: string]: string[] } = {
-    'sports': ['sports', 'jamaica', 'athletic', 'competition'],
-    'politics': ['government', 'building', 'professional', 'jamaica'],
-    'business': ['business', 'office', 'success', 'jamaica'],
-    'entertainment': ['party', 'celebration', 'fun', 'jamaica'],
-    'health': ['health', 'medical', 'wellness', 'jamaica'],
-    'education': ['education', 'school', 'learning', 'jamaica'],
-    'culture': ['culture', 'art', 'heritage', 'jamaica'],
-    'music': ['music', 'reggae', 'jamaica', 'dancehall'],
-    'dancehall': ['dancehall', 'music', 'jamaica', 'reggae'],
-    'general': ['jamaica', 'tropical', 'caribbean', 'island']
-  };
-  return categoryMap[category.toLowerCase()] || categoryMap['general'];
-};
-
-// Function to check if content is dancehall/music related
-const isDancehallContent = (title: string, summary: string, keywords: string[]): boolean => {
-  const dancehallTerms = [
-    'dancehall', 'reggae', 'soca', 'afrobeats', 'bashment', 'riddim',
-    'artist', 'music', 'song', 'album', 'concert', 'festival',
-    'vybz kartel', 'shenseea', 'spice', 'skillibeng', 'chronic law',
-    'popcaan', 'mavado', 'beenie man', 'bounty killer', 'sean paul'
-  ];
-
-  const content = `${title} ${summary} ${keywords.join(' ')}`.toLowerCase();
-  return dancehallTerms.some(term => content.includes(term));
-};
-
-// Component for handling news images
+// Component for handling news images with lazy loading
 const NewsImage = ({ article, width, height, className, index = 0 }: { article: NewsItem; width: number; height: number; className: string; index?: number; }) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -101,13 +47,13 @@ const NewsImage = ({ article, width, height, className, index = 0 }: { article: 
   }, [article.imageUrl, article.category, width, height]);
 
   if (loading) {
-    return <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse rounded-lg"></div>;
+    return <div className="w-full h-full bg-gray-100 animate-pulse rounded-lg"></div>;
   }
   if (error) {
-    return <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center rounded-lg"><p className="text-gray-500">{error}</p></div>;
+    return <div className="w-full h-full bg-gray-100 flex items-center justify-center rounded-lg"><p className="text-gray-500">{error}</p></div>;
   }
   if (!imageSrc) {
-    return <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center rounded-lg"><p className="text-gray-500">No image available</p></div>;
+    return <div className="w-full h-full bg-gray-100 flex items-center justify-center rounded-lg"><p className="text-gray-500">No image available</p></div>;
   }
   return (
     <Image
@@ -116,6 +62,7 @@ const NewsImage = ({ article, width, height, className, index = 0 }: { article: 
       width={width}
       height={height}
       className={className}
+      loading={index < 3 ? "eager" : "lazy"}
       onError={(e) => {
         const target = e.target as HTMLImageElement;
         target.src = `/images/placeholder-${article.category}.jpg`;
@@ -130,467 +77,698 @@ const HomePage = () => {
   const [trendingArtists, setTrendingArtists] = useState<Artist[]>([]);
   const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
-  const [heroAnimation, setHeroAnimation] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        // Load news from MongoDB API
-        const newsResponse = await fetch('/api/news');
-        if (newsResponse.ok) {
-          const responseData = await newsResponse.json();
-          const newsData = responseData.news || responseData || [];
-          if (newsData && newsData.length > 0) {
-            const featured = newsData.slice(0, Math.min(6, newsData.length));
-            const latest = newsData.length > 6 
-              ? newsData.slice(3, Math.min(14, newsData.length))
-              : newsData.slice(0, Math.min(8, newsData.length));
-            setFeaturedNews(featured);
-            setLatestNews(latest);
+        setLoading(true);
+        
+        // Fetch real articles from the API
+        const [newsResponse, artistsResponse] = await Promise.allSettled([
+          fetch('/api/news?limit=20'),
+          fetch('/api/artists')
+        ]);
+
+        // Handle news data
+        if (newsResponse.status === 'fulfilled' && newsResponse.value.ok) {
+          const newsData = await newsResponse.value.json();
+          if (newsData.news && newsData.news.length > 0) {
+            // Split articles into featured (first 3) and latest (next 6)
+            const allNews = newsData.news;
+            setFeaturedNews(allNews.slice(0, 3));
+            setLatestNews(allNews.slice(3, 9)); // Show 6 more articles
+          } else {
+            // Fallback to mock data if no articles found
+            console.log('No articles found in database, using fallback data');
+            setFeaturedNews(getFallbackFeaturedNews());
+            setLatestNews(getFallbackLatestNews());
           }
+        } else {
+          console.error('Failed to fetch news:', newsResponse.status === 'rejected' ? newsResponse.reason : 'API error');
+          setFeaturedNews(getFallbackFeaturedNews());
+          setLatestNews(getFallbackLatestNews());
         }
-        // Load artists from MongoDB API
-        try {
-          const artistsResponse = await fetch('/api/artists');
-          if (artistsResponse.ok) {
-            const artistsData = await artistsResponse.json();
-            if (artistsData && artistsData.artists) {
-              // Show verified artists first, then others, regardless of popularity score
-              const trending = artistsData.artists
-                .sort((a: Artist, b: Artist) => {
-                  // Sort by verification status first, then by popularity
-                  if (a.isVerified && !b.isVerified) return -1;
-                  if (!a.isVerified && b.isVerified) return 1;
-                  return (b.popularity || 0) - (a.popularity || 0);
-                })
-                .slice(0, 6);
-              
-              const events: Event[] = artistsData.artists.flatMap((artist: Artist) => artist.upcomingEvents || []).slice(0, 4);
-              setTrendingArtists(trending);
-              setUpcomingEvents(events);
-            }
+
+        // Handle artists data
+        if (artistsResponse.status === 'fulfilled' && artistsResponse.value.ok) {
+          const artistsData = await artistsResponse.value.json();
+          if (artistsData.artists && artistsData.artists.length > 0) {
+            setTrendingArtists(artistsData.artists.slice(0, 2));
+          } else {
+            setTrendingArtists(getFallbackArtists());
           }
-        } catch (error) {
-          console.log('Artist data not available:', error);
+        } else {
+          console.error('Failed to fetch artists:', artistsResponse.status === 'rejected' ? artistsResponse.reason : 'API error');
+          setTrendingArtists(getFallbackArtists());
         }
+
+        setUpcomingEvents([]);
+
       } catch (error) {
         console.error('Error loading data:', error);
+        // Use fallback data on error
+        setFeaturedNews(getFallbackFeaturedNews());
+        setLatestNews(getFallbackLatestNews());
+        setTrendingArtists(getFallbackArtists());
+        setUpcomingEvents([]);
       } finally {
         setLoading(false);
       }
     };
     loadData();
-    setTimeout(() => setHeroAnimation(true), 100);
   }, []);
 
-  const features = [
+  // Fallback data functions
+  const getFallbackFeaturedNews = () => [
     {
-      icon: Sparkles,
-      title: 'Breaking News',
-      description: 'Real-time updates from Jamaica and the Caribbean diaspora',
-      color: 'from-yellow-400 to-orange-500'
+      id: '1',
+      title: 'Jamaica\'s Dancehall Scene Continues to Thrive',
+      summary: 'The vibrant dancehall culture in Jamaica continues to influence global music trends.',
+      content: 'The vibrant dancehall culture in Jamaica continues to influence global music trends. From the streets of Kingston to international stages, Jamaican artists are making waves with their unique sound and style.',
+      category: 'entertainment' as const,
+      source: 'jamaica-gleaner' as const,
+      imageUrl: '/images/placeholder-music.jpg',
+      slug: 'jamaica-dancehall-scene-thrives',
+      publishedAt: new Date().toISOString(),
+      tags: ['dancehall', 'music', 'jamaica', 'culture'],
+      keywords: ['dancehall', 'jamaica', 'music', 'culture']
     },
     {
-      icon: Music,
-      title: 'Music Culture',
-      description: 'Dive deep into dancehall, reggae, and afrobeats',
-      color: 'from-purple-400 to-pink-500'
+      id: '2',
+      title: 'Reggae Festival 2024: A Celebration of Jamaican Culture',
+      summary: 'Join us for the biggest reggae festival celebrating Jamaica\'s rich musical heritage.',
+      content: 'Join us for the biggest reggae festival celebrating Jamaica\'s rich musical heritage. This year\'s event promises to be the most spectacular celebration of reggae music and Jamaican culture yet.',
+      category: 'entertainment' as const,
+      source: 'jamaica-observer' as const,
+      imageUrl: '/images/placeholder-entertainment.jpg',
+      slug: 'reggae-festival-2024-celebration',
+      publishedAt: new Date().toISOString(),
+      tags: ['reggae', 'festival', 'jamaica', 'music'],
+      keywords: ['reggae', 'festival', 'jamaica', 'music']
     },
     {
-      icon: Globe,
-      title: 'Global Community',
-      description: 'Connect with Jamaicans worldwide',
-      color: 'from-blue-400 to-cyan-500'
+      id: '3',
+      title: 'Jamaican Athletes Prepare for Olympic Games',
+      summary: 'Jamaica\'s track and field stars are training hard for the upcoming Olympic competition.',
+      content: 'Jamaica\'s track and field stars are training hard for the upcoming Olympic competition. The nation\'s athletes are known for their speed and determination on the world stage.',
+      category: 'sports' as const,
+      source: 'sports-jamaica' as const,
+      imageUrl: '/images/placeholder-sports.jpg',
+      slug: 'jamaican-athletes-olympic-preparation',
+      publishedAt: new Date().toISOString(),
+      tags: ['olympics', 'athletics', 'jamaica', 'sports'],
+      keywords: ['olympics', 'athletics', 'jamaica', 'sports']
+    }
+  ];
+
+  const getFallbackLatestNews = () => [
+    {
+      id: '4',
+      title: 'New Jamaican Restaurant Opens in Kingston',
+      summary: 'Experience authentic Jamaican cuisine in the heart of the capital city.',
+      content: 'Experience authentic Jamaican cuisine in the heart of the capital city. The new restaurant brings traditional flavors and modern dining to Kingston\'s food scene.',
+      category: 'culture' as const,
+      source: 'jamaica-gleaner' as const,
+      imageUrl: '/images/placeholder-culture.jpg',
+      slug: 'new-jamaican-restaurant-kingston',
+      publishedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+      tags: ['restaurant', 'food', 'kingston', 'culture'],
+      keywords: ['restaurant', 'food', 'kingston', 'culture']
     },
     {
-      icon: Heart,
-      title: 'Authentic Stories',
-      description: 'Real voices, real experiences, real culture',
-      color: 'from-red-400 to-pink-500'
+      id: '5',
+      title: 'Jamaica\'s Tech Hub Grows Rapidly',
+      summary: 'Kingston\'s technology sector is expanding with new startups and innovation centers.',
+      content: 'Kingston\'s technology sector is expanding with new startups and innovation centers. The city is becoming a hub for Caribbean tech innovation and entrepreneurship.',
+      category: 'business' as const,
+      source: 'jamaica-observer' as const,
+      imageUrl: '/images/placeholder-technology.jpg',
+      slug: 'jamaica-tech-hub-growth',
+      publishedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+      tags: ['technology', 'startups', 'kingston', 'business'],
+      keywords: ['technology', 'startups', 'kingston', 'business']
+    },
+    {
+      id: '6',
+      title: 'Jamaica\'s Coffee Industry Booms',
+      summary: 'Blue Mountain coffee exports reach record highs as global demand increases.',
+      content: 'Jamaica\'s famous Blue Mountain coffee is experiencing unprecedented demand worldwide. The premium coffee variety continues to be a major export and tourism draw for the island.',
+      category: 'business' as const,
+      source: 'jamaica-gleaner' as const,
+      imageUrl: '/images/placeholder-business.jpg',
+      slug: 'jamaica-coffee-industry-boom',
+      publishedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+      tags: ['coffee', 'agriculture', 'exports', 'business'],
+      keywords: ['coffee', 'agriculture', 'exports', 'business']
+    }
+  ];
+
+  const getFallbackArtists = () => [
+    {
+      id: '1',
+      name: 'Chronixx',
+      bio: 'Jamaican reggae artist known for his conscious lyrics and modern reggae sound.',
+      imageUrl: '/images/chronixx.jpg',
+      genres: ['Reggae', 'Roots Reggae', 'Conscious Reggae'],
+      popularity: 95,
+      followers: 1000000,
+      isJamaican: true,
+      isVerified: true,
+      socialMedia: {
+        instagram: 'https://instagram.com/chronixxmusic',
+        twitter: 'https://twitter.com/chronixxmusic'
+      },
+      discography: [],
+      upcomingEvents: []
+    },
+    {
+      id: '2',
+      name: 'Koffee',
+      bio: 'Grammy-winning Jamaican reggae artist who has taken the world by storm.',
+      imageUrl: '/images/koffee.jpg',
+      genres: ['Reggae', 'Dancehall', 'Pop Reggae'],
+      popularity: 92,
+      followers: 800000,
+      isJamaican: true,
+      isVerified: true,
+      socialMedia: {
+        instagram: 'https://instagram.com/koffee',
+        twitter: 'https://twitter.com/koffee'
+      },
+      discography: [],
+      upcomingEvents: []
     }
   ];
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
-        <Header />
-        <div className="flex items-center justify-center h-64">
-          <div className="loading-shimmer w-32 h-8 rounded-lg"></div>
+      <Preloader isLoading={true}>
+        <div className="min-h-screen bg-white">
+          <Header />
+          <div className="flex items-center justify-center h-64">
+            <div className="loading-shimmer w-32 h-8 rounded-lg"></div>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </Preloader>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
-      <Header />
-      
-      {/* ENHANCED HERO SECTION - MAXIMUM ATTENTION GRABBING */}
-      <PlayfulHeroSection />
-
-
-      {/* ENHANCED FEATURES SECTION */}
-      <SimpleThreeColumnWithSmallIcons />
-
-      {/* ENHANCED FEATURED NEWS SECTION */}
-      <section className="py-24 bg-white">
-        <div className="max-w-screen-2xl mx-auto px-6">
-         
-         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl font-bold text-logo-dark mb-4">
-            Featured <span className="text-logo-primary">Stories</span>
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          The stories that matter most to Jamaica and our global community
-          </p>
-        </motion.div>
-          
-
-          {/* Enhanced grid layout */}
-          {featuredNews.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 mb-20">
-              {featuredNews.slice(0, 6).map((article, idx) => (
-                   <motion.div
-                   key={article.id}
-                   initial={{ opacity: 0, y: 30 }}
-                   animate={{ opacity: 1, y: 0 }}
-                   transition={{ duration: 0.6, delay: idx * 0.1 }}
-                 >
-                <Link href={`/news/${article.slug || article.id}`}> 
-                  <Card className="h-full bg-white hover:shadow-soft-lg transition-all duration-300 border border-gray-200 group">
-                    <div className="aspect-[16/10] overflow-hidden relative">
-                      <NewsImage article={article} width={800} height={500} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      
-                      {/* Enhanced overlay with category badge */}
-                      <div className="absolute top-4 left-4">
-                        <span className={`px-4 py-2 rounded-lg text-sm font-bold text-white ${
-                          idx === 0 ? 'bg-logo-secondary' : 
-                          'bg-logo-primary'
-                        }`}>
-                          {idx === 0 ? '🔥 Featured' : stringUtils.capitalize(article.category || 'general')}
-                        </span>
-                      </div>
-                      
-                      {/* Time badge */}
-                      <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm text-gray-700 px-3 py-1 rounded-lg text-sm font-semibold">
-                        <Clock className="w-4 h-4 inline mr-1" />
-                        {formatters.relative(article.publishedAt)}
-                      </div>
-                    </div>
-                    
-                    
-                    <CardContent className="p-6">
-                      <div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-4 leading-tight group-hover:text-logo-primary transition-colors duration-300 line-clamp-2">
-                          {article.title}
-                        </h3>
-                        <p className="text-gray-600 text-lg mb-6 leading-relaxed line-clamp-3">
-                          {article.summary}
-                        </p>
-                      </div>
-                      
-                      <div className="flex items-center justify-between mt-4">
-                        <span className="text-logo-primary font-semibold flex items-center">
-                          <Clock className="w-4 h-4 mr-1" />
-                          {article.readTime} min read
-                        </span>
-                        <span className="text-sm text-gray-500 capitalize bg-gray-100 px-3 py-1 rounded-lg">
-                          {article.category}
-                        </span>
-                      </div>
-                    </CardContent>
-                       {/* Social Sharing & Read More */}
-                    <CardFooter className="p-6 pt-0">
-                      <div className="flex items-center justify-between w-full">
-                        <div className="flex items-center space-x-2">
-                          <Button variant="outline" size="sm" className="border-gray-200 text-gray-600 hover:bg-gray-50">
-                            <Share2 className="w-4 h-4 mr-1" />
-                            Share
-                          </Button>
-                        </div>
-                        <Button variant="ghost" size="sm" className="text-logo-primary hover:text-logo-dark">
-                          Read More
-                          <ExternalLink className="w-4 h-4 ml-1" />
-                        </Button>
-                      </div>
-                    </CardFooter>
-                  </Card>
-                </Link>
-                </motion.div>
-              ))}
-            </div>
-          )}
-
-          {/* View all news CTA */}
-          <div className="text-center">
-            <Link href="/news">
-              <Button className="bg-logo-primary hover:bg-logo-dark text-white shadow-soft-lg hover:shadow-soft-xl transition-all duration-300 hover:scale-105 text-xl font-bold px-10 py-5 group">
-                View All Stories
-                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ENHANCED LATEST NEWS SECTION */}
-      <section className="py-24 bg-logo-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-16">
-            <div>
-              <h2 className="text-4xl lg:text-5xl font-black text-logo-dark mb-4">
-                Latest <span className="text-logo-primary">News</span>
-              </h2>
-              <p className="text-gray-600 text-xl">Stay updated with breaking stories</p>
-            </div>
-            <Link href="/news">
-              <Button className="bg-logo-primary hover:bg-logo-dark text-white shadow-soft hover:shadow-soft-lg transition-all duration-300 group">
-                View All News
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-          </div>
-
-          {latestNews.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {latestNews.slice(0, 8).map((article, index) => (
-                <Link key={article.id} href={`/news/${article.slug || article.id}`}>
-                  <Card className="group cursor-pointer overflow-hidden bg-white border border-gray-200 shadow-soft hover:shadow-soft-lg transition-all duration-300 hover:scale-[1.02] h-full">
-                    <div className="aspect-[4/3] overflow-hidden relative">
-                      <NewsImage article={article} width={400} height={300} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      
-                      {/* Category badge */}
-                      <div className="absolute top-2 left-2">
-                        <span className="bg-logo-primary text-white px-2 py-1 rounded-lg text-xs font-semibold">
-                          {stringUtils.capitalize(article.category || 'general')}
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="p-6">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-gray-500 text-xs flex items-center">
-                          <Clock className="w-3 h-3 mr-1" />
-                          {formatters.relative(article.publishedAt)}
-                        </span>
-                      </div>
-                      
-                      <h3 className="text-sm font-bold text-gray-900 mb-3 leading-tight group-hover:text-logo-primary transition-colors line-clamp-2">
-                        {article.title || 'Untitled Article'}
-                      </h3>
-                      
-                      <p className="text-gray-600 text-xs line-clamp-2 mb-4">
-                        {article.summary || 'No summary available'}
-                      </p>
-                      
-                      <div className="text-logo-primary text-xs font-semibold flex items-center">
-                        <Clock className="w-3 h-3 mr-1" />
-                        {article.readTime || 1} min read
-                      </div>
-                    </div>
-                  </Card>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <div className="text-logo-primary text-lg mb-4">🔄 Loading latest news...</div>
-              <p className="text-gray-500">Our news scraper is gathering the latest stories from Jamaica.</p>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* ENHANCED TRENDING ARTISTS SECTION */}
-      <section className="py-24 bg-logo-muted">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-16">
-            <div>
-              <h2 className="text-4xl lg:text-5xl font-black text-logo-dark mb-4">
-                Trending <span className="text-logo-primary">Artists</span>
-              </h2>
-              <p className="text-gray-600 text-xl">Discover Jamaica's musical talents</p>
-            </div>
-            <Link href="/artists" className="bg-logo-primary hover:bg-logo-dark text-white px-8 py-4 rounded-lg font-semibold shadow-soft hover:shadow-soft-lg transition-all duration-300 group">
-              Explore Artists
-              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-
-          {trendingArtists.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {trendingArtists.map((artist, index) => (
-                <Link key={artist.id} href={`/artists/${artist.id}`}>
-                  <Card className="animate-slide-up cursor-pointer hover:shadow-soft-lg transition-all duration-200 hover:scale-[1.02] bg-white border border-gray-200 p-8" style={{animationDelay: `${index * 0.1}s`}}>
-                    <div className="flex items-center space-x-6">
-                      <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 ring-4 ring-logo-primary/20 shadow-soft">
-                        <Image
-                          src={artist.imageUrl || '/images/jamaica-flag-bg.jpg'}
-                          alt={artist.name || 'Artist'}
-                          width={96}
-                          height={96}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center space-x-3 mb-3">
-                          <h3 className="text-2xl font-black text-logo-dark hover:text-logo-primary transition-colors truncate leading-tight">
-                            {artist.name || 'Unknown Artist'}
-                          </h3>
-                          {artist.isVerified && (
-                            <div className="w-7 h-7 bg-logo-primary rounded-full flex items-center justify-center flex-shrink-0 shadow-soft">
-                              <span className="text-white text-xs font-bold">✓</span>
-                            </div>
-                          )}
-                        </div>
-                        <p className="text-gray-600 text-base mb-4 font-medium">
-                          {(artist.genres || []).slice(0, 2).join(', ') || 'Music'}
-                        </p>
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-500 font-semibold">
-                            {((artist.followers || 0) / 1000000).toFixed(1)}M followers
-                          </span>
-                          <div className="flex items-center text-logo-primary font-semibold">
-                            <div className="w-2 h-2 bg-logo-primary rounded-full mr-2 animate-pulse"></div>
-                            <span>{artist.popularity || 0}% popularity</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-12">
-              <div className="text-logo-primary text-lg mb-4">🎵 Loading trending artists...</div>
-              <p className="text-gray-500">Discovering Jamaica's hottest musical talents.</p>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* ENHANCED UPCOMING EVENTS SECTION */}
-      {upcomingEvents.length > 0 && (
-        <section className="py-24 bg-white">
+    <Preloader isLoading={false}>
+      <div className="min-h-screen bg-white">
+        <Header />
+        
+        {/* HERO SECTION */}
+        <section className="relative bg-gradient-to-br from-logo-primary to-logo-dark text-white py-20 lg:py-32">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between mb-16">
-              <div>
-                <h2 className="text-4xl lg:text-5xl font-black text-logo-dark mb-4">
-                  Upcoming <span className="text-logo-primary">Events</span>
-                </h2>
-                <p className="text-gray-600 text-xl">Don't miss these exciting events</p>
-              </div>
-              <Link href="/events" className="bg-logo-primary hover:bg-logo-dark text-white px-8 py-4 rounded-lg font-semibold shadow-soft hover:shadow-soft-lg transition-all duration-300 group">
-                View All Events
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-              {upcomingEvents.map((event, index) => (
-                <Link key={event.id} href={`/events/${event.id}`}>
-                  <Card className="animate-slide-up cursor-pointer hover:shadow-soft-lg transition-all duration-200 hover:scale-[1.02] bg-white border border-gray-200" style={{animationDelay: `${index * 0.1}s`}}>
-                    <div className="flex items-start space-x-6">
-                      <div className="bg-logo-primary text-white p-4 rounded-lg text-center min-w-[70px] shadow-soft">
-                        <div className="text-xl font-bold">
-                          {(() => {
-                            if (!event.date) return '?';
-                            try {
-                              const formatted = formatters.date(event.date);
-                              if (formatted === 'No date' || formatted === 'Invalid date') return '?';
-                              const parts = formatted.split(' ');
-                              return parts[1] || '?';
-                            } catch {
-                              return '?';
-                            }
-                          })()}
-                        </div>
-                        <div className="text-sm">
-                          {(() => {
-                            if (!event.date) return '?';
-                            try {
-                              const formatted = formatters.date(event.date);
-                              if (formatted === 'No date' || formatted === 'Invalid date') return '?';
-                              const parts = formatted.split(' ');
-                              return parts[0] || '?';
-                            } catch {
-                              return '?';
-                            }
-                          })()}
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl font-bold text-logo-dark mb-2 hover:text-logo-primary transition-colors">
-                          {event.title}
-                        </h3>
-                        <p className="text-gray-600 text-sm mb-3">
-                          {event.venue}, {event.location}
-                        </p>
-                        <p className="text-gray-500 text-sm mb-4">
-                          {event.description}
-                        </p>
-                        <div className="flex items-center justify-between">
-                          <span className="text-logo-primary font-bold text-lg">
-                            {event.price}
-                          </span>
-                          <Button size="sm" className="bg-logo-primary hover:bg-logo-dark text-white" onClick={() => {
-                            // Handle ticket purchase - could open ticket URL or modal
-                            if (event.ticketUrl) {
-                              window.open(event.ticketUrl, '_blank');
-                            }
-                          }}>
-                            Get Tickets
-                          </Button>
-                        </div>
-                      </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+                  Latest from the{' '}
+                  <span className="text-logo-secondary">Dancehall</span>{' '}
+                  Scene
+                </h1>
+                <p className="text-xl text-white/90 mb-8 leading-relaxed">
+                  Your source for authentic Jamaican music news, artist features, and cultural stories from the heart of the Caribbean.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button variant="glamour" size="lg" className="group">
+                    Explore Stories
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                  <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
+                    Artist Spotlight
+                  </Button>
+                </div>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
+                className="relative"
+              >
+                <div className="relative h-80 lg:h-96 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/20 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-logo-secondary/20 to-transparent"></div>
+                  <div className="relative z-10 h-full flex items-center justify-center">
+                    <Image
+                      src="/images/skillibeng.jpg"
+                      alt="Vybz Kartel - Dancehall King"
+                      width={400}
+                      height={400}
+                      className="w-full h-full object-cover rounded-2xl"
+                      loading="eager"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-2xl"></div>
+                    <div className="absolute bottom-6 left-6 right-6 text-white">
+                      <h3 className="text-2xl font-bold mb-2">Vybz Kartel</h3>
+                      <p className="text-white/90 text-sm">Dancehall King</p>
                     </div>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* FEATURES SECTION */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Why Choose YaadFeed?
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Discover the authentic voice of Jamaican culture and music
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                {
+                  icon: Sparkles,
+                  title: 'Breaking News',
+                  description: 'Real-time updates from Jamaica and the Caribbean diaspora',
+                  color: 'text-logo-primary'
+                },
+                {
+                  icon: Music,
+                  title: 'Music Culture',
+                  description: 'Dive deep into dancehall, reggae, and afrobeats',
+                  color: 'text-logo-secondary'
+                },
+                {
+                  icon: Globe,
+                  title: 'Global Community',
+                  description: 'Connect with Jamaicans worldwide',
+                  color: 'text-logo-accent'
+                },
+                {
+                  icon: Heart,
+                  title: 'Authentic Stories',
+                  description: 'Real voices, real experiences, real culture',
+                  color: 'text-logo-primary'
+                }
+              ].map((feature, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                >
+                  <Card className="h-full bg-white border-0 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <CardContent className="p-6 text-center">
+                      <div className={`w-16 h-16 mx-auto mb-4 rounded-xl bg-gray-50 flex items-center justify-center ${feature.color}`}>
+                        <feature.icon className="w-8 h-8" />
+                      </div>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                        {feature.title}
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        {feature.description}
+                      </p>
+                    </CardContent>
                   </Card>
-                </Link>
+                </motion.div>
               ))}
             </div>
           </div>
         </section>
-      )}
 
-      {/* ENHANCED NEWSLETTER CTA SECTION */}
-      <section className="py-24 bg-logo-primary">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-white rounded-2xl p-12 shadow-soft-xl">
-            <h2 className="text-4xl lg:text-5xl font-black text-logo-dark mb-8">
-              Never Miss a <span className="text-logo-primary">Beat</span>
-            </h2>
-            <p className="text-gray-600 text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
-              Subscribe to our newsletter for exclusive content, breaking news, 
-              and the latest from Jamaica's vibrant culture.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-6 py-4 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-logo-primary shadow-soft text-lg border border-gray-200"
-              />
-              <Button className="bg-logo-primary hover:bg-logo-dark text-white shadow-soft hover:shadow-soft-lg transition-all duration-300 group px-8 py-4 text-lg font-semibold">
-                Subscribe Free
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
+        {/* LATEST MUSIC NEWS SECTION */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-12">
+              <div>
+                <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                  Latest Music News
+                </h2>
+                <p className="text-lg text-gray-600">
+                  Stay updated with breaking stories from the music scene
+                </p>
+              </div>
+              <Link href="/news">
+                <Button variant="outline" className="group">
+                  View All News
+                  <ChevronRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
             </div>
-            <p className="text-gray-500 text-sm mt-6">
-              Free forever. No spam. Unsubscribe anytime.
-            </p>
-          </div>
-        </div>
-      </section>
 
-      <Footer />
-    </div>
+            {latestNews.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {latestNews.map((article, index) => (
+                  <motion.div
+                    key={article.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                  >
+                    <Link href={`/news/${article.slug || article.id}`}>
+                      <Card className="h-full bg-white border-0 shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer">
+                        <div className="aspect-[16/10] overflow-hidden rounded-t-lg">
+                          <NewsImage 
+                            article={article} 
+                            width={400} 
+                            height={250} 
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                            index={index}
+                          />
+                        </div>
+                        
+                        <CardContent className="p-6">
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-sm text-gray-500 flex items-center">
+                              <Clock className="w-4 h-4 mr-1" />
+                              {formatters.relative(article.publishedAt)}
+                            </span>
+                            <span className="text-xs text-logo-primary bg-logo-primary/10 px-2 py-1 rounded-full font-medium">
+                              {stringUtils.capitalize(article.category || 'general')}
+                            </span>
+                          </div>
+                          
+                          <h3 className="text-lg font-semibold text-gray-900 mb-3 leading-tight group-hover:text-logo-primary transition-colors line-clamp-2">
+                            {article.title}
+                          </h3>
+                          
+                          <p className="text-gray-600 text-sm line-clamp-3 mb-4">
+                            {article.summary}
+                          </p>
+                          
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm text-gray-500">
+                              {article.readTime || 1} min read
+                            </span>
+                            <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-logo-primary group-hover:translate-x-1 transition-all" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <NewsGridSkeleton count={3} />
+            )}
+          </div>
+        </section>
+
+        {/* ARTIST HIGHLIGHT SECTION */}
+        <section className="py-20 bg-gradient-to-br from-logo-primary/5 to-logo-secondary/5">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Artist Spotlight
+              </h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Meet the rising stars and legendary artists shaping Jamaica's music scene
+              </p>
+            </motion.div>
+
+            {trendingArtists.length > 0 ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="relative"
+              >
+                {/* Featured Artist Card */}
+                <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                    {/* Artist Image Section */}
+                    <div className="relative h-80 lg:h-full bg-gradient-to-br from-logo-primary to-logo-secondary">
+                      <div className="absolute inset-0 bg-black/20"></div>
+                      <Image
+                        src={trendingArtists[0].imageUrl || '/images/chronixx.jpg'}
+                        alt={trendingArtists[0].name || 'Featured Artist'}
+                        width={600}
+                        height={600}
+                        className="w-full h-full object-cover"
+                        loading="eager"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                        <div className="flex items-center space-x-3">
+                          {trendingArtists[0].isVerified && (
+                            <div className="w-8 h-8 bg-logo-primary rounded-full flex items-center justify-center">
+                              <span className="text-white text-sm font-bold">✓</span>
+                            </div>
+                          )}
+                          <div>
+                            <h3 className="text-2xl font-bold text-white">
+                              {trendingArtists[0].name || 'Featured Artist'}
+                            </h3>
+                            <p className="text-white/90 text-sm">
+                              {(trendingArtists[0].genres || []).slice(0, 2).join(' • ')}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Artist Info Section */}
+                    <div className="p-8 lg:p-12 flex flex-col justify-center">
+                      <div className="mb-6">
+                        <div className="flex items-center space-x-2 mb-4">
+                          <div className="w-3 h-3 bg-logo-primary rounded-full"></div>
+                          <span className="text-sm font-medium text-logo-primary uppercase tracking-wide">
+                            Featured Artist
+                          </span>
+                        </div>
+                        
+                        <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
+                          {trendingArtists[0].name || 'Featured Artist'}
+                        </h3>
+                        
+                        <p className="text-gray-600 leading-relaxed mb-6">
+                          {trendingArtists[0].bio || 'A talented Jamaican artist making waves in the music industry with their unique sound and authentic style.'}
+                        </p>
+
+                        {/* Stats Grid */}
+                        <div className="grid grid-cols-2 gap-6 mb-8">
+                          <div className="text-center p-4 bg-gray-50 rounded-lg">
+                            <div className="text-2xl font-bold text-logo-primary">
+                              {((trendingArtists[0].followers || 0) / 1000000).toFixed(1)}M
+                            </div>
+                            <div className="text-sm text-gray-600">Followers</div>
+                          </div>
+                          <div className="text-center p-4 bg-gray-50 rounded-lg">
+                            <div className="text-2xl font-bold text-logo-secondary">
+                              {trendingArtists[0].popularity || 0}%
+                            </div>
+                            <div className="text-sm text-gray-600">Popularity</div>
+                          </div>
+                        </div>
+
+                        {/* Genres */}
+                        <div className="mb-8">
+                          <h4 className="text-sm font-semibold text-gray-900 mb-3">Genres</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {(trendingArtists[0].genres || ['Reggae', 'Dancehall']).map((genre, index) => (
+                              <span
+                                key={index}
+                                className="px-3 py-1 bg-logo-primary/10 text-logo-primary text-sm rounded-full font-medium"
+                              >
+                                {genre}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="flex flex-col sm:flex-row gap-4">
+                          <Link href={`/artists/${trendingArtists[0].id}`}>
+                            <Button variant="glamour" className="w-full sm:w-auto group">
+                              View Profile
+                              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </Button>
+                          </Link>
+                          {trendingArtists[0].socialMedia?.instagram && (
+                            <a
+                              href={trendingArtists[0].socialMedia.instagram}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors group"
+                            >
+                              <ExternalLink className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
+                              Follow on Instagram
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Quick Stats Bar */}
+                <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {[
+                    { label: 'Total Artists', value: '50+', icon: Users },
+                    { label: 'Music Genres', value: '15+', icon: Music },
+                    { label: 'Active Fans', value: '2M+', icon: Heart }
+                  ].map((stat, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100"
+                    >
+                      <div className="w-12 h-12 mx-auto mb-4 bg-logo-primary/10 rounded-lg flex items-center justify-center">
+                        <stat.icon className="w-6 h-6 text-logo-primary" />
+                      </div>
+                      <div className="text-2xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                      <div className="text-sm text-gray-600">{stat.label}</div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            ) : (
+              <div className="text-center py-12">
+                <div className="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
+                  <Music className="w-12 h-12 text-gray-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">No Artists Available</h3>
+                <p className="text-gray-600">Check back soon for featured artists</p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* FEATURED ARTISTS SECTION */}
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-12">
+              <div>
+                <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                  Featured Artists
+                </h2>
+                <p className="text-lg text-gray-600">
+                  Discover Jamaica's musical talents
+                </p>
+              </div>
+              <Link href="/artists">
+                <Button variant="outline" className="group">
+                  Explore Artists
+                  <ChevronRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </Link>
+            </div>
+
+            {trendingArtists.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {trendingArtists.map((artist, index) => (
+                  <motion.div
+                    key={artist.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                  >
+                    <Link href={`/artists/${artist.id}`}>
+                      <Card className="h-full bg-white border-0 shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer">
+                        <CardContent className="p-6">
+                          <div className="flex items-center space-x-4">
+                            <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-logo-primary/20">
+                              <Image
+                                src={artist.imageUrl || '/images/jamaica-flag-bg.jpg'}
+                                alt={artist.name || 'Artist'}
+                                width={64}
+                                height={64}
+                                className="w-full h-full object-cover"
+                                loading="lazy"
+                              />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center space-x-2 mb-2">
+                                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-logo-primary transition-colors truncate">
+                                  {artist.name || 'Unknown Artist'}
+                                </h3>
+                                {artist.isVerified && (
+                                  <div className="w-5 h-5 bg-logo-primary rounded-full flex items-center justify-center flex-shrink-0">
+                                    <span className="text-white text-xs font-bold">✓</span>
+                                  </div>
+                                )}
+                              </div>
+                              <p className="text-gray-600 text-sm mb-3">
+                                {(artist.genres || []).slice(0, 2).join(', ') || 'Music'}
+                              </p>
+                              <div className="flex items-center justify-between text-sm">
+                                <span className="text-gray-500">
+                                  {((artist.followers || 0) / 1000000).toFixed(1)}M followers
+                                </span>
+                                <div className="flex items-center text-logo-primary font-medium">
+                                  <div className="w-2 h-2 bg-logo-primary rounded-full mr-2"></div>
+                                  <span>{artist.popularity || 0}% popularity</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {Array.from({ length: 2 }).map((_, index) => (
+                  <ArtistSkeleton key={index} />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* NEWSLETTER CTA SECTION */}
+        <section className="py-20 bg-logo-primary">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+                Never Miss a Beat
+              </h2>
+              <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
+                Subscribe to our newsletter for exclusive content, breaking news, 
+                and the latest from Jamaica's vibrant culture.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1 px-6 py-4 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/30 text-lg border-0"
+                />
+                <Button variant="glamour" size="lg" className="group px-8 py-4 text-lg font-semibold">
+                  Subscribe Free
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </div>
+              <p className="text-white/70 text-sm mt-6">
+                Free forever. No spam. Unsubscribe anytime.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        <Footer />
+      </div>
+    </Preloader>
   );
 };
 

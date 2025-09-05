@@ -16,14 +16,15 @@ export async function POST(request: NextRequest) {
     const scraper = new JamaicanNewsScraper();
     const results = await scraper.scrapeAllSources();
     
-    // Optionally clean up old articles
-    const cleanupCount = await scraper.cleanupOldArticles();
+    // IMPORTANT: We do NOT cleanup old articles - new articles are APPENDED only
+    // This ensures content history is preserved and URLs don't break
+    // Old articles remain accessible for SEO and user experience
     
     return NextResponse.json({
-      message: 'Scraping completed successfully',
+      message: 'Scraping completed successfully - new articles appended (old articles preserved)',
       results: {
         ...results,
-        cleanedUp: cleanupCount
+        note: 'Articles are appended, not replaced. Old content is preserved.'
       },
       timestamp: new Date().toISOString()
     });

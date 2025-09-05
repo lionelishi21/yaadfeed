@@ -11,6 +11,7 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { Event, EventCategory } from '@/types';
 import { formatters, stringUtils } from '@/utils';
+import { EventSkeleton } from '@/components/ui/LoadingSkeleton';
 
 const EventsPage = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -80,12 +81,12 @@ const EventsPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
         <Header />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="loading-shimmer h-64 rounded-lg"></div>
+              <EventSkeleton key={i} />
             ))}
           </div>
         </div>
@@ -95,11 +96,11 @@ const EventsPage = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
       <Header />
       
       {/* Page Header */}
-      <section className="bg-gradient-to-r from-jamaica-green-600 to-jamaica-gold-500 text-white py-16">
+      <section className="bg-gradient-to-r from-logo-primary to-logo-secondary text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">
@@ -124,7 +125,7 @@ const EventsPage = () => {
                 placeholder="Search events, artists, venues..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-jamaica-green-500 focus:border-transparent outline-none"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent outline-none shadow-soft"
               />
             </div>
 
@@ -134,7 +135,7 @@ const EventsPage = () => {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value as EventCategory | 'all')}
-                className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-jamaica-green-500 focus:border-transparent outline-none"
+                className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent outline-none shadow-soft"
               >
                 {categories.map(category => (
                   <option key={category.value} value={category.value}>
@@ -158,10 +159,10 @@ const EventsPage = () => {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {filteredEvents.map((event) => (
-                <Card key={event.id} variant="event" className="h-full group">
+                <Card key={event.id} variant="event" className="h-full group soft-card">
                   <div className="flex items-start space-x-6">
                     {/* Date Box */}
-                    <div className="bg-gradient-to-br from-jamaica-green-500 to-jamaica-gold-500 text-white p-4 rounded-lg text-center min-w-[80px] group-hover:scale-105 transition-transform duration-200">
+                    <div className="bg-gradient-to-br from-logo-primary to-logo-secondary text-white p-4 rounded-xl text-center min-w-[80px] group-hover:scale-105 transition-transform duration-200 shadow-soft">
                       <div className="text-2xl font-bold">
                         {new Date(event.date).getDate()}
                       </div>
@@ -177,11 +178,11 @@ const EventsPage = () => {
                     <div className="flex-1">
                       {/* Category and Popular Badge */}
                       <div className="flex items-center space-x-2 mb-3">
-                        <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-xs font-medium">
+                        <span className="bg-logo-primary/10 text-logo-primary/80 px-2 py-1 rounded-xl text-xs font-medium shadow-soft">
                           {stringUtils.capitalize(event.category.replace('-', ' '))}
                         </span>
                         {event.isPopular && (
-                          <div className="flex items-center text-jamaica-gold-500">
+                          <div className="flex items-center text-logo-secondary">
                             <Star className="w-4 h-4 mr-1" />
                             <span className="text-xs">Popular</span>
                           </div>
@@ -189,13 +190,13 @@ const EventsPage = () => {
                       </div>
 
                       {/* Event Title */}
-                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-jamaica-green-600 transition-colors duration-200">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-logo-primary transition-colors duration-200">
                         {event.title}
                       </h3>
 
                       {/* Artist Name */}
                       {event.artistName && (
-                        <p className="text-jamaica-green-600 font-medium mb-2">
+                        <p className="text-logo-primary font-medium mb-2">
                           {event.artistName}
                         </p>
                       )}
@@ -221,7 +222,7 @@ const EventsPage = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           {event.price && (
-                            <div className="text-lg font-semibold text-jamaica-green-600">
+                            <div className="text-lg font-semibold text-logo-primary">
                               {event.price}
                             </div>
                           )}
@@ -233,7 +234,7 @@ const EventsPage = () => {
                               Tickets
                             </Button>
                           )}
-                          <Button size="sm">
+                          <Button size="sm" variant="glamour">
                             View Details
                           </Button>
                         </div>
@@ -243,7 +244,7 @@ const EventsPage = () => {
 
                   {/* Event Image */}
                   {event.imageUrl && (
-                    <div className="mt-6 aspect-video overflow-hidden rounded-lg">
+                    <div className="mt-6 aspect-video overflow-hidden rounded-xl">
                       <Image
                         src={event.imageUrl}
                         alt={event.title}
@@ -259,7 +260,7 @@ const EventsPage = () => {
           )}
 
           {/* Call to Action */}
-          <div className="mt-12 text-center bg-gray-50 rounded-xl p-8">
+          <div className="mt-12 text-center bg-gradient-to-r from-logo-light to-logo-muted rounded-3xl p-8 shadow-soft">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
               Want to list your event?
             </h3>
@@ -267,7 +268,7 @@ const EventsPage = () => {
               Reach thousands of music lovers and event-goers across Jamaica and the diaspora. 
               Submit your event for consideration on YaadFeed.
             </p>
-            <Button size="lg">
+            <Button size="lg" variant="glamour">
               Submit Event
             </Button>
           </div>

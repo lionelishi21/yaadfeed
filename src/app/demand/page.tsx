@@ -64,7 +64,7 @@ export default function DemandPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-cyan-700 to-purple-900">
+    <div className="min-h-screen bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary">
       <Header />
       
       {/* Hero Section */}
@@ -79,7 +79,7 @@ export default function DemandPage() {
               </Link>
             </div>
             <h1 className="text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight">
-              Artist <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">Demand Board</span>
+              Artist <span className="bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent">Demand Board</span>
             </h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
               Vote for your favorite artists to perform in your city. Make your voice heard and bring the music you love to your community.
@@ -114,10 +114,10 @@ export default function DemandPage() {
             </div>
           ) : demands.length === 0 ? (
             <div className="text-center py-16">
-              <div className="bg-white/60 backdrop-blur-lg rounded-3xl p-12 max-w-md mx-auto border border-white/30">
+              <div className="bg-white/60 backdrop-blur-lg rounded-3xl p-12 max-w-md mx-auto border border-white/30 shadow-soft">
                 <div className="text-gray-600 text-xl font-semibold mb-4">No Demands Yet</div>
                 <p className="text-gray-500 mb-6">Be the first to request an artist in your area!</p>
-                <Button className="bg-gradient-to-r from-cyan-400 to-purple-400 text-white">
+                <Button variant="glamour">
                   Create First Demand
                 </Button>
               </div>
@@ -125,13 +125,13 @@ export default function DemandPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {demands.map((demand) => (
-                <Card key={demand.id} className="group cursor-pointer bg-white/80 backdrop-blur-lg border border-white/30 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-[1.02] h-full">
+                <Card key={demand.id} className="group cursor-pointer soft-card h-full">
                   <div className="p-8 h-full flex flex-col">
                     <div className="flex items-center justify-between mb-6">
-                      <h3 className="text-2xl font-bold text-gray-900 group-hover:text-cyan-700 transition-colors">
+                      <h3 className="text-2xl font-bold text-gray-900 group-hover:text-logo-primary transition-colors">
                         {demand.artistName}
                       </h3>
-                      <span className={`px-3 py-1 rounded-full text-xs font-semibold border ${getStatusColor(demand.status)}`}>
+                      <span className={`px-3 py-1 rounded-xl text-xs font-semibold border ${getStatusColor(demand.status)}`}>
                         {demand.status}
                       </span>
                     </div>
@@ -144,35 +144,35 @@ export default function DemandPage() {
                     
                     <div className="space-y-3 mb-6">
                       <div className="flex items-center text-gray-600">
-                        <MapPin className="w-5 h-5 mr-3 text-cyan-600" />
+                        <MapPin className="w-5 h-5 mr-3 text-logo-primary" />
                         <span>{demand.location}</span>
                       </div>
                       {demand.venue && (
                         <div className="flex items-center text-gray-600">
-                          <div className="w-5 h-5 mr-3 text-cyan-600">🏟️</div>
+                          <div className="w-5 h-5 mr-3 text-logo-primary">🏟️</div>
                           <span>{demand.venue}</span>
                         </div>
                       )}
                       {demand.expectedDate && (
                         <div className="flex items-center text-gray-600">
-                          <Calendar className="w-5 h-5 mr-3 text-cyan-600" />
+                          <Calendar className="w-5 h-5 mr-3 text-logo-primary" />
                           <span>{demand.expectedDate}</span>
                         </div>
                       )}
                       {demand.ticketPrice && (
                         <div className="flex items-center text-gray-600">
-                          <Ticket className="w-5 h-5 mr-3 text-cyan-600" />
+                          <Ticket className="w-5 h-5 mr-3 text-logo-primary" />
                           <span>{demand.ticketPrice}</span>
                         </div>
                       )}
                     </div>
                     
                     <div className="flex items-center justify-between mt-auto pt-6 border-t border-gray-200">
-                      <div className="flex items-center text-cyan-700 font-semibold">
+                      <div className="flex items-center text-logo-primary font-semibold">
                         <Users className="w-5 h-5 mr-2" />
                         {demand.votes} votes
                       </div>
-                      <Button className="bg-gradient-to-r from-cyan-400 to-purple-400 hover:from-cyan-500 hover:to-purple-500 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+                      <Button variant="glamour">
                         Vote
                       </Button>
                     </div>
@@ -185,9 +185,9 @@ export default function DemandPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-cyan-600 via-blue-600 to-purple-600">
+      <section className="py-20 bg-gradient-to-br from-logo-primary via-logo-secondary to-logo-accent">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20">
+          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
             <h2 className="text-4xl lg:text-5xl font-extrabold text-white mb-6">
               Want an Artist in Your City?
             </h2>
@@ -195,12 +195,12 @@ export default function DemandPage() {
               Create a demand and rally your community to bring your favorite artists to perform live.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-white/90 backdrop-blur-lg text-cyan-700 hover:bg-white shadow-2xl hover:shadow-3xl transition-all duration-300 text-xl font-bold px-8 py-4">
+              <Button className="bg-white/90 backdrop-blur-lg text-logo-primary hover:bg-white shadow-soft hover:shadow-soft-xl transition-all duration-300 text-xl font-bold px-8 py-4">
                 Create Demand
               </Button>
               <Button 
                 variant="outline" 
-                className="border-white/80 bg-white/10 backdrop-blur-lg text-white hover:bg-white hover:text-cyan-700 shadow-xl text-xl font-bold px-8 py-4"
+                className="border-white/80 bg-white/10 backdrop-blur-lg text-white hover:bg-white hover:text-logo-primary shadow-soft text-xl font-bold px-8 py-4"
               >
                 Learn More
               </Button>

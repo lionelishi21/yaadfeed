@@ -12,6 +12,7 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { Artist } from '@/types';
 import { numberFormat, stringUtils } from '@/utils';
+import { ArtistSkeleton } from '@/components/ui/LoadingSkeleton';
 
 const ArtistsPage = () => {
   const [artists, setArtists] = useState<Artist[]>([]);
@@ -90,12 +91,12 @@ const ArtistsPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
         <Header />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="loading-shimmer h-80 rounded-lg"></div>
+              <ArtistSkeleton key={i} />
             ))}
           </div>
         </div>
@@ -105,11 +106,11 @@ const ArtistsPage = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
       <Header />
       
       {/* Page Header */}
-      <section className="bg-gradient-to-r from-jamaica-green-600 to-jamaica-gold-500 text-white py-16">
+      <section className="bg-gradient-to-r from-logo-primary to-logo-secondary text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl lg:text-5xl font-bold mb-4">
@@ -127,23 +128,23 @@ const ArtistsPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-jamaica-green-600 mb-2">{artists.length}</div>
+              <div className="text-3xl font-bold text-logo-primary mb-2">{artists.length}</div>
               <div className="text-gray-600">Featured Artists</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-jamaica-green-600 mb-2">
+              <div className="text-3xl font-bold text-logo-primary mb-2">
                 {artists.filter(a => a.isVerified).length}
               </div>
               <div className="text-gray-600">Verified Artists</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-jamaica-green-600 mb-2">
+              <div className="text-3xl font-bold text-logo-primary mb-2">
                 {new Set(artists.flatMap(a => a.genres)).size}
               </div>
               <div className="text-gray-600">Music Genres</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-jamaica-green-600 mb-2">
+              <div className="text-3xl font-bold text-logo-primary mb-2">
                 {numberFormat.compact(artists.reduce((sum, a) => sum + a.followers, 0))}
               </div>
               <div className="text-gray-600">Total Followers</div>
@@ -164,7 +165,7 @@ const ArtistsPage = () => {
                 placeholder="Search artists..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-jamaica-green-500 focus:border-transparent outline-none"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent outline-none shadow-soft"
               />
             </div>
 
@@ -175,7 +176,7 @@ const ArtistsPage = () => {
                 <select
                   value={selectedGenre}
                   onChange={(e) => setSelectedGenre(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-jamaica-green-500 focus:border-transparent outline-none"
+                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent outline-none shadow-soft"
                 >
                   {genres.map(genre => (
                     <option key={genre} value={genre}>
@@ -191,7 +192,7 @@ const ArtistsPage = () => {
                 <select
                   value={jamaicanFilter}
                   onChange={e => setJamaicanFilter(e.target.value as 'all' | 'jamaican' | 'non-jamaican')}
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-jamaica-green-500 focus:border-transparent outline-none"
+                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent outline-none shadow-soft"
                 >
                   <option value="all">All</option>
                   <option value="jamaican">Jamaican</option>
@@ -205,7 +206,7 @@ const ArtistsPage = () => {
                 <select
                   value={verifiedFilter}
                   onChange={e => setVerifiedFilter(e.target.value as 'all' | 'verified' | 'unverified')}
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-jamaica-green-500 focus:border-transparent outline-none"
+                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent outline-none shadow-soft"
                 >
                   <option value="all">All</option>
                   <option value="verified">Verified</option>
@@ -217,7 +218,7 @@ const ArtistsPage = () => {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as 'popularity' | 'followers' | 'name')}
-                className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-jamaica-green-500 focus:border-transparent outline-none"
+                className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent outline-none shadow-soft"
               >
                 <option value="popularity">Sort by Popularity</option>
                 <option value="followers">Sort by Followers</option>
@@ -239,10 +240,10 @@ const ArtistsPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredArtists.map((artist) => (
                 <Link key={artist.id} href={`/artists/${artist.id}`}>
-                  <Card variant="artist" className="group cursor-pointer hover:shadow-lg transition-all duration-200 hover:scale-[1.02]">
+                  <Card variant="artist" className="group cursor-pointer soft-card">
                   {/* Artist Image */}
                   <div className="relative mb-6">
-                    <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-jamaica-gold-200 group-hover:border-jamaica-gold-400 transition-colors duration-200">
+                    <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-logo-secondary/30 group-hover:border-logo-secondary/60 transition-colors duration-200">
                       <Image
                         src={artist.imageUrl || '/images/jamaica-flag-bg.jpg'}
                         alt={artist.name}
@@ -252,7 +253,7 @@ const ArtistsPage = () => {
                       />
                     </div>
                     {artist.isVerified && (
-                      <div className="absolute top-0 right-0 bg-jamaica-green-500 rounded-full p-1">
+                      <div className="absolute top-0 right-0 bg-logo-primary rounded-full p-1 shadow-soft">
                         <CheckCircle className="w-6 h-6 text-white" />
                       </div>
                     )}
@@ -260,7 +261,7 @@ const ArtistsPage = () => {
 
                   {/* Artist Info */}
                   <div className="text-center">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-jamaica-green-600 transition-colors">
+                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-logo-primary transition-colors">
                       {artist.name}
                     </h3>
                     
@@ -269,7 +270,7 @@ const ArtistsPage = () => {
                       {artist.genres.slice(0, 2).map((genre) => (
                         <span
                           key={genre}
-                          className="bg-jamaica-green-100 text-jamaica-green-800 px-2 py-1 rounded-full text-xs"
+                          className="bg-logo-primary/10 text-logo-primary/80 px-2 py-1 rounded-xl text-xs shadow-soft"
                         >
                           {stringUtils.capitalize(genre.replace('-', ' '))}
                         </span>
@@ -288,7 +289,7 @@ const ArtistsPage = () => {
                         <div className="text-xs text-gray-500">Followers</div>
                       </div>
                       <div className="text-center">
-                        <div className="flex items-center justify-center space-x-1 text-jamaica-gold-500 mb-1">
+                        <div className="flex items-center justify-center space-x-1 text-logo-secondary mb-1">
                           <Star className="w-4 h-4" />
                         </div>
                         <div className="text-lg font-semibold text-gray-900">
@@ -302,7 +303,7 @@ const ArtistsPage = () => {
                     {artist.netWorth && (
                       <div className="text-center mb-4">
                         <div className="text-sm text-gray-600">Estimated Net Worth</div>
-                        <div className="text-lg font-semibold text-jamaica-green-600">
+                        <div className="text-lg font-semibold text-logo-primary">
                           {numberFormat.currency(artist.netWorth)}
                         </div>
                       </div>
@@ -320,7 +321,7 @@ const ArtistsPage = () => {
                           href={artist.socialMedia.spotify}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-jamaica-green-600 hover:text-jamaica-green-700 transition-colors"
+                          className="text-logo-primary hover:text-logo-primary/80 transition-colors"
                           title="Spotify"
                         >
                           <Music className="w-5 h-5" />
@@ -331,7 +332,7 @@ const ArtistsPage = () => {
                           href={artist.socialMedia.instagram}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-jamaica-green-600 hover:text-jamaica-green-700 transition-colors"
+                          className="text-logo-primary hover:text-logo-primary/80 transition-colors"
                           title="Instagram"
                         >
                           <ExternalLink className="w-5 h-5" />
@@ -342,7 +343,7 @@ const ArtistsPage = () => {
                           href={artist.socialMedia.website}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-jamaica-green-600 hover:text-jamaica-green-700 transition-colors"
+                          className="text-logo-primary hover:text-logo-primary/80 transition-colors"
                           title="Website"
                         >
                           <ExternalLink className="w-5 h-5" />
@@ -351,9 +352,13 @@ const ArtistsPage = () => {
                     </div>
 
                     {/* Action Button */}
-                    <Button className="w-full" size="sm">
-                      View Profile
-                    </Button>
+                    <div className="w-full">
+                      <Link href={`/artists/${artist.id}`} className="block w-full">
+                        <Button variant="glamour" className="w-full" size="sm">
+                          View Profile
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                   </Card>
                 </Link>

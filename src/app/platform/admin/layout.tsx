@@ -14,8 +14,8 @@ export default function AdminLayout({
   const router = useRouter();
   const pathname = usePathname();
 
-  // Check if we're on the login page
-  const isLoginPage = pathname === '/platform/admin';
+  // Check if we're on the login page (support both with/without trailing slash)
+  const isLoginPage = pathname === '/platform/admin' || pathname === '/platform/admin/';
 
   useEffect(() => {
     if (status === 'loading') return; // Still loading
@@ -25,14 +25,14 @@ export default function AdminLayout({
 
     // Redirect to login if not authenticated
     if (status === 'unauthenticated') {
-      router.push('/platform/admin');
+      router.push('/platform/admin/');
       return;
     }
 
     // Check for admin role
     if (session?.user && (session.user as any).role !== 'admin') {
       console.log('Access denied: User is not an admin');
-      router.push('/platform/admin');
+      router.push('/platform/admin/');
       return;
     }
   }, [session, status, router, isLoginPage]);
