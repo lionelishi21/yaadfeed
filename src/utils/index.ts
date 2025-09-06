@@ -1,6 +1,8 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { format, parseISO, formatDistanceToNow } from 'date-fns';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime);
 
 // Utility function for combining Tailwind classes
 export function cn(...inputs: ClassValue[]) {
@@ -13,8 +15,8 @@ export const formatters = {
   date: (date: string | Date | null | undefined) => {
     if (!date) return 'No date';
     try {
-      const parsedDate = typeof date === 'string' ? parseISO(date) : date;
-      return format(parsedDate, 'MMM dd, yyyy');
+      const parsedDate = typeof date === 'string' ? dayjs(date) : dayjs(date);
+      return parsedDate.isValid() ? parsedDate.format('MMM DD, YYYY') : 'Invalid date';
     } catch (error) {
       console.error('Date formatting error:', error);
       return 'Invalid date';
@@ -24,8 +26,8 @@ export const formatters = {
   time: (date: string | Date | null | undefined) => {
     if (!date) return 'No time';
     try {
-      const parsedDate = typeof date === 'string' ? parseISO(date) : date;
-      return format(parsedDate, 'h:mm a');
+      const parsedDate = typeof date === 'string' ? dayjs(date) : dayjs(date);
+      return parsedDate.isValid() ? parsedDate.format('h:mm A') : 'Invalid time';
     } catch (error) {
       console.error('Time formatting error:', error);
       return 'Invalid time';
@@ -35,8 +37,8 @@ export const formatters = {
   datetime: (date: string | Date | null | undefined) => {
     if (!date) return 'No date';
     try {
-      const parsedDate = typeof date === 'string' ? parseISO(date) : date;
-      return format(parsedDate, 'MMM dd, yyyy h:mm a');
+      const parsedDate = typeof date === 'string' ? dayjs(date) : dayjs(date);
+      return parsedDate.isValid() ? parsedDate.format('MMM DD, YYYY h:mm A') : 'Invalid date';
     } catch (error) {
       console.error('DateTime formatting error:', error);
       return 'Invalid date';
@@ -46,8 +48,8 @@ export const formatters = {
   relative: (date: string | Date | null | undefined) => {
     if (!date) return 'No date';
     try {
-      const parsedDate = typeof date === 'string' ? parseISO(date) : date;
-      return formatDistanceToNow(parsedDate, { addSuffix: true });
+      const parsedDate = typeof date === 'string' ? dayjs(date) : dayjs(date);
+      return parsedDate.isValid() ? parsedDate.fromNow() : 'Invalid date';
     } catch (error) {
       console.error('Relative date formatting error:', error);
       return 'Invalid date';

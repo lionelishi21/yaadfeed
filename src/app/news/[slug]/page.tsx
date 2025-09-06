@@ -19,7 +19,6 @@ import Comments from '@/components/Comments';
 import { notFound } from 'next/navigation';
 import { formatters, stringUtils } from '@/utils';
 import Header from '@/components/Header';
-import { NextResponse } from 'next/server';
 import { NewsService } from '@/lib/mongodb';
 import ArticleContent from '@/components/ArticleContent';
 
