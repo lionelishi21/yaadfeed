@@ -187,17 +187,6 @@ class JamaicanNewsScraper {
       
     } catch (error) {
       console.error(`Error fetching RSS for ${source.name}:`, error);
-      // Attempt insecure fetch as last resort for misconfigured SSL feeds in dev
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        const https = require('https');
-        const agent = new https.Agent({ rejectUnauthorized: false });
-        const response = await fetch(source.rssUrl, { agent, headers: { 'User-Agent': 'Mozilla/5.0' } });
-        if (response.ok) {
-          const xmlText = await response.text();
-          return parseRSSXML(xmlText, source);
-        }
-      } catch {}
       return [];
     }
   }
@@ -675,6 +664,22 @@ function generateSlug(title: string): string {
     .replace(/\s+/g, '-') // Replace spaces with hyphens
     .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
     .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+}
+
+// Clean HTML utility (top-level) used by RSS parsers
+function cleanHTML(html: string): string {
+  if (!html) return '';
+  return html
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '') // Remove scripts
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '') // Remove styles
+    .replace(/<[^>]+>/g, ' ') // Remove HTML tags
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 // Clean HTML but preserve basic paragraph breaks from content:encoded
 function cleanPreserveParagraphs(html: string): string {
