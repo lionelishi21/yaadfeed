@@ -1,9 +1,10 @@
 /** @type {import('next').NextConfig} */
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 const nextConfig = {
-  // Keep trailing slash for consistency
   trailingSlash: true,
-  
-  // Optimize images
   images: {
     domains: [
       'localhost',
@@ -13,34 +14,20 @@ const nextConfig = {
       'www.jamaica-gleaner.com',
       'www.jamaicaobserver.com',
       'source.unsplash.com',
-      'images.unsplash.com'
+      'images.unsplash.com',
     ],
     remotePatterns: [],
-    // Optimize image formats
     formats: ['image/webp', 'image/avif'],
   },
-
-  // Disable source maps in production
   productionBrowserSourceMaps: false,
-  
-  // Optimize CSS
   swcMinify: true,
-  
-  // Reduce bundle size
   compress: true,
-
-  // Disable features to reduce bundle size
   poweredByHeader: false,
-
-  // Experimental features to help with build issues
   experimental: {
-    // Disable static generation for problematic pages
     workerThreads: false,
-    // Reduce memory usage during build
     isrMemoryCacheSize: 0,
-    // Disable static generation for client components
     staticPageGenerationTimeout: 0,
   },
 };
 
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer(nextConfig);
