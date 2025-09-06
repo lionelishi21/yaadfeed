@@ -1,14 +1,23 @@
 // Prefer real OpenAI SDK when API key is present; fallback to stub otherwise
 let OpenAIClient: any = null;
 if (typeof window === 'undefined') {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    OpenAIClient = require('openai').default;
-  } catch (e) {
+  (async () => {
     try {
-      OpenAIClient = require('@/lib/stubs/openai').default;
-    } catch {}
-  }
+      if (process.env.USE_OPENAI === '1') {
+        const dynamicImport: (m: string) => Promise<any> = new Function('m', 'return import(m)') as any;
+        const mod = await dynamicImport('openai');
+        OpenAIClient = (mod as any).default || (mod as any);
+      } else {
+        const stub = await import('@/lib/stubs/openai');
+        OpenAIClient = (stub as any).default || (stub as any);
+      }
+    } catch (e) {
+      try {
+        const stub = await import('@/lib/stubs/openai');
+        OpenAIClient = (stub as any).default || (stub as any);
+      } catch {}
+    }
+  })();
 }
 import { writeFile, mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
@@ -16,9 +25,11 @@ import path from 'path';
 import crypto from 'crypto';
 
 // Only initialize OpenAI on server-side
-const openai = (typeof window === 'undefined' && OpenAIClient && process.env.OPENAI_API_KEY)
-  ? new OpenAIClient({ apiKey: process.env.OPENAI_API_KEY || '' })
-  : null;
+let openai: any = null;
+if (typeof window === 'undefined' && process.env.OPENAI_API_KEY) {
+  // Lazy initialize on first use to avoid bundling cost
+  openai = null;
+}
 
 interface ImageCache {
   [key: string]: string;
@@ -166,6 +177,14 @@ class ImageServiceClass {
       
       console.log(`🎨 Generating DALL-E image for: ${title.slice(0, 50)}...`);
       console.log(`📝 Prompt: ${prompt}`);
+
+      if (!openai && OpenAIClient) {
+        openai = new OpenAIClient({ apiKey: process.env.OPENAI_API_KEY || '' });
+      }
+      if (!openai) {
+        console.log('OpenAI client unavailable, using placeholder');
+        return `/images/placeholder-${category}.jpg`;
+      }
 
       const response = await openai.images.generate({
         model: "dall-e-3",

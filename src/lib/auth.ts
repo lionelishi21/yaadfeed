@@ -4,15 +4,12 @@ import TwitterProvider from 'next-auth/providers/twitter';
 import FacebookProvider from 'next-auth/providers/facebook';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
-import { MongoClient } from 'mongodb';
 import bcrypt from 'bcryptjs';
 import { UserService } from './mongodb';
-
-const client = new MongoClient(process.env.MONGODB_URI || 'mongodb://localhost:27017');
-const clientPromise = client.connect();
+import { clientPromise } from './mongodb';
 
 export const authOptions: NextAuthOptions = {
-  adapter: MongoDBAdapter(clientPromise),
+  adapter: MongoDBAdapter(clientPromise as any),
   providers: [
     CredentialsProvider({
       id: 'credentials',
@@ -51,7 +48,7 @@ export const authOptions: NextAuthOptions = {
             email: user.email,
             name: user.name,
             role: user.role,
-          };
+          } as any;
         } catch (error) {
           console.error('Auth error:', error);
           return null;
@@ -79,13 +76,13 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ session, user, token }) {
       if (session.user) {
-        if (token?.role) {
+        if ((token as any)?.role) {
           // For credentials login
-          (session.user as any).id = token.id;
-          (session.user as any).role = token.role;
+          (session.user as any).id = (token as any).id;
+          (session.user as any).role = (token as any).role;
         } else if (user) {
           // For database sessions
-          (session.user as any).id = user.id;
+          (session.user as any).id = (user as any).id;
           // For social logins, default to 'user' role
           (session.user as any).role = 'user';
         }
@@ -94,8 +91,8 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        token.role = (user as any).role || 'user';
+        (token as any).id = (user as any).id;
+        (token as any).role = (user as any).role || 'user';
       }
       return token;
     },

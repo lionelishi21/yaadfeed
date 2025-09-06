@@ -1,4 +1,12 @@
-import { MongoClient, Db, Collection } from 'mongodb';
+// Defer importing heavy driver until runtime to reduce bundle size
+type MongoClient = import('mongodb').MongoClient;
+type Db = import('mongodb').Db;
+type Collection = import('mongodb').Collection;
+
+async function loadMongo(): Promise<typeof import('mongodb')> {
+  // Dynamic import keeps driver out of default bundle
+  return await import('mongodb');
+}
 
 // Global MongoDB connection
 let client: MongoClient | null = null;
@@ -11,19 +19,24 @@ const MONGODB_DB = process.env.MONGODB_DB || 'yaadfeed';
 // Client promise for NextAuth compatibility
 let clientPromise: Promise<MongoClient>;
 
+function createClientPromise(): Promise<MongoClient> {
+  return loadMongo().then(({ MongoClient }) => {
+    const c = new MongoClient(MONGODB_URI);
+    return c.connect();
+  });
+}
+
 if (!process.env.MONGODB_URI) {
   throw new Error("Please add MONGODB_URI to Vercel Environment Variables");
 }
 
 if (process.env.NODE_ENV === "development") {
   if (!(global as any)._mongoClientPromise) {
-    client = new MongoClient(MONGODB_URI);
-    (global as any)._mongoClientPromise = client.connect();
+    (global as any)._mongoClientPromise = createClientPromise();
   }
-  clientPromise = (global as any)._mongoClientPromise;
+  clientPromise = (global as any)._mongoClientPromise as Promise<MongoClient>;
 } else {
-  client = new MongoClient(MONGODB_URI);
-  clientPromise = client.connect();
+  clientPromise = createClientPromise();
 }
 
 export { clientPromise };
@@ -63,6 +76,7 @@ export async function testConnection(): Promise<{ success: boolean; error?: stri
       throw new Error('MONGODB_URI environment variable is not set');
     }
     
+    const { MongoClient } = await loadMongo();
     const testClient = new MongoClient(MONGODB_URI);
     await testClient.connect();
     
@@ -162,6 +176,7 @@ export async function connectToDatabase(): Promise<{ db: Db; client: MongoClient
       heartbeatFrequencyMS: 10000,
     };
     
+    const { MongoClient } = await loadMongo();
     client = new MongoClient(MONGODB_URI, connectionOptions);
     
     log('Connecting to MongoDB server...', 'info');
@@ -216,22 +231,22 @@ export async function connectToDatabase(): Promise<{ db: Db; client: MongoClient
   }
 }
 
-export async function getNewsCollection(): Promise<Collection<NewsItem>> {
+export async function getNewsCollection() {
   const { db } = await connectToDatabase();
   return db.collection<NewsItem>('news_items');
 }
 
-export async function getUsersCollection(): Promise<Collection<User>> {
+export async function getUsersCollection() {
   const { db } = await connectToDatabase();
   return db.collection<User>('users');
 }
 
-export async function getArtistsCollection(): Promise<Collection<any>> {
+export async function getArtistsCollection() {
   const { db } = await connectToDatabase();
   return db.collection('artists');
 }
 
-export async function getPollsCollection(): Promise<Collection<Poll>> {
+export async function getPollsCollection() {
   const { db } = await connectToDatabase();
   return db.collection<Poll>('polls');
 }
