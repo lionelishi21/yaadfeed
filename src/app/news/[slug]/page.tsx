@@ -54,7 +54,6 @@ export default async function NewsArticlePage({ params }: { params: { slug: stri
   const safeRelated = Array.isArray(relatedArticles) ? relatedArticles.map(serializeArticle) : [];
 
   // Inject JSON-LD for Article
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:4000';
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'NewsArticle',
