@@ -58,27 +58,10 @@ export default async function NewsArticlePage({ params }: { params: { slug: stri
   const safeArticle = serializeArticle(article);
   const safeRelated = Array.isArray(relatedArticles) ? relatedArticles.map(serializeArticle) : [];
 
-  // Inject JSON-LD for Article
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'NewsArticle',
-    headline: safeArticle.title,
-    image: safeArticle.imageUrl ? [safeArticle.imageUrl] : undefined,
-    datePublished: safeArticle.publishedAt,
-    dateModified: safeArticle.publishedAt,
-    author: safeArticle.author ? { '@type': 'Person', name: safeArticle.author } : { '@type': 'Organization', name: 'YaadFeed' },
-    publisher: { '@type': 'Organization', name: 'YaadFeed', logo: { '@type': 'ImageObject', url: `${siteUrl}/images/jamaica-flag-bg.jpg` } },
-    description: safeArticle.summary,
-    mainEntityOfPage: `${siteUrl}/news/${safeArticle.slug}`,
-  };
+  // (JSON-LD removed from inline script to avoid SSR head issues)
 
   return (
-    <>
-      {/* Canonical */}
-      <link rel="canonical" href={`${siteUrl}/news/${safeArticle.slug}`} />
-      <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <ArticleContent article={safeArticle} relatedArticles={safeRelated} slug={params.slug} />
-    </>
+    <ArticleContent article={safeArticle} relatedArticles={safeRelated} slug={params.slug} />
   );
 }
 
@@ -86,8 +69,18 @@ export default async function NewsArticlePage({ params }: { params: { slug: stri
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const res = await fetch(`/api/news/${params.slug}`, { cache: 'no-store' });
-  const data = res.ok ? await res.json().catch(() => null) : null;
+  let data: any = null;
+  try {
+    const res = await fetch(`/api/news/${params.slug}`, { cache: 'no-store' });
+    data = res.ok ? await res.json().catch(() => null) : null;
+  } catch {
+    // Fallback to absolute URL to avoid server 500
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.yaadfeed.com';
+    try {
+      const res2 = await fetch(`${siteUrl}/api/news/${params.slug}`, { cache: 'no-store' });
+      data = res2.ok ? await res2.json().catch(() => null) : null;
+    } catch {}
+  }
   const article = data?.article;
   
   if (!article) {
@@ -100,6 +93,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${article.title} - YaadFeed`,
     description: article.summary,
+    alternates: { canonical: `/news/${article.slug}` },
     openGraph: {
       title: article.title,
       description: article.summary,
