@@ -3,12 +3,14 @@ import { scrapeNewsWithPagination } from '@/lib/scraper';
 
 export async function GET(request: NextRequest) {
   try {
-    // Verify the request is from a cron job (Vercel cron or authorized source)
+    // Strict auth: require secret via Authorization header OR token query param
+    const url = new URL(request.url);
+    const token = url.searchParams.get('token');
     const authHeader = request.headers.get('authorization');
     const cronSecret = process.env.CRON_SECRET || 'your-cron-secret';
-    
-    // For Vercel cron jobs, check the cron secret
-    if (authHeader !== `Bearer ${cronSecret}`) {
+    const hasValidBearer = authHeader === `Bearer ${cronSecret}`;
+    const hasValidToken = token === cronSecret;
+    if (!hasValidBearer && !hasValidToken) {
       console.log('❌ Unauthorized cron request');
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
