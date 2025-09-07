@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getConnectionStatus, testConnection, connectToDatabase } from '@/lib/mongodb';
 
 export async function GET(request: NextRequest) {
   try {
@@ -7,6 +6,7 @@ export async function GET(request: NextRequest) {
     
     const startTime = Date.now();
     
+    const { getConnectionStatus, testConnection, connectToDatabase } = await import('@/lib/mongodb');
     // Get connection status
     const connectionStatus = getConnectionStatus();
     console.log('🔍 [DEBUG] Connection status:', connectionStatus);

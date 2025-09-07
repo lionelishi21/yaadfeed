@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { NewsService } from '@/lib/mongodb';
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
+    const { NewsService } = await import('@/lib/mongodb');
     const { id } = params;
     console.log('🔍 [ARTIST API] Fetching artist with ID:', id);
 

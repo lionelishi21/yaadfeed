@@ -1,5 +1,5 @@
 import ArtistInfoScraper from './artistScraper';
-import { NewsService } from './mongodb';
+// Lazy-load NewsService when saving to DB to avoid bundling
 
 // Comprehensive artist database from scraper.ts
 const DANCEHALL_ARTISTS = {
@@ -327,6 +327,7 @@ export class BatchArtistScraper {
     let saved = 0;
     let failed = 0;
     
+    const { NewsService } = await import('./mongodb');
     for (const artistData of results) {
       try {
         console.log(`💾 [BatchArtistScraper] Attempting to save artist: ${artistData.name}`);

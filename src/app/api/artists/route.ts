@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import { NewsService } from '@/lib/mongodb';
 
 export async function GET() {
   try {
+    const { NewsService } = await import('@/lib/mongodb');
     // Fetch all artists from MongoDB
     const artists = await NewsService.getAllArtists();
     

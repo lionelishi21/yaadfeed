@@ -8,13 +8,14 @@ export async function generateStaticParams() {
     { slug: 'reggae-sumfest-2025-lineup-announced-featuring-international-and-local-stars' }
   ];
 }
-import NewsService from '@/lib/mongodb';
+// lazy import heavy service
 
 export async function GET(
   request: NextRequest,
   { params }: { params: { slug: string } }
 ) {
   try {
+    const { default: NewsService } = await import('@/lib/mongodb');
     const { slug } = params;
 
     // Try to find article by slug first

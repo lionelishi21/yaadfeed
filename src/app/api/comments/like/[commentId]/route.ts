@@ -8,17 +8,18 @@ export async function generateStaticParams() {
     { commentId: '3' }
   ];
 }
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
-import { connectToDatabase } from '@/lib/mongodb';
-import { ObjectId } from 'mongodb';
 
 export async function POST(
   request: NextRequest,
   { params }: { params: { commentId: string } }
 ) {
   try {
-    const session = await getServerSession(authOptions);
+    const { getServerSession } = await import('next-auth');
+    const { authOptions } = await import('@/lib/auth');
+    const { connectToDatabase } = await import('@/lib/mongodb');
+    const { ObjectId } = await import('mongodb');
+
+    const session = await getServerSession(authOptions as any);
     
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

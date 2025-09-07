@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import NewsService from '@/lib/mongodb';
-import { getConnectionStatus, testConnection } from '@/lib/mongodb';
 
 export async function GET(request: NextRequest) {
   const startTime = Date.now();
@@ -9,6 +7,7 @@ export async function GET(request: NextRequest) {
     console.log('📰 [NEWS API] Starting news fetch request...');
     
     // Check connection status first
+    const { getConnectionStatus, testConnection } = await import('@/lib/mongodb');
     const connectionStatus = getConnectionStatus();
     console.log('📰 [NEWS API] Connection status:', connectionStatus);
     
@@ -62,6 +61,7 @@ export async function GET(request: NextRequest) {
     console.log('📰 [NEWS API] Fetching news with filters:', filters);
 
     // Fetch news from MongoDB with better error handling
+    const { default: NewsService } = await import('@/lib/mongodb');
     let news;
     try {
       news = await NewsService.getAllNews(filters);
