@@ -149,6 +149,7 @@ export async function GET(request: NextRequest) {
     });
     
     // Get connection status for debugging
+    const { getConnectionStatus } = await import('@/lib/mongodb');
     const connectionStatus = getConnectionStatus();
     
     return NextResponse.json({ 
@@ -167,6 +168,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const { default: NewsService } = await import('@/lib/mongodb');
     const data = await request.json();
     // Validate required fields
     const required = ['title', 'slug', 'summary', 'content', 'category', 'source', 'publishedAt'];

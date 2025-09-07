@@ -92,6 +92,7 @@ export async function GET(
 
 export async function PUT(request: NextRequest, { params }: { params: { slug: string } }) {
   try {
+    const { default: NewsService } = await import('@/lib/mongodb');
     const { slug } = params;
     const data = await request.json();
     // Update article (partial update)
@@ -108,6 +109,7 @@ export async function PUT(request: NextRequest, { params }: { params: { slug: st
 
 export async function DELETE(request: NextRequest, { params }: { params: { slug: string } }) {
   try {
+    const { default: NewsService } = await import('@/lib/mongodb');
     const { slug } = params;
     const deleted = await NewsService.deleteNews(slug);
     if (!deleted) {

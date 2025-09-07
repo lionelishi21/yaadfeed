@@ -5,7 +5,7 @@ export async function POST(request: NextRequest) {
   try {
     const { getServerSession } = await import('next-auth');
     const { authOptions } = await import('@/lib/auth');
-    const session = await getServerSession(authOptions as any);
+    const session = (await getServerSession(authOptions as any)) as any;
     
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

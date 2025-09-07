@@ -19,7 +19,7 @@ export async function POST(
     const { connectToDatabase } = await import('@/lib/mongodb');
     const { ObjectId } = await import('mongodb');
 
-    const session = await getServerSession(authOptions as any);
+    const session = (await getServerSession(authOptions as any)) as any;
     
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
