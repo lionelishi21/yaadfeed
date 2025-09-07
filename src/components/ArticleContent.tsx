@@ -18,39 +18,49 @@ interface ArticleContentProps {
 }
 
 export default function ArticleContent({ article, relatedArticles, slug }: ArticleContentProps) {
-  // Use the article's actual image if available, otherwise generate AI image
+  // Use the article's actual image if available (relative or absolute). Otherwise generate AI image, else placeholder
   const getImageUrl = async (article: any, width: number, height: number): Promise<string> => {
-    if (article && article.imageUrl && article.imageUrl.startsWith('/images/')) {
-      return article.imageUrl; // Use local image
+    const provided = article?.imageUrl;
+    if (typeof provided === 'string' && provided.trim().length > 0) {
+      // Accept both relative and absolute URLs
+      try {
+        // Valid absolute URL
+        const u = new URL(provided);
+        if (u.protocol === 'http:' || u.protocol === 'https:') {
+          return provided;
+        }
+      } catch {
+        // Not an absolute URL – treat as relative path
+        return provided.startsWith('/') ? provided : `/${provided}`;
+      }
     }
-    
-    // Try to generate AI image instead of Unsplash fallback
+
+    // Try to generate AI image if none provided
     try {
       const response = await fetch('/api/generate-image', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: article?.title || `Jamaica ${article?.category || 'general'}`,
           category: article?.category || 'general',
           keywords: article?.keywords || [],
           summary: article?.summary || '',
-          forceGenerate: true
+          forceGenerate: true,
+          width,
+          height,
         }),
       });
-
       if (response.ok) {
         const result = await response.json();
-        if (result.success) {
+        if (result?.success && typeof result.imageUrl === 'string') {
           return result.imageUrl;
         }
       }
     } catch (error) {
       console.error('AI image generation failed:', error);
     }
-    
-    // Use local placeholder as fallback
+
+    // Fallback placeholder by category
     const category = article?.category || 'general';
     return `/images/placeholder-${category}.jpg`;
   };
