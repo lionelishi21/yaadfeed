@@ -12,6 +12,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:4000';
 
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "YaadFeed - Jamaica's Premier News & Music Platform",
