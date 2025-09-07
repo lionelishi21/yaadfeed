@@ -13,31 +13,49 @@ import { formatters, stringUtils } from '@/utils';
 import Header from '@/components/Header';
 import ArticleContent from '@/components/ArticleContent';
 
+// Centralized data fetching function
+async function fetchArticleData(slug: string) {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.yaadfeed.com';
+  
+  try {
+    console.log(`Fetching article data for slug: ${slug}`);
+    
+    // Always use absolute URL for server-side fetching
+    const response = await fetch(`${siteUrl}/api/news/${slug}`, { 
+      cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+        // Add any auth headers if needed
+      }
+    });
+    
+    console.log(`API Response status: ${response.status}`);
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`API Error ${response.status}:`, errorText);
+      return null;
+    }
+    
+    const data = await response.json();
+    console.log('Successfully fetched article data');
+    return data;
+    
+  } catch (error) {
+    console.error('Error fetching article:', error);
+    return null;
+  }
+}
+
 // Article page component (Server Component)
 export default async function NewsArticlePage({ params }: { params: { slug: string } }) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.yaadfeed.com';
-  let data: any = null;
-  try {
-    // Try relative API path first
-    const res = await fetch(`/api/news/${params.slug}`, { next: { revalidate: 60 }, cache: 'no-store' });
-    if (res.ok) {
-      data = await res.json().catch(() => null);
-    }
-
-    // Fallback to absolute URL in production-like environments
-    if (!data) {
-      const abs = await fetch(`${siteUrl}/api/news/${params.slug}`, { cache: 'no-store' });
-      if (abs.ok) {
-        data = await abs.json().catch(() => null);
-      }
-    }
-  } catch (e) {
-    // Swallow and handle below
-  }
+  const data = await fetchArticleData(params.slug);
 
   if (!data || !data.article) {
+    console.log('Article not found, calling notFound()');
     notFound();
   }
+  
   const article = data.article;
   const relatedArticles = data.relatedArticles || [];
 
@@ -62,29 +80,14 @@ export default async function NewsArticlePage({ params }: { params: { slug: stri
   const safeArticle = serializeArticle(article);
   const safeRelated = Array.isArray(relatedArticles) ? relatedArticles.map(serializeArticle) : [];
 
-  // (JSON-LD removed from inline script to avoid SSR head issues)
-
   return (
     <ArticleContent article={safeArticle} relatedArticles={safeRelated} slug={params.slug} />
   );
 }
 
-// Removed unused fetchArticle function for static export compatibility
-
 // Generate metadata for SEO
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  let data: any = null;
-  try {
-    const res = await fetch(`/api/news/${params.slug}`, { cache: 'no-store' });
-    data = res.ok ? await res.json().catch(() => null) : null;
-  } catch {
-    // Fallback to absolute URL to avoid server 500
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.yaadfeed.com';
-    try {
-      const res2 = await fetch(`${siteUrl}/api/news/${params.slug}`, { cache: 'no-store' });
-      data = res2.ok ? await res2.json().catch(() => null) : null;
-    } catch {}
-  }
+  const data = await fetchArticleData(params.slug);
   const article = data?.article;
   
   if (!article) {

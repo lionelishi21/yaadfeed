@@ -69,10 +69,11 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET || '',
     }),
   ],
-  pages: {
-    signIn: '/platform/admin',
-    error: '/auth/error',
-  },
+  // Use default NextAuth pages to avoid custom sign-in redirects causing loops
+  // pages: {
+  //   signIn: '/platform/admin',
+  //   error: '/auth/error',
+  // },
   callbacks: {
     async session({ session, user, token }) {
       if (session.user) {
