@@ -23,12 +23,17 @@ import ArticleContent from '@/components/ArticleContent';
 
 // Article page component (Server Component)
 export default async function NewsArticlePage({ params }: { params: { slug: string } }) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:4000';
-  const res = await fetch(`${siteUrl}/api/news/${params.slug}`, { next: { revalidate: 60 } });
-  if (!res.ok) {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.yaadfeed.com';
+  let data: any = null;
+  try {
+    const res = await fetch(`/api/news/${params.slug}`, { next: { revalidate: 60 }, cache: 'no-store' });
+    if (!res.ok) {
+      notFound();
+    }
+    data = await res.json().catch(() => null);
+  } catch (e) {
     notFound();
   }
-  const data = await res.json();
   const article = data.article;
   const relatedArticles = data.relatedArticles || [];
 
@@ -81,9 +86,8 @@ export default async function NewsArticlePage({ params }: { params: { slug: stri
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:4000';
-  const res = await fetch(`${siteUrl}/api/news/${params.slug}`, { cache: 'no-store' });
-  const data = res.ok ? await res.json() : null;
+  const res = await fetch(`/api/news/${params.slug}`, { cache: 'no-store' });
+  const data = res.ok ? await res.json().catch(() => null) : null;
   const article = data?.article;
   
   if (!article) {

@@ -40,39 +40,44 @@ export async function GET(
       3
     );
 
-    // Transform article data
+    // Transform article data (defensive)
+    const articleContent = typeof article.content === 'string' ? article.content : '';
+    const articleViewCount = typeof article.viewCount === 'number' ? article.viewCount : 0;
     const transformedArticle = {
-      id: article._id,
-      title: article.title,
-      slug: article.slug,
-      summary: article.summary,
-      content: article.content,
-      imageUrl: article.imageUrl,
-      category: article.category,
-      source: article.source,
+      id: (article as any)._id,
+      title: article.title || '',
+      slug: article.slug || '',
+      summary: article.summary || '',
+      content: articleContent,
+      imageUrl: article.imageUrl || '',
+      category: article.category || 'general',
+      source: article.source || '',
       publishedAt: article.publishedAt,
-      author: article.author,
-      tags: article.tags,
-      keywords: article.keywords,
-      isPopular: article.isPopular,
-      viewCount: article.viewCount + 1, // Include the increment
-      readTime: Math.ceil(article.content.length / 1000)
+      author: article.author || '',
+      tags: Array.isArray(article.tags) ? article.tags : [],
+      keywords: Array.isArray(article.keywords) ? article.keywords : [],
+      isPopular: !!article.isPopular,
+      viewCount: articleViewCount + 1, // Include the increment
+      readTime: Math.max(1, Math.ceil(articleContent.length / 1000))
     };
 
-    // Transform related articles
-    const transformedRelated = relatedArticles.map(item => ({
-      id: item._id,
-      title: item.title,
-      slug: item.slug,
-      summary: item.summary,
-      imageUrl: item.imageUrl,
-      category: item.category,
-      source: item.source,
-      publishedAt: item.publishedAt,
-      author: item.author,
-      viewCount: item.viewCount,
-      readTime: Math.ceil(item.content.length / 1000)
-    }));
+    // Transform related articles (defensive)
+    const transformedRelated = relatedArticles.map(item => {
+      const c = typeof item.content === 'string' ? item.content : '';
+      return {
+        id: (item as any)._id,
+        title: item.title || '',
+        slug: item.slug || '',
+        summary: item.summary || '',
+        imageUrl: item.imageUrl || '',
+        category: item.category || 'general',
+        source: item.source || '',
+        publishedAt: item.publishedAt,
+        author: item.author || '',
+        viewCount: typeof item.viewCount === 'number' ? item.viewCount : 0,
+        readTime: Math.max(1, Math.ceil(c.length / 1000))
+      }
+    });
 
     return NextResponse.json({
       article: transformedArticle,
