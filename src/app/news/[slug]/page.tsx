@@ -4,15 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Metadata } from 'next';
 import { ArrowLeft, Calendar, User, Eye, Share2, Tag, Clock, Bookmark } from 'lucide-react';
-
-// Generate static params for static export
-export async function generateStaticParams() {
-  return [
-    { slug: 'bob-marleys-legacy-continues-to-inspire-new-generation-of-jamaican-artists' },
-    { slug: 'jamaicas-tourism-industry-shows-strong-recovery-post-pandemic' },
-    { slug: 'reggae-sumfest-2025-lineup-announced-featuring-international-and-local-stars' }
-  ];
-}
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Footer from '@/components/Footer';
@@ -27,12 +18,24 @@ export default async function NewsArticlePage({ params }: { params: { slug: stri
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.yaadfeed.com';
   let data: any = null;
   try {
+    // Try relative API path first
     const res = await fetch(`/api/news/${params.slug}`, { next: { revalidate: 60 }, cache: 'no-store' });
-    if (!res.ok) {
-      notFound();
+    if (res.ok) {
+      data = await res.json().catch(() => null);
     }
-    data = await res.json().catch(() => null);
+
+    // Fallback to absolute URL in production-like environments
+    if (!data) {
+      const abs = await fetch(`${siteUrl}/api/news/${params.slug}`, { cache: 'no-store' });
+      if (abs.ok) {
+        data = await abs.json().catch(() => null);
+      }
+    }
   } catch (e) {
+    // Swallow and handle below
+  }
+
+  if (!data || !data.article) {
     notFound();
   }
   const article = data.article;
