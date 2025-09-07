@@ -101,7 +101,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       description: article.summary,
       images: article.imageUrl ? [article.imageUrl] : undefined,
       type: 'article',
-      publishedTime: article.publishedAt?.toISOString(),
+      publishedTime: (typeof article.publishedAt === 'string') ? article.publishedAt : article.publishedAt?.toISOString(),
       authors: article.author ? [article.author] : undefined,
     },
     twitter: {
