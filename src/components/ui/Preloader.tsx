@@ -29,19 +29,12 @@ export default function Preloader({ isLoading, children }: PreloaderProps) {
           <p className="text-lg text-gray-600">Jamaica's Premier News & Music Platform</p>
         </motion.div>
 
-        {/* Loading Spinner */}
+        {/* Loading Logo GIF */}
         <div className="relative mb-8">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            className="w-16 h-16 border-4 border-logo-primary/20 border-t-logo-primary rounded-full mx-auto"
-          />
-          
-          {/* Inner Spinner */}
-          <motion.div
-            animate={{ rotate: -360 }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-2 w-12 h-12 border-4 border-logo-secondary/20 border-t-logo-secondary rounded-full"
+          <img
+            src="/logo.gif"
+            alt="Loading YaadFeed"
+            className="h-20 w-20 mx-auto rounded-full object-contain"
           />
         </div>
 

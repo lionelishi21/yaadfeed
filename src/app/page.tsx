@@ -318,7 +318,7 @@ const HomePage = () => {
                   <div className="relative z-10 h-full flex items-center justify-center">
                     <Image
                       src="/images/skillibeng.jpg"
-                      alt="Vybz Kartel - Dancehall King"
+                      alt="Skillibeng - Dancehall Star"
                       width={400}
                       height={400}
                       className="w-full h-full object-cover rounded-2xl"
@@ -326,8 +326,8 @@ const HomePage = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-2xl"></div>
                     <div className="absolute bottom-6 left-6 right-6 text-white">
-                      <h3 className="text-2xl font-bold mb-2">Vybz Kartel</h3>
-                      <p className="text-white/90 text-sm">Dancehall King</p>
+                      <h3 className="text-2xl font-bold mb-2">Skillibeng</h3>
+                      <p className="text-white/90 text-sm">Dancehall Star</p>
                     </div>
                   </div>
                 </div>
