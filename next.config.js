@@ -5,6 +5,12 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig = {
   trailingSlash: true,
+  modularizeImports: {
+    'lucide-react': {
+      transform: 'lucide-react/dist/esm/icons/{{member}}',
+      preventFullImport: true,
+    },
+  },
   images: {
     domains: [
       'localhost',
@@ -26,7 +32,17 @@ const nextConfig = {
   experimental: {
     workerThreads: false,
     isrMemoryCacheSize: 0,
-    staticPageGenerationTimeout: 0,
+  },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      const externals = config.externals || [];
+      config.externals = externals.concat([
+        'mongodb',
+        'openai',
+        'stripe',
+      ]);
+    }
+    return config;
   },
 };
 
