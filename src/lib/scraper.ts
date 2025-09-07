@@ -1,5 +1,6 @@
 import NewsService from '@/lib/mongodb';
 import { ImageService } from '@/lib/imageService';
+import { synthesizeArticle } from '@/lib/contentOptimizer';
 
 interface ScrapedArticle {
   title: string;
@@ -817,11 +818,25 @@ export async function scrapeNewsWithPagination(page: number = 1, limit: number =
           }
         }
         
+        // Blend with up to 3 similar articles on the same topic for originality
+        const similar = paginatedArticles
+          .filter(a => a !== article && a.title && article.title && a.title.split(' ').slice(0,4).join(' ') === article.title.split(' ').slice(0,4).join(' '))
+          .slice(0, 3);
+        const sources = [article, ...similar].map(a => ({
+          title: a.title,
+          summary: a.summary,
+          content: a.content,
+          source: a.source,
+          url: a.url,
+          publishedAt: a.publishedAt,
+        }));
+        const synthesized = await synthesizeArticle(sources);
+
         const newsData = {
-          title: article.title,
+          title: synthesized.title || article.title,
           slug: article.slug,
-          summary: article.summary || (contentText ? contentText.slice(0, 320) + '…' : ''),
-          content: contentText,
+          summary: synthesized.summary || (contentText ? contentText.slice(0, 320) + '…' : ''),
+          content: synthesized.content || contentText,
           category: article.category,
           source: article.source,
           url: article.url,
@@ -832,7 +847,8 @@ export async function scrapeNewsWithPagination(page: number = 1, limit: number =
           isPopular: false,
           viewCount: 0,
           mentionedArtists: mentionedArtists, // Add artist links
-          artistCount: mentionedArtists.length
+          artistCount: mentionedArtists.length,
+          embeds: synthesized.embeds || []
         };
         
         const createdNews = await NewsService.createNews(newsData);

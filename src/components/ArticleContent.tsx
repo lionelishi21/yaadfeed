@@ -115,6 +115,54 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
     return blocks.filter(Boolean);
   };
 
+  const renderEmbed = (embed: any, idx: number) => {
+    if (!embed || !embed.url) return null;
+    const url = String(embed.url);
+    const type = String(embed.type || 'link');
+    if (type === 'youtube') {
+      let videoId = '';
+      try {
+        const u = new URL(url);
+        if (u.hostname.includes('youtu.be')) videoId = u.pathname.replace('/', '');
+        else if (u.searchParams.get('v')) videoId = u.searchParams.get('v') as string;
+      } catch {}
+      if (!videoId) {
+        return (
+          <a key={`emb-${idx}`} href={url} target="_blank" rel="noopener noreferrer" className="block my-6 underline text-jamaica-green-700">Watch on YouTube</a>
+        );
+      }
+      return (
+        <div key={`emb-${idx}`} className="my-6 aspect-video rounded-xl overflow-hidden shadow">
+          <iframe
+            src={`https://www.youtube.com/embed/${videoId}`}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            className="w-full h-full"
+          />
+        </div>
+      );
+    }
+    if (type === 'instagram') {
+      return (
+        <a key={`emb-${idx}`} href={url} target="_blank" rel="noopener noreferrer" className="block my-6">
+          <Card className="p-4">
+            <p className="text-sm text-gray-700">View this post on Instagram</p>
+            <p className="text-xs text-gray-500 break-all">{url}</p>
+          </Card>
+        </a>
+      );
+    }
+    return (
+      <a key={`emb-${idx}`} href={url} target="_blank" rel="noopener noreferrer" className="block my-6">
+        <Card className="p-4">
+          <p className="text-sm text-gray-700">Related link</p>
+          <p className="text-xs text-gray-500 break-all">{url}</p>
+        </Card>
+      </a>
+    );
+  };
+
   useEffect(() => {
     const loadImages = async () => {
       try {

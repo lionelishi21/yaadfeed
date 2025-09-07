@@ -111,6 +111,24 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://securepubads.g.doubleclick.net" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BreadcrumbList',
+              itemListElement: [
+                { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/` },
+                { '@type': 'ListItem', position: 2, name: 'News', item: `${SITE_URL}/news` },
+                { '@type': 'ListItem', position: 3, name: 'Artists', item: `${SITE_URL}/artists` },
+                { '@type': 'ListItem', position: 4, name: 'Events', item: `${SITE_URL}/events` },
+                { '@type': 'ListItem', position: 5, name: 'Newsletter', item: `${SITE_URL}/newsletter` },
+                { '@type': 'ListItem', position: 6, name: 'About', item: `${SITE_URL}/about` },
+                { '@type': 'ListItem', position: 7, name: 'Contact', item: `${SITE_URL}/contact` },
+              ],
+            }),
+          }}
+        />
       </head>
       <body className={`${inter.className} bg-gradient-to-br from-slate-50 via-white to-slate-100 text-gray-900`}>
         <ClientProviders>
