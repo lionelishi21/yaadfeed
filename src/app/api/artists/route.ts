@@ -13,7 +13,7 @@ export async function GET() {
       _id: undefined // Remove _id to avoid confusion
     }));
     
-    return NextResponse.json({ artists: transformedArtists });
+    return NextResponse.json({ artists: transformedArtists }, { headers: { 'Cache-Control': 'no-store' } });
   } catch (error) {
     console.error('Error fetching artists:', error);
     return NextResponse.json({ error: 'Failed to fetch artists' }, { status: 500 });

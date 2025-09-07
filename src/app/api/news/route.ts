@@ -135,7 +135,7 @@ export async function GET(request: NextRequest) {
         duration_ms: duration,
         timestamp: new Date().toISOString()
       }
-    });
+    }, { headers: { 'Cache-Control': 'no-store' } });
 
   } catch (error: any) {
     const endTime = Date.now();
@@ -162,7 +162,7 @@ export async function GET(request: NextRequest) {
       },
       hint: 'Check MongoDB connection and database status',
       environment: process.env.NODE_ENV || 'development'
-    }, { status: 500 });
+    }, { status: 500, headers: { 'Cache-Control': 'no-store' } });
   }
 } 
 

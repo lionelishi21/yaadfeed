@@ -81,7 +81,7 @@ export async function GET(
       timestamp: new Date().toISOString()
     };
 
-    return NextResponse.json(response);
+    return NextResponse.json(response, { headers: { 'Cache-Control': 'no-store' } });
   } catch (error: any) {
     console.error('🔍 [ARTIST API] Error fetching artist:', error);
     return NextResponse.json(
