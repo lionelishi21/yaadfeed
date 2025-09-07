@@ -18,8 +18,9 @@ async function fetchArticleData(slug: string) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.yaadfeed.com';
   
   try {
-    
+
     console.log(`Fetching article data for slug: ${slug}`);
+    
     
     // Always use absolute URL for server-side fetching
     const response = await fetch(`${siteUrl}/api/news/${slug}`, { 
