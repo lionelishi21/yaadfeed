@@ -192,23 +192,48 @@ class JamaicanNewsScraper {
     }
   }
 
+  // Try to extract real OG image from article URL
+  private async extractOgImage(url: string): Promise<string> {
+    try {
+      const res = await fetch(url, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+        }
+      });
+      if (!res.ok) return '';
+      const html = await res.text();
+      const ogMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["'][^>]*>/i)
+        || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["'][^>]*>/i);
+      return ogMatch ? ogMatch[1] : '';
+    } catch {
+      return '';
+    }
+  }
+
   // Save article to MongoDB
   private async saveArticle(article: ScrapedArticle): Promise<boolean> {
     try {
       const slug = this.generateSlug(article.title);
       const summary = this.generateSummary(article.content);
       
-      // Generate AI image for the article
-      let imageUrl: string;
+      // Prefer real source image (og:image), else AI, else placeholder
+      let imageUrl: string = '';
       try {
-        console.log(`🎨 Generating AI image for: ${article.title.substring(0, 50)}...`);
-        imageUrl = await ImageService.generateAndSaveDALLEImage(
-          article.title,
-          article.category,
-          this.extractKeywords(article.title + ' ' + article.content),
-          summary
-        );
-        console.log(`✅ AI image generated: ${imageUrl}`);
+        const og = await this.extractOgImage(article.url);
+        if (og) {
+          imageUrl = og;
+          console.log(`🖼️ Found OG image: ${og}`);
+        } else {
+          console.log(`🎨 Generating AI image for: ${article.title.substring(0, 50)}...`);
+          imageUrl = await ImageService.generateAndSaveDALLEImage(
+            article.title,
+            article.category,
+            this.extractKeywords(article.title + ' ' + article.content),
+            summary
+          );
+          console.log(`✅ AI image generated: ${imageUrl}`);
+        }
       } catch (error) {
         console.error(`❌ Failed to generate AI image for: ${article.title}`, error);
         // Use category-specific placeholder image if AI generation fails

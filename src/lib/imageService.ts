@@ -80,7 +80,12 @@ class ImageServiceClass {
     try {
       console.log(`💾 Downloading image: ${filename}`);
       
-      const response = await fetch(imageUrl);
+      const response = await fetch(imageUrl, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36',
+          'Accept': 'image/*,*/*;q=0.8'
+        }
+      });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

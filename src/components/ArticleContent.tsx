@@ -419,20 +419,21 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
                   </Card>
                   {/* Newsletter Signup */}
                   <Card className="p-6 bg-gradient-to-br from-jamaica-green-50 to-jamaica-gold-50 border border-jamaica-green-200">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">Stay Updated</h3>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Never Miss a Beat</h3>
                     <p className="text-gray-600 mb-4">
-                      Get the latest Jamaica news delivered to your inbox.
+                      Subscribe to our newsletter for exclusive content, breaking news, and the latest from Jamaica's vibrant culture.
                     </p>
                     <div className="space-y-3">
                       <input
                         type="email"
-                        placeholder="Your email"
+                        placeholder="Enter your email"
                         className="w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-jamaica-green-500 focus:border-transparent"
                       />
                       <Button className="w-full bg-gradient-to-r from-jamaica-green-600 to-jamaica-gold-500 hover:from-jamaica-green-700 hover:to-jamaica-gold-600">
                         Subscribe Free
                       </Button>
-            </div>
+                      <p className="text-gray-500 text-xs text-center">Free forever. No spam. Unsubscribe anytime.</p>
+                    </div>
                   </Card>
 
         {/* Related Articles */}

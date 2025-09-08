@@ -2,6 +2,24 @@ import { NextRequest, NextResponse } from 'next/server';
 import { connectToDatabase } from '@/lib/mongodb';
 import { ImageService } from '@/lib/imageService';
 
+async function extractOgImage(url: string): Promise<string> {
+  try {
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      }
+    });
+    if (!res.ok) return '';
+    const html = await res.text();
+    const ogMatch = html.match(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["'][^>]*>/i)
+      || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["'][^>]*>/i);
+    return ogMatch ? ogMatch[1] : '';
+  } catch {
+    return '';
+  }
+}
+
 export async function GET() {
   try {
     // Get articles that need image generation
@@ -102,15 +120,18 @@ export async function POST(request: NextRequest) {
             }
           );
 
-          // Generate image using existing service
-          const imageUrl = await ImageService.getImageForArticle(
-            article.title || '',
-            article.category || 'general',
-            article.keywords || [],
-            article.summary || '',
-            i,
-            true // Force generate
-          );
+          // Prefer real OG image first, else AI
+          let imageUrl = await extractOgImage(article.url || '');
+          if (!imageUrl) {
+            imageUrl = await ImageService.getImageForArticle(
+              article.title || '',
+              article.category || 'general',
+              article.keywords || [],
+              article.summary || '',
+              i,
+              true
+            );
+          }
 
           // Update article with generated image
           await newsCollection.updateOne(

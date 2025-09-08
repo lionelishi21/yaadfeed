@@ -47,11 +47,9 @@ const Footer = () => {
       <div className="bg-logo-primary py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h3 className="text-3xl font-bold text-white mb-4">
-              Stay Connected with Jamaica
-            </h3>
-            <p className="text-white/90 text-lg mb-6 max-w-2xl mx-auto">
-              Get the latest news, artist updates, and event announcements delivered to your inbox
+            <h3 className="text-3xl font-bold text-white mb-4">Never Miss a Beat</h3>
+            <p className="text-white/90 text-lg mb-2 max-w-2xl mx-auto">
+              Subscribe to our newsletter for exclusive content, breaking news, and the latest from Jamaica's vibrant culture.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
@@ -60,9 +58,10 @@ const Footer = () => {
                 className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/30 border-0"
               />
               <button className="bg-white text-logo-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
-                Subscribe
+                Subscribe Free
               </button>
             </div>
+            <p className="text-white/80 text-sm mt-3">Free forever. No spam. Unsubscribe anytime.</p>
           </div>
         </div>
       </div>

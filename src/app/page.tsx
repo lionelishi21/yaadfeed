@@ -122,7 +122,8 @@ const HomePage = () => {
           setTrendingArtists(getFallbackArtists());
         }
 
-        setUpcomingEvents([]);
+        // Events fallback (no API yet)
+        setUpcomingEvents(getFallbackEvents());
 
       } catch (error) {
         console.error('Error loading data:', error);
@@ -259,6 +260,33 @@ const HomePage = () => {
       upcomingEvents: []
     }
   ];
+
+  const getFallbackEvents = () => [
+    {
+      id: 'e1',
+      title: 'Reggae Sumfest – Montego Bay',
+      date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+      location: 'Catherine Hall, Montego Bay',
+      imageUrl: '/images/reggae-sumfest.jpg',
+      description: 'Jamaica’s biggest summer reggae festival returns with top local and international acts.'
+    },
+    {
+      id: 'e2',
+      title: 'Kingston Tech Meetup',
+      date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+      location: 'New Kingston',
+      imageUrl: '/images/kingston-tech-hub.jpg',
+      description: 'Startups, founders, and builders connect to share demos and opportunities.'
+    },
+    {
+      id: 'e3',
+      title: 'Dancehall Night – Portmore',
+      date: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000).toISOString(),
+      location: 'Portmore, St. Catherine',
+      imageUrl: '/images/placeholder-entertainment.jpg',
+      description: 'High-energy performances featuring Jamaica’s hottest dancehall artists.'
+    }
+  ] as unknown as Event[];
 
   if (loading) {
     return (
@@ -501,142 +529,48 @@ const HomePage = () => {
             </motion.div>
 
             {trendingArtists.length > 0 ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                className="relative"
-              >
-                {/* Featured Artist Card */}
-                <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                    {/* Artist Image Section */}
-                    <div className="relative h-80 lg:h-full bg-gradient-to-br from-logo-primary to-logo-secondary">
-                      <div className="absolute inset-0 bg-black/20"></div>
-                      <Image
-                        src={trendingArtists[0].imageUrl || '/images/chronixx.jpg'}
-                        alt={trendingArtists[0].name || 'Featured Artist'}
-                        width={600}
-                        height={600}
-                        className="w-full h-full object-cover"
-                        loading="eager"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                        <div className="flex items-center space-x-3">
-                          {trendingArtists[0].isVerified && (
-                            <div className="w-8 h-8 bg-logo-primary rounded-full flex items-center justify-center">
-                              <span className="text-white text-sm font-bold">✓</span>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {trendingArtists.slice(0, 3).map((artist, index) => (
+                  <motion.div
+                    key={artist.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                  >
+                    <Link href={`/artists/${artist.id}`}>
+                      <Card className="h-full bg-white border-0 shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer overflow-hidden">
+                        <div className="aspect-[16/10] overflow-hidden">
+                          <Image
+                            src={artist.imageUrl || '/images/jamaica-flag-bg.jpg'}
+                            alt={artist.name || 'Artist'}
+                            width={600}
+                            height={375}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <CardContent className="p-6">
+                          <div className="flex items-center justify-between mb-3">
+                            <h3 className="text-lg font-semibold text-gray-900 group-hover:text-logo-primary transition-colors line-clamp-1">{artist.name || 'Artist'}</h3>
+                            {artist.isVerified && (
+                              <div className="w-5 h-5 bg-logo-primary rounded-full flex items-center justify-center flex-shrink-0">
+                                <span className="text-white text-xs font-bold">✓</span>
+                              </div>
+                            )}
+                          </div>
+                          <p className="text-gray-600 text-sm mb-3 line-clamp-2">{(artist.genres || []).slice(0, 2).join(', ') || 'Music'}</p>
+                          <div className="flex items-center justify-between text-sm">
+                            <span className="text-gray-500">{(((artist.followers || 0) / 1000000).toFixed(1))}M followers</span>
+                            <div className="flex items-center text-logo-primary font-medium">
+                              <div className="w-2 h-2 bg-logo-primary rounded-full mr-2"></div>
+                              <span>{artist.popularity || 0}% popularity</span>
                             </div>
-                          )}
-                          <div>
-                            <h3 className="text-2xl font-bold text-white">
-                              {trendingArtists[0].name || 'Featured Artist'}
-                            </h3>
-                            <p className="text-white/90 text-sm">
-                              {(trendingArtists[0].genres || []).slice(0, 2).join(' • ')}
-                            </p>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Artist Info Section */}
-                    <div className="p-8 lg:p-12 flex flex-col justify-center">
-                      <div className="mb-6">
-                        <div className="flex items-center space-x-2 mb-4">
-                          <div className="w-3 h-3 bg-logo-primary rounded-full"></div>
-                          <span className="text-sm font-medium text-logo-primary uppercase tracking-wide">
-                            Featured Artist
-                          </span>
-                        </div>
-                        
-                        <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-                          {trendingArtists[0].name || 'Featured Artist'}
-                        </h3>
-                        
-                        <p className="text-gray-600 leading-relaxed mb-6">
-                          {trendingArtists[0].bio || 'A talented Jamaican artist making waves in the music industry with their unique sound and authentic style.'}
-                        </p>
-
-                        {/* Stats Grid */}
-                        <div className="grid grid-cols-2 gap-6 mb-8">
-                          <div className="text-center p-4 bg-gray-50 rounded-lg">
-                            <div className="text-2xl font-bold text-logo-primary">
-                              {((trendingArtists[0].followers || 0) / 1000000).toFixed(1)}M
-                            </div>
-                            <div className="text-sm text-gray-600">Followers</div>
-                          </div>
-                          <div className="text-center p-4 bg-gray-50 rounded-lg">
-                            <div className="text-2xl font-bold text-logo-secondary">
-                              {trendingArtists[0].popularity || 0}%
-                            </div>
-                            <div className="text-sm text-gray-600">Popularity</div>
-                          </div>
-                        </div>
-
-                        {/* Genres */}
-                        <div className="mb-8">
-                          <h4 className="text-sm font-semibold text-gray-900 mb-3">Genres</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {(trendingArtists[0].genres || ['Reggae', 'Dancehall']).map((genre, index) => (
-                              <span
-                                key={index}
-                                className="px-3 py-1 bg-logo-primary/10 text-logo-primary text-sm rounded-full font-medium"
-                              >
-                                {genre}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-4">
-                          <Link href={`/artists/${trendingArtists[0].id}`}>
-                            <Button variant="glamour" className="w-full sm:w-auto group">
-                              View Profile
-                              <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                            </Button>
-                          </Link>
-                          {trendingArtists[0].socialMedia?.instagram && (
-                            <a
-                              href={trendingArtists[0].socialMedia.instagram}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors group"
-                            >
-                              <ExternalLink className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform" />
-                              Follow on Instagram
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Quick Stats Bar */}
-                <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {[
-                    { label: 'Total Artists', value: '50+', icon: Users },
-                    { label: 'Music Genres', value: '15+', icon: Music },
-                    { label: 'Active Fans', value: '2M+', icon: Heart }
-                  ].map((stat, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: index * 0.1 }}
-                      className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100"
-                    >
-                      <div className="w-12 h-12 mx-auto mb-4 bg-logo-primary/10 rounded-lg flex items-center justify-center">
-                        <stat.icon className="w-6 h-6 text-logo-primary" />
-                      </div>
-                      <div className="text-2xl font-bold text-gray-900 mb-2">{stat.value}</div>
-                      <div className="text-sm text-gray-600">{stat.label}</div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
+                        </CardContent>
+                      </Card>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
             ) : (
               <div className="text-center py-12">
                 <div className="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center">
@@ -733,36 +667,46 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* NEWSLETTER CTA SECTION */}
-        <section className="py-20 bg-logo-primary">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        {/* UPCOMING EVENTS SECTION */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between mb-12">
+              <div>
+                <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Upcoming Events</h2>
+                <p className="text-lg text-gray-600">Concerts, meetups, and cultural events across Jamaica</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {upcomingEvents.map((ev) => (
             <motion.div
+                  key={ev.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
-              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
-                Never Miss a Beat
-              </h2>
-              <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-                Subscribe to our newsletter for exclusive content, breaking news, 
-                and the latest from Jamaica's vibrant culture.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-6 py-4 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/30 text-lg border-0"
-                />
-                <Button variant="glamour" size="lg" className="group px-8 py-4 text-lg font-semibold">
-                  Subscribe Free
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                  <Card className="h-full bg-white border-0 shadow-sm hover:shadow-md transition-shadow duration-300">
+                    <div className="aspect-[16/10] overflow-hidden rounded-t-lg">
+                      <Image
+                        src={ev.imageUrl || '/images/jamaica-flag-bg.jpg'}
+                        alt={ev.title}
+                        width={400}
+                        height={250}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <CardContent className="p-6">
+                      <div className="text-sm text-gray-500 mb-2 flex items-center">
+                        <Calendar className="w-4 h-4 mr-1" /> {formatters.date(ev.date as any)}
               </div>
-              <p className="text-white/70 text-sm mt-6">
-                Free forever. No spam. Unsubscribe anytime.
-              </p>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{ev.title}</h3>
+                      <p className="text-sm text-gray-600 mb-3 line-clamp-3">{(ev as any).description}</p>
+                      <div className="text-sm text-gray-500">{(ev as any).location}</div>
+                    </CardContent>
+                  </Card>
             </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
