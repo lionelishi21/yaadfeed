@@ -9,6 +9,8 @@ import { Card, CardContent } from '@/components/Card';
 import Button from '@/components/ui/Button';
 import { NewsItem, Artist } from '@/types';
 import { formatters, stringUtils } from '@/utils';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 // Helper function for AI-generated fallback images
 const getFallbackImage = async (category: string, width: number, height: number): Promise<string> => {
@@ -179,6 +181,7 @@ const MusicPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <Header />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-logo-primary to-logo-dark text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -500,6 +503,7 @@ const MusicPage = () => {
           </motion.div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };
