@@ -33,7 +33,7 @@ export function SidebarRectangleAd({ className = '' }: { className?: string }) {
       <div className="bg-gray-50 p-4 rounded-lg">
         <p className="text-xs text-gray-500 mb-2 text-center">Advertisement</p>
         <GoogleAdsense
-          adSlot="ca-pub-1234567890123456/sidebar-rectangle" // Replace with your actual ad slot ID
+          adSlot="1234567891" // Replace with your actual ad slot ID
           adFormat="rectangle"
           style={{ width: '300px', height: '250px' }}
           className="sidebar-rectangle-ad"
@@ -56,7 +56,7 @@ export function InArticleAd({
       <div className="bg-gray-50 p-4 rounded-lg">
         <p className="text-xs text-gray-500 mb-2 text-center">Advertisement</p>
         <GoogleAdsense
-          adSlot="ca-pub-1234567890123456/in-article" // Replace with your actual ad slot ID
+          adSlot="1234567892" // Replace with your actual ad slot ID
           adFormat="auto"
           adLayout="in-article"
           className="in-article-ad"
@@ -72,7 +72,7 @@ export function MultiplexAd({ className = '' }: { className?: string }) {
     <div className={`my-8 ${className}`}>
       <h3 className="text-lg font-semibold mb-4">You might also like</h3>
       <GoogleAdsense
-        adSlot="ca-pub-1234567890123456/multiplex" // Replace with your actual ad slot ID
+        adSlot="1234567893" // Replace with your actual ad slot ID
         adFormat="autorelaxed"
         className="multiplex-ad"
         style={{ minHeight: '280px' }}
@@ -88,7 +88,7 @@ export function FooterBannerAd() {
       <div className="max-w-7xl mx-auto px-4">
         <p className="text-xs text-gray-500 mb-2 text-center">Advertisement</p>
         <GoogleAdsense
-          adSlot="ca-pub-1234567890123456/footer-banner" // Replace with your actual ad slot ID
+          adSlot="1234567894" // Replace with your actual ad slot ID
           adFormat="horizontal"
           className="footer-banner-ad"
           style={{ minHeight: '90px' }}

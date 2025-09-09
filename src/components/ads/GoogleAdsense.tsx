@@ -16,6 +16,7 @@ export function GoogleAdsenseScript() {
 
 type GoogleAdsenseProps = {
   adSlot: string;
+  adClient?: string;
   adFormat?: string;
   adLayout?: string;
   className?: string;
@@ -24,6 +25,7 @@ type GoogleAdsenseProps = {
 
 export default function GoogleAdsense({
   adSlot,
+  adClient = 'ca-pub-6524318430609026',
   adFormat = 'auto',
   adLayout,
   className,
@@ -46,6 +48,7 @@ export default function GoogleAdsense({
       ref={insRef as any}
       className={`adsbygoogle${className ? ` ${className}` : ''}`}
       style={style || { display: 'block' }}
+      data-ad-client={adClient}
       data-ad-slot={adSlot}
       data-ad-format={adFormat}
       {...(adLayout ? { 'data-ad-layout': adLayout } : {})}
