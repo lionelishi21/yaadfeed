@@ -21,6 +21,26 @@ import {
   Upload
 } from 'lucide-react';
 
+// Helper style functions (outside component)
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case 'published': return 'bg-green-100 text-green-800';
+    case 'draft': return 'bg-yellow-100 text-yellow-800';
+    case 'pending': return 'bg-blue-100 text-blue-800';
+    default: return 'bg-gray-100 text-gray-800';
+  }
+};
+
+const getCategoryColor = (category: string) => {
+  switch (category) {
+    case 'music': return 'bg-pink-100 text-pink-800';
+    case 'politics': return 'bg-blue-100 text-blue-800';
+    case 'sports': return 'bg-orange-100 text-orange-800';
+    case 'business': return 'bg-green-100 text-green-800';
+    default: return 'bg-gray-100 text-gray-800';
+  }
+};
+
 interface Article {
   id: string;
   slug?: string;
@@ -213,25 +233,6 @@ export default function ArticlesPage() {
       alert('Error updating article.');
     } finally {
       setLoading(false);
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'published': return 'bg-green-100 text-green-800';
-      case 'draft': return 'bg-yellow-100 text-yellow-800';
-      case 'pending': return 'bg-blue-100 text-blue-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const getCategoryColor = (category: string) => {
-    switch (category) {
-      case 'music': return 'bg-pink-100 text-pink-800';
-      case 'politics': return 'bg-blue-100 text-blue-800';
-      case 'sports': return 'bg-orange-100 text-orange-800';
-      case 'business': return 'bg-green-100 text-green-800';
-      default: return 'bg-gray-100 text-gray-800';
     }
   };
 
@@ -476,122 +477,124 @@ export default function ArticlesPage() {
                 <p className="text-gray-600">Loading articles...</p>
               </div>
             ) : (
-              <div className="overflow-x-auto bg-white/70 backdrop-blur-sm">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Article
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Category
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Status
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Views
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Date
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Actions
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white/70 divide-y divide-gray-200">
-                    {articles
-                      .filter(a => {
-                        const q = query.toLowerCase();
-                        if (!q) return true;
-                        return (
-                          a.title.toLowerCase().includes(q) ||
-                          (a.author || '').toLowerCase().includes(q) ||
-                          (a.keywords || []).join(',').toLowerCase().includes(q)
-                        );
-                      })
-                      .slice((page - 1) * pageSize, page * pageSize)
-                      .map((article) => (
-                      <tr key={article.id} className="hover:bg-gray-50">
-                        <td className="px-6 py-4">
-                          <div className="flex items-center">
-                            {article.featured && (
-                              <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
-                            )}
-                            <div>
-                              <div className="text-sm font-medium text-gray-900 max-w-xs truncate">
-                                {article.title}
-                              </div>
-                              <div className="text-sm text-gray-500">
-                                by {article.author}
+              <>
+                <div className="overflow-x-auto bg-white/70 backdrop-blur-sm">
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Article
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Category
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Status
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Views
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Date
+                        </th>
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white/70 divide-y divide-gray-200">
+                      {articles
+                        .filter(a => {
+                          const q = query.toLowerCase();
+                          if (!q) return true;
+                          return (
+                            a.title.toLowerCase().includes(q) ||
+                            (a.author || '').toLowerCase().includes(q) ||
+                            (a.keywords || []).join(',').toLowerCase().includes(q)
+                          );
+                        })
+                        .slice((page - 1) * pageSize, page * pageSize)
+                        .map((article) => (
+                        <tr key={article.id} className="hover:bg-gray-50">
+                          <td className="px-6 py-4">
+                            <div className="flex items-center">
+                              {article.featured && (
+                                <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
+                              )}
+                              <div>
+                                <div className="text-sm font-medium text-gray-900 max-w-xs truncate">
+                                  {article.title}
+                                </div>
+                                <div className="text-sm text-gray-500">
+                                  by {article.author}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getCategoryColor(article.category)}`}>
-                            {article.category}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(article.status)}`}>
-                            {article.status}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                          {article.views.toLocaleString()}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {new Date(article.createdAt).toLocaleDateString()}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <div className="flex items-center space-x-2">
-                            <button onClick={() => openEditor(article)} className="text-blue-600 hover:text-blue-900">
-                              <Edit className="w-4 h-4" />
-                            </button>
-                            <button className="text-green-600 hover:text-green-900">
-                              <Eye className="w-4 h-4" />
-                            </button>
-                            <button
-                              onClick={() => aiFixArticle(article)}
-                              className={`text-purple-600 hover:text-purple-900 ${fixingId === article.id ? 'opacity-50' : ''}`}
-                              disabled={fixingId === article.id}
-                            >
-                              <Zap className={`w-4 h-4 ${fixingId === article.id ? 'animate-pulse' : ''}`} />
-                            </button>
-                            <button
-                              onClick={() => toggleFeatured(article.id)}
-                              className={`${article.featured ? 'text-yellow-600' : 'text-gray-400'} hover:text-yellow-900`}
-                            >
-                              <TrendingUp className="w-4 h-4" />
-                            </button>
-                            <button
-                              onClick={() => deleteArticle(article.id)}
-                              className="text-red-600 hover:text-red-900"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <div className="flex items-center justify-between px-6 py-4 bg-white/70 backdrop-blur-sm border-t">
-                <div className="text-sm text-gray-600">
-                  Showing {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, articles.filter(a => a.title.toLowerCase().includes(query.toLowerCase())).length)} of {articles.length}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getCategoryColor(article.category)}`}>
+                              {article.category}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(article.status)}`}>
+                              {article.status}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            {article.views.toLocaleString()}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {new Date(article.createdAt).toLocaleDateString()}
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <div className="flex items-center space-x-2">
+                              <button onClick={() => openEditor(article)} className="text-blue-600 hover:text-blue-900">
+                                <Edit className="w-4 h-4" />
+                              </button>
+                              <button className="text-green-600 hover:text-green-900">
+                                <Eye className="w-4 h-4" />
+                              </button>
+                              <button
+                                onClick={() => aiFixArticle(article)}
+                                className={`text-purple-600 hover:text-purple-900 ${fixingId === article.id ? 'opacity-50' : ''}`}
+                                disabled={fixingId === article.id}
+                              >
+                                <Zap className={`w-4 h-4 ${fixingId === article.id ? 'animate-pulse' : ''}`} />
+                              </button>
+                              <button
+                                onClick={() => toggleFeatured(article.id)}
+                                className={`${article.featured ? 'text-yellow-600' : 'text-gray-400'} hover:text-yellow-900`}
+                              >
+                                <TrendingUp className="w-4 h-4" />
+                              </button>
+                              <button
+                                onClick={() => deleteArticle(article.id)}
+                                className="text-red-600 hover:text-red-900"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <select value={pageSize} onChange={(e) => { setPageSize(parseInt(e.target.value) || 10); setPage(1); }} className="border rounded px-2 py-1 text-sm">
-                    {[10, 20, 50].map(n => <option key={n} value={n}>{n}/page</option>)}
-                  </select>
-                  <button onClick={() => setPage(Math.max(1, page - 1))} className="px-3 py-1 rounded border bg-white hover:bg-gray-50 text-sm">Prev</button>
-                  <span className="text-sm">Page {page}</span>
-                  <button onClick={() => setPage(page + 1)} className="px-3 py-1 rounded border bg-white hover:bg-gray-50 text-sm">Next</button>
+                <div className="flex items-center justify-between px-6 py-4 bg-white/70 backdrop-blur-sm border-t">
+                  <div className="text-sm text-gray-600">
+                    Showing {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, articles.filter(a => a.title.toLowerCase().includes(query.toLowerCase())).length)} of {articles.length}
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <select value={pageSize} onChange={(e) => { setPageSize(parseInt(e.target.value) || 10); setPage(1); }} className="border rounded px-2 py-1 text-sm">
+                      {[10, 20, 50].map(n => <option key={n} value={n}>{n}/page</option>)}
+                    </select>
+                    <button onClick={() => setPage(Math.max(1, page - 1))} className="px-3 py-1 rounded border bg-white hover:bg-gray-50 text-sm">Prev</button>
+                    <span className="text-sm">Page {page}</span>
+                    <button onClick={() => setPage(page + 1)} className="px-3 py-1 rounded border bg-white hover:bg-gray-50 text-sm">Next</button>
+                  </div>
                 </div>
-              </div>
+              </>
             )}
           </div>
         </div>
@@ -821,4 +824,4 @@ export default function ArticlesPage() {
       )}
     </div>
   );
-} 
+}

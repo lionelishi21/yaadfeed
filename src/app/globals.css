@@ -234,8 +234,8 @@
   .yf-article h1 { @apply text-3xl font-bold mt-8 mb-4 text-gray-900; }
   .yf-article h2 { @apply text-2xl font-semibold mt-8 mb-3 text-gray-900; }
   .yf-article h3 { @apply text-xl font-semibold mt-6 mb-3 text-gray-900; }
-  .yf-article a { @apply text-jamaica-green-700 underline hover:text-jamaica-green-800; }
-  .yf-article blockquote { @apply border-l-4 border-jamaica-gold-500 pl-4 italic text-gray-700 my-6; }
+  .yf-article a { @apply text-green-700 underline hover:text-green-800; }
+  .yf-article blockquote { @apply border-l-4 border-yellow-500 pl-4 italic text-gray-700 my-6; }
   .yf-article ul { @apply list-disc pl-6 mb-6; }
   .yf-article ol { @apply list-decimal pl-6 mb-6; }
   .yf-article img { @apply rounded-xl shadow-soft my-6; }

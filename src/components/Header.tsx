@@ -16,7 +16,15 @@ const Header = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  
+  // Only use session after component mounts (client-side)
   const { data: session, status } = useSession();
+
+  // Set mounted state after component mounts
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Listen for custom auth modal events
   useEffect(() => {
@@ -59,8 +67,8 @@ const Header = () => {
   const UserMenu = () => (
     <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-md border border-gray-200 py-2 z-50">
       <div className="px-4 py-3 border-b border-gray-100">
-        <p className="text-sm font-semibold text-gray-900">{session?.user?.name}</p>
-        <p className="text-xs text-gray-500">{session?.user?.email}</p>
+        <p className="text-sm font-semibold text-gray-900">{session?.user?.name || 'User'}</p>
+        <p className="text-xs text-gray-500">{session?.user?.email || ''}</p>
       </div>
       <Link
         href="/profile"
@@ -135,7 +143,7 @@ const Header = () => {
               </button>
 
               {/* User Menu */}
-              {status === 'authenticated' ? (
+              {mounted && status === 'authenticated' ? (
                 <div className="relative">
                   <button
                     onClick={() => setShowUserMenu(!showUserMenu)}

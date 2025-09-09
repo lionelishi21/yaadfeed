@@ -1,4 +1,4 @@
-'use client';
+  'use client';
 
 export const dynamic = 'force-dynamic';
 
@@ -7,7 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from "motion/react"
 import { Play, ArrowRight, Calendar, Share2, ExternalLink, Music, Newspaper, Users, TrendingUp, Star, Clock, Sparkles, Zap, Globe, Heart, Eye, ChevronRight } from 'lucide-react';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardFooter } from '@/components/Card';
 import Button from '@/components/ui/Button';
@@ -292,7 +292,7 @@ const HomePage = () => {
     return (
       <Preloader isLoading={true}>
         <div className="min-h-screen bg-white">
-          <Header />
+          <ClientHeader />
           <div className="flex items-center justify-center h-64">
             <div className="loading-shimmer w-32 h-8 rounded-lg"></div>
           </div>
@@ -305,7 +305,7 @@ const HomePage = () => {
   return (
     <Preloader isLoading={false}>
       <div className="min-h-screen bg-white">
-        <Header />
+        <ClientHeader />
         
         {/* HERO SECTION */}
         <section className="relative bg-gradient-to-br from-logo-primary to-logo-dark text-white py-20 lg:py-32">
