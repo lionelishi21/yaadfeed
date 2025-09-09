@@ -52,6 +52,68 @@ const getCategoryKeywords = (category: string): string[] => {
   return categoryMap[category.toLowerCase()] || categoryMap['general'];
 };
 
+// Fallback music news if API is unavailable
+const getFallbackMusicNews = (): NewsItem[] => [
+  {
+    id: 'fallback-1',
+    title: 'Reggae Revival: Sounds of the Island',
+    category: 'reggae',
+    summary: 'A look at the new wave of reggae artists carrying the torch.',
+    slug: 'reggae-revival-sounds-of-the-island',
+    imageUrl: '/images/jamaica-flag-bg.jpg',
+    publishedAt: new Date().toISOString(),
+    readTime: 3,
+  },
+  {
+    id: 'fallback-2',
+    title: 'Dancehall Energy: The Beat Goes On',
+    category: 'dancehall',
+    summary: 'Modern dancehall trends shaping global club culture.',
+    slug: 'dancehall-energy-the-beat-goes-on',
+    imageUrl: '/images/music-a7c5368b17b9.jpg',
+    publishedAt: new Date().toISOString(),
+    readTime: 2,
+  },
+  {
+    id: 'fallback-3',
+    title: 'Entertainment Buzz: Island Highlights',
+    category: 'entertainment',
+    summary: 'Highlights from Jamaica’s vibrant entertainment scene.',
+    slug: 'entertainment-buzz-island-highlights',
+    imageUrl: '/images/entertainment-78e5a1307748.jpg',
+    publishedAt: new Date().toISOString(),
+    readTime: 2,
+  },
+];
+
+// Fallback artists if API is unavailable
+const getFallbackArtists = (): Artist[] => [
+  {
+    id: 'artist-1',
+    name: 'Island Star',
+    genres: ['Reggae', 'Dancehall'],
+    imageUrl: '/images/jamaica-flag-bg.jpg',
+    popularity: 85,
+    isVerified: true,
+  },
+  {
+    id: 'artist-2',
+    name: 'Kingston Vibes',
+    genres: ['Dancehall'],
+    imageUrl: '/images/music-f0c59a497d92.jpg',
+    popularity: 72,
+    isVerified: false,
+  },
+  {
+    id: 'artist-3',
+    name: 'Roots Harmony',
+    genres: ['Reggae'],
+    imageUrl: '/images/entertainment-ee2d621ddb29.jpg',
+    popularity: 68,
+    isVerified: false,
+  },
+];
+
 // Component for handling music news images
 const MusicNewsImage = ({ article, width, height, className }: { article: NewsItem; width: number; height: number; className: string; }) => {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
