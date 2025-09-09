@@ -5,9 +5,8 @@ import { useEffect, useRef } from "react";
 
 export function GoogleAdsenseScript() {
   return (
-    <Script
+    <script
       async
-      strategy="afterInteractive"
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6524318430609026"
       crossOrigin="anonymous"
     />

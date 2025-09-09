@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { GoogleAdsenseScript } from '@/components/ads/GoogleAdsense';
 import { HeaderBannerAd, MobileStickyAd, AdBlockerDetector } from '@/components/ads/AdPlacements';
 import ClientProviders from '@/components/ClientProviders';
 
@@ -113,7 +112,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <GoogleAdsenseScript />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6524318430609026" crossOrigin="anonymous" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#06b6d4" />
         <meta name="google-adsense-account" content="ca-pub-6524318430609026" />
@@ -123,9 +122,6 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
         <link rel="manifest" href="/favicon/site.webmanifest" />
         <link rel="canonical" href={SITE_URL} />
-        <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
-        <link rel="preconnect" href="https://www.googletagservices.com" />
-        <link rel="dns-prefetch" href="https://securepubads.g.doubleclick.net" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
         <script
