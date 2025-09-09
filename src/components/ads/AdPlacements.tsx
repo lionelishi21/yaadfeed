@@ -3,8 +3,12 @@
 import { useState, useEffect } from 'react';
 import GoogleAdsense from './GoogleAdsense';
 
+// Auto Ads default ON unless explicitly disabled with NEXT_PUBLIC_USE_AUTO_ADS="false"
+const AUTO_ADS = process.env.NEXT_PUBLIC_USE_AUTO_ADS !== 'false';
+
 // Header Banner Ad (Above Navigation)
 export function HeaderBannerAd() {
+  if (AUTO_ADS) return null;
   useEffect(() => {
     try {
       // @ts-ignore
@@ -28,6 +32,7 @@ export function HeaderBannerAd() {
 
 // Sidebar Rectangle Ad
 export function SidebarRectangleAd({ className = '' }: { className?: string }) {
+  if (AUTO_ADS) return null;
   return (
     <div className={`sticky top-4 ${className}`}>
       <div className="bg-gray-50 p-4 rounded-lg">
@@ -51,6 +56,7 @@ export function InArticleAd({
   className?: string;
   paragraphIndex?: number;
 }) {
+  if (AUTO_ADS) return null;
   return (
     <div className={`my-8 ${className}`}>
       <div className="bg-gray-50 p-4 rounded-lg">
@@ -69,6 +75,7 @@ export function InArticleAd({
 
 // Multiplex Ad (Recommended Content Style)
 export function MultiplexAd({ className = '' }: { className?: string }) {
+  if (AUTO_ADS) return null;
   return (
     <div className={`my-8 ${className}`}>
       <h3 className="text-lg font-semibold mb-4">You might also like</h3>
@@ -84,6 +91,7 @@ export function MultiplexAd({ className = '' }: { className?: string }) {
 
 // Footer Banner Ad
 export function FooterBannerAd() {
+  if (AUTO_ADS) return null;
   return (
     <div className="w-full bg-gray-100 py-4 mt-8">
       <div className="max-w-7xl mx-auto px-4">
@@ -101,6 +109,7 @@ export function FooterBannerAd() {
 
 // Mobile Sticky Bottom Ad
 export function MobileStickyAd() {
+  if (AUTO_ADS) return null;
   const [isVisible, setIsVisible] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -147,6 +156,7 @@ export function NativeAd({
   className?: string;
   title?: string;
 }) {
+  if (AUTO_ADS) return null;
   return (
     <div className={`bg-white rounded-lg border p-4 ${className}`}>
       <h4 className="text-sm font-medium text-gray-600 mb-3">{title}</h4>
@@ -168,6 +178,15 @@ export function ArticleWithAds({
   content: string;
   className?: string;
 }) {
+  if (AUTO_ADS) {
+    return (
+      <div className={`article-content ${className}`}>
+        {content.split('\n\n').map((p, i) => (
+          <p key={`paragraph-${i}`} className="mb-4">{p}</p>
+        ))}
+      </div>
+    );
+  }
   const insertAdsInContent = (content: string) => {
     const paragraphs = content.split('\n\n');
     const result = [];

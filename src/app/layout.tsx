@@ -83,6 +83,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Auto Ads default ON unless explicitly disabled with NEXT_PUBLIC_USE_AUTO_ADS="false"
+  const useAutoAds = process.env.NEXT_PUBLIC_USE_AUTO_ADS !== 'false';
   const orgJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -147,12 +149,12 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} bg-gradient-to-br from-slate-50 via-white to-slate-100 text-gray-900`}>
         <ClientProviders>
-          <HeaderBannerAd />
+          {!useAutoAds && <HeaderBannerAd />}
           <main className="min-h-screen pt-16">
             {children}
           </main>
-          <MobileStickyAd />
-          <AdBlockerDetector />
+          {!useAutoAds && <MobileStickyAd />}
+          {!useAutoAds && <AdBlockerDetector />}
         </ClientProviders>
       </body>
     </html>
