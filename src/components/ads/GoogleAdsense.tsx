@@ -52,7 +52,7 @@ export default function GoogleAdsense({
       data-ad-slot={adSlot}
       data-ad-format={adFormat}
       {...(adLayout ? { 'data-ad-layout': adLayout } : {})}
-      data-full-width-responsive="true"
+      {...(adFormat === 'fluid' ? {} : { 'data-full-width-responsive': 'true' })}
     />
   );
 }

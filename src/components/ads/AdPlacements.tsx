@@ -56,9 +56,10 @@ export function InArticleAd({
       <div className="bg-gray-50 p-4 rounded-lg">
         <p className="text-xs text-gray-500 mb-2 text-center">Advertisement</p>
         <GoogleAdsense
-          adSlot="1234567892" // Replace with your actual ad slot ID
-          adFormat="auto"
+          adSlot="8149208204"
+          adFormat="fluid"
           adLayout="in-article"
+          style={{ display: 'block', textAlign: 'center' }}
           className="in-article-ad"
         />
       </div>

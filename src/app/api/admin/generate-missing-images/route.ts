@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { ObjectId } from 'mongodb';
 import { connectToDatabase } from '@/lib/mongodb';
 import { ImageService } from '@/lib/imageService';
 
@@ -212,7 +213,15 @@ export async function POST(request: NextRequest) {
 
     } else if (articleId) {
       // Generate image for specific article
-      const article = await newsCollection.findOne({ _id: articleId });
+      if (!ObjectId.isValid(articleId)) {
+        return NextResponse.json(
+          { success: false, error: 'Invalid articleId' },
+          { status: 400 }
+        );
+      }
+
+      const articleObjectId = new ObjectId(articleId);
+      const article = await newsCollection.findOne({ _id: articleObjectId });
       
       if (!article) {
         return NextResponse.json(
@@ -225,7 +234,7 @@ export async function POST(request: NextRequest) {
 
       // Mark as in progress
       await newsCollection.updateOne(
-        { _id: articleId },
+        { _id: articleObjectId },
         { 
           $set: { 
             imageStatus: 'generating',
@@ -246,7 +255,7 @@ export async function POST(request: NextRequest) {
 
       // Update article with generated image
       await newsCollection.updateOne(
-        { _id: articleId },
+        { _id: articleObjectId },
         { 
           $set: { 
             imageUrl,
