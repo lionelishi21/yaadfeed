@@ -8,7 +8,7 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Footer from '@/components/Footer';
 import Comments from '@/components/Comments';
-import { formatters, stringUtils } from '@/utils';
+import { formatters, stringUtils, contentUtils } from '@/utils';
 import Header from '@/components/Header';
 
 interface ArticleContentProps {
@@ -192,7 +192,8 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
     };
 
     loadImages();
-    const text = stripHtmlToText(article?.content || article?.summary || '');
+    const raw = stripHtmlToText(article?.content || article?.summary || '');
+    const text = contentUtils.sanitizeText(raw);
     setParagraphs(splitIntoParagraphs(text));
   }, [article]);
 
@@ -241,12 +242,12 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
 
                   {/* Title */}
               <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                {article.title}
+                {contentUtils.sanitizeText(article.title)}
               </h1>
 
                   {/* Summary */}
                   <p className="text-xl text-gray-600 mb-8 leading-relaxed font-light">
-                {article.summary}
+                {contentUtils.normalizeExcerpt(article.summary || '')}
               </p>
 
                   {/* Author & Share */}
@@ -312,7 +313,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
               <div className="lg:col-span-2">
                 <Card className="p-8 lg:p-12 bg-white/90 backdrop-blur-sm border border-white/20 shadow-xl">
-                  <article className="prose prose-lg prose-gray max-w-none">
+                  <article className="yf-article max-w-none">
                     <div className="article-content">
                       <div className="text-gray-800 leading-relaxed space-y-6">
                         {paragraphs.length > 0 ? (

@@ -1,5 +1,50 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+async function fetchAndExtractMainContent(url: string): Promise<string> {
+  try {
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      },
+      cache: 'no-store'
+    });
+    if (!res.ok) return '';
+    const html = await res.text();
+    // Try extracting <article> or <main>, or common content containers
+    let segment = '';
+    const articleMatch = html.match(/<article[\s\S]*?>([\s\S]*?)<\/article>/i);
+    if (articleMatch) segment = articleMatch[1];
+    if (!segment) {
+      const mainMatch = html.match(/<main[\s\S]*?>([\s\S]*?)<\/main>/i);
+      if (mainMatch) segment = mainMatch[1];
+    }
+    if (!segment) {
+      const divMatch = html.match(/<div[^>]*(class|id)=["']([^"']*(article|content|post|story|entry)[^"']*)["'][^>]*>([\s\S]*?)<\/div>/i);
+      if (divMatch) segment = divMatch[4];
+    }
+    const withBreaks = (segment || html)
+      .replace(/\r/g, '')
+      .replace(/<\/(p|div|section|article|h\d|li)>/gi, '\n\n')
+      .replace(/<br\s*\/??\s*>/gi, '\n')
+      .replace(/<li>/gi, '• ');
+    const cleaned = withBreaks
+      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&quot;/g, '"')
+      .replace(/&apos;/g, "'")
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&amp;/g, '&')
+      .replace(/\s+/g, ' ')
+      .trim();
+    return cleaned;
+  } catch {
+    return '';
+  }
+}
+
 // Generate static params for static export
 export async function generateStaticParams() {
   return [
@@ -41,17 +86,26 @@ export async function GET(
     );
 
     // Transform article data (defensive)
-    const articleContent = typeof article.content === 'string' ? article.content : '';
+    let articleContent = typeof article.content === 'string' ? article.content : '';
+    // If content is too short, try expanding from original source URL when available
+    const originalUrl: string = (article as any).url || '';
+    if (articleContent.trim().length < 400 && originalUrl) {
+      const expanded = await fetchAndExtractMainContent(originalUrl);
+      if (expanded && expanded.length > articleContent.length) {
+        articleContent = expanded;
+      }
+    }
     const articleViewCount = typeof article.viewCount === 'number' ? article.viewCount : 0;
     const transformedArticle = {
       id: (article as any)._id,
       title: article.title || '',
       slug: article.slug || '',
-      summary: article.summary || '',
+      summary: (article.summary && article.summary.length > 40) ? article.summary : (articleContent ? (articleContent.slice(0, 320) + (articleContent.length > 320 ? '…' : '')) : ''),
       content: articleContent,
       imageUrl: article.imageUrl || '',
       category: article.category || 'general',
       source: article.source || '',
+      url: originalUrl,
       publishedAt: article.publishedAt,
       author: article.author || '',
       tags: Array.isArray(article.tags) ? article.tags : [],

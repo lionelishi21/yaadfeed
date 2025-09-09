@@ -23,6 +23,7 @@ import {
 
 interface Article {
   id: string;
+  slug?: string;
   title: string;
   summary: string;
   content: string;
@@ -61,6 +62,12 @@ export default function ArticlesPage() {
   const [generating, setGenerating] = useState(false);
   const [selectedArticles, setSelectedArticles] = useState<string[]>([]);
   const [generateCount, setGenerateCount] = useState(10);
+  const [editing, setEditing] = useState<null | Article>(null);
+  const [saving, setSaving] = useState(false);
+  const [fixingId, setFixingId] = useState<string | null>(null);
+  const [query, setQuery] = useState('');
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
     fetchArticles();
@@ -76,6 +83,7 @@ export default function ArticlesPage() {
       setArticles(
         (data.news || []).map((item: any) => ({
           id: item.id || item._id,
+          slug: item.slug,
           title: item.title,
           summary: item.summary,
           content: item.content,
@@ -94,6 +102,54 @@ export default function ArticlesPage() {
       console.error('Failed to fetch articles:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const openEditor = (article: Article) => {
+    setEditing({ ...article });
+  };
+
+  const saveArticle = async () => {
+    if (!editing) return;
+    setSaving(true);
+    try {
+      const identifier = editing.slug || editing.id;
+      const response = await fetch(`/api/news/${identifier}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: editing.title,
+          summary: editing.summary,
+          content: editing.content,
+          category: editing.category,
+          author: editing.author,
+          isPopular: editing.featured,
+          keywords: editing.keywords,
+        })
+      });
+      if (!response.ok) throw new Error('Failed to save');
+      await fetchArticles();
+      setEditing(null);
+    } catch (e) {
+      alert('Failed to save article.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const aiFixArticle = async (article: Article) => {
+    try {
+      setFixingId(article.id);
+      const res = await fetch(`/api/admin/articles/${article.id}/fix`, {
+        method: 'POST',
+      });
+      if (!res.ok) throw new Error('AI fix failed');
+      await fetchArticles();
+      alert('AI fix applied.');
+    } catch (e) {
+      alert('Unable to apply AI fix.');
+    } finally {
+      setFixingId(null);
     }
   };
 
@@ -182,20 +238,20 @@ export default function ArticlesPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center glass rounded-xl p-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Article Management</h1>
           <p className="mt-2 text-gray-600">Create, manage, and optimize your content with AI assistance</p>
         </div>
         <div className="flex space-x-3">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center space-x-2">
+          <button className="soft-button px-4 py-2 rounded-lg flex items-center space-x-2">
             <Plus className="w-4 h-4" />
             <span>New Article</span>
           </button>
           <button
             onClick={generateArticles}
             disabled={generating}
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 flex items-center space-x-2"
+            className="btn-glamour px-4 py-2 rounded-lg disabled:opacity-50 flex items-center space-x-2"
           >
             {generating ? (
               <>
@@ -214,7 +270,7 @@ export default function ArticlesPage() {
 
       {/* Key Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+        <div className="soft-card p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-blue-50 rounded-lg">
               <FileText className="w-6 h-6 text-blue-600" />
@@ -226,7 +282,7 @@ export default function ArticlesPage() {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+        <div className="soft-card p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-green-50 rounded-lg">
               <Eye className="w-6 h-6 text-green-600" />
@@ -238,7 +294,7 @@ export default function ArticlesPage() {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+        <div className="soft-card p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-yellow-50 rounded-lg">
               <Edit className="w-6 h-6 text-yellow-600" />
@@ -250,7 +306,7 @@ export default function ArticlesPage() {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+        <div className="soft-card p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-purple-50 rounded-lg">
               <TrendingUp className="w-6 h-6 text-purple-600" />
@@ -262,7 +318,7 @@ export default function ArticlesPage() {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+        <div className="soft-card p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-orange-50 rounded-lg">
               <BarChart3 className="w-6 h-6 text-orange-600" />
@@ -274,7 +330,7 @@ export default function ArticlesPage() {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+        <div className="soft-card p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-pink-50 rounded-lg">
               <Tag className="w-6 h-6 text-pink-600" />
@@ -387,10 +443,16 @@ export default function ArticlesPage() {
       {activeTab === 'articles' && (
         <div className="space-y-6">
           <div className="bg-white rounded-lg shadow border border-gray-200">
-            <div className="px-6 py-4 border-b border-gray-200">
+            <div className="px-6 py-4 border-b border-gray-200 backdrop-blur-sm bg-white/70">
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold">All Articles</h3>
                 <div className="flex space-x-3">
+                  <input
+                    placeholder="Search by title, author, or keyword"
+                    value={query}
+                    onChange={(e) => { setQuery(e.target.value); setPage(1); }}
+                    className="border border-gray-300 rounded-lg px-3 py-2 text-sm w-64"
+                  />
                   <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm">
                     <option>All Categories</option>
                     <option>Music</option>
@@ -414,7 +476,7 @@ export default function ArticlesPage() {
                 <p className="text-gray-600">Loading articles...</p>
               </div>
             ) : (
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto bg-white/70 backdrop-blur-sm">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
@@ -438,8 +500,19 @@ export default function ArticlesPage() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {articles.map((article) => (
+                  <tbody className="bg-white/70 divide-y divide-gray-200">
+                    {articles
+                      .filter(a => {
+                        const q = query.toLowerCase();
+                        if (!q) return true;
+                        return (
+                          a.title.toLowerCase().includes(q) ||
+                          (a.author || '').toLowerCase().includes(q) ||
+                          (a.keywords || []).join(',').toLowerCase().includes(q)
+                        );
+                      })
+                      .slice((page - 1) * pageSize, page * pageSize)
+                      .map((article) => (
                       <tr key={article.id} className="hover:bg-gray-50">
                         <td className="px-6 py-4">
                           <div className="flex items-center">
@@ -474,11 +547,18 @@ export default function ArticlesPage() {
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                           <div className="flex items-center space-x-2">
-                            <button className="text-blue-600 hover:text-blue-900">
+                            <button onClick={() => openEditor(article)} className="text-blue-600 hover:text-blue-900">
                               <Edit className="w-4 h-4" />
                             </button>
                             <button className="text-green-600 hover:text-green-900">
                               <Eye className="w-4 h-4" />
+                            </button>
+                            <button
+                              onClick={() => aiFixArticle(article)}
+                              className={`text-purple-600 hover:text-purple-900 ${fixingId === article.id ? 'opacity-50' : ''}`}
+                              disabled={fixingId === article.id}
+                            >
+                              <Zap className={`w-4 h-4 ${fixingId === article.id ? 'animate-pulse' : ''}`} />
                             </button>
                             <button
                               onClick={() => toggleFeatured(article.id)}
@@ -499,7 +579,102 @@ export default function ArticlesPage() {
                   </tbody>
                 </table>
               </div>
+              <div className="flex items-center justify-between px-6 py-4 bg-white/70 backdrop-blur-sm border-t">
+                <div className="text-sm text-gray-600">
+                  Showing {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, articles.filter(a => a.title.toLowerCase().includes(query.toLowerCase())).length)} of {articles.length}
+                </div>
+                <div className="flex items-center space-x-3">
+                  <select value={pageSize} onChange={(e) => { setPageSize(parseInt(e.target.value) || 10); setPage(1); }} className="border rounded px-2 py-1 text-sm">
+                    {[10, 20, 50].map(n => <option key={n} value={n}>{n}/page</option>)}
+                  </select>
+                  <button onClick={() => setPage(Math.max(1, page - 1))} className="px-3 py-1 rounded border bg-white hover:bg-gray-50 text-sm">Prev</button>
+                  <span className="text-sm">Page {page}</span>
+                  <button onClick={() => setPage(page + 1)} className="px-3 py-1 rounded border bg-white hover:bg-gray-50 text-sm">Next</button>
+                </div>
+              </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Edit Modal */}
+      {editing && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white w-full max-w-3xl rounded-lg shadow-lg border border-gray-200">
+            <div className="px-6 py-4 border-b flex items-center justify-between">
+              <h3 className="text-lg font-semibold">Edit Article</h3>
+              <button onClick={() => setEditing(null)} className="text-gray-500 hover:text-gray-700">✕</button>
+            </div>
+            <div className="p-6 space-y-4 max-h-[70vh] overflow-auto">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                <input
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  value={editing.title}
+                  onChange={(e) => setEditing({ ...editing, title: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Summary</label>
+                <textarea
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  rows={3}
+                  value={editing.summary}
+                  onChange={(e) => setEditing({ ...editing, summary: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                <textarea
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 font-mono"
+                  rows={12}
+                  value={editing.content}
+                  onChange={(e) => setEditing({ ...editing, content: e.target.value })}
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                  <input
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                    value={editing.category}
+                    onChange={(e) => setEditing({ ...editing, category: e.target.value })}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Author</label>
+                  <input
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                    value={editing.author}
+                    onChange={(e) => setEditing({ ...editing, author: e.target.value })}
+                  />
+                </div>
+                <div className="flex items-center space-x-2 mt-6">
+                  <input
+                    id="featured"
+                    type="checkbox"
+                    className="h-4 w-4"
+                    checked={editing.featured}
+                    onChange={(e) => setEditing({ ...editing, featured: e.target.checked })}
+                  />
+                  <label htmlFor="featured" className="text-sm text-gray-700">Featured</label>
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Keywords (comma-separated)</label>
+                <input
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  value={(editing.keywords || []).join(', ')}
+                  onChange={(e) => setEditing({ ...editing, keywords: e.target.value.split(',').map(s => s.trim()).filter(Boolean) })}
+                />
+              </div>
+            </div>
+            <div className="px-6 py-4 border-t bg-gray-50 flex items-center justify-end space-x-3">
+              <button onClick={() => setEditing(null)} className="px-4 py-2 rounded-lg border">Cancel</button>
+              <button onClick={saveArticle} disabled={saving} className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50">
+                {saving ? 'Saving…' : 'Save Changes'}
+              </button>
+            </div>
           </div>
         </div>
       )}

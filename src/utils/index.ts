@@ -110,6 +110,52 @@ export const stringUtils = {
   },
 };
 
+// Content sanitization utilities
+export const contentUtils = {
+  sanitizeText: (text: string): string => {
+    if (!text) return '';
+    let cleaned = text
+      // Remove common RSS/WordPress tails like "The post ... appeared first on ..."
+      .replace(/\bthe post\b[\s\S]*?\bappeared first on\b[\s\S]*?$/gi, '')
+      // Remove trailing source parentheses like (Source: example.com)
+      .replace(/\(\s*source:\s*[^\)]+\)\s*$/gim, '')
+      // Remove CDATA markers and leftover brackets
+      .replace(/<!\[CDATA\[|]]>/g, '')
+      // Normalize Read More artifacts
+      .replace(/\[\s*read more\s*\.?\s*]\s*/gi, '')
+      .replace(/read more\s*\.\.\.|read more\s*»?/gi, '')
+      // Collapse excessive whitespace
+      .replace(/\s{3,}/g, ' ')  
+      .trim();
+
+    // Remove duplicated leading headline fragments repeated at start of body
+    const firstSentence = cleaned.split(/\n|\.|!|\?/)[0]?.trim();
+    if (firstSentence && cleaned.toLowerCase().startsWith((firstSentence + ' ' + firstSentence).toLowerCase())) {
+      cleaned = cleaned.slice(firstSentence.length + 1);
+    }
+
+    // Remove exact duplicate lines/paragraphs next to each other
+    const parts = cleaned.split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
+    const deduped: string[] = [];
+    for (const p of parts) {
+      if (deduped.length === 0 || deduped[deduped.length - 1].toLowerCase() !== p.toLowerCase()) {
+        deduped.push(p);
+      }
+    }
+    cleaned = deduped.join('\n\n');
+
+    return cleaned.trim();
+  },
+
+  normalizeExcerpt: (text: string, maxLength: number = 220): string => {
+    const t = contentUtils.sanitizeText(text)
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (t.length <= maxLength) return t;
+    return t.slice(0, maxLength).replace(/[,;:\s]+\S*$/, '') + '…';
+  },
+};
+
 // Validation utilities
 export const validators = {
   email: (email: string) => {

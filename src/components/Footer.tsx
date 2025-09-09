@@ -74,7 +74,7 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-10 h-10 bg-logo-primary rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">Y</span>
+                  <img src="/logo.gif" alt="YaadFeed" className="w-10 h-10 object-contain" />
                 </div>
                 <span className="text-2xl font-bold text-white">YaadFeed</span>
               </div>

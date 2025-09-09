@@ -1,3 +1,129 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy | YaadFeed',
+  description: 'Learn how YaadFeed collects, uses, and protects your data.',
+};
+
+export default function PrivacyPolicyPage() {
+  return (
+    <div className="mx-auto max-w-3xl px-4 py-10">
+      <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
+      <p className="text-sm text-gray-500 mb-8">Last updated: {new Date().toLocaleDateString()}</p>
+
+      <section className="space-y-6 text-gray-800 leading-7">
+        <p>
+          This Privacy Policy explains how YaadFeed ("we", "us", or "our") collects, uses,
+          discloses, and safeguards your information when you use our website, mobile site, and
+          related services (collectively, the "Services"). By using the Services, you consent to
+          our practices described in this Policy.
+        </p>
+
+        <h2 className="text-xl font-semibold">1. Information We Collect</h2>
+        <p>We may collect the following categories of information:</p>
+        <ul className="list-disc pl-6 space-y-2">
+          <li>
+            <span className="font-medium">Personal Information</span>: Such as name, email address, and any
+            information you provide when you contact us or create an account (if applicable).
+          </li>
+          <li>
+            <span className="font-medium">Usage Data</span>: Pages viewed, links clicked, referring/exit pages,
+            and other activity on the Services.
+          </li>
+          <li>
+            <span className="font-medium">Device and Log Information</span>: IP address, browser type, operating
+            system, device identifiers, and access times.
+          </li>
+          <li>
+            <span className="font-medium">Cookies and Similar Technologies</span>: We use cookies, web beacons,
+            and similar technologies to improve and personalize your experience.
+          </li>
+        </ul>
+
+        <h2 className="text-xl font-semibold">2. How We Use Your Information</h2>
+        <ul className="list-disc pl-6 space-y-2">
+          <li>Provide, maintain, and improve the Services.</li>
+          <li>Personalize content and remember your preferences.</li>
+          <li>Monitor and analyze usage and trends.</li>
+          <li>Communicate with you, including responding to inquiries.</li>
+          <li>Detect, prevent, and address technical or security issues.</li>
+        </ul>
+
+        <h2 className="text-xl font-semibold">3. Advertising, Analytics, and Cookies</h2>
+        <p>
+          We may use third-party advertising and analytics partners, including Google AdSense and
+          Google Analytics. These partners may set cookies or use similar technologies to collect
+          information about your use of the Services and other websites. You can learn more about
+          how Google uses data from partners at
+          <span className="whitespace-pre"> </span>
+          <a className="text-teal-600 underline" href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Google Policies</a>.
+        </p>
+        <p>
+          You can control cookies through your browser settings. Disabling cookies may affect some
+          features of the Services.
+        </p>
+
+        <h2 className="text-xl font-semibold">4. Sharing of Information</h2>
+        <p>
+          We may share information with:
+        </p>
+        <ul className="list-disc pl-6 space-y-2">
+          <li>Service providers who assist in operating the Services.</li>
+          <li>Analytics and advertising partners as described above.</li>
+          <li>Authorities or third parties if required by law or to protect rights and safety.</li>
+          <li>In connection with a merger, sale, or asset transfer.</li>
+        </ul>
+
+        <h2 className="text-xl font-semibold">5. Data Retention</h2>
+        <p>
+          We retain information for as long as necessary to fulfill the purposes outlined in this
+          Policy unless a longer retention period is required or permitted by law.
+        </p>
+
+        <h2 className="text-xl font-semibold">6. Your Choices</h2>
+        <ul className="list-disc pl-6 space-y-2">
+          <li>Opt-out of marketing emails by following the unsubscribe link in messages.</li>
+          <li>Adjust cookie settings in your browser.</li>
+          <li>Request access, correction, or deletion of your personal information where applicable.</li>
+        </ul>
+
+        <h2 className="text-xl font-semibold">7. Data Security</h2>
+        <p>
+          We use reasonable administrative, technical, and physical safeguards to protect your
+          information. However, no method of transmission or storage is completely secure.
+        </p>
+
+        <h2 className="text-xl font-semibold">8. International Users</h2>
+        <p>
+          If you access the Services from outside your country, you understand that your information
+          may be processed and stored in jurisdictions that may have data protection laws different
+          from your own.
+        </p>
+
+        <h2 className="text-xl font-semibold">9. Children’s Privacy</h2>
+        <p>
+          The Services are not directed to children under 13, and we do not knowingly collect
+          personal information from children under 13.
+        </p>
+
+        <h2 className="text-xl font-semibold">10. Changes to This Policy</h2>
+        <p>
+          We may update this Privacy Policy from time to time. The updated Policy will be posted on
+          this page with a new “Last updated” date. Your continued use of the Services indicates your
+          acceptance of the updated Policy.
+        </p>
+
+        <h2 className="text-xl font-semibold">11. Contact Us</h2>
+        <p>
+          If you have questions about this Privacy Policy or our data practices, contact us at
+          <span className="whitespace-pre"> </span>
+          <a className="text-teal-600 underline" href="mailto:privacy@yaadfeed.com">privacy@yaadfeed.com</a>.
+        </p>
+      </section>
+    </div>
+  );
+}
+
 'use client';
 
 import React from 'react';
