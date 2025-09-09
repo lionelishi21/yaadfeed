@@ -60,9 +60,6 @@ export const metadata: Metadata = {
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
-  other: {
-    "google-adsense-account": "ca-pub-6524318430609026",
-  },
 };
 
 export default function RootLayout({
@@ -101,6 +98,7 @@ export default function RootLayout({
         <GoogleAdsenseScript />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#06b6d4" />
+        <meta name="google-adsense-account" content="ca-pub-6524318430609026" />
         <link rel="icon" href="/favicon/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />

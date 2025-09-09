@@ -1,21 +1,28 @@
 'use client';
 
-import GoogleAdsense from './GoogleAdsense';
 import { useState, useEffect } from 'react';
+import GoogleAdsense from './GoogleAdsense';
 
 // Header Banner Ad (Above Navigation)
 export function HeaderBannerAd() {
+  useEffect(() => {
+    try {
+      // @ts-ignore
+      (adsbygoogle = (window as any).adsbygoogle || []).push({});
+    } catch (e) {
+      console.error('Adsense error', e);
+    }
+  }, []);
+
   return (
-    <div className="w-full bg-gray-50 py-2">
-      <div className="max-w-7xl mx-auto px-4">
-        <GoogleAdsense
-          adSlot="ca-pub-1234567890123456/header-banner" // Replace with your actual ad slot ID
-          adFormat="horizontal"
-          className="header-banner-ad"
-          style={{ minHeight: '90px' }}
-        />
-      </div>
-    </div>
+    <ins
+      className="adsbygoogle"
+      style={{ display: 'block' }}
+      data-ad-client="ca-pub-6524318430609026"
+      data-ad-slot="1234567890"
+      data-ad-format="auto"
+      data-full-width-responsive="true"
+    />
   );
 }
 
@@ -118,11 +125,13 @@ export function MobileStickyAd() {
         >
           ×
         </button>
-        <GoogleAdsense
-          adSlot="6789012345" // Replace with your ad slot ID
-          adFormat="horizontal"
-          className="mobile-sticky-ad"
-          style={{ minHeight: '60px' }}
+        <ins
+          className="adsbygoogle"
+          style={{ display: 'block', minHeight: '60px' }}
+          data-ad-client="ca-pub-6524318430609026"
+          data-ad-slot="2345678901"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
         />
       </div>
     </div>

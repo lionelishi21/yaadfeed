@@ -79,7 +79,19 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const { articleId, generateAll = false } = await request.json();
+    // Safely parse JSON; handle empty body gracefully
+    let articleId: string | undefined = undefined;
+    let generateAll: boolean = false;
+    try {
+      const raw = await request.text();
+      if (raw && raw.trim().length > 0) {
+        const parsed = JSON.parse(raw);
+        articleId = parsed?.articleId;
+        generateAll = Boolean(parsed?.generateAll);
+      }
+    } catch {
+      // Ignore parse errors; treat as empty body
+    }
 
     const { db } = await connectToDatabase();
     const newsCollection = db.collection('news_items');
