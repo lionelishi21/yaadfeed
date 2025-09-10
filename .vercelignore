@@ -34,6 +34,8 @@ scripts/
 # Documentation
 README.md
 *.md
+*.docx
+*.pdf
 
 # IDE files
 .vscode/
@@ -59,6 +61,21 @@ coverage/
 # Large dev dependencies
 node_modules/@types
 node_modules/eslint
-# node_modules/autoprefixer - NEEDED FOR BUILD
-# node_modules/postcss - NEEDED FOR BUILD
-# node_modules/tailwindcss - NEEDED FOR BUILD
+node_modules/autoprefixer
+node_modules/postcss
+node_modules/tailwindcss
+node_modules/critters
+
+# Automation and data files
+automation/
+data/
+logs/
+
+# Large image files
+public/images/*.jpg
+public/images/*.png
+public/images/*.gif
+
+# Exclude all markdown files except essential ones
+*.md
+!vercel.json

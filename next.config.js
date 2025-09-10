@@ -6,7 +6,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   trailingSlash: false,
   output: 'standalone',
-  generateStaticParams: false,
   modularizeImports: {
     'lucide-react': {
       transform: 'lucide-react/dist/esm/icons/{{member}}',
@@ -49,7 +48,8 @@ const nextConfig = {
     workerThreads: false,
     isrMemoryCacheSize: 0,
     optimizeCss: true,
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: ['lucide-react', 'framer-motion', '@heroicons/react'],
+    serverComponentsExternalPackages: ['mongodb', 'bcryptjs', 'stripe'],
   },
   webpack: (config, { isServer, dev }) => {
     if (isServer && !dev) {
@@ -72,6 +72,13 @@ const nextConfig = {
         'react-spinners': 'commonjs react-spinners',
         'react-rough-notation': 'commonjs react-rough-notation',
         'react-hot-toast': 'commonjs react-hot-toast',
+        'clsx': 'commonjs clsx',
+        'tailwind-merge': 'commonjs tailwind-merge',
+        'tailwindcss-animate': 'commonjs tailwindcss-animate',
+        'critters': 'commonjs critters',
+        '@radix-ui/react-select': 'commonjs @radix-ui/react-select',
+        '@stripe/stripe-js': 'commonjs @stripe/stripe-js',
+        '@next-auth/mongodb-adapter': 'commonjs @next-auth/mongodb-adapter',
         // Keep build-essential dependencies available
         // 'autoprefixer', 'postcss', 'tailwindcss' are needed for build
       });
@@ -83,7 +90,7 @@ const nextConfig = {
         ...config.optimization,
         splitChunks: {
           chunks: 'all',
-          maxSize: 244000, // 244KB per chunk
+          maxSize: 200000, // 200KB per chunk (reduced from 244KB)
           cacheGroups: {
             default: false,
             vendors: false,
@@ -91,13 +98,20 @@ const nextConfig = {
               test: /[\\/]node_modules[\\/]/,
               name: 'vendor',
               chunks: 'all',
-              maxSize: 244000,
+              maxSize: 200000,
             },
             common: {
               name: 'common',
               minChunks: 2,
               chunks: 'all',
-              maxSize: 244000,
+              maxSize: 200000,
+            },
+            // Separate chunk for large libraries
+            largeLibs: {
+              test: /[\\/]node_modules[\\/](mongodb|stripe|bcryptjs|axios)[\\/]/,
+              name: 'large-libs',
+              chunks: 'all',
+              maxSize: 150000,
             },
           },
         },
