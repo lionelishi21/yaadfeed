@@ -6,6 +6,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   trailingSlash: false,
   output: 'standalone',
+  generateStaticParams: false,
   modularizeImports: {
     'lucide-react': {
       transform: 'lucide-react/dist/esm/icons/{{member}}',
@@ -71,6 +72,8 @@ const nextConfig = {
         'react-spinners': 'commonjs react-spinners',
         'react-rough-notation': 'commonjs react-rough-notation',
         'react-hot-toast': 'commonjs react-hot-toast',
+        // Keep build-essential dependencies available
+        // 'autoprefixer', 'postcss', 'tailwindcss' are needed for build
       });
     }
     
