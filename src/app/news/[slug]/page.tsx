@@ -1,16 +1,7 @@
 import React from 'react';
 export const dynamic = 'force-dynamic';
-import Image from 'next/image';
-import Link from 'next/link';
 import { Metadata } from 'next';
-import { ArrowLeft, Calendar, User, Eye, Share2, Tag, Clock, Bookmark } from 'lucide-react';
-import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
-import Footer from '@/components/Footer';
-import Comments from '@/components/Comments';
 import { notFound } from 'next/navigation';
-import { formatters, stringUtils } from '@/utils';
-import ClientHeader from '@/components/ClientHeader';
 import ArticleContent from '@/components/ArticleContent';
 
 // Centralized data fetching function

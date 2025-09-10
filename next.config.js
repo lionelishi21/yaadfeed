@@ -57,6 +57,11 @@ const nextConfig = {
   generateBuildId: async () => {
     return 'build-' + Date.now();
   },
+  // Skip static generation for error pages
+  skipTrailingSlashRedirect: true,
+  skipMiddlewareUrlNormalize: true,
+  // Disable static generation for error pages
+  generateStaticParams: false,
   webpack: (config, { isServer, dev }) => {
     if (isServer && !dev) {
       // Exclude large dependencies from serverless functions
@@ -90,15 +95,7 @@ const nextConfig = {
       });
     }
     
-    // Disable error page generation to avoid Html import issues
-    if (isServer) {
-      config.plugins = config.plugins || [];
-      config.plugins.push(
-        new (require('webpack')).DefinePlugin({
-          'process.env.NEXT_RUNTIME': JSON.stringify('nodejs'),
-        })
-      );
-    }
+    // Removed DefinePlugin to avoid conflicts
     
     // Optimize bundle size
     if (!dev) {
