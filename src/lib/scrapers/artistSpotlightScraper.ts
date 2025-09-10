@@ -1,4 +1,5 @@
 import { connectToDatabase } from '@/lib/mongodb';
+import { ObjectId } from 'mongodb';
 
 export interface ArtistSpotlight {
   _id?: string;
@@ -100,7 +101,7 @@ const MOCK_SPOTLIGHT_DATA: ArtistSpotlight[] = [
     spotifyUrl: 'https://open.spotify.com/track/example4',
     youtubeUrl: 'https://youtube.com/watch?v=example4',
     genre: 'Dancehall',
-    status: 'NEW',
+    status: 'NEW_RELEASE',
     views: 78000,
     likes: 4500,
     description: 'Rising star drops new single',
@@ -237,8 +238,9 @@ export class ArtistSpotlightScraper {
         });
 
         if (!existing) {
+          const { _id, ...spotlightData } = spotlight;
           await collection.insertOne({
-            ...spotlight,
+            ...spotlightData,
             createdAt: new Date(),
             updatedAt: new Date()
           });
@@ -264,7 +266,7 @@ export class ArtistSpotlightScraper {
         .limit(10)
         .toArray();
 
-      return spotlights as ArtistSpotlight[];
+      return spotlights as unknown as ArtistSpotlight[];
     } catch (error) {
       console.error('❌ [ARTIST SPOTLIGHT SCRAPER] Error fetching from database:', error);
       return MOCK_SPOTLIGHT_DATA; // Fallback to mock data
@@ -324,7 +326,7 @@ export class ArtistSpotlightScraper {
         .limit(limit)
         .toArray();
 
-      return spotlights as ArtistSpotlight[];
+      return spotlights as unknown as ArtistSpotlight[];
     } catch (error) {
       console.error('❌ [ARTIST SPOTLIGHT SCRAPER] Error fetching recent spotlights:', error);
       return MOCK_SPOTLIGHT_DATA.filter(s => !s.isFeatured).slice(0, limit);
@@ -340,7 +342,7 @@ export class ArtistSpotlightScraper {
       const collection = db.collection('artist_spotlights');
       
       await collection.updateOne(
-        { _id: id },
+        { _id: new ObjectId(id) },
         { 
           $set: { 
             status,
