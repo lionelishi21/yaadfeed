@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+const withBundleAnalyzer = process.env.ANALYZE === 'true' 
+  ? require('@next/bundle-analyzer')({
+      enabled: true,
+    })
+  : (config) => config;
 
 const nextConfig = {
   trailingSlash: false,
@@ -51,6 +53,10 @@ const nextConfig = {
     optimizePackageImports: ['lucide-react', 'framer-motion', '@heroicons/react'],
     serverComponentsExternalPackages: ['mongodb', 'bcryptjs', 'stripe'],
   },
+  // Disable static generation for error pages
+  generateBuildId: async () => {
+    return 'build-' + Date.now();
+  },
   webpack: (config, { isServer, dev }) => {
     if (isServer && !dev) {
       // Exclude large dependencies from serverless functions
@@ -82,6 +88,16 @@ const nextConfig = {
         // Keep build-essential dependencies available
         // 'autoprefixer', 'postcss', 'tailwindcss' are needed for build
       });
+    }
+    
+    // Disable error page generation to avoid Html import issues
+    if (isServer) {
+      config.plugins = config.plugins || [];
+      config.plugins.push(
+        new (require('webpack')).DefinePlugin({
+          'process.env.NEXT_RUNTIME': JSON.stringify('nodejs'),
+        })
+      );
     }
     
     // Optimize bundle size
