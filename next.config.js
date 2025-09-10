@@ -6,8 +6,8 @@ const withBundleAnalyzer = process.env.ANALYZE === 'true'
   : (config) => config;
 
 const nextConfig = {
-  trailingSlash: false,
   output: 'standalone',
+  trailingSlash: false,
   modularizeImports: {
     'lucide-react': {
       transform: 'lucide-react/dist/esm/icons/{{member}}',
@@ -52,6 +52,8 @@ const nextConfig = {
     optimizeCss: true,
     optimizePackageImports: ['lucide-react', 'framer-motion', '@heroicons/react'],
     serverComponentsExternalPackages: ['mongodb', 'bcryptjs', 'stripe'],
+    skipTrailingSlashRedirect: true,
+    skipMiddlewareUrlNormalize: true,
   },
   // Disable static generation for error pages
   generateBuildId: async () => {
@@ -95,7 +97,17 @@ const nextConfig = {
       });
     }
     
-    // Removed DefinePlugin to avoid conflicts
+    // Disable error page generation to prevent Html import issues
+    if (isServer) {
+      config.plugins = config.plugins || [];
+      config.plugins.push(
+        new (require('webpack')).DefinePlugin({
+          'process.env.NEXT_RUNTIME': JSON.stringify('nodejs'),
+        })
+      );
+    }
+    
+    // Removed problematic entry modification
     
     // Optimize bundle size
     if (!dev) {
