@@ -1,20 +1,13 @@
 {
-  "functions": {
-    "src/app/api/**/*.ts": {
-      "maxDuration": 30
-    }
-  },
-  "build": {
-    "env": {
-      "NODE_ENV": "production"
-    }
-  },
-  "regions": ["iad1"],
-  "framework": "nextjs",
   "crons": [
     {
-      "path": "/api/cron/scrape",
-      "schedule": "0 */4 * * *"
+      "path": "/api/cron/weekly-scraper",
+      "schedule": "0 0 * * 0"
     }
-  ]
-} 
+  ],
+  "functions": {
+    "src/app/api/cron/weekly-scraper/route.ts": {
+      "maxDuration": 300
+    }
+  }
+}

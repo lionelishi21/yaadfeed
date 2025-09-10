@@ -194,21 +194,30 @@ export async function connectToDatabase(): Promise<{ db: Db; client: MongoClient
     log('Creating database indexes...', 'info');
     const newsCollection = db.collection('news_items');
     const usersCollection = db.collection('users');
+    const artistsCollection = db.collection('artists');
     
     await Promise.all([
-      // News indexes
+      // News indexes for better performance
       newsCollection.createIndex({ publishedAt: -1 }),
-      newsCollection.createIndex({ category: 1 }),
+      newsCollection.createIndex({ category: 1, publishedAt: -1 }),
+      newsCollection.createIndex({ source: 1, publishedAt: -1 }),
+      newsCollection.createIndex({ isPopular: 1, publishedAt: -1 }),
       newsCollection.createIndex({ slug: 1 }, { unique: true }),
       newsCollection.createIndex({ url: 1 }, { unique: true }),
-      newsCollection.createIndex({ isPopular: 1 }),
-      newsCollection.createIndex({ source: 1 }),
+      newsCollection.createIndex({ viewCount: -1 }),
+      newsCollection.createIndex({ tags: 1 }),
       newsCollection.createIndex({ title: 'text', content: 'text' }),
       
       // User indexes
       usersCollection.createIndex({ email: 1 }, { unique: true }),
       usersCollection.createIndex({ role: 1 }),
-      usersCollection.createIndex({ isActive: 1 })
+      usersCollection.createIndex({ isActive: 1 }),
+      
+      // Artists indexes
+      artistsCollection.createIndex({ name: 1 }),
+      artistsCollection.createIndex({ genres: 1 }),
+      artistsCollection.createIndex({ isActive: 1 }),
+      artistsCollection.createIndex({ createdAt: -1 })
     ]);
     
     isConnected = true;
@@ -287,8 +296,28 @@ export class NewsService {
       query.$text = { $search: filters.search };
     }
     
+    // Only fetch necessary fields for better performance
+    const projection = {
+      _id: 1,
+      title: 1,
+      slug: 1,
+      summary: 1,
+      content: 1,
+      imageUrl: 1,
+      category: 1,
+      source: 1,
+      publishedAt: 1,
+      author: 1,
+      tags: 1,
+      keywords: 1,
+      isPopular: 1,
+      viewCount: 1,
+      createdAt: 1,
+      updatedAt: 1
+    };
+    
     const news = await collection
-      .find(query)
+      .find(query, { projection })
       .sort({ publishedAt: -1 })
       .limit(filters.limit || 50)
       .toArray();
@@ -477,10 +506,6 @@ export class NewsService {
     return result.deletedCount === 1;
   }
 
-  static async getAllArtists(): Promise<any[]> {
-    const collection = await getArtistsCollection();
-    return await collection.find({}).sort({ popularity: -1 }).toArray();
-  }
 
   static async getArtistById(id: string): Promise<any> {
     const collection = await getArtistsCollection();
@@ -724,6 +749,104 @@ export class PollService {
   static async getPollById(pollId: string): Promise<Poll | null> {
     const collection = await getPollsCollection();
     return await collection.findOne({ _id: pollId as any }) || null;
+  }
+}
+
+// Artist service for managing artists
+export class ArtistService {
+  static async getAllArtists(limit?: number): Promise<any[]> {
+    const collection = await getArtistsCollection();
+    let query = collection.find({}).sort({ popularity: -1 });
+    
+    if (limit) {
+      query = query.limit(limit);
+    }
+    
+    return await query.toArray();
+  }
+
+  static async getArtistById(id: string): Promise<any> {
+    const collection = await getArtistsCollection();
+    
+    try {
+      // Try to find by _id first (assuming it's a valid ObjectId)
+      let artist = await collection.findOne({ _id: id as any });
+      
+      if (!artist) {
+        // If not found by _id, try to find by string id field
+        artist = await collection.findOne({ id: id });
+      }
+      
+      if (!artist) {
+        // If still not found, try to find by name (case-insensitive)
+        artist = await collection.findOne({ 
+          name: { $regex: new RegExp(`^${id}$`, 'i') } 
+        });
+      }
+      
+      return artist;
+    } catch (error) {
+      console.error('Error finding artist by ID:', error);
+      return null;
+    }
+  }
+
+  static async createArtist(artistData: any): Promise<any> {
+    const collection = await getArtistsCollection();
+    const now = new Date();
+    const artist = {
+      ...artistData,
+      createdAt: now,
+      updatedAt: now
+    };
+    
+    try {
+      const result = await collection.insertOne(artist);
+      return await collection.findOne({ _id: result.insertedId });
+    } catch (error: any) {
+      if (error.code === 11000) {
+        console.log('Artist already exists:', artistData.name);
+        return null;
+      }
+      throw error;
+    }
+  }
+
+  static async updateArtist(id: string, updates: any): Promise<any> {
+    const collection = await getArtistsCollection();
+    
+    try {
+      const mongo = await loadMongo();
+      const result = await collection.findOneAndUpdate(
+        { _id: new mongo.ObjectId(id) },
+        { 
+          $set: { 
+            ...updates, 
+            updatedAt: new Date() 
+          } 
+        },
+        { returnDocument: 'after' }
+      );
+      
+      console.log(`✅ Updated artist: ${(result as any)?.name || id}`);
+      return result;
+    } catch (error) {
+      console.error(`❌ Error updating artist: ${id}`, error);
+      throw error;
+    }
+  }
+
+  static async deleteArtist(id: string): Promise<boolean> {
+    const collection = await getArtistsCollection();
+    
+    try {
+      const mongo = await loadMongo();
+      const result = await collection.deleteOne({ _id: new mongo.ObjectId(id) });
+      return result.deletedCount === 1;
+    } catch (error) {
+      console.error(`❌ Error deleting artist: ${id}`, error);
+      throw error;
+    }
   }
 }
 

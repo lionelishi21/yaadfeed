@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { cache, CACHE_KEYS } from '@/lib/cache';
 
 export async function GET(request: NextRequest) {
   const startTime = Date.now();
@@ -58,6 +59,29 @@ export async function GET(request: NextRequest) {
       filters.search = search;
     }
 
+    // Create cache key
+    const cacheKey = search 
+      ? CACHE_KEYS.NEWS_SEARCH(search)
+      : category && category !== 'all'
+      ? CACHE_KEYS.NEWS_BY_CATEGORY(category)
+      : source
+      ? CACHE_KEYS.NEWS_BY_SOURCE(source)
+      : CACHE_KEYS.NEWS;
+
+    // Check cache first
+    const cachedData = cache.get(cacheKey);
+    if (cachedData) {
+      console.log('📰 [NEWS API] Returning cached data');
+      return NextResponse.json(cachedData, { 
+        headers: { 
+          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+          'CDN-Cache-Control': 'public, s-maxage=300',
+          'Vercel-CDN-Cache-Control': 'public, s-maxage=300',
+          'X-Cache': 'HIT'
+        } 
+      });
+    }
+
     console.log('📰 [NEWS API] Fetching news with filters:', filters);
 
     // Fetch news from MongoDB with better error handling
@@ -111,7 +135,7 @@ export async function GET(request: NextRequest) {
     
     console.log(`📰 [NEWS API] Successfully fetched ${news.length} articles in ${duration}ms`);
 
-    return NextResponse.json({
+    const responseData = {
       news: news.map(item => ({
         id: item._id,
         title: item.title,
@@ -135,7 +159,19 @@ export async function GET(request: NextRequest) {
         duration_ms: duration,
         timestamp: new Date().toISOString()
       }
-    }, { headers: { 'Cache-Control': 'no-store' } });
+    };
+
+    // Cache the response for 5 minutes
+    cache.set(cacheKey, responseData, 5 * 60 * 1000);
+
+    return NextResponse.json(responseData, { 
+      headers: { 
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+        'CDN-Cache-Control': 'public, s-maxage=300',
+        'Vercel-CDN-Cache-Control': 'public, s-maxage=300',
+        'X-Cache': 'MISS'
+      } 
+    });
 
   } catch (error: any) {
     const endTime = Date.now();

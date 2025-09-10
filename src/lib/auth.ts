@@ -9,7 +9,8 @@ import { UserService } from './mongodb';
 import { clientPromise } from './mongodb';
 
 export const authOptions: NextAuthOptions = {
-  adapter: MongoDBAdapter(clientPromise as any),
+  // Temporarily disable MongoDB adapter to fix stack overflow
+  // adapter: MongoDBAdapter(clientPromise as any),
   providers: [
     CredentialsProvider({
       id: 'credentials',
@@ -102,7 +103,7 @@ export const authOptions: NextAuthOptions = {
     strategy: 'jwt', // Use JWT for credentials provider
   },
   secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV === 'development',
+  debug: false, // Disable debug to prevent warnings
 };
 
 export default authOptions; 

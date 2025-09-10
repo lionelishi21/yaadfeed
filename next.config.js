@@ -46,6 +46,8 @@ const nextConfig = {
   experimental: {
     workerThreads: false,
     isrMemoryCacheSize: 0,
+    optimizeCss: true,
+    optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
   webpack: (config, { isServer }) => {
     if (isServer) {
