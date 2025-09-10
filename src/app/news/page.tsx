@@ -90,7 +90,6 @@ const getFallbackNews = (): NewsItem[] => [
 
 const NewsPage = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
-  const [filteredNews, setFilteredNews] = useState<NewsItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<NewsCategory | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
@@ -108,7 +107,7 @@ const NewsPage = () => {
   ];
 
   // Memoized filtered news for better performance
-  const memoizedFilteredNews = useMemo(() => {
+  const filteredNews = useMemo(() => {
     let filtered = news;
 
     if (selectedCategory !== 'all') {
@@ -125,11 +124,6 @@ const NewsPage = () => {
 
     return filtered;
   }, [news, selectedCategory, searchQuery]);
-
-  // Update filtered news when memoized value changes
-  useEffect(() => {
-    setFilteredNews(memoizedFilteredNews);
-  }, [memoizedFilteredNews]);
 
   // Memoized featured and regular articles
   const { featuredArticle, regularArticles } = useMemo(() => {
