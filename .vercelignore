@@ -1,19 +1,64 @@
-# Don’t send git history to Vercel
-.git/
-
-# Next.js cache (Vercel handles its own caching)
-.next/cache/
-
-# Logs & temp files
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Local environment files (you should set these in Vercel dashboard instead)
-.env
+# Development files
 .env.local
-.env.*.local
+.env.development
+.env.test
 
-# Node junk
-node_modules/
+# Build artifacts
+.next/cache
+.next/static/chunks/pages/_app-*.js
+.next/static/chunks/pages/_error-*.js
+
+# Large dependencies that should be external
+node_modules/mongodb
+node_modules/openai
+node_modules/stripe
+node_modules/bcryptjs
+node_modules/axios
+node_modules/dayjs
+node_modules/dotenv
+node_modules/@heroicons
+node_modules/lucide-react
+node_modules/motion
+node_modules/react-spinners
+node_modules/react-rough-notation
+node_modules/react-hot-toast
+node_modules/typescript
+node_modules/ts-node
+node_modules/@next/bundle-analyzer
+
+# Scripts and utilities
+scripts/
+*.log
+*.tmp
+
+# Documentation
+README.md
+*.md
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+__tests__/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Large dev dependencies
+node_modules/@types
+node_modules/eslint
+node_modules/autoprefixer
+node_modules/postcss
+node_modules/tailwindcss

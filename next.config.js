@@ -5,6 +5,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const nextConfig = {
   trailingSlash: false,
+  output: 'standalone',
   modularizeImports: {
     'lucide-react': {
       transform: 'lucide-react/dist/esm/icons/{{member}}',
@@ -49,15 +50,57 @@ const nextConfig = {
     optimizeCss: true,
     optimizePackageImports: ['lucide-react', 'framer-motion'],
   },
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      const externals = config.externals || [];
-      config.externals = externals.concat([
-        'mongodb',
-        'openai',
-        'stripe',
-      ]);
+  webpack: (config, { isServer, dev }) => {
+    if (isServer && !dev) {
+      // Exclude large dependencies from serverless functions
+      config.externals = config.externals || [];
+      config.externals.push({
+        'mongodb': 'commonjs mongodb',
+        'openai': 'commonjs openai',
+        'stripe': 'commonjs stripe',
+        'bcryptjs': 'commonjs bcryptjs',
+        'axios': 'commonjs axios',
+        'dayjs': 'commonjs dayjs',
+        'dotenv': 'commonjs dotenv',
+        '@next/bundle-analyzer': 'commonjs @next/bundle-analyzer',
+        'typescript': 'commonjs typescript',
+        'ts-node': 'commonjs ts-node',
+        '@heroicons/react': 'commonjs @heroicons/react',
+        'lucide-react': 'commonjs lucide-react',
+        'motion': 'commonjs motion',
+        'react-spinners': 'commonjs react-spinners',
+        'react-rough-notation': 'commonjs react-rough-notation',
+        'react-hot-toast': 'commonjs react-hot-toast',
+      });
     }
+    
+    // Optimize bundle size
+    if (!dev) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          maxSize: 244000, // 244KB per chunk
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendor',
+              chunks: 'all',
+              maxSize: 244000,
+            },
+            common: {
+              name: 'common',
+              minChunks: 2,
+              chunks: 'all',
+              maxSize: 244000,
+            },
+          },
+        },
+      };
+    }
+    
     return config;
   },
 };

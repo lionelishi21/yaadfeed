@@ -9,5 +9,15 @@
     "src/app/api/cron/weekly-scraper/route.ts": {
       "maxDuration": 300
     }
+  },
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "npm ci --only=production --ignore-scripts",
+  "framework": "nextjs",
+  "regions": ["iad1"],
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
   }
 }
