@@ -552,7 +552,7 @@ export class NewsService {
         return null;
       }
       
-      console.log(`✅ Updated artist: ${result?.name || id}`);
+      console.log(`✅ Updated artist: ${(result as any)?.name || id}`);
       return result;
     } catch (error) {
       console.error(`❌ Error updating artist: ${id}`, error);
