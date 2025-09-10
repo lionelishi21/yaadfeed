@@ -1,5 +1,8 @@
 'use client';
 
+// Force dynamic rendering for privacy page
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import { Shield, Eye, Lock, Users, Globe, Calendar, Settings, Mail } from 'lucide-react';
 import ClientHeader from '@/components/ClientHeader';

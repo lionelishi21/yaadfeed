@@ -9,7 +9,7 @@ import Button from '@/components/ui/Button';
 import Footer from '@/components/Footer';
 import Comments from '@/components/Comments';
 import { formatters, stringUtils, contentUtils } from '@/utils';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 
 interface ArticleContentProps {
   article: any;
@@ -199,7 +199,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
-      <Header />
+      <ClientHeader />
       <main className="pt-24 pb-16">
         {/* Hero Section */}
         <section className="relative mb-16">

@@ -1,8 +1,11 @@
 'use client';
 
+// Force dynamic rendering for about page
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import { Users, Globe, Award, Heart, Music, Newspaper, Calendar, Star } from 'lucide-react';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
 import Button from '@/components/ui/Button';
 
@@ -60,7 +63,7 @@ const AboutPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
-      <Header />
+      <ClientHeader />
       
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary text-white py-20 overflow-hidden">

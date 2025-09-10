@@ -1,5 +1,8 @@
 'use client';
 
+// Force dynamic rendering for music page
+export const dynamic = 'force-dynamic';
+
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -9,7 +12,7 @@ import { Card, CardContent } from '@/components/Card';
 import Button from '@/components/ui/Button';
 import { NewsItem, Artist } from '@/types';
 import { formatters, stringUtils } from '@/utils';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
 
 // Helper function for AI-generated fallback images
@@ -262,7 +265,7 @@ const MusicPage = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-white">
-        <Header />
+        <ClientHeader />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="animate-pulse">
             <div className="h-8 bg-gray-200 rounded w-1/4 mb-8"></div>
@@ -280,7 +283,7 @@ const MusicPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
+      <ClientHeader />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-logo-primary to-logo-dark text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

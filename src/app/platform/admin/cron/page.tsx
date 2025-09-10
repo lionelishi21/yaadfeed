@@ -1,7 +1,10 @@
 'use client';
 
+// Force dynamic rendering for admin cron page
+export const dynamic = 'force-dynamic';
+
 import React, { useEffect, useState } from 'react';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
 import Button from '@/components/ui/Button';
 
@@ -70,7 +73,7 @@ export default function AdminCronPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
+      <ClientHeader />
       <div className="max-w-5xl mx-auto px-4 py-10">
         <h1 className="text-2xl font-bold mb-6">Cron & Scraper Control</h1>
 

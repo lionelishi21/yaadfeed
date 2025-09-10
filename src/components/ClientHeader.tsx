@@ -42,7 +42,7 @@ export default function ClientHeader() {
         </div>
       </div>
     }>
-      <Header />
+      <ClientHeader />
     </Suspense>
   );
 }

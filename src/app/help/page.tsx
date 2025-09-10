@@ -1,8 +1,11 @@
 'use client';
 
+// Force dynamic rendering for help page
+export const dynamic = 'force-dynamic';
+
 import React, { useState } from 'react';
 import { Search, HelpCircle, MessageCircle, BookOpen, Shield, Users, Settings, Mail } from 'lucide-react';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
 import Button from '@/components/ui/Button';
 
@@ -95,7 +98,7 @@ const HelpPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
-      <Header />
+      <ClientHeader />
       
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary text-white py-20 overflow-hidden">

@@ -6,7 +6,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Search, Filter, ArrowRight, Calendar, User, Eye, Sparkles, Zap, TrendingUp, Clock, Star } from 'lucide-react';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -174,7 +174,7 @@ const NewsPage = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
-        <Header />
+        <ClientHeader />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[...Array(6)].map((_, i) => (
@@ -189,7 +189,7 @@ const NewsPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
-      <Header />
+      <ClientHeader />
       
       {/* OPTIMIZED PAGE HEADER */}
       <section className="relative bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary text-white py-20 overflow-hidden">

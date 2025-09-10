@@ -1,4 +1,5 @@
-// Removed dynamic directive for static export compatibility
+// Force dynamic rendering for advertise page
+export const dynamic = 'force-dynamic';
 
 import React from 'react';
 import Image from 'next/image';
@@ -18,7 +19,7 @@ import {
   Zap,
   Heart
 } from 'lucide-react';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -138,7 +139,7 @@ const AdvertisePage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Header />
+      <ClientHeader />
       
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-jamaica-green-600 via-jamaica-gold-500 to-jamaica-green-800 text-white py-20 overflow-hidden">

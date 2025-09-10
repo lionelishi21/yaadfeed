@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, MapPin, Calendar, Ticket, Users, TrendingUp } from 'lucide-react';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -65,7 +65,7 @@ export default function DemandPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary">
-      <Header />
+      <ClientHeader />
       
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">

@@ -1,8 +1,11 @@
 'use client';
 
+// Force dynamic rendering for media-kit page
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import { Download, Image as ImageIcon, FileText, Palette, Globe, Users, TrendingUp, Star } from 'lucide-react';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
 import Button from '@/components/ui/Button';
 
@@ -92,7 +95,7 @@ const MediaKitPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
-      <Header />
+      <ClientHeader />
       
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary text-white py-20 overflow-hidden">

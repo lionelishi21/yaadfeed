@@ -1,5 +1,8 @@
 'use client';
 
+// Force dynamic rendering for admin pages
+export const dynamic = 'force-dynamic';
+
 import { useSession } from 'next-auth/react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useEffect } from 'react';

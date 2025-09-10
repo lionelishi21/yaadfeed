@@ -3,7 +3,7 @@ let OpenAIClient: any = null;
 if (typeof window === 'undefined') {
   (async () => {
     try {
-      if (process.env.USE_OPENAI === '1') {
+      if (process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY !== 'your_openai_api_key_here') {
         const dynamicImport: (m: string) => Promise<any> = new Function('m', 'return import(m)') as any;
         const mod = await dynamicImport('openai');
         OpenAIClient = (mod as any).default || (mod as any);
@@ -26,10 +26,6 @@ import crypto from 'crypto';
 
 // Only initialize OpenAI on server-side
 let openai: any = null;
-if (typeof window === 'undefined' && process.env.OPENAI_API_KEY) {
-  // Lazy initialize on first use to avoid bundling cost
-  openai = null;
-}
 
 interface ImageCache {
   [key: string]: string;
@@ -183,6 +179,12 @@ class ImageServiceClass {
       console.log(`🎨 Generating DALL-E image for: ${title.slice(0, 50)}...`);
       console.log(`📝 Prompt: ${prompt}`);
 
+      // Wait for OpenAIClient to be loaded if not already available
+      if (!OpenAIClient) {
+        console.log('OpenAI client not loaded yet, waiting...');
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+      
       if (!openai && OpenAIClient) {
         openai = new OpenAIClient({ apiKey: process.env.OPENAI_API_KEY || '' });
       }

@@ -4,7 +4,7 @@ export const dynamic = 'force-dynamic';
 
 import React, { useState } from 'react';
 import { Check, Mail, Star, Users, Zap, Shield, X } from 'lucide-react';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -88,7 +88,7 @@ const NewsletterPage = () => {
   if (showSuccess) {
     return (
       <div className="min-h-screen">
-        <Header />
+        <ClientHeader />
         <div className="min-h-screen bg-gradient-to-br from-jamaica-green-500 to-jamaica-gold-500 flex items-center justify-center p-4">
           <Card className="max-w-md w-full text-center p-8">
             <div className="w-16 h-16 bg-jamaica-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -112,7 +112,7 @@ const NewsletterPage = () => {
 
   return (
     <div className="min-h-screen">
-      <Header />
+      <ClientHeader />
       
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-jamaica-green-600 to-jamaica-gold-500 text-white py-20">

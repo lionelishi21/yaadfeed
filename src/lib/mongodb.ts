@@ -2,6 +2,7 @@
 type MongoClient = import('mongodb').MongoClient;
 type Db = import('mongodb').Db;
 type Collection = import('mongodb').Collection;
+type ObjectId = import('mongodb').ObjectId;
 
 async function loadMongo(): Promise<typeof import('mongodb')> {
   // Dynamic import keeps driver out of default bundle
@@ -526,6 +527,88 @@ export class NewsService {
       return artist;
     } catch (error) {
       console.error(`❌ Error saving artist: ${artist.name}`, error);
+      throw error;
+    }
+  }
+
+  static async updateArtist(id: string, updates: any): Promise<any> {
+    const collection = await getArtistsCollection();
+    const mongo = await loadMongo();
+    const now = new Date();
+    
+    try {
+      const result = await collection.findOneAndUpdate(
+        { _id: new mongo.ObjectId(id) },
+        { 
+          $set: { 
+            ...updates, 
+            updatedAt: now 
+          } 
+        },
+        { returnDocument: 'after' }
+      );
+      
+      if (!result) {
+        return null;
+      }
+      
+      console.log(`✅ Updated artist: ${result?.name || id}`);
+      return result;
+    } catch (error) {
+      console.error(`❌ Error updating artist: ${id}`, error);
+      throw error;
+    }
+  }
+
+  static async deleteArtist(id: string): Promise<boolean> {
+    const collection = await getArtistsCollection();
+    const mongo = await loadMongo();
+    
+    try {
+      const result = await collection.deleteOne({ _id: new mongo.ObjectId(id) });
+      console.log(`✅ Deleted artist: ${id}`);
+      return result.deletedCount > 0;
+    } catch (error) {
+      console.error(`❌ Error deleting artist: ${id}`, error);
+      throw error;
+    }
+  }
+
+  static async bulkDeleteArtists(ids: string[]): Promise<{ deletedCount: number }> {
+    const collection = await getArtistsCollection();
+    const mongo = await loadMongo();
+    
+    try {
+      const objectIds = ids.map(id => new mongo.ObjectId(id));
+      const result = await collection.deleteMany({ _id: { $in: objectIds } });
+      console.log(`✅ Bulk deleted ${result.deletedCount} artists`);
+      return { deletedCount: result.deletedCount };
+    } catch (error) {
+      console.error(`❌ Error bulk deleting artists:`, error);
+      throw error;
+    }
+  }
+
+  static async bulkUpdateArtists(ids: string[], updates: any): Promise<{ modifiedCount: number }> {
+    const collection = await getArtistsCollection();
+    const mongo = await loadMongo();
+    const now = new Date();
+    
+    try {
+      const objectIds = ids.map(id => new mongo.ObjectId(id));
+      const result = await collection.updateMany(
+        { _id: { $in: objectIds } },
+        { 
+          $set: { 
+            ...updates, 
+            updatedAt: now 
+          } 
+        }
+      );
+      console.log(`✅ Bulk updated ${result.modifiedCount} artists`);
+      return { modifiedCount: result.modifiedCount };
+    } catch (error) {
+      console.error(`❌ Error bulk updating artists:`, error);
       throw error;
     }
   }

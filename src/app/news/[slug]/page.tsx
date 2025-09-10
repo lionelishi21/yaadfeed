@@ -10,7 +10,7 @@ import Footer from '@/components/Footer';
 import Comments from '@/components/Comments';
 import { notFound } from 'next/navigation';
 import { formatters, stringUtils } from '@/utils';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 import ArticleContent from '@/components/ArticleContent';
 
 // Centralized data fetching function

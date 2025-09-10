@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Calendar, MapPin, Clock, ExternalLink, Search, Filter, Star } from 'lucide-react';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -82,7 +82,7 @@ const EventsPage = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
-        <Header />
+        <ClientHeader />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[...Array(4)].map((_, i) => (
@@ -97,7 +97,7 @@ const EventsPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
-      <Header />
+      <ClientHeader />
       
       {/* Page Header */}
       <section className="bg-gradient-to-r from-logo-primary to-logo-secondary text-white py-16">

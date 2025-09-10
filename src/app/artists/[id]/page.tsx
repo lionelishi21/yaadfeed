@@ -1,8 +1,11 @@
+// Force dynamic rendering for artist detail page
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, Users, ExternalLink, Music, DollarSign, MapPin, Calendar, Eye, Clock, Star, TrendingUp } from 'lucide-react';
-import Header from '@/components/Header';
+import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
@@ -97,7 +100,7 @@ export default async function ArtistPage({ params }: { params: { id: string } })
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
-      <Header />
+      <ClientHeader />
       <link rel="canonical" href={canonicalUrl} />
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       
