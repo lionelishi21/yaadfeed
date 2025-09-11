@@ -1,7 +1,11 @@
 // Prefer real OpenAI SDK when API key is present; fallback to stub otherwise
 let OpenAIClient: any = null;
-if (typeof window === 'undefined') {
-  (async () => {
+
+// Lazy load OpenAI client to avoid stack overflow
+async function loadOpenAIClient() {
+  if (OpenAIClient) return OpenAIClient;
+  
+  if (typeof window === 'undefined') {
     try {
       if (process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY !== 'your_openai_api_key_here') {
         const dynamicImport: (m: string) => Promise<any> = new Function('m', 'return import(m)') as any;
@@ -17,7 +21,9 @@ if (typeof window === 'undefined') {
         OpenAIClient = (stub as any).default || (stub as any);
       } catch {}
     }
-  })();
+  }
+  
+  return OpenAIClient;
 }
 import { writeFile, mkdir } from 'fs/promises';
 import { existsSync } from 'fs';
@@ -179,11 +185,8 @@ class ImageServiceClass {
       console.log(`🎨 Generating DALL-E image for: ${title.slice(0, 50)}...`);
       console.log(`📝 Prompt: ${prompt}`);
 
-      // Wait for OpenAIClient to be loaded if not already available
-      if (!OpenAIClient) {
-        console.log('OpenAI client not loaded yet, waiting...');
-        await new Promise(resolve => setTimeout(resolve, 1000));
-      }
+      // Load OpenAI client lazily
+      const OpenAIClient = await loadOpenAIClient();
       
       if (!openai && OpenAIClient) {
         openai = new OpenAIClient({ apiKey: process.env.OPENAI_API_KEY || '' });
