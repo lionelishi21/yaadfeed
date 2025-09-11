@@ -49,7 +49,7 @@ const nextConfig = {
   experimental: {
     workerThreads: false,
     isrMemoryCacheSize: 0,
-    optimizeCss: true,
+    optimizeCss: false,
     optimizePackageImports: ['lucide-react', 'framer-motion', '@heroicons/react'],
     serverComponentsExternalPackages: ['mongodb', 'bcryptjs', 'stripe'],
     skipTrailingSlashRedirect: true,
@@ -88,7 +88,6 @@ const nextConfig = {
         'clsx': 'commonjs clsx',
         'tailwind-merge': 'commonjs tailwind-merge',
         'tailwindcss-animate': 'commonjs tailwindcss-animate',
-        'critters': 'commonjs critters',
         '@radix-ui/react-select': 'commonjs @radix-ui/react-select',
         '@stripe/stripe-js': 'commonjs @stripe/stripe-js',
         '@next-auth/mongodb-adapter': 'commonjs @next-auth/mongodb-adapter',
