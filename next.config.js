@@ -7,135 +7,130 @@ const withBundleAnalyzer = process.env.ANALYZE === 'true'
 
 const nextConfig = {
   output: 'standalone',
+  outputFileTracing: true,
   trailingSlash: false,
+  
+  // Optimize imports
   modularizeImports: {
     'lucide-react': {
       transform: 'lucide-react/dist/esm/icons/{{member}}',
       preventFullImport: true,
     },
   },
+  
   images: {
     domains: [
       'localhost',
       'i.scdn.co',
       'img.discogs.com',
       'api.dicebear.com',
-      'www.jamaica-gleaner.com',
-      'www.jamaicaobserver.com',
-      'jamaica-gleaner.com',
-      'jamaicaobserver.com',
-      'www.dancehallmag.com',
-      'dancehallmag.com',
-      'www.reggaeville.com',
-      'reggaeville.com',
-      'urbanislandz.com',
-      'www.urbanislandz.com',
-      'jamaica.loopnews.com',
-      'tt.loopnews.com',
-      'www.trinidadexpress.com',
-      'trinidadexpress.com',
-      'www.caribbeanlifenews.com',
-      'caribbeanlifenews.com',
       'source.unsplash.com',
       'images.unsplash.com',
     ],
-    remotePatterns: [],
     formats: ['image/webp', 'image/avif'],
   },
+  
+  // Performance optimizations
   productionBrowserSourceMaps: false,
   swcMinify: true,
   compress: true,
   poweredByHeader: false,
+  
   experimental: {
     workerThreads: false,
     isrMemoryCacheSize: 0,
     optimizeCss: false,
-    optimizePackageImports: ['lucide-react', 'framer-motion', '@heroicons/react'],
+    optimizePackageImports: ['lucide-react'],
     serverComponentsExternalPackages: ['mongodb', 'bcryptjs', 'stripe'],
-    skipTrailingSlashRedirect: true,
-    skipMiddlewareUrlNormalize: true,
+    
+    // Exclude heavy files from function bundles
+    outputFileTracingExcludes: {
+      '*': [
+        'node_modules/@swc/core-linux-x64-gnu',
+        'node_modules/@swc/core-linux-x64-musl',
+        'node_modules/@esbuild/linux-x64',
+        'node_modules/mongodb/lib/**/*.js',
+        'node_modules/mongodb/lib/**/*.d.ts',
+        'node_modules/stripe/lib/**/*.js',
+        'node_modules/typescript/lib/**/*.d.ts',
+        'node_modules/typescript/lib/**/*.js',
+      ],
+    },
   },
-  // Disable static generation for error pages
-  generateBuildId: async () => {
-    return 'build-' + Date.now();
-  },
-  // Skip static generation for error pages
-  skipTrailingSlashRedirect: true,
-  skipMiddlewareUrlNormalize: true,
-  // Disable static generation for error pages
-  generateStaticParams: false,
+  
   webpack: (config, { isServer, dev }) => {
     if (isServer && !dev) {
-      // Exclude large dependencies from serverless functions
+      // Only externalize truly server-side dependencies
       config.externals = config.externals || [];
       config.externals.push({
+        // Core server dependencies
         'mongodb': 'commonjs mongodb',
-        'openai': 'commonjs openai',
         'stripe': 'commonjs stripe',
         'bcryptjs': 'commonjs bcryptjs',
-        'axios': 'commonjs axios',
-        'dayjs': 'commonjs dayjs',
-        'dotenv': 'commonjs dotenv',
-        '@next/bundle-analyzer': 'commonjs @next/bundle-analyzer',
-        'typescript': 'commonjs typescript',
-        'ts-node': 'commonjs ts-node',
-        '@heroicons/react': 'commonjs @heroicons/react',
-        'lucide-react': 'commonjs lucide-react',
-        'motion': 'commonjs motion',
-        'react-spinners': 'commonjs react-spinners',
-        'react-rough-notation': 'commonjs react-rough-notation',
-        'react-hot-toast': 'commonjs react-hot-toast',
-        'clsx': 'commonjs clsx',
-        'tailwind-merge': 'commonjs tailwind-merge',
-        'tailwindcss-animate': 'commonjs tailwindcss-animate',
-        '@radix-ui/react-select': 'commonjs @radix-ui/react-select',
-        '@stripe/stripe-js': 'commonjs @stripe/stripe-js',
         '@next-auth/mongodb-adapter': 'commonjs @next-auth/mongodb-adapter',
-        // Keep build-essential dependencies available
-        // 'autoprefixer', 'postcss', 'tailwindcss' are needed for build
+        
+        // Optional: Heavy server-only packages
+        'openai': 'commonjs openai',
       });
-    }
-    
-    // Disable error page generation to prevent Html import issues
-    if (isServer) {
-      config.plugins = config.plugins || [];
-      config.plugins.push(
-        new (require('webpack')).DefinePlugin({
-          'process.env.NEXT_RUNTIME': JSON.stringify('nodejs'),
-        })
-      );
-    }
-    
-    // Removed problematic entry modification
-    
-    // Optimize bundle size
-    if (!dev) {
+      
+      // Optimize for smaller bundles
       config.optimization = {
         ...config.optimization,
         splitChunks: {
           chunks: 'all',
-          maxSize: 200000, // 200KB per chunk (reduced from 244KB)
+          maxSize: 200000,
           cacheGroups: {
             default: false,
             vendors: false,
+            // Separate server dependencies
+            serverDeps: {
+              test: /[\\/]node_modules[\\/](mongodb|stripe|bcryptjs|@next-auth)[\\/]/,
+              name: 'server-deps',
+              chunks: 'all',
+              enforce: true,
+            },
+            // Common vendor chunk
             vendor: {
               test: /[\\/]node_modules[\\/]/,
               name: 'vendor',
               chunks: 'all',
               maxSize: 200000,
             },
-            common: {
-              name: 'common',
-              minChunks: 2,
+          },
+        },
+      };
+    }
+    
+    // Client-side optimizations
+    if (!isServer && !dev) {
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          maxSize: 200000,
+          cacheGroups: {
+            default: false,
+            vendors: false,
+            // Framework chunk
+            framework: {
+              test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+              name: 'framework',
               chunks: 'all',
-              maxSize: 200000,
+              enforce: true,
             },
-            // Separate chunk for large libraries
-            largeLibs: {
-              test: /[\\/]node_modules[\\/](mongodb|stripe|bcryptjs|axios)[\\/]/,
-              name: 'large-libs',
+            // UI libraries
+            ui: {
+              test: /[\\/]node_modules[\\/](@radix-ui|lucide-react|@heroicons)[\\/]/,
+              name: 'ui-libs',
               chunks: 'all',
               maxSize: 150000,
+            },
+            // Other vendor libraries
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendor',
+              chunks: 'all',
+              maxSize: 200000,
             },
           },
         },
