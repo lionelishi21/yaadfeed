@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
-const withBundleAnalyzer = process.env.ANALYZE === 'true' 
-  ? require('@next/bundle-analyzer')({
-      enabled: true,
-    })
-  : (config) => config;
+// Temporarily disable bundle analyzer to test for stack overflow
+const withBundleAnalyzer = (config) => config;
 
 const nextConfig = {
   output: 'standalone',
