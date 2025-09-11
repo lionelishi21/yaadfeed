@@ -58,6 +58,10 @@ const nextConfig = {
     },
   },
   
+  // Disable static generation for error pages
+  skipTrailingSlashRedirect: true,
+  skipMiddlewareUrlNormalize: true,
+  
   webpack: (config, { isServer, dev }) => {
     if (isServer && !dev) {
       // Only externalize truly server-side dependencies
@@ -99,6 +103,23 @@ const nextConfig = {
           },
         },
       };
+    }
+    
+    // Prevent static generation of error pages
+    if (isServer) {
+      config.plugins = config.plugins || [];
+      config.plugins.push(
+        new (require('webpack')).DefinePlugin({
+          'process.env.NEXT_DISABLE_ERROR_PAGES': JSON.stringify('true'),
+        })
+      );
+      
+      // Remove error page entries from webpack
+      if (config.entry && typeof config.entry === 'object') {
+        delete config.entry['pages/_error'];
+        delete config.entry['pages/404'];
+        delete config.entry['pages/500'];
+      }
     }
     
     // Client-side optimizations
