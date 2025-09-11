@@ -2,6 +2,7 @@ import NewsService from '@/lib/mongodb';
 import { ImageService } from '@/lib/imageService';
 import { synthesizeArticle } from '@/lib/contentOptimizer';
 
+
 interface ScrapedArticle {
   title: string;
   summary: string;
