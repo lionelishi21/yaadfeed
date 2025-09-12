@@ -128,7 +128,6 @@ export interface Subscription {
   status: SubscriptionStatus;
   startDate: string;
   endDate?: string;
-  stripeSubscriptionId?: string;
   isActive: boolean;
 }
 

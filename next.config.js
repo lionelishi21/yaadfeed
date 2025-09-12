@@ -6,7 +6,15 @@ const nextConfig = {
   // Completely disable static generation
   experimental: {
     isrMemoryCacheSize: 0,
-    serverComponentsExternalPackages: ['mongodb', 'bcryptjs', 'stripe'],
+    serverComponentsExternalPackages: [
+      'mongodb', 
+      'bcryptjs', 
+      'axios',
+      'dayjs',
+      'react-hot-toast',
+      'tailwind-merge',
+      'tailwindcss-animate'
+    ],
   },
   
   // Optimize imports
@@ -41,15 +49,38 @@ const nextConfig = {
   },
   
   webpack: (config, { isServer, dev }) => {
-    // Only externalize essential server-side dependencies
+    // Externalize heavy dependencies to reduce bundle size
     if (isServer && !dev) {
       config.externals = config.externals || [];
       config.externals.push({
         'mongodb': 'commonjs mongodb',
-        'stripe': 'commonjs stripe',
         'bcryptjs': 'commonjs bcryptjs',
+        'axios': 'commonjs axios',
+        'dayjs': 'commonjs dayjs',
+        'react-hot-toast': 'commonjs react-hot-toast',
+        'tailwind-merge': 'commonjs tailwind-merge',
+        'tailwindcss-animate': 'commonjs tailwindcss-animate',
       });
     }
+    
+    // Optimize bundle splitting
+    config.optimization = config.optimization || {};
+    config.optimization.splitChunks = {
+      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+        },
+        common: {
+          name: 'common',
+          minChunks: 2,
+          chunks: 'all',
+          enforce: true,
+        },
+      },
+    };
     
     // Completely disable error page generation
     if (config.entry && typeof config.entry === 'object') {

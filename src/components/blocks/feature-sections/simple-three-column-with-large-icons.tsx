@@ -1,4 +1,4 @@
-import { InboxIcon, TrashIcon, UsersIcon } from '@heroicons/react/24/outline'
+import { Inbox, Trash2, Users } from 'lucide-react'
 
 const features = [
   {
@@ -6,21 +6,21 @@ const features = [
     description:
       'Non quo aperiam repellendus quas est est. Eos aut dolore aut ut sit nesciunt. Ex tempora quia. Sit nobis consequatur dolores incidunt.',
     href: '#',
-    icon: InboxIcon,
+    icon: Inbox,
   },
   {
     name: 'Manage team members',
     description:
       'Vero eum voluptatem aliquid nostrum voluptatem. Vitae esse natus. Earum nihil deserunt eos quasi cupiditate. A inventore et molestiae natus.',
     href: '#',
-    icon: UsersIcon,
+    icon: Users,
   },
   {
     name: 'Spam report',
     description:
       'Et quod quaerat dolorem quaerat architecto aliquam accusantium. Ex adipisci et doloremque autem quia quam. Quis eos molestiae at iure impedit.',
     href: '#',
-    icon: TrashIcon,
+    icon: Trash2,
   },
 ]
 
