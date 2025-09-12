@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from "motion/react";
+import { motion } from "motion";
 import { Play, ArrowRight, Calendar, Share2, ExternalLink, Music, Clock, Sparkles, Heart, Eye, ChevronRight, Filter, Search } from 'lucide-react';
 import { Card, CardContent } from '@/components/Card';
 import Button from '@/components/ui/Button';

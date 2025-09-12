@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion } from "motion";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Bell, DiscAlbum, Menu, Search, X } from "lucide-react";
