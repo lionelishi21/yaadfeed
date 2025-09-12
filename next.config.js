@@ -41,8 +41,13 @@ const nextConfig = {
   generateBuildId: async () => {
     return 'build-' + Date.now();
   },
-
-  // Disable error page generation
+  
+  // Disable static generation completely
+  trailingSlash: false,
+  skipTrailingSlashRedirect: true,
+  skipMiddlewareUrlNormalize: true,
+  
+  // Disable static optimization
   experimental: {
     isrMemoryCacheSize: 0,
     serverComponentsExternalPackages: [
@@ -94,29 +99,25 @@ const nextConfig = {
     };
     
          // Completely disable error page generation
-         if (config.entry && typeof config.entry === 'object') {
-           // Remove error page entries completely
-           delete config.entry['pages/_error'];
-           delete config.entry['pages/404'];
-           delete config.entry['pages/500'];
-         }
-
-         // Override Next.js error page generation
+         const webpack = require('webpack');
+         
+         // Override Next.js error page generation completely
          config.resolve = config.resolve || {};
          config.resolve.alias = {
            ...config.resolve.alias,
            'next/dist/pages/_error': false,
            'next/dist/pages/404': false,
            'next/dist/pages/500': false,
+           'next/dist/pages/_document': false,
          };
 
          // Disable static generation for error pages
-         const webpack = require('webpack');
          config.plugins = config.plugins || [];
          config.plugins.push(
            new webpack.DefinePlugin({
              'process.env.NEXT_DISABLE_ERROR_PAGES': JSON.stringify('true'),
              'process.env.NEXT_DISABLE_STATIC_GENERATION': JSON.stringify('true'),
+             'process.env.NEXT_PHASE': JSON.stringify('production'),
            })
          );
 
@@ -125,6 +126,7 @@ const nextConfig = {
            delete config.entry['pages/_error'];
            delete config.entry['pages/404'];
            delete config.entry['pages/500'];
+           delete config.entry['pages/_document'];
          }
 
          // Additional optimizations for Vercel size limit
