@@ -5,7 +5,7 @@ import { Card }  from '@/components/Card'
 import { Badge } from '@/components/ui/Badge'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/Select'
 import { Heart, Play, Users, MapPin, Instagram, Twitter, Music, ChevronLeft, ChevronRight, Filter, TrendingUp, Calendar, ExternalLink } from 'lucide-react'
-import { motion } from 'motion'
+import { motion } from 'framer-motion'
 
 interface Artist {
   id: string

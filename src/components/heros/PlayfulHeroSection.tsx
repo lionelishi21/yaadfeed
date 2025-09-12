@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import { Music, ArrowRight, Sparkles } from "lucide-react";
 import React, { useEffect, useRef } from "react";
-import { motion } from "motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 
 export function PlayfulHeroSection() {
