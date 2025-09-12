@@ -25,6 +25,10 @@ node_modules/react-hot-toast
 node_modules/typescript
 node_modules/ts-node
 node_modules/@next/bundle-analyzer
+node_modules/framer-motion
+node_modules/@radix-ui
+node_modules/next-auth
+node_modules/@next-auth
 
 # Scripts and utilities
 scripts/
@@ -65,6 +69,14 @@ node_modules/autoprefixer
 node_modules/postcss
 node_modules/tailwindcss
 node_modules/critters
+
+# Additional exclusions for size optimization
+.next/static/chunks/pages/_app-*.js
+.next/static/chunks/pages/_error-*.js
+.next/static/chunks/pages/404-*.js
+.next/static/chunks/pages/500-*.js
+.next/static/chunks/pages/_document-*.js
+.next/static/chunks/pages/_not-found-*.js
 
 # Automation and data files
 automation/

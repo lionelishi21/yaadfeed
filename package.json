@@ -26,13 +26,10 @@
   },
   "dependencies": {
     "@next-auth/mongodb-adapter": "^1.1.3",
-    "@radix-ui/react-select": "^2.2.5",
     "autoprefixer": "^10.4.21",
     "axios": "^1.10.0",
     "bcryptjs": "^3.0.2",
-    "clsx": "^2.1.0",
     "dayjs": "^1.11.18",
-    "dotenv": "^17.0.0",
     "lucide-react": "^0.305.0",
     "mongodb": "^5.9.2",
     "next": "14.0.4",
@@ -48,16 +45,12 @@
     "react-spinners": "^0.17.0"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^15.5.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "critters": "^0.0.23",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
-    "react-rough-notation": "^1.0.5",
-    "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
 }
