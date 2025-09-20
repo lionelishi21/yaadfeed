@@ -1,7 +1,7 @@
 'use client';
 
 // Force dynamic rendering for careers page
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 import React, { useState } from 'react';
 import { Users, MapPin, Clock, DollarSign, Heart, Zap, Award, Globe, Briefcase, Send, CheckCircle } from 'lucide-react';

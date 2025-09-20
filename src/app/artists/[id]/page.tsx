@@ -1,5 +1,5 @@
 // Force dynamic rendering for artist detail page
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 import React from 'react';
 import Image from 'next/image';
@@ -23,7 +23,8 @@ export async function generateStaticParams() {
 
 async function getArtist(id: string) {
   // Derive base URL from headers at runtime (supports dev/prod and custom ports)
-  const headersList = (await import('next/headers')).headers();
+  const { headers } = await import('next/headers');
+  const headersList = await headers();
   const host = headersList.get('host') || 'localhost:3000';
   const protocol = host.includes('localhost') || host.includes('127.0.0.1') ? 'http' : 'https';
   const baseUrl = `${protocol}://${host}`;
@@ -34,8 +35,9 @@ async function getArtist(id: string) {
   return data;
 }
 
-export default async function ArtistPage({ params }: { params: { id: string } }) {
-  const data = await getArtist(params.id);
+export default async function ArtistPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const data = await getArtist(id);
 
   if (!data || !data.artist) {
     return (
@@ -56,7 +58,7 @@ export default async function ArtistPage({ params }: { params: { id: string } })
 
   const { artist, relatedArticles } = data;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:4000';
-  const canonicalUrl = `${siteUrl}/artists/${artist.id || params.id}`;
+  const canonicalUrl = `${siteUrl}/artists/${artist.id || id}`;
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'MusicGroup',

@@ -11,7 +11,7 @@ export async function generateStaticParams() {
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { commentId: string } }
+  { params }: { params: Promise<{ commentId: string }> }
 ) {
   try {
     const { getServerSession } = await import('next-auth');
@@ -25,7 +25,7 @@ export async function POST(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { commentId } = params;
+    const { commentId } = await params;
     const userId = (session.user as any).id;
 
     const { db } = await connectToDatabase();

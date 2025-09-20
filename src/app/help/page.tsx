@@ -1,7 +1,7 @@
 'use client';
 
 // Force dynamic rendering for help page
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 import React, { useState } from 'react';
 import { Search, HelpCircle, MessageCircle, BookOpen, Shield, Users, Settings, Mail } from 'lucide-react';

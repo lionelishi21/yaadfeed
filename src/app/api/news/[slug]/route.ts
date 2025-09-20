@@ -47,21 +47,25 @@ async function fetchAndExtractMainContent(url: string): Promise<string> {
 
 // Generate static params for static export
 export async function generateStaticParams() {
-  return [
-    { slug: 'bob-marleys-legacy-continues-to-inspire-new-generation-of-jamaican-artists' },
-    { slug: 'jamaicas-tourism-industry-shows-strong-recovery-post-pandemic' },
-    { slug: 'reggae-sumfest-2025-lineup-announced-featuring-international-and-local-stars' }
-  ];
+  try {
+    const { default: NewsService } = await import('@/lib/mongodb');
+    const slugs = await NewsService.getAllSlugs();
+    return slugs.map(slug => ({ slug }));
+  } catch (error) {
+    console.error('Error fetching slugs for generateStaticParams:', error);
+    // Fallback to empty array if database is not available
+    return [];
+  }
 }
 // lazy import heavy service
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
     const { default: NewsService } = await import('@/lib/mongodb');
-    const { slug } = params;
+    const { slug } = await params;
 
     // Try to find article by slug first
     let article = await NewsService.getNewsBySlug(slug);
@@ -149,10 +153,10 @@ export async function GET(
   }
 } 
 
-export async function PUT(request: NextRequest, { params }: { params: { slug: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   try {
     const { default: NewsService } = await import('@/lib/mongodb');
-    const { slug } = params;
+    const { slug } = await params;
     const data = await request.json();
     // Update article (partial update)
     const updated = await NewsService.updateNews(slug, data);
@@ -166,10 +170,10 @@ export async function PUT(request: NextRequest, { params }: { params: { slug: st
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { slug: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ slug: string }> }) {
   try {
     const { default: NewsService } = await import('@/lib/mongodb');
-    const { slug } = params;
+    const { slug } = await params;
     const deleted = await NewsService.deleteNews(slug);
     if (!deleted) {
       return NextResponse.json({ error: 'Article not found or failed to delete' }, { status: 404 });

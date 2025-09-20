@@ -334,6 +334,14 @@ export class NewsService {
     const collection = await getNewsCollection();
     return await collection.findOne({ _id: id as any }) || null;
   }
+
+  static async getAllSlugs(): Promise<string[]> {
+    const collection = await getNewsCollection();
+    const slugs = await collection
+      .find({}, { projection: { slug: 1 } })
+      .toArray();
+    return slugs.map(item => item.slug).filter(Boolean);
+  }
   
   static async createNews(newsData: Omit<NewsItem, '_id' | 'createdAt' | 'updatedAt'>): Promise<NewsItem | null> {
     const collection = await getNewsCollection();

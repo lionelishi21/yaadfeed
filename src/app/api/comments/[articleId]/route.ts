@@ -29,10 +29,10 @@ interface CommentWithReplies {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { articleId: string } }
+  { params }: { params: Promise<{ articleId: string }> }
 ) {
   try {
-    const { articleId } = params;
+    const { articleId } = await params;
 
     const { db } = await connectToDatabase();
     const commentsCollection = db.collection('comments');

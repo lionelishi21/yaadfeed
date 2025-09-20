@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 // Force dynamic rendering for terms page
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: 'Terms of Service | YaadFeed',

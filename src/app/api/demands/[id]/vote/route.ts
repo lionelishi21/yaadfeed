@@ -90,10 +90,10 @@ let demands: DemandRequest[] = [
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const demandId = params.id;
+    const { id: demandId } = await params;
     
     // Find the demand
     const demandIndex = demands.findIndex(d => d.id === demandId);

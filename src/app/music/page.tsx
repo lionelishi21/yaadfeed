@@ -1,12 +1,12 @@
 'use client';
 
-// Force dynamic rendering for music page
-export const dynamic = 'force-dynamic';
+// Static rendering for export
+export const dynamic = "auto";
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from "framer-motion";
+import { SafeMotionDiv, SafeMotionSection } from '@/components/ui/MotionWrapper';
 import { Play, ArrowRight, Calendar, Share2, ExternalLink, Music, Clock, Sparkles, Heart, Eye, ChevronRight, Filter, Search } from 'lucide-react';
 import { Card, CardContent } from '@/components/Card';
 import Button from '@/components/ui/Button';
@@ -287,7 +287,7 @@ const MusicPage = () => {
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-logo-primary to-logo-dark text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
+          <SafeMotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -307,7 +307,7 @@ const MusicPage = () => {
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
               Discover the latest news, artist updates, and cultural stories from Jamaica's vibrant music scene.
             </p>
-          </motion.div>
+          </SafeMotionDiv>
         </div>
       </section>
 
@@ -364,7 +364,7 @@ const MusicPage = () => {
           {filteredNews.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredNews.map((article, index) => (
-                <motion.div
+                <SafeMotionDiv
                   key={article.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -409,7 +409,7 @@ const MusicPage = () => {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </SafeMotionDiv>
               ))}
             </div>
           ) : (
@@ -445,7 +445,7 @@ const MusicPage = () => {
           {trendingArtists.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {trendingArtists.map((artist, index) => (
-                <motion.div
+                <SafeMotionDiv
                   key={artist.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -488,7 +488,7 @@ const MusicPage = () => {
                       </CardContent>
                     </Card>
                   </Link>
-                </motion.div>
+                </SafeMotionDiv>
               ))}
             </div>
           ) : (
@@ -540,7 +540,7 @@ const MusicPage = () => {
                 href: '/news?category=afrobeats'
               }
             ].map((genre, index) => (
-              <motion.div
+              <SafeMotionDiv
                 key={genre.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -568,7 +568,7 @@ const MusicPage = () => {
                     </CardContent>
                   </Card>
                 </Link>
-              </motion.div>
+              </SafeMotionDiv>
             ))}
           </div>
         </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { X, Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 import Button from '@/components/ui/Button';
@@ -29,9 +29,14 @@ const AuthModal: React.FC<AuthModalProps> = ({
     confirmPassword: ''
   });
 
+  const [mounted, setMounted] = useState(false);
   const { data: session } = useSession();
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || !isOpen) return null;
 
   const handleSocialLogin = async (provider: string) => {
     setSocialLoading(provider);

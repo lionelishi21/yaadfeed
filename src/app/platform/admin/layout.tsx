@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 
 import { useSession } from 'next-auth/react';
 import { useRouter, usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import AdminSidebar from '@/components/admin/AdminSidebar';
 
 export default function AdminLayout({
@@ -13,7 +13,9 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { data: session, status } = useSession();
+  const [mounted, setMounted] = useState(false);
+  const [session, setSession] = useState<any>(null);
+  const [status, setStatus] = useState('loading');
   const router = useRouter();
   const pathname = usePathname();
 
@@ -21,6 +23,19 @@ export default function AdminLayout({
   const isLoginPage = pathname === '/platform/admin' || pathname === '/platform/admin/';
 
   useEffect(() => {
+    setMounted(true);
+    
+    // Use getSession instead of useSession to avoid SSR issues
+    import('next-auth/react').then(({ getSession }) => {
+      getSession().then((sessionData) => {
+        setSession(sessionData);
+        setStatus(sessionData ? 'authenticated' : 'unauthenticated');
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     if (status === 'loading') return; // Still loading
 
     // Don't redirect if we're already on the login page
@@ -38,15 +53,15 @@ export default function AdminLayout({
       router.push('/platform/admin/');
       return;
     }
-  }, [session, status, router, isLoginPage]);
+  }, [mounted, session, status, router, isLoginPage]);
 
   // If we're on the login page, just render the children (login form)
   if (isLoginPage) {
     return <>{children}</>;
   }
 
-  // Show loading while checking authentication
-  if (status === 'loading') {
+  // Show loading while checking authentication or before mounting
+  if (!mounted || status === 'loading') {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
@@ -98,4 +113,4 @@ export default function AdminLayout({
       </div>
     </div>
   );
-} 
+}

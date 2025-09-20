@@ -34,9 +34,11 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "out/types/**/*.ts"
+    "out/types/**/*.ts",
+    "sst.config.ts",
+    "sst.config.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules","sst.config.ts"
   ]
 }

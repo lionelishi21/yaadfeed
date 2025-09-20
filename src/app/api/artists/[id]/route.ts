@@ -1,12 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// Generate static params for all artist IDs
+export async function generateStaticParams() {
+  // Return the known artist IDs from the sample data
+  return [
+    { id: '1' },
+    { id: '2' },
+    { id: '3' },
+    { id: '4' },
+    { id: '5' },
+    { id: '6' },
+    { id: '7' },
+    { id: '8' },
+  ];
+}
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const { NewsService } = await import('@/lib/mongodb');
-    const artist = await NewsService.getArtistById(params.id);
+    const artist = await NewsService.getArtistById(id);
     
     if (!artist) {
       return NextResponse.json({ error: 'Artist not found' }, { status: 404 });
@@ -21,14 +37,15 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const { NewsService } = await import('@/lib/mongodb');
     const updates = await request.json();
     
     // Update artist in database
-    const updatedArtist = await NewsService.updateArtist(params.id, updates);
+    const updatedArtist = await NewsService.updateArtist(id, updates);
     
     if (!updatedArtist) {
       return NextResponse.json({ error: 'Artist not found' }, { status: 404 });
@@ -43,12 +60,13 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const { NewsService } = await import('@/lib/mongodb');
     
-    const deleted = await NewsService.deleteArtist(params.id);
+    const deleted = await NewsService.deleteArtist(id);
     
     if (!deleted) {
       return NextResponse.json({ error: 'Artist not found' }, { status: 404 });

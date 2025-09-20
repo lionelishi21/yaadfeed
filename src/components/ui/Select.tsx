@@ -29,7 +29,7 @@ function Select({ value, onValueChange, children }: SelectProps) {
     <div className="relative">
       {React.Children.map(children, (child) => {
         if (React.isValidElement(child) && child.type === SelectTrigger) {
-          return React.cloneElement(child, { value, onValueChange })
+          return React.cloneElement(child, { value, onValueChange } as any)
         }
         return child
       })}

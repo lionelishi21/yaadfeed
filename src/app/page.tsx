@@ -1,6 +1,7 @@
   'use client';
 
-export const dynamic = 'force-dynamic';
+// Static rendering for export
+export const dynamic = 'auto';
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -8,7 +9,25 @@ import Image from 'next/image';
 import { Play, ArrowRight, Calendar, Share2, ExternalLink, Music, Newspaper, Users, TrendingUp, Star, Clock, Sparkles, Zap, Globe, Heart, Eye, ChevronRight } from 'lucide-react';
 import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
-import Preloader from '@/components/ui/Preloader';
+import dynamicImport from 'next/dynamic';
+
+// Dynamically import Preloader to avoid SSR issues
+const Preloader = dynamicImport(() => import('@/components/ui/Preloader'), {
+  ssr: false,
+  loading: () => (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-logo-light via-white to-logo-muted">
+      <div className="text-center">
+        <h1 className="text-4xl md:text-6xl font-black text-logo-dark mb-2">
+          Yaad<span className="text-logo-primary">Feed</span>
+        </h1>
+        <p className="text-lg text-gray-600">Jamaica's Premier News & Music Platform</p>
+        <div className="mt-8">
+          <div className="w-8 h-8 border-3 border-logo-primary/20 border-t-logo-primary rounded-full mx-auto animate-spin"></div>
+        </div>
+      </div>
+    </div>
+  )
+});
 
 // Types
 interface NewsItem {

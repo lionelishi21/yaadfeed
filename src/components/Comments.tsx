@@ -30,6 +30,7 @@ interface CommentsProps {
 }
 
 const Comments: React.FC<CommentsProps> = ({ articleId }) => {
+  const [mounted, setMounted] = useState(false);
   const { data: session } = useSession();
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
@@ -43,8 +44,14 @@ const Comments: React.FC<CommentsProps> = ({ articleId }) => {
   };
 
   useEffect(() => {
-    fetchComments();
-  }, [articleId]);
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted) {
+      fetchComments();
+    }
+  }, [mounted, articleId]);
 
   const fetchComments = async () => {
     try {
@@ -268,7 +275,7 @@ const Comments: React.FC<CommentsProps> = ({ articleId }) => {
     );
   };
 
-  if (loading) {
+  if (!mounted || loading) {
     return (
       <div className="space-y-4">
         {[1, 2, 3].map((i) => (

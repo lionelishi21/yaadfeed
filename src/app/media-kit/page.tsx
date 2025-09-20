@@ -1,7 +1,7 @@
 'use client';
 
 // Force dynamic rendering for media-kit page
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 import React from 'react';
 import { Download, Image as ImageIcon, FileText, Palette, Globe, Users, TrendingUp, Star } from 'lucide-react';

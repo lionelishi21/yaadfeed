@@ -5,7 +5,7 @@ const fs = require('fs');
 
 console.log('🚀 Starting build process...');
 
-const buildProcess = spawn('npm', ['run', 'build'], {
+const buildProcess = spawn('npx', ['next', 'build'], {
   stdio: 'pipe',
   shell: true
 });

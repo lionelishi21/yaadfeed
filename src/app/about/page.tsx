@@ -1,7 +1,7 @@
 'use client';
 
 // Force dynamic rendering for about page
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 import React from 'react';
 import { Users, Globe, Award, Heart, Music, Newspaper, Calendar, Star } from 'lucide-react';
