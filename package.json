@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "node build-with-ignore.js",
+    "build": "next build",
     "build:analyze": "ANALYZE=true next build",
     "check-missing-images": "node scripts/check-missing-images.js",
     "clear-and-regenerate": "node scripts/clear-and-regenerate.js",
