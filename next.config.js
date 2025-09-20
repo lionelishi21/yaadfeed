@@ -9,5 +9,16 @@ const nextConfig = {
 
   // Keep image domains simple for now; you can re-add later
   images: { domains: [] },
+
+  // Explicit webpack configuration for module resolution
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    // Ensure proper module resolution
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': require('path').resolve(__dirname, 'src'),
+    };
+    
+    return config;
+  },
 };
 module.exports = nextConfig;
