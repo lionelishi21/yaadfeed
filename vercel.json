@@ -17,7 +17,8 @@
   "regions": ["iad1"],
   "build": {
     "env": {
-      "NODE_ENV": "production"
+      "NODE_ENV": "production",
+      "VERCEL_BUILD_CACHE_BUST": "1"
     }
   }
 }
