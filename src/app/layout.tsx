@@ -1,3 +1,4 @@
+
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -11,7 +12,13 @@ export const metadata: Metadata = {
 }
 
 // Static rendering for export
-export const dynamic = 'auto'
+
+/** TEMP to unblock build: turn off SSG/ISR globally */
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const fetchCache = 'force-no-store';
+export const runtime = 'nodejs';
+
 
 export default function RootLayout({
   children,

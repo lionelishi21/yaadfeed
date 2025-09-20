@@ -243,6 +243,11 @@
 }
 
 @layer utilities {
+
+  .border-border { border-color: hsl(var(--border)); }
+  .bg-background { background-color: hsl(var(--background)); }
+  .text-foreground { color: hsl(var(--foreground)); }
+  
   /* Custom animations */
   @keyframes shimmer {
     0% { background-position: -200% 0; }
