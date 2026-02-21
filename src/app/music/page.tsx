@@ -158,7 +158,7 @@ const GENRES = [
   { id: 'reggae',    icon: Music,      title: 'Reggae',        desc: 'The soulful sound that put Jamaica on the world map',    stat: '60+ yrs', statLabel: 'heritage' },
   { id: 'dancehall', icon: Mic2,       title: 'Dancehall',     desc: 'Electrifying beats driving dancefloors around the globe', stat: '#1',      statLabel: 'global trend' },
   { id: 'afrobeats', icon: Radio,      title: 'Afrobeats',     desc: 'The fusion of African and Caribbean musical traditions',  stat: '2B+',     statLabel: 'streams' },
-  { id: 'dub',       icon: Headphones, title: 'Dub & Roots',   desc: 'Bass-heavy originals from Kingston's legendary studios',  stat: '∞',       statLabel: 'influence' },
+  { id: 'dub',       icon: Headphones, title: 'Dub & Roots',   desc: "Bass-heavy originals from Kingston's legendary studios",  stat: '∞',       statLabel: 'influence' },
 ];
 
 /* ─── Page ──────────────────────────────────────────────── */
