@@ -5,42 +5,22 @@ export const dynamic = "force-dynamic";
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Search, Filter, ArrowRight, Calendar, User, Eye, Sparkles, Zap, TrendingUp, Clock, Star } from 'lucide-react';
+import {
+  Search, X, ArrowRight, Calendar, User, Eye, Sparkles, TrendingUp,
+  Clock, Star, ChevronRight, Flame, Globe, Newspaper, ArrowUpRight,
+  Music, Filter
+} from 'lucide-react';
 import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
-import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
 import { NewsItem, NewsCategory } from '@/types';
 import { formatters, stringUtils } from '@/utils';
-import { InArticleAd, MultiplexAd, SidebarRectangleAd } from '@/components/ads/AdPlacements';
 
-// Optimized image component with lazy loading
-const OptimizedImage = ({ src, alt, width, height, className, priority = false }: {
-  src: string;
-  alt: string;
-  width: number;
-  height: number;
-  className: string;
-  priority?: boolean;
-}) => (
-  <Image
-    src={src || '/images/jamaica-flag-bg.jpg'}
-    alt={alt}
-    width={width}
-    height={height}
-    className={className}
-    loading={priority ? "eager" : "lazy"}
-    placeholder="blur"
-    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxAAPwCdABmX/9k="
-  />
-);
-
-// Fallback mock data for better performance
+// ── Fallback data ─────────────────────────────────────────────────────────────
 const getFallbackNews = (): NewsItem[] => [
   {
     id: '1',
-    title: 'Jamaica\'s Dancehall Scene Continues to Thrive',
-    summary: 'The vibrant dancehall culture in Jamaica continues to influence global music trends.',
+    title: "Jamaica's Dancehall Scene Continues to Thrive Globally",
+    summary: 'The vibrant dancehall culture in Jamaica continues to influence global music trends, with artists like Skillibeng and Popcaan leading the charge.',
     content: 'The vibrant dancehall culture in Jamaica continues to influence global music trends.',
     category: 'entertainment' as const,
     source: 'jamaica-gleaner' as const,
@@ -51,14 +31,14 @@ const getFallbackNews = (): NewsItem[] => [
     keywords: ['dancehall', 'jamaica', 'music'],
     isPopular: true,
     author: 'YaadFeed Team',
-    viewCount: 1500,
-    readTime: 3
+    viewCount: 15200,
+    readTime: 3,
   },
   {
     id: '2',
-    title: 'Reggae Festival 2024: A Celebration of Jamaican Culture',
-    summary: 'Join us for the biggest reggae festival celebrating Jamaica\'s rich musical heritage.',
-    content: 'Join us for the biggest reggae festival celebrating Jamaica\'s rich musical heritage.',
+    title: 'Reggae Festival 2024: A Celebration of Jamaican Musical Heritage',
+    summary: "Join us for the biggest reggae festival celebrating Jamaica's rich musical heritage and cultural roots.",
+    content: "Join us for the biggest reggae festival celebrating Jamaica's rich musical heritage.",
     category: 'entertainment' as const,
     source: 'jamaica-observer' as const,
     imageUrl: '/images/placeholder-entertainment.jpg',
@@ -67,14 +47,14 @@ const getFallbackNews = (): NewsItem[] => [
     tags: ['reggae', 'festival', 'jamaica'],
     keywords: ['reggae', 'festival', 'jamaica'],
     author: 'YaadFeed Team',
-    viewCount: 1200,
-    readTime: 4
+    viewCount: 9800,
+    readTime: 4,
   },
   {
     id: '3',
-    title: 'Jamaican Athletes Prepare for Olympic Games',
-    summary: 'Jamaica\'s track and field stars are training hard for the upcoming Olympic competition.',
-    content: 'Jamaica\'s track and field stars are training hard for the upcoming Olympic competition.',
+    title: 'Jamaican Athletes Prepare for the Upcoming Olympic Games',
+    summary: "Jamaica's track and field stars are training intensively for the upcoming Olympic competition.",
+    content: "Jamaica's track and field stars are training hard for the upcoming Olympic competition.",
     category: 'sports' as const,
     source: 'sports-jamaica' as const,
     imageUrl: '/images/placeholder-sports.jpg',
@@ -83,97 +63,311 @@ const getFallbackNews = (): NewsItem[] => [
     tags: ['olympics', 'athletics', 'jamaica'],
     keywords: ['olympics', 'athletics', 'jamaica'],
     author: 'YaadFeed Team',
-    viewCount: 1800,
-    readTime: 3
-  }
+    viewCount: 18700,
+    readTime: 3,
+  },
+  {
+    id: '4',
+    title: 'Kingston Street Art Festival Draws International Attention',
+    summary: 'Local and international artists transform downtown Kingston into an open-air gallery.',
+    content: 'Local and international artists transform downtown Kingston into an open-air gallery.',
+    category: 'culture' as const,
+    source: 'jamaica-gleaner' as const,
+    imageUrl: '/images/placeholder-music.jpg',
+    slug: 'kingston-street-art-festival',
+    publishedAt: new Date(Date.now() - 86400000).toISOString(),
+    tags: ['art', 'culture', 'kingston'],
+    keywords: ['art', 'kingston', 'culture'],
+    author: 'YaadFeed Team',
+    viewCount: 6300,
+    readTime: 2,
+  },
+  {
+    id: '5',
+    title: 'New Government Policy to Boost Jamaican Tech Startups',
+    summary: 'The government announces a new initiative aimed at fostering innovation and entrepreneurship in the island nation.',
+    content: 'The government announces a new initiative aimed at fostering innovation.',
+    category: 'business' as const,
+    source: 'jamaica-observer' as const,
+    imageUrl: '/images/placeholder-sports.jpg',
+    slug: 'government-policy-tech-startups',
+    publishedAt: new Date(Date.now() - 172800000).toISOString(),
+    tags: ['business', 'technology', 'startup'],
+    keywords: ['business', 'technology', 'jamaica'],
+    author: 'YaadFeed Team',
+    viewCount: 4100,
+    readTime: 5,
+  },
+  {
+    id: '6',
+    title: 'Afrobeats and Dancehall: The Cultural Collision Reshaping Afro-Caribbean Music',
+    summary: 'How two of the world\'s most electrifying genres are merging to create something entirely new.',
+    content: 'How two of the worlds most electrifying genres are merging.',
+    category: 'culture' as const,
+    source: 'jamaica-gleaner' as const,
+    imageUrl: '/images/placeholder-entertainment.jpg',
+    slug: 'afrobeats-dancehall-collision',
+    publishedAt: new Date(Date.now() - 259200000).toISOString(),
+    tags: ['afrobeats', 'dancehall', 'culture'],
+    keywords: ['afrobeats', 'dancehall'],
+    author: 'YaadFeed Team',
+    viewCount: 11500,
+    readTime: 6,
+  },
 ];
 
+// ── Category config ───────────────────────────────────────────────────────────
+const CATEGORIES: { value: NewsCategory | 'all'; label: string; emoji: string }[] = [
+  { value: 'all',           label: 'All',           emoji: '✦' },
+  { value: 'entertainment', label: 'Entertainment', emoji: '🎵' },
+  { value: 'sports',        label: 'Sports',        emoji: '🏅' },
+  { value: 'politics',      label: 'Politics',      emoji: '🗳️' },
+  { value: 'business',      label: 'Business',      emoji: '📈' },
+  { value: 'culture',       label: 'Culture',       emoji: '🎨' },
+  { value: 'local',         label: 'Local',         emoji: '📍' },
+  { value: 'international', label: 'International', emoji: '🌍' },
+];
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function formatViews(n: number) {
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
+  return `${n}`;
+}
+
+// ── Hero Card ─────────────────────────────────────────────────────────────────
+function HeroCard({ article }: { article: NewsItem }) {
+  return (
+    <Link href={`/news/${article.slug || article.id}`} className="group block relative rounded-3xl overflow-hidden bg-gray-950 border border-white/[0.06]">
+      {/* Image */}
+      <div className="absolute inset-0">
+        {article.imageUrl ? (
+          <Image
+            src={article.imageUrl}
+            alt={article.title}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+            priority
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-gray-900 via-logo-dark/50 to-gray-950" />
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col justify-end h-full min-h-[480px] lg:min-h-[560px] p-7 lg:p-9">
+        {/* Badges */}
+        <div className="flex items-center gap-2 mb-4">
+          <span className="inline-flex items-center gap-1.5 bg-logo-primary/90 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
+            <Flame className="w-3 h-3" /> Featured
+          </span>
+          <span className="inline-flex items-center gap-1 bg-white/10 backdrop-blur-sm text-white/70 text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1.5 rounded-full border border-white/10">
+            {article.category}
+          </span>
+        </div>
+
+        <h2 className="text-2xl lg:text-4xl font-black text-white leading-tight tracking-tight mb-3 group-hover:text-logo-secondary transition-colors duration-300 max-w-2xl">
+          {article.title}
+        </h2>
+
+        <p className="text-white/55 text-sm lg:text-base leading-relaxed line-clamp-2 mb-6 max-w-xl">
+          {article.summary}
+        </p>
+
+        {/* Meta row */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4 text-xs text-white/40">
+            <span className="flex items-center gap-1.5">
+              <User className="w-3 h-3" /> {article.author || 'YaadFeed'}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Clock className="w-3 h-3" /> {formatters.relative(article.publishedAt)}
+            </span>
+            {article.viewCount != null && (
+              <span className="flex items-center gap-1.5">
+                <Eye className="w-3 h-3" /> {formatViews(article.viewCount)}
+              </span>
+            )}
+          </div>
+          <span className="inline-flex items-center gap-1.5 text-xs font-bold text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/15 px-3.5 py-2 rounded-xl transition-colors">
+            Read <ArrowRight className="w-3.5 h-3.5" />
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+// ── Standard News Card ────────────────────────────────────────────────────────
+function NewsCard({ article, compact = false }: { article: NewsItem; compact?: boolean }) {
+  if (compact) {
+    return (
+      <Link href={`/news/${article.slug || article.id}`} className="group flex gap-3.5 p-4 rounded-xl bg-white border border-gray-100 hover:border-logo-primary/20 hover:shadow-[0_4px_20px_rgba(21,128,61,0.07)] transition-all duration-300">
+        {/* Thumbnail */}
+        <div className="relative w-[72px] h-[72px] flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
+          {article.imageUrl ? (
+            <Image src={article.imageUrl} alt={article.title} fill className="object-cover transition-transform duration-300 group-hover:scale-105" />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-logo-primary/8 to-logo-secondary/8">
+              <Newspaper className="w-5 h-5 text-gray-300" />
+            </div>
+          )}
+        </div>
+        {/* Text */}
+        <div className="flex-1 min-w-0">
+          <span className="inline-flex items-center px-1.5 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-widest bg-logo-primary/8 text-logo-primary mb-1.5">
+            {article.category}
+          </span>
+          <h3 className="text-sm font-bold text-gray-900 line-clamp-2 group-hover:text-logo-primary transition-colors leading-snug">
+            {article.title}
+          </h3>
+          <p className="text-[11px] text-gray-400 mt-1.5 flex items-center gap-1">
+            <Clock className="w-3 h-3" />
+            {formatters.relative(article.publishedAt)}
+            <span className="mx-1 text-gray-200">·</span>
+            {article.readTime || 2}m read
+          </p>
+        </div>
+      </Link>
+    );
+  }
+
+  return (
+    <Link href={`/news/${article.slug || article.id}`} className="group flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-logo-primary/15 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-0.5">
+      {/* Image */}
+      <div className="relative aspect-[16/9] overflow-hidden bg-gray-100">
+        {article.imageUrl ? (
+          <Image src={article.imageUrl} alt={article.title} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-logo-primary/5 to-logo-secondary/5">
+            <Newspaper className="w-8 h-8 text-gray-200" />
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+        <div className="absolute top-3 left-3">
+          <span className="inline-flex items-center px-2 py-1 rounded-md text-[9px] font-bold uppercase tracking-widest bg-white/90 backdrop-blur-sm text-logo-primary shadow-sm">
+            {article.category}
+          </span>
+        </div>
+        {article.isPopular && (
+          <div className="absolute top-3 right-3">
+            <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-[9px] font-bold bg-logo-secondary/90 text-gray-900 shadow-sm">
+              <Flame className="w-2.5 h-2.5" /> Hot
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-5">
+        <h3 className="text-base font-bold text-gray-900 line-clamp-2 group-hover:text-logo-primary transition-colors leading-snug mb-2">
+          {article.title}
+        </h3>
+        <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed flex-1 mb-4">
+          {article.summary}
+        </p>
+        <div className="flex items-center justify-between text-[11px] text-gray-400 pt-3 border-t border-gray-50">
+          <span className="flex items-center gap-1">
+            <Clock className="w-3 h-3" />
+            {formatters.relative(article.publishedAt)}
+          </span>
+          <div className="flex items-center gap-3">
+            {article.viewCount != null && (
+              <span className="flex items-center gap-1">
+                <Eye className="w-3 h-3" /> {formatViews(article.viewCount)}
+              </span>
+            )}
+            <span className="flex items-center gap-1 text-logo-primary font-semibold">
+              {article.readTime || 2}m read
+            </span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+// ── Trending ticker item ──────────────────────────────────────────────────────
+function TrendingItem({ article, rank }: { article: NewsItem; rank: number }) {
+  return (
+    <Link href={`/news/${article.slug || article.id}`} className="group flex items-start gap-3 py-3.5 border-b border-gray-100 last:border-0">
+      <span className="flex-shrink-0 w-6 h-6 rounded-md bg-gray-950 text-logo-secondary text-[10px] font-black flex items-center justify-center mt-0.5">
+        {rank}
+      </span>
+      <div className="flex-1 min-w-0">
+        <h4 className="text-sm font-bold text-gray-900 line-clamp-2 group-hover:text-logo-primary transition-colors leading-snug">
+          {article.title}
+        </h4>
+        <p className="text-[11px] text-gray-400 mt-1 flex items-center gap-1">
+          <Eye className="w-3 h-3" /> {formatViews(article.viewCount || 0)} views
+        </p>
+      </div>
+    </Link>
+  );
+}
+
+// ── Main page ─────────────────────────────────────────────────────────────────
 const NewsPage = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<NewsCategory | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
-  const [pageAnimation, setPageAnimation] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
-  const categories: { value: NewsCategory | 'all'; label: string; icon: any }[] = [
-    { value: 'all', label: 'All News', icon: Sparkles },
-    { value: 'entertainment', label: 'Entertainment', icon: Star },
-    { value: 'sports', label: 'Sports', icon: TrendingUp },
-    { value: 'politics', label: 'Politics', icon: User },
-    { value: 'business', label: 'Business', icon: TrendingUp },
-    { value: 'culture', label: 'Culture', icon: Star },
-    { value: 'local', label: 'Local', icon: User },
-    { value: 'international', label: 'International', icon: TrendingUp },
-  ];
-
-  // Memoized filtered news for better performance
   const filteredNews = useMemo(() => {
-    let filtered = news;
-
-    if (selectedCategory !== 'all') {
-      filtered = filtered.filter(item => item.category === selectedCategory);
-    }
-
+    let list = news;
+    if (selectedCategory !== 'all') list = list.filter(a => a.category === selectedCategory);
     if (searchQuery) {
-      filtered = filtered.filter(item =>
-        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.summary.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (item.tags && item.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())))
+      const q = searchQuery.toLowerCase();
+      list = list.filter(a =>
+        a.title.toLowerCase().includes(q) ||
+        a.summary.toLowerCase().includes(q) ||
+        (a.tags || []).some(t => t.toLowerCase().includes(q))
       );
     }
-
-    return filtered;
+    return list;
   }, [news, selectedCategory, searchQuery]);
 
-  // Memoized featured and regular articles
-  const { featuredArticle, regularArticles } = useMemo(() => {
-    const featured = filteredNews.find(article => article.isPopular) || filteredNews[0];
-    const regular = filteredNews.filter(article => article !== featured);
-    return { featuredArticle: featured, regularArticles: regular };
-  }, [filteredNews]);
+  const heroArticle = useMemo(() => filteredNews.find(a => a.isPopular) || filteredNews[0], [filteredNews]);
+  const gridArticles = useMemo(() => filteredNews.filter(a => a !== heroArticle), [filteredNews, heroArticle]);
+  const trendingArticles = useMemo(
+    () => [...news].sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0)).slice(0, 5),
+    [news]
+  );
 
   useEffect(() => {
-    const loadNews = async () => {
+    const load = async () => {
       try {
-        // Try to fetch from API first
-        const response = await fetch('/api/news');
-        const data = await response.json();
-        
-        if (response.ok && data.news && data.news.length > 0) {
-          setNews(data.news);
-        } else {
-          // Fallback to mock data if API fails or returns empty
-          console.log('Using fallback news data');
-          setNews(getFallbackNews());
-        }
-      } catch (error) {
-        console.error('Error loading news, using fallback:', error);
-        // Use fallback data for better UX
+        const res = await fetch('/api/news');
+        const data = await res.json();
+        if (res.ok && data.news?.length > 0) setNews(data.news);
+        else setNews(getFallbackNews());
+      } catch {
         setNews(getFallbackNews());
       } finally {
         setLoading(false);
       }
     };
-
-    loadNews();
-    // Reduced animation delay for better performance
-    setTimeout(() => setPageAnimation(true), 50);
+    load();
   }, []);
 
-  // Debounced search for better performance
-  const debouncedSearch = useCallback((query: string) => {
-    setSearchQuery(query);
-  }, []);
+  const debouncedSearch = useCallback((q: string) => setSearchQuery(q), []);
 
+  // ── Loading skeleton ──────────────────────────────────────────────────────
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
+      <div className="min-h-screen bg-[#fafafa]">
         <ClientHeader />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[...Array(6)].map((_, i) => (
-              <div key={i} className="loading-shimmer h-64 rounded-xl"></div>
-            ))}
+        <div className="pt-[62px]">
+          {/* Hero skeleton */}
+          <div className="h-[480px] lg:h-[560px] bg-gray-200 animate-pulse" />
+          {/* Grid skeleton */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="bg-gray-200 rounded-2xl h-72 animate-pulse" style={{ animationDelay: `${i * 80}ms` }} />
+              ))}
+            </div>
           </div>
         </div>
         <Footer />
@@ -182,299 +376,264 @@ const NewsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
+    <div className="min-h-screen bg-[#fafafa]">
       <ClientHeader />
-      
-      {/* OPTIMIZED PAGE HEADER */}
-      <section className="relative bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary text-white py-20 overflow-hidden">
-        {/* Simplified background elements */}
-        <div className="absolute inset-0 pointer-events-none z-0">
-          <div className="absolute top-20 left-20 w-2 h-2 bg-logo-secondary rounded-full animate-pulse opacity-60"></div>
-          <div className="absolute top-40 right-40 w-3 h-3 bg-logo-accent rounded-full animate-pulse opacity-40"></div>
-        </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className={`text-center transform transition-all duration-500 ${pageAnimation ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
-            {/* Simplified badge */}
-            <div className="mb-6">
-              <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-logo-secondary to-logo-accent text-white px-4 py-2 rounded-full text-sm font-semibold shadow-soft">
-                <Sparkles className="w-4 h-4" />
-                <span>Breaking News & Updates</span>
+      {/* ── PAGE OFFSET ──────────────────────────────────────────────────────── */}
+      <div className="pt-[62px]">
+
+        {/* ── TOP BAR: breadcrumb + search + filters ─────────────────────────── */}
+        <div className="sticky top-[62px] z-40 bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-[0_1px_0_rgba(0,0,0,0.04)]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-3 py-3">
+
+              {/* Row 1: title + search toggle */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-gray-400 font-medium">YaadFeed</span>
+                  <ChevronRight className="w-3 h-3 text-gray-300" />
+                  <span className="text-xs font-bold text-gray-900 uppercase tracking-wide">News</span>
+                  <span className="ml-1.5 text-[10px] font-bold text-white bg-logo-primary px-1.5 py-0.5 rounded-full">
+                    {filteredNews.length}
+                  </span>
+                </div>
+                <button
+                  onClick={() => setSearchOpen(s => !s)}
+                  className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-gray-900 transition-colors px-3 py-1.5 rounded-lg hover:bg-gray-100"
+                >
+                  <Search className="w-3.5 h-3.5" />
+                  {searchOpen ? 'Close' : 'Search'}
+                </button>
               </div>
-            </div>
 
-            <h1 className="text-4xl lg:text-5xl font-black mb-6 leading-tight">
-              Jamaica <span className="bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent">News</span>
-            </h1>
-            <p className="text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed font-light">
-              Stay connected with your island home through comprehensive coverage of Jamaica's vibrant culture, politics, and community
-            </p>
-            
-            {/* Simplified stats */}
-            <div className="flex justify-center items-center space-x-8 text-white/80">
-              <div className="flex items-center space-x-2">
-                <TrendingUp className="w-5 h-5 text-logo-secondary" />
-                <span className="text-lg font-semibold">{news.length}+ Articles</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Clock className="w-5 h-5 text-logo-primary" />
-                <span className="text-lg font-semibold">24/7 Updates</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* OPTIMIZED FILTERS SECTION */}
-      <section className="py-12 bg-white/80 backdrop-blur-lg border-b border-white/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-            {/* Optimized Search */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search news, topics, authors..."
-                value={searchQuery}
-                onChange={(e) => debouncedSearch(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent shadow-soft backdrop-blur-sm transition-all duration-200"
-              />
-            </div>
-
-            {/* Optimized Category Filter */}
-            <div className="flex flex-wrap gap-3">
-              {categories.map((category, index) => {
-                const IconComponent = category.icon;
-                return (
-                  <button
-                    key={category.value}
-                    onClick={() => setSelectedCategory(category.value)}
-                    className={`flex items-center space-x-2 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 transform hover:scale-105 ${
-                      selectedCategory === category.value
-                        ? 'bg-gradient-to-r from-logo-primary to-logo-secondary text-white shadow-soft'
-                        : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-soft border border-white/30'
-                    }`}
-                  >
-                    <IconComponent className="w-4 h-4" />
-                    <span>{category.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* OPTIMIZED NEWS CONTENT */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredNews.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="w-24 h-24 bg-gradient-to-r from-logo-primary to-logo-secondary rounded-full flex items-center justify-center mx-auto mb-6 shadow-soft">
-                <Search className="w-12 h-12 text-white" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">No articles found</h3>
-              <p className="text-gray-600 text-lg">Try adjusting your search or filter criteria.</p>
-            </div>
-          ) : (
-            <div className="lg:grid lg:grid-cols-3 lg:gap-12">
-              {/* Optimized Featured Article */}
-              {featuredArticle && (
-                <div className="lg:col-span-2">
-                  <Card className="group cursor-pointer overflow-hidden soft-card h-full">
-                    <div className="aspect-video overflow-hidden relative">
-                      <OptimizedImage
-                        src={featuredArticle.imageUrl || '/images/jamaica-flag-bg.jpg'}
-                        alt={featuredArticle.title}
-                        width={800}
-                        height={450}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        priority={true}
-                      />
-                      
-                      {/* Simplified overlay badges */}
-                      <div className="absolute top-4 left-4">
-                        <span className="bg-gradient-to-r from-logo-secondary to-logo-accent text-white px-4 py-2 rounded-xl text-sm font-bold shadow-soft">
-                          🔥 Featured Story
-                        </span>
-                      </div>
-                      <div className="absolute top-4 right-4 glass text-gray-700 px-3 py-1 rounded-xl text-sm font-semibold">
-                        <Clock className="w-4 h-4 inline mr-1" />
-                        {formatters.relative(featuredArticle.publishedAt)}
-                      </div>
-                    </div>
-                    
-                    <div className="p-6">
-                      <div className="flex items-center space-x-3 mb-4">
-                        <span className="bg-gradient-to-r from-logo-primary to-logo-primary/90 text-white px-3 py-1 rounded-xl text-sm font-semibold shadow-soft">
-                          {stringUtils.capitalize(featuredArticle.category)}
-                        </span>
-                      </div>
-                      
-                      <Link href={`/news/${featuredArticle.slug || featuredArticle.id}`}>
-                        <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-4 leading-tight group-hover:text-logo-primary transition-colors duration-200 cursor-pointer">
-                          {featuredArticle.title}
-                        </h2>
-                      </Link>
-                      
-                      <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-                        {featuredArticle.summary}
-                      </p>
-                      
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-6 text-sm text-gray-500">
-                          <div className="flex items-center space-x-2">
-                            <User className="w-4 h-4 text-logo-primary" />
-                            <span className="font-semibold">{featuredArticle.author || 'YaadFeed Team'}</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Calendar className="w-4 h-4 text-logo-secondary" />
-                            <span>{formatters.date(featuredArticle.publishedAt)}</span>
-                          </div>
-                        </div>
-                        
-                        <Link href={`/news/${featuredArticle.slug || featuredArticle.id}`}>
-                          <Button variant="glamour" className="group">
-                            Read Full Story
-                            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                          </Button>
-                        </Link>
-                      </div>
-                    </div>
-                  </Card>
-                  
-                  {/* In-Article Ad after featured article */}
-                  <div className="mt-8">
-                    <InArticleAd />
-                  </div>
+              {/* Search bar (conditional) */}
+              {searchOpen && (
+                <div className="relative animate-[fadeUp_0.2s_ease_forwards]">
+                  <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
+                  <input
+                    type="text"
+                    autoFocus
+                    placeholder="Search news, topics, tags..."
+                    value={searchQuery}
+                    onChange={e => debouncedSearch(e.target.value)}
+                    className="w-full pl-10 pr-10 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-logo-primary/20 focus:border-logo-primary/40 transition-all placeholder-gray-400"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery('')}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  )}
                 </div>
               )}
 
-              {/* Optimized Sidebar */}
-              <div className="space-y-6">
-                <div className="flex items-center space-x-3 mb-6">
-                  <h3 className="text-2xl font-black text-gray-900">
-                    {featuredArticle ? 'More Stories' : 'Latest News'}
-                  </h3>
-                  <div className="w-8 h-1 bg-gradient-to-r from-logo-primary to-logo-secondary rounded-full"></div>
-                </div>
-                
-                {/* Sidebar Rectangle Ad */}
-                <SidebarRectangleAd />
-                
-                {regularArticles.slice(0, 5).map((article, index) => (
-                  <Link key={article.id} href={`/news/${article.slug || article.id}`}>
-                    <Card className="group cursor-pointer soft-card">
-                      <div className="flex space-x-4">
-                        <div className="w-24 h-24 flex-shrink-0 overflow-hidden rounded-xl ring-2 ring-logo-primary/20">
-                          <OptimizedImage
-                            src={article.imageUrl || '/images/jamaica-flag-bg.jpg'}
-                            alt={article.title}
-                            width={96}
-                            height={96}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center space-x-2 mb-3">
-                            <span className="bg-gradient-to-r from-logo-primary to-logo-primary/90 text-white px-2 py-1 rounded-xl text-xs font-semibold shadow-soft">
-                              {stringUtils.capitalize(article.category)}
-                            </span>
-                            <span className="text-gray-500 text-xs flex items-center">
-                              <Clock className="w-3 h-3 mr-1" />
-                              {formatters.relative(article.publishedAt)}
-                            </span>
-                          </div>
-                          <h4 className="text-sm font-bold text-gray-900 line-clamp-2 mb-2 group-hover:text-logo-primary transition-colors">
-                            {article.title}
-                          </h4>
-                          <div className="flex items-center justify-between text-xs text-gray-500">
-                            <span className="text-logo-primary font-semibold flex items-center">
-                              <Clock className="w-3 h-3 mr-1" />
-                              {article.readTime || 2} min read
-                            </span>
-                            <span className="flex items-center">
-                              <Eye className="w-3 h-3 mr-1" />
-                              {article.viewCount || 0} views
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
-                  </Link>
+              {/* Row 2: Category pills */}
+              <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-0.5">
+                {CATEGORIES.map(cat => (
+                  <button
+                    key={cat.value}
+                    onClick={() => setSelectedCategory(cat.value)}
+                    className={`flex-shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold transition-all duration-200 ${
+                      selectedCategory === cat.value
+                        ? 'bg-gray-950 text-white shadow-sm'
+                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-800'
+                    }`}
+                  >
+                    <span className="text-[11px]">{cat.emoji}</span>
+                    {cat.label}
+                  </button>
                 ))}
               </div>
             </div>
-          )}
+          </div>
+        </div>
 
-          {/* Optimized All Articles Grid */}
-          {regularArticles.length > 5 && (
-            <div className="mt-16">
-              <div className="text-center mb-12">
-                <h3 className="text-3xl font-black text-gray-900 mb-4">
-                  All <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Articles</span>
-                </h3>
-                <p className="text-gray-600 text-lg">Discover more stories from Jamaica and beyond</p>
+        {/* ── HERO ARTICLE ─────────────────────────────────────────────────────── */}
+        {heroArticle && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-0">
+            <HeroCard article={heroArticle} />
+          </div>
+        )}
+
+        {/* ── MAIN CONTENT GRID ─────────────────────────────────────────────────── */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          {filteredNews.length === 0 ? (
+            /* Empty state */
+            <div className="flex flex-col items-center justify-center py-32 text-center">
+              <div className="w-20 h-20 rounded-2xl bg-gray-100 flex items-center justify-center mb-5">
+                <Newspaper className="w-9 h-9 text-gray-300" />
               </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {regularArticles.slice(5).map((article, index) => (
-                  <Link key={article.id} href={`/news/${article.slug || article.id}`}>
-                    <Card className="group cursor-pointer soft-card h-full">
-                      <div className="aspect-video mb-4 overflow-hidden rounded-xl relative">
-                        <OptimizedImage
-                          src={article.imageUrl || '/images/jamaica-flag-bg.jpg'}
-                          alt={article.title}
-                          width={400}
-                          height={250}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                        
-                        {/* Category badge */}
-                        <div className="absolute top-3 left-3">
-                          <span className="bg-gradient-to-r from-logo-primary to-logo-primary/90 text-white px-3 py-1 rounded-xl text-xs font-semibold shadow-soft">
-                            {stringUtils.capitalize(article.category)}
-                          </span>
-                        </div>
-                        
-                        {/* Time badge */}
-                        <div className="absolute top-3 right-3 glass text-gray-700 px-2 py-1 rounded-xl text-xs font-semibold">
-                          <Clock className="w-3 h-3 inline mr-1" />
-                          {formatters.relative(article.publishedAt)}
-                        </div>
-                      </div>
-                      
-                      <div className="p-6">
-                        <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-logo-primary transition-colors">
-                          {article.title}
-                        </h3>
-                        <p className="text-gray-600 text-sm line-clamp-3 mb-4 leading-relaxed">
-                          {article.summary}
-                        </p>
-                        <div className="flex items-center justify-between">
-                          <span className="text-logo-primary text-sm font-semibold flex items-center">
-                            <Clock className="w-3 h-3 mr-1" />
-                            {article.readTime || 2} min read
-                          </span>
-                          <span className="text-gray-500 text-sm flex items-center">
-                            <Eye className="w-3 h-3 mr-1" />
-                            {article.viewCount || 0} views
-                          </span>
-                        </div>
-                      </div>
-                    </Card>
-                  </Link>
-                ))}
+              <h3 className="text-xl font-bold text-gray-900 mb-2">No articles found</h3>
+              <p className="text-sm text-gray-400 mb-6">Try adjusting your search or selecting a different category.</p>
+              <button
+                onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}
+                className="px-5 py-2.5 bg-logo-primary text-white text-sm font-bold rounded-xl hover:bg-logo-dark transition-colors"
+              >
+                Clear filters
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+              {/* ── Articles column (2/3) ──────────────────────────────────────── */}
+              <div className="lg:col-span-2 space-y-10">
+
+                {/* Section label */}
+                {gridArticles.length > 0 && (
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-logo-primary mb-1">Latest Coverage</p>
+                      <h2 className="text-xl font-extrabold text-gray-900 tracking-tight">
+                        {selectedCategory === 'all' ? 'All Stories' : stringUtils.capitalize(selectedCategory)}
+                      </h2>
+                    </div>
+                    <span className="text-xs text-gray-400">{gridArticles.length} article{gridArticles.length !== 1 ? 's' : ''}</span>
+                  </div>
+                )}
+
+                {/* Main 2-col card grid */}
+                {gridArticles.length > 0 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    {gridArticles.slice(0, 6).map((article, i) => (
+                      <NewsCard key={article.id} article={article} />
+                    ))}
+                  </div>
+                )}
+
+                {/* More stories compact list */}
+                {gridArticles.length > 6 && (
+                  <div>
+                    <div className="flex items-center gap-3 mb-5">
+                      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-logo-primary">More Stories</p>
+                      <div className="flex-1 h-px bg-gray-100" />
+                    </div>
+                    <div className="space-y-2">
+                      {gridArticles.slice(6).map(article => (
+                        <NewsCard key={article.id} article={article} compact />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-              
-              {/* Multiplex Ad after articles grid */}
-              <div className="mt-16">
-                <MultiplexAd />
-              </div>
+
+              {/* ── Sidebar (1/3) ──────────────────────────────────────────────── */}
+              <aside className="space-y-8">
+
+                {/* Trending box */}
+                <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+                  <div className="flex items-center gap-2.5 px-5 pt-5 pb-4 border-b border-gray-50">
+                    <div className="w-7 h-7 rounded-lg bg-logo-secondary/15 flex items-center justify-center">
+                      <TrendingUp className="w-4 h-4 text-logo-secondary" />
+                    </div>
+                    <div>
+                      <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-gray-400">Right Now</p>
+                      <h3 className="text-sm font-extrabold text-gray-900 leading-tight">Trending</h3>
+                    </div>
+                  </div>
+                  <div className="px-5 pb-2">
+                    {trendingArticles.map((article, i) => (
+                      <TrendingItem key={article.id} article={article} rank={i + 1} />
+                    ))}
+                  </div>
+                </div>
+
+                {/* Categories box */}
+                <div className="bg-white rounded-2xl border border-gray-100 p-5">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-7 h-7 rounded-lg bg-logo-primary/10 flex items-center justify-center">
+                      <Filter className="w-3.5 h-3.5 text-logo-primary" />
+                    </div>
+                    <h3 className="text-sm font-extrabold text-gray-900">Browse by Topic</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {CATEGORIES.filter(c => c.value !== 'all').map(cat => {
+                      const count = news.filter(a => a.category === cat.value).length;
+                      return (
+                        <button
+                          key={cat.value}
+                          onClick={() => setSelectedCategory(cat.value)}
+                          className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 ${
+                            selectedCategory === cat.value
+                              ? 'bg-gray-950 text-white'
+                              : 'bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-gray-900 border border-gray-100'
+                          }`}
+                        >
+                          {cat.emoji} {cat.label}
+                          {count > 0 && (
+                            <span className={`text-[10px] font-black ${selectedCategory === cat.value ? 'text-logo-secondary' : 'text-gray-400'}`}>
+                              {count}
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Newsletter promo */}
+                <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-950 via-[#0a1a0e] to-gray-950 p-6 border border-white/[0.05]">
+                  {/* Ambient glow */}
+                  <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-logo-primary/15 blur-2xl pointer-events-none" />
+                  <div className="relative z-10">
+                    <div className="w-9 h-9 rounded-xl bg-logo-primary/20 border border-logo-primary/30 flex items-center justify-center mb-4">
+                      <Sparkles className="w-4.5 h-4.5 text-logo-secondary" />
+                    </div>
+                    <h3 className="text-base font-extrabold text-white mb-1.5">Stay in the loop</h3>
+                    <p className="text-white/50 text-xs leading-relaxed mb-5">
+                      Get the best Jamaican stories delivered to your inbox every morning. Free, forever.
+                    </p>
+                    <Link href="/newsletter">
+                      <button className="w-full py-2.5 bg-logo-primary hover:bg-logo-dark text-white text-xs font-bold rounded-xl transition-colors shadow-[0_0_20px_rgba(21,128,61,0.3)]">
+                        Subscribe Free →
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Quick stats */}
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { icon: Globe, label: 'Countries', value: '50+' },
+                    { icon: Newspaper, label: 'Articles', value: '10K+' },
+                    { icon: Music, label: 'Artists', value: '500+' },
+                    { icon: Star, label: 'Readers / mo', value: '2M+' },
+                  ].map(({ icon: Icon, label, value }) => (
+                    <div key={label} className="bg-white rounded-xl border border-gray-100 p-3.5 text-center">
+                      <Icon className="w-4 h-4 text-logo-primary mx-auto mb-1.5" />
+                      <p className="text-base font-black text-gray-900">{value}</p>
+                      <p className="text-[10px] text-gray-400">{label}</p>
+                    </div>
+                  ))}
+                </div>
+              </aside>
             </div>
           )}
         </div>
-      </section>
+
+        {/* ── CTA STRIP ─────────────────────────────────────────────────────────── */}
+        <section className="py-16 bg-gradient-to-r from-logo-dark via-logo-primary to-[#16a34a] relative overflow-hidden">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-white/5 blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-black/15 blur-2xl" />
+          </div>
+          <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-2xl sm:text-3xl font-black text-white mb-3 tracking-tight">Never Miss a Story</h2>
+            <p className="text-white/60 text-sm mb-8 max-w-md mx-auto">Authentic Jamaican music news and culture delivered daily.</p>
+            <div className="flex flex-col sm:flex-row gap-3 max-w-sm mx-auto">
+              <input
+                type="email"
+                placeholder="your@email.com"
+                className="flex-1 px-4 py-3 rounded-xl text-gray-900 text-sm bg-white placeholder-gray-400 focus:outline-none shadow-lg border-0"
+              />
+              <button className="px-6 py-3 bg-gray-950 hover:bg-black text-white text-sm font-bold rounded-xl transition-colors flex-shrink-0">
+                Subscribe
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
 
       <Footer />
     </div>
