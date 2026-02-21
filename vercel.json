@@ -1,0 +1,24 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/weekly-scraper",
+      "schedule": "0 0 * * 0"
+    }
+  ],
+  "functions": {
+    "src/app/api/cron/weekly-scraper/route.ts": {
+      "maxDuration": 300
+    }
+  },
+  "buildCommand": "rm -rf .next && npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "rm -rf node_modules package-lock.json && npm install",
+  "framework": "nextjs",
+  "regions": ["iad1"],
+  "build": {
+    "env": {
+      "NODE_ENV": "production",
+      "VERCEL_BUILD_CACHE_BUST": "1"
+    }
+  }
+}

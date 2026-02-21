@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tailwind Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        logo: {
+                            primary: '#15803d',
+                            secondary: '#eab308',
+                            accent: '#dc2626',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="bg-logo-primary text-white p-4">
+        <h1 class="text-2xl font-bold">Test Header</h1>
+        <p class="text-logo-secondary">This should be gold text</p>
+        <button class="bg-logo-accent text-white px-4 py-2 rounded">Test Button</button>
+    </div>
+</body>
+</html>

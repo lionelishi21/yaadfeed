@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YaadFeed Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .text-gradient {
+            background: linear-gradient(135deg, #16a34a, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #16a34a, #059669);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen p-8">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header -->
+            <div class="mb-8">
+                <div class="flex items-center mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-yellow-500 rounded-lg flex items-center justify-center mr-3">
+                        <span class="text-white font-bold text-xl">Y</span>
+                    </div>
+                    <h1 class="text-3xl font-bold text-gradient">YaadFeed Admin Dashboard</h1>
+                </div>
+                <p class="text-gray-600">Manage automation, monitor subscriptions, and view analytics</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-green-100 rounded-lg">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM9 3a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Total Subscribers</p>
+                            <p class="text-2xl font-bold text-gray-900" id="totalSubscribers">156</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-blue-100 rounded-lg">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Active Subscribers</p>
+                            <p class="text-2xl font-bold text-gray-900" id="activeSubscribers">142</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-yellow-100 rounded-lg">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Monthly Revenue</p>
+                            <p class="text-2xl font-bold text-gray-900">$710</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-purple-100 rounded-lg">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-gray-600">Annual Revenue</p>
+                            <p class="text-2xl font-bold text-gray-900">$2,650</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Automation Control -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">🤖 Automation Control</h2>
+                    
+                    <div class="mb-6">
+                        <div class="flex items-center mb-2">
+                            <div class="w-3 h-3 rounded-full mr-2 bg-green-500 animate-pulse"></div>
+                            <span class="text-sm font-medium text-gray-700">Status: Active</span>
+                        </div>
+                        <p class="text-sm text-gray-600">Last run: 1 hour ago</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <button onclick="runAutomation('content_optimization')" class="w-full text-left p-3 rounded-lg border bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-colors">
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium text-gray-900">Content Optimization</span>
+                                <div id="loading-content" class="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600 hidden"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">Optimize news content with AI</p>
+                        </button>
+
+                        <button onclick="runAutomation('video_generation')" class="w-full text-left p-3 rounded-lg border bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-colors">
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium text-gray-900">Video Generation</span>
+                                <div id="loading-video" class="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600 hidden"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">Generate videos from trending news</p>
+                        </button>
+
+                        <button onclick="runAutomation('social_media_posting')" class="w-full text-left p-3 rounded-lg border bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-colors">
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium text-gray-900">Social Media Posting</span>
+                                <div id="loading-social" class="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600 hidden"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">Post to social media platforms</p>
+                        </button>
+
+                        <button onclick="runAutomation('full_automation_cycle')" class="w-full text-left p-3 rounded-lg border bg-white border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-colors">
+                            <div class="flex items-center justify-between">
+                                <span class="font-medium text-gray-900">Full Automation Cycle</span>
+                                <div id="loading-full" class="animate-spin rounded-full h-4 w-4 border-b-2 border-green-600 hidden"></div>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-1">Run complete automation workflow</p>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-4">📊 Recent Activity</h2>
+                    
+                    <div class="space-y-4" id="activityLog">
+                        <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                            <div class="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">Content optimization completed</p>
+                                <p class="text-xs text-gray-600">5 articles processed, 3 videos generated</p>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-auto">2 hours ago</span>
+                        </div>
+
+                        <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                            <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">Social media posts published</p>
+                                <p class="text-xs text-gray-600">12 posts across all platforms</p>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-auto">4 hours ago</span>
+                        </div>
+
+                        <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                            <div class="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">New subscriber joined</p>
+                                <p class="text-xs text-gray-600">Monthly plan - $5.00</p>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-auto">6 hours ago</span>
+                        </div>
+
+                        <div class="flex items-center p-3 bg-yellow-50 rounded-lg">
+                            <div class="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">YouTube video uploaded</p>
+                                <p class="text-xs text-gray-600">"Shenseea Tour Announcement"</p>
+                            </div>
+                            <span class="text-xs text-gray-500 ml-auto">8 hours ago</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <button onclick="refreshActivity()" class="btn-primary text-sm">Refresh Activity</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Health -->
+            <div class="mt-8 bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-4">⚡ System Health</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <h3 class="font-medium text-gray-900">Payment System</h3>
+                        <p class="text-sm text-green-600">Operational</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <h3 class="font-medium text-gray-900">Automation Engine</h3>
+                        <p class="text-sm text-green-600">Running</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <h3 class="font-medium text-gray-900">Social Media APIs</h3>
+                        <p class="text-sm text-green-600">Connected</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="mt-8 bg-gradient-to-r from-green-500 to-yellow-500 rounded-lg p-6 text-white">
+                <h2 class="text-xl font-bold mb-4">🚀 Quick Actions</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button onclick="exportData()" class="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition-all">
+                        <div class="text-sm font-medium">Export Data</div>
+                        <div class="text-xs opacity-80">Download analytics</div>
+                    </button>
+                    <button onclick="backupSystem()" class="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition-all">
+                        <div class="text-sm font-medium">Backup System</div>
+                        <div class="text-xs opacity-80">Create system backup</div>
+                    </button>
+                    <button onclick="viewLogs()" class="bg-white bg-opacity-20 hover:bg-opacity-30 rounded-lg p-4 transition-all">
+                        <div class="text-sm font-medium">View Logs</div>
+                        <div class="text-xs opacity-80">Check system logs</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate automation actions
+        function runAutomation(action) {
+            const loadingId = 'loading-' + action.split('_')[0];
+            const loadingElement = document.getElementById(loadingId);
+            
+            if (loadingElement) {
+                loadingElement.classList.remove('hidden');
+            }
+
+            // Simulate API call
+            setTimeout(() => {
+                if (loadingElement) {
+                    loadingElement.classList.add('hidden');
+                }
+                
+                alert(`${action.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} completed successfully!`);
+                
+                // Add to activity log
+                addActivity(`${action.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())} completed`, 'Manual trigger executed');
+                
+                // Update stats
+                updateStats();
+            }, 2000);
+        }
+
+        function addActivity(title, description) {
+            const activityLog = document.getElementById('activityLog');
+            const colors = ['green', 'blue', 'purple', 'yellow'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            
+            const newActivity = document.createElement('div');
+            newActivity.className = `flex items-center p-3 bg-${color}-50 rounded-lg`;
+            newActivity.innerHTML = `
+                <div class="w-2 h-2 bg-${color}-500 rounded-full mr-3"></div>
+                <div>
+                    <p class="text-sm font-medium text-gray-900">${title}</p>
+                    <p class="text-xs text-gray-600">${description}</p>
+                </div>
+                <span class="text-xs text-gray-500 ml-auto">Just now</span>
+            `;
+            
+            activityLog.insertBefore(newActivity, activityLog.firstChild);
+            
+            // Keep only last 4 activities
+            while (activityLog.children.length > 4) {
+                activityLog.removeChild(activityLog.lastChild);
+            }
+        }
+
+        function updateStats() {
+            const totalSubs = document.getElementById('totalSubscribers');
+            const activeSubs = document.getElementById('activeSubscribers');
+            
+            if (totalSubs) {
+                const current = parseInt(totalSubs.textContent);
+                totalSubs.textContent = current + Math.floor(Math.random() * 3);
+            }
+            
+            if (activeSubs) {
+                const current = parseInt(activeSubs.textContent);
+                activeSubs.textContent = current + Math.floor(Math.random() * 2);
+            }
+        }
+
+        function refreshActivity() {
+            addActivity('Activity refreshed', 'Manual refresh triggered');
+        }
+
+        function exportData() {
+            alert('Analytics data exported successfully!');
+            addActivity('Data exported', 'Analytics and reports downloaded');
+        }
+
+        function backupSystem() {
+            alert('System backup created successfully!');
+            addActivity('System backup created', 'Full database and configuration backup');
+        }
+
+        function viewLogs() {
+            alert('System logs opened in new window');
+            addActivity('Logs accessed', 'System logs viewed by administrator');
+        }
+
+        // Auto-refresh stats every 30 seconds
+        setInterval(() => {
+            const time = new Date().toLocaleTimeString();
+            console.log(`Stats updated at ${time}`);
+        }, 30000);
+
+        // Show loading message on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                addActivity('Dashboard loaded', 'Admin interface initialized successfully');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
