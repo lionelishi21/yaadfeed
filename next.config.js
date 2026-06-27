@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
+
   // Prevent Next from "guessing" a higher workspace root
   // outputFileTracingRoot: __dirname,
 
