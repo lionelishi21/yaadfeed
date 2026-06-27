@@ -3,378 +3,55 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    /* Jamaica-inspired color palette */
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    
-    /* Primary: Rich Jamaican Green */
-    --primary: 142 69% 25%;
-    --primary-foreground: 210 40% 98%;
-    
-    /* Secondary: Jamaican Gold/Yellow */
-    --secondary: 45 93% 47%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    
-    /* Accent: Vibrant Red (from Jamaican flag) */
-    --accent: 0 72% 51%;
-    --accent-foreground: 210 40% 98%;
-    
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 142 69% 25%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --radius: 0.5rem;
-    
-    /* Sidebar colors */
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 142 69% 25%;
-    --sidebar-primary-foreground: 355.7 100% 97.3%;
-    --sidebar-accent: 45 93% 47%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    
-    /* Primary: Lighter Jamaican Green for dark mode */
-    --primary: 142 69% 35%;
-    --primary-foreground: 222.2 84% 4.9%;
-    
-    /* Secondary: Bright Jamaican Gold */
-    --secondary: 45 93% 57%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    
-    /* Accent: Vibrant Red */
-    --accent: 0 72% 61%;
-    --accent-foreground: 210 40% 98%;
-    
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 142 69% 35%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    
-    /* Dark sidebar colors */
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 142 69% 35%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 45 93% 57%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
   body {
-    @apply bg-background text-foreground;
+    scrollbar-width: thin;
+    scrollbar-color: #E8B84B #0f0f0f;
   }
-}
-
-@layer components {
-  /* Line clamp utilities */
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  ::-webkit-scrollbar {
+    width: 3px;
   }
-  
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  ::-webkit-scrollbar-track {
+    background: #0f0f0f;
   }
-  
-  /* Enhanced loading shimmer animation */
-  .loading-shimmer {
-    background: linear-gradient(
-      90deg,
-      #f0fdf4 0%,
-      #dcfce7 50%,
-      #f0fdf4 100%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 2s infinite;
+  ::-webkit-scrollbar-thumb {
+    background: #E8B84B;
   }
-
-  /* Flat UI Design System */
-  .flat-card {
-    @apply bg-white border-0 shadow-sm hover:shadow-md transition-all duration-300;
+  input {
+    outline: none;
   }
-
-  .flat-button {
-    @apply bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all duration-200;
+  input::placeholder {
+    color: #444;
   }
-
-  .flat-button-primary {
-    @apply bg-logo-primary border-0 text-white hover:bg-logo-dark transition-all duration-200;
-  }
-
-  .flat-button-secondary {
-    @apply bg-logo-secondary border-0 text-gray-900 hover:bg-logo-secondary/90 transition-all duration-200;
-  }
-
-  /* Soft UI Elements */
-  .soft-card {
-    @apply bg-white/95 backdrop-blur-sm border border-white/50 shadow-soft hover:shadow-soft-lg transition-all duration-300;
-  }
-
-  .soft-button {
-    @apply bg-gradient-to-r from-white/90 to-gray-50/80 backdrop-blur-sm border border-gray-200/50 text-gray-700 hover:from-gray-50 hover:to-white shadow-soft hover:shadow-soft-lg transition-all duration-300;
-  }
-
-  /* Enhanced button styles */
-  .btn-glamour {
-    @apply bg-gradient-to-r from-logo-primary to-logo-dark text-white shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105;
-  }
-
-  .btn-outline {
-    @apply border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all duration-200;
-  }
-
-  /* Enhanced text gradients */
-  .text-gradient-primary {
-    @apply bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent;
-  }
-
-  .text-gradient-secondary {
-    @apply bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent;
-  }
-
-  /* Enhanced animations */
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .animate-bounce-slow {
-    animation: bounce 3s infinite;
-  }
-
-  .animate-pulse-slow {
-    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  /* Enhanced shadows */
-  .shadow-soft {
-    box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
-  }
-
-  .shadow-soft-lg {
-    box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  }
-
-  .shadow-soft-xl {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  }
-
-  /* Flat UI utilities */
-  .flat-bg {
-    @apply bg-white;
-  }
-
-  .flat-bg-alt {
-    @apply bg-gray-50;
-  }
-
-  .flat-border {
-    @apply border-0;
-  }
-
-  .flat-border-alt {
-    @apply border border-gray-200;
-  }
-
-  /* Glass morphism */
-  .glass {
-    @apply bg-white/20 backdrop-blur-md border border-white/30 shadow-soft;
-  }
-
-  .glass-dark {
-    @apply bg-logo-dark/20 backdrop-blur-md border border-logo-primary/30 shadow-soft;
-  }
-
-  /* Line clamp utilities */
-  .line-clamp-1 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-  }
-
-  .line-clamp-2 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
-
-  .line-clamp-3 {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-  }
-
-  /* YaadFeed custom article typography (avoid Medium-like prose) */
-  .yf-article {
-    @apply text-gray-800 leading-7;
-  }
-  .yf-article p {
-    @apply mb-6;
-  }
-  .yf-article h1 { @apply text-3xl font-bold mt-8 mb-4 text-gray-900; }
-  .yf-article h2 { @apply text-2xl font-semibold mt-8 mb-3 text-gray-900; }
-  .yf-article h3 { @apply text-xl font-semibold mt-6 mb-3 text-gray-900; }
-  .yf-article a { @apply text-green-700 underline hover:text-green-800; }
-  .yf-article blockquote { @apply border-l-4 border-yellow-500 pl-4 italic text-gray-700 my-6; }
-  .yf-article ul { @apply list-disc pl-6 mb-6; }
-  .yf-article ol { @apply list-decimal pl-6 mb-6; }
-  .yf-article img { @apply rounded-xl shadow-soft my-6; }
-  .yf-article strong { @apply font-semibold; }
 }
 
 @layer utilities {
-
-  .border-border { border-color: hsl(var(--border)); }
-  .bg-background { background-color: hsl(var(--background)); }
-  .text-foreground { color: hsl(var(--foreground)); }
+  @keyframes fadeUp {
+    from { opacity: 0.01; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes dot {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  .animate-dot {
+    animation: dot 2s infinite;
+  }
+  .animate-fadeUp {
+    animation: fadeUp 0.5s ease-out forwards;
+  }
   
-  /* Custom animations */
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
+  /* Utilities for the line clamps */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
-
-  @keyframes slide-up {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes scale-in {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  /* Enhanced responsive utilities */
-  .container-responsive {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  .section-padding {
-    @apply py-16 sm:py-20 lg:py-24;
-  }
-
-  .text-responsive {
-    @apply text-2xl sm:text-3xl lg:text-4xl xl:text-5xl;
-  }
-
-  /* Background size utilities */
-  .bg-size-200 {
-    background-size: 200% 200%;
-  }
-
-  /* Animation utilities */
-  .animate-gradient {
-    animation: gradient 3s ease infinite;
-  }
-
-  /* Enhanced backdrop blur utilities */
-  .backdrop-blur-xs {
-    backdrop-filter: blur(2px);
-  }
-
-  .backdrop-blur-sm {
-    backdrop-filter: blur(4px);
-  }
-
-  .backdrop-blur-md {
-    backdrop-filter: blur(8px);
-  }
-
-  .backdrop-blur-lg {
-    backdrop-filter: blur(12px);
-  }
-
-  .backdrop-blur-xl {
-    backdrop-filter: blur(16px);
-  }
-
-  /* Flat UI specific utilities */
-  .flat-shadow {
-    @apply shadow-sm hover:shadow-md transition-shadow duration-300;
-  }
-
-  .flat-hover {
-    @apply transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1;
-  }
-
-  .flat-text {
-    @apply text-gray-900;
-  }
-
-  .flat-text-secondary {
-    @apply text-gray-600;
-  }
-
-  .flat-text-muted {
-    @apply text-gray-500;
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }

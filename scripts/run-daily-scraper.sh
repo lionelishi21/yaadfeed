@@ -4,7 +4,7 @@
 # This script runs the news scraper and AI automation tasks
 
 # Configuration
-BASE_URL="http://localhost:4000"
+BASE_URL="http://localhost:4001"
 CRON_SECRET="your-cron-secret"  # Updated to match the default in the API route
 
 echo "🕐 Starting daily scraper at $(date)"

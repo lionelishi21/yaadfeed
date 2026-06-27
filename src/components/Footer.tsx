@@ -35,80 +35,83 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { name: 'Facebook', icon: Facebook, href: 'https://facebook.com/yaadfeed', color: 'hover:text-blue-600' },
-    { name: 'Twitter', icon: Twitter, href: 'https://twitter.com/yaadfeed', color: 'hover:text-blue-400' },
-    { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/yaadfeed', color: 'hover:text-pink-600' },
-    { name: 'YouTube', icon: Youtube, href: 'https://youtube.com/yaadfeed', color: 'hover:text-red-600' },
+    { name: 'Facebook', icon: Facebook, href: 'https://facebook.com/yaadfeed', color: 'hover:text-yard-gold' },
+    { name: 'Twitter', icon: Twitter, href: 'https://twitter.com/yaadfeed', color: 'hover:text-yard-gold' },
+    { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/yaadfeed', color: 'hover:text-yard-gold' },
+    { name: 'YouTube', icon: Youtube, href: 'https://youtube.com/yaadfeed', color: 'hover:text-yard-gold' },
   ];
 
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-yard-gray text-white border-t border-[#1a1a1a]">
       {/* Newsletter Signup Section */}
-      <div className="bg-logo-primary py-12">
+      <div className="bg-yard-dark py-16 border-b border-[#1a1a1a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h3 className="text-3xl font-bold text-white mb-4">Never Miss a Beat</h3>
-            <p className="text-white/90 text-lg mb-2 max-w-2xl mx-auto">
+            <h3 className="font-bebas text-4xl tracking-wide text-white mb-4">NEVER MISS A BEAT</h3>
+            <p className="text-gray-400 text-lg mb-6 max-w-2xl mx-auto font-sans">
               Subscribe to our newsletter for exclusive content, breaking news, and the latest from Jamaica's vibrant culture.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white/30 border-0"
+                className="flex-1 px-4 py-3 bg-[#111] border border-[#222] text-white font-sans text-sm focus:outline-none focus:border-yard-gold rounded-none"
               />
-              <button className="bg-white text-logo-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200">
+              <button className="bg-yard-gold text-yard-dark font-sans text-[12px] font-bold tracking-[1px] uppercase border-none py-[14px] px-[30px] hover:bg-white transition-colors">
                 Subscribe Free
               </button>
             </div>
-            <p className="text-white/80 text-sm mt-3">Free forever. No spam. Unsubscribe anytime.</p>
+            <p className="text-gray-500 text-xs mt-4">Free forever. No spam. Unsubscribe anytime.</p>
           </div>
         </div>
       </div>
 
       {/* Main Footer Content */}
-      <div className="py-12">
+      <div className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
             {/* Brand Section */}
             <div className="lg:col-span-2">
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-10 h-10 bg-logo-primary rounded-lg flex items-center justify-center">
-                  <img src="/logo.gif" alt="YaadFeed" className="w-10 h-10 object-contain" />
-                </div>
-                <span className="text-2xl font-bold text-white">YaadFeed</span>
+              <div className="flex items-center gap-2.5 mb-6 group">
+                <svg width="34" height="30" viewBox="0 0 34 30" fill="none">
+                  <rect width="34" height="30" rx="3" fill="#E8B84B"></rect>
+                  <path d="M9 7 L17 16 L25 7" stroke="#0A0A0A" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none"></path>
+                  <line x1="17" y1="16" x2="17" y2="24" stroke="#0A0A0A" strokeWidth="3.5" strokeLinecap="round"></line>
+                  <circle cx="9" cy="7" r="2.5" fill="#0A0A0A" opacity=".4"></circle>
+                </svg>
+                <span className="font-bebas text-xl tracking-[3px] text-white mt-1">YARD<span className="text-yard-gold">VYBES</span></span>
               </div>
-              <p className="text-gray-300 mb-6 max-w-xs">
+              <p className="text-gray-400 mb-8 max-w-xs text-sm leading-relaxed">
                 Jamaica's premier platform for news, music, and cultural content. 
                 Connecting the diaspora with the heartbeat of Jamaica.
               </p>
               
               {/* Contact Info */}
-              <div className="space-y-2 text-sm text-gray-400">
-                <div className="flex items-center space-x-2">
-                  <MapPin className="w-4 h-4" />
+              <div className="space-y-3 text-sm text-gray-500">
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-4 h-4 text-yard-gold" />
                   <span>Kingston, Jamaica</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Mail className="w-4 h-4" />
-                  <span>hello@yaadfeed.com</span>
+                <div className="flex items-center gap-3">
+                  <Mail className="w-4 h-4 text-yard-gold" />
+                  <span>hello@yardvybes.com</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Phone className="w-4 h-4" />
-                  <span>+1 (876) 555-YAAD</span>
+                <div className="flex items-center gap-3">
+                  <Phone className="w-4 h-4 text-yard-gold" />
+                  <span>+1 (876) 555-YARD</span>
                 </div>
               </div>
             </div>
 
             {/* Platform Links */}
             <div>
-              <h4 className="text-lg font-semibold text-white mb-4">Platform</h4>
-              <ul className="space-y-2">
+              <h4 className="font-bebas tracking-wider text-xl text-white mb-5">PLATFORM</h4>
+              <ul className="space-y-3">
                 {footerLinks.platform.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors duration-200"
+                      className="text-gray-400 hover:text-yard-gold transition-colors text-sm"
                     >
                       {link.name}
                     </Link>
@@ -119,13 +122,13 @@ const Footer = () => {
 
             {/* Company Links */}
             <div>
-              <h4 className="text-lg font-semibold text-white mb-4">Company</h4>
-              <ul className="space-y-2">
+              <h4 className="font-bebas tracking-wider text-xl text-white mb-5">COMPANY</h4>
+              <ul className="space-y-3">
                 {footerLinks.company.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors duration-200"
+                      className="text-gray-400 hover:text-yard-gold transition-colors text-sm"
                     >
                       {link.name}
                     </Link>
@@ -136,13 +139,13 @@ const Footer = () => {
 
             {/* Support Links */}
             <div>
-              <h4 className="text-lg font-semibold text-white mb-4">Support</h4>
-              <ul className="space-y-2">
+              <h4 className="font-bebas tracking-wider text-xl text-white mb-5">SUPPORT</h4>
+              <ul className="space-y-3">
                 {footerLinks.support.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors duration-200"
+                      className="text-gray-400 hover:text-yard-gold transition-colors text-sm"
                     >
                       {link.name}
                     </Link>
@@ -153,13 +156,13 @@ const Footer = () => {
 
             {/* Categories */}
             <div>
-              <h4 className="text-lg font-semibold text-white mb-4">Categories</h4>
-              <ul className="space-y-2">
+              <h4 className="font-bebas tracking-wider text-xl text-white mb-5">CATEGORIES</h4>
+              <ul className="space-y-3">
                 {footerLinks.categories.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-gray-300 hover:text-white transition-colors duration-200"
+                      className="text-gray-400 hover:text-yard-gold transition-colors text-sm"
                     >
                       {link.name}
                     </Link>
@@ -170,21 +173,21 @@ const Footer = () => {
           </div>
 
           {/* Bottom Section */}
-          <div className="border-t border-gray-800 mt-12 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              <div className="text-gray-400 text-sm mb-4 md:mb-0">
-                © {currentYear} YaadFeed. All rights reserved.
+          <div className="border-t border-[#1a1a1a] mt-16 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="text-gray-500 text-sm">
+                © {currentYear} YardVybes. All rights reserved.
               </div>
               
               {/* Social Links */}
-              <div className="flex space-x-4">
+              <div className="flex gap-5">
                 {socialLinks.map((social) => (
                   <a
                     key={social.name}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`text-gray-400 ${social.color} transition-colors duration-200`}
+                    className={`text-gray-500 ${social.color} transition-colors`}
                     aria-label={social.name}
                   >
                     <social.icon className="w-5 h-5" />

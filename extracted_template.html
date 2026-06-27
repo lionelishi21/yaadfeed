@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="876fd491-f6ae-41d8-92cf-66e2513268ad"></script>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>/* latin-ext */
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("0736f69b-0287-4303-8e97-bf69eb08c10d") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("899acca4-f36d-425d-9397-5f0be97108d8") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("9d6a5489-b280-49b9-a18c-c51041e19227") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("e8c5c43b-3c69-4740-9518-6f8e69eb14cb") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("68f7feea-4108-4343-aa10-b0531f67d58c") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("e80c2813-1a54-46ac-9aba-a6d4d102f255") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("68f7feea-4108-4343-aa10-b0531f67d58c") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("e80c2813-1a54-46ac-9aba-a6d4d102f255") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("68f7feea-4108-4343-aa10-b0531f67d58c") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("e80c2813-1a54-46ac-9aba-a6d4d102f255") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("68f7feea-4108-4343-aa10-b0531f67d58c") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("e80c2813-1a54-46ac-9aba-a6d4d102f255") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("68f7feea-4108-4343-aa10-b0531f67d58c") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'DM Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("e80c2813-1a54-46ac-9aba-a6d4d102f255") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+<style>
+@keyframes fadeUp{from{opacity:.01;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes dot{0%,100%{opacity:.5}50%{opacity:1}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0A0A0A;color:#fff;font-family:'DM Sans',sans-serif;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:#E8B84B #0f0f0f}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:#0f0f0f}::-webkit-scrollbar-thumb{background:#E8B84B}
+input{outline:none}input::placeholder{color:#444}
+</style>
+</helmet>
+
+<nav style="position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(10,10,10,.97);backdrop-filter:blur(20px);border-bottom:1px solid #1a1a1a;display:flex;align-items:center;padding:0 56px;height:64px;gap:0">
+  <div style="display:flex;align-items:center;gap:10px;cursor:pointer;flex-shrink:0" onclick="{{ goHome }}">
+    <svg width="34" height="30" viewBox="0 0 34 30" fill="none">
+      <rect width="34" height="30" rx="3" fill="#E8B84B"></rect>
+      <path d="M9 7 L17 16 L25 7" stroke="#0A0A0A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+      <line x1="17" y1="16" x2="17" y2="24" stroke="#0A0A0A" stroke-width="3.5" stroke-linecap="round"></line>
+      <circle cx="9" cy="7" r="2.5" fill="#0A0A0A" opacity=".4"></circle>
+    </svg>
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:3px;color:#fff">YARD<span style="color:#E8B84B">VYBES</span></span>
+  </div>
+  <div style="display:flex;gap:28px;margin:0 auto">
+    <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="7">
+      <span style="font-size:12px;font-weight:600;letter-spacing:1.1px;text-transform:uppercase;cursor:pointer;color:{{ link.color }};padding-bottom:3px;border-bottom:{{ link.underline }}" onclick="{{ link.onClick }}">{{ link.label }}</span>
+    </sc-for>
+  </div>
+  <div style="display:flex;align-items:center;gap:20px;flex-shrink:0">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" style="cursor:pointer"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+    <button style="background:#E8B84B;color:#0A0A0A;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;padding:9px 22px;cursor:pointer">Sign In</button>
+  </div>
+</nav>
+
+<main style="padding-top:64px">
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <section style="position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden;padding:64px 56px">
+    <div style="position:absolute;inset:0;background:#0A0A0A"></div>
+    <div style="position:absolute;top:-120px;right:-120px;width:740px;height:740px;background:radial-gradient(circle,rgba(232,184,75,.1) 0%,transparent 62%);pointer-events:none"></div>
+    <div style="position:absolute;bottom:-60px;left:25%;width:480px;height:380px;background:radial-gradient(circle,rgba(5,50,15,.22) 0%,transparent 68%);pointer-events:none"></div>
+    <div style="position:relative;z-index:1;max-width:560px">
+      <div style="display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(232,184,75,.28);background:rgba(232,184,75,.06);padding:6px 14px;margin-bottom:28px">
+        <span style="width:6px;height:6px;background:#E8B84B;border-radius:50%;display:inline-block;animation:dot 2s infinite"></span>
+        <span style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B84B">Live from the Yard</span>
+      </div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,6.4vw,96px);line-height:.92;color:#fff;margin-bottom:22px">Latest from the<br><span style="color:#E8B84B">Dancehall</span><br>Scene</h1>
+      <p style="font-size:16px;color:#888;line-height:1.65;max-width:420px;margin-bottom:38px">Your source for authentic Jamaican music news, artist features, and cultural stories from the heart of the Caribbean.</p>
+      <div style="display:flex;gap:14px">
+        <button onclick="{{ goToNews }}" style="background:#E8B84B;color:#0A0A0A;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;padding:14px 30px;cursor:pointer">Explore Stories →</button>
+        <button onclick="{{ goToMusic }}" style="background:transparent;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;border:1px solid rgba(255,255,255,.18);padding:14px 30px;cursor:pointer">New Music</button>
+      </div>
+    </div>
+    <div style="position:absolute;right:56px;top:50%;transform:translateY(-50%);width:400px;z-index:1">
+      <div style="border:1px solid rgba(255,255,255,.06);overflow:hidden;background:#0f0f0f">
+        <div style="height:420px;background:linear-gradient(155deg,#0E2210 0%,#0A0A0A 55%,#181000 100%);position:relative;display:flex;align-items:flex-end;padding:24px">
+          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 35%,rgba(5,5,5,.9) 100%)"></div>
+          <div style="position:absolute;top:16px;right:16px;background:#E8B84B;color:#0A0A0A;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px">Artist Spotlight</div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+            <svg width="130" height="210" viewBox="0 0 130 210" fill="none" style="opacity:.1"><ellipse cx="65" cy="52" rx="30" ry="36" fill="#E8B84B"></ellipse><path d="M10 148 Q30 100 65 92 Q100 100 120 148 L130 210 L0 210Z" fill="#E8B84B"></path></svg>
+          </div>
+          <div style="position:relative;z-index:1">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:1px;color:#fff">Skillibeng</div>
+            <div style="font-size:13px;color:#aaa;margin-top:2px">Dancehall Star · Kingston, JA</div>
+          </div>
+        </div>
+        <div style="padding:14px 20px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.05)">
+          <span onclick="{{ openFeaturedArtist }}" style="font-size:12px;color:#E8B84B;text-transform:uppercase;letter-spacing:.8px;cursor:pointer">Read Feature →</span>
+          <div style="display:flex;gap:6px"><span style="width:6px;height:6px;background:#E8B84B;border-radius:50%"></span><span style="width:6px;height:6px;background:#2a2a2a;border-radius:50%"></span><span style="width:6px;height:6px;background:#2a2a2a;border-radius:50%"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:64px 56px;background:#0A0A0A;border-top:1px solid #141414">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:1px;color:#fff">Trending Now</h2>
+      <div style="height:2px;width:44px;background:#E8B84B;flex-shrink:0"></div>
+      <span onclick="{{ goToMusic }}" style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;margin-left:auto;cursor:pointer">View All →</span>
+    </div>
+    <div style="display:flex;gap:14px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none">
+      <sc-for list="{{ trendingTracks }}" as="track" hint-placeholder-count="6">
+        <div style="flex-shrink:0;width:188px;cursor:pointer" onclick="{{ track.onClick }}">
+          <div style="height:188px;background:{{ track.bg }};position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:11px;overflow:hidden">
+            <div style="width:42px;height:42px;background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.32);border-radius:50%;display:flex;align-items:center;justify-content:center">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="#E8B84B"><path d="M8 5v14l11-7z"></path></svg>
+            </div>
+            <div style="position:absolute;bottom:7px;right:7px;background:#E8B84B;color:#0A0A0A;font-size:9px;font-weight:700;letter-spacing:.8px;padding:2px 6px;text-transform:uppercase">{{ track.genre }}</div>
+            <div style="position:absolute;top:7px;left:9px;font-family:'Bebas Neue',sans-serif;font-size:38px;color:rgba(255,255,255,.05);line-height:1">{{ track.num }}</div>
+          </div>
+          <div style="font-weight:600;font-size:14px;color:#fff;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ track.title }}</div>
+          <div style="font-size:12px;color:#666">{{ track.artist }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:0 56px 64px;background:#0A0A0A">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:1px;color:#fff">Featured Story</h2>
+      <div style="height:2px;width:44px;background:#E8B84B;flex-shrink:0"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">
+      <div style="background:#0f0f0f;position:relative;overflow:hidden;cursor:pointer;min-height:440px;display:flex;flex-direction:column;justify-content:flex-end;padding:32px" onclick="{{ openFeaturedArticle }}">
+        <div style="position:absolute;inset:0;background:linear-gradient(140deg,#0C1C0C 0%,#0A0A0A 50%,#180D00 100%)"></div>
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 20%,rgba(5,5,5,.92) 100%)"></div>
+        <div style="position:absolute;top:24px;left:24px;background:#E8B84B;color:#0A0A0A;font-size:10px;font-weight:700;letter-spacing:1.5px;padding:4px 10px;text-transform:uppercase">Feature</div>
+        <div style="position:relative;z-index:1">
+          <h3 style="font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1;color:#fff;margin-bottom:12px">Vybz Kartel's Impact on Global Dancehall Culture</h3>
+          <p style="font-size:13px;color:#bbb;line-height:1.55;margin-bottom:18px">How one artist changed the sound of a generation and brought Jamaican music to the world stage...</p>
+          <div style="display:flex;align-items:center;gap:14px">
+            <span style="font-size:12px;color:#E8B84B;text-transform:uppercase;letter-spacing:1px">Read Story →</span>
+            <span style="font-size:12px;color:#444">8 min read</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <sc-for list="{{ sideArticles }}" as="art" hint-placeholder-count="3">
+          <div style="background:#0f0f0f;padding:24px;cursor:pointer;display:flex;gap:18px;flex:1" onclick="{{ art.onClick }}">
+            <div style="width:76px;height:76px;background:{{ art.bg }};flex-shrink:0"></div>
+            <div style="flex:1;min-width:0">
+              <div style="border:1px solid rgba(232,184,75,.22);background:rgba(232,184,75,.07);display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E8B84B;padding:2px 8px;margin-bottom:8px">{{ art.tag }}</div>
+              <div style="font-weight:600;font-size:14px;color:#fff;line-height:1.3;margin-bottom:5px">{{ art.title }}</div>
+              <div style="font-size:12px;color:#444">{{ art.time }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:64px 56px;background:#0D0D0D;border-top:1px solid #141414">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:1px;color:#fff">Artist Spotlight</h2>
+      <div style="height:2px;width:44px;background:#E8B84B;flex-shrink:0"></div>
+      <span onclick="{{ goToArtists }}" style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;margin-left:auto;cursor:pointer">All Artists →</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px">
+      <sc-for list="{{ spotlightArtists }}" as="artist" hint-placeholder-count="4">
+        <div style="background:#0f0f0f;overflow:hidden;cursor:pointer" onclick="{{ artist.onClick }}">
+          <div style="height:240px;background:{{ artist.bg }};position:relative;display:flex;align-items:center;justify-content:center">
+            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 45%,rgba(8,8,8,.88) 100%)"></div>
+            <svg width="68" height="112" viewBox="0 0 68 112" fill="none" style="opacity:.12"><ellipse cx="34" cy="27" rx="16" ry="20" fill="#E8B84B"></ellipse><path d="M4 78 Q16 52 34 48 Q52 52 64 78 L68 112 L0 112Z" fill="#E8B84B"></path></svg>
+          </div>
+          <div style="padding:15px 16px">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.5px;color:#fff;margin-bottom:3px">{{ artist.name }}</div>
+            <div style="font-size:12px;color:#666;margin-bottom:10px">{{ artist.genre }}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:11px;color:#E8B84B;text-transform:uppercase;letter-spacing:.5px">{{ artist.streams }}</span>
+              <span style="font-size:11px;color:#333;text-transform:uppercase;letter-spacing:.8px">Profile →</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:64px 56px;background:#0A0A0A;border-top:1px solid #141414">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:1px;color:#fff">On Demand</h2>
+      <div style="height:2px;width:44px;background:#E8B84B;flex-shrink:0"></div>
+      <span onclick="{{ goToDemand }}" style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;margin-left:auto;cursor:pointer">View All →</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+      <sc-for list="{{ demandVideos }}" as="video" hint-placeholder-count="3">
+        <div style="background:#0f0f0f;overflow:hidden;cursor:pointer" onclick="{{ video.onClick }}">
+          <div style="height:196px;background:{{ video.bg }};position:relative;display:flex;align-items:center;justify-content:center">
+            <div style="width:52px;height:52px;background:rgba(232,184,75,.12);border:2px solid rgba(232,184,75,.65);border-radius:50%;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#E8B84B"><path d="M8 5v14l11-7z"></path></svg>
+            </div>
+            <div style="position:absolute;top:11px;left:11px;border:1px solid rgba(232,184,75,.35);background:rgba(10,10,10,.78);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E8B84B;padding:3px 8px">{{ video.tag }}</div>
+            <div style="position:absolute;bottom:9px;right:9px;background:rgba(10,10,10,.8);font-size:11px;color:#ccc;padding:3px 7px">{{ video.duration }}</div>
+          </div>
+          <div style="padding:15px 18px">
+            <div style="font-weight:600;font-size:14px;color:#fff;margin-bottom:5px;line-height:1.3">{{ video.title }}</div>
+            <div style="font-size:12px;color:#555">{{ video.subtitle }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:64px 56px;background:#0D0D0D;border-top:1px solid #141414">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:38px;letter-spacing:1px;color:#fff">Upcoming Events</h2>
+      <div style="height:2px;width:44px;background:#E8B84B;flex-shrink:0"></div>
+      <span onclick="{{ goToEvents }}" style="font-size:11px;color:#555;text-transform:uppercase;letter-spacing:1px;margin-left:auto;cursor:pointer">All Events →</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <sc-for list="{{ upcomingEvents }}" as="evt" hint-placeholder-count="4">
+        <div style="background:#0f0f0f;padding:22px 28px;display:flex;align-items:center;gap:24px;cursor:pointer" onclick="{{ evt.onClick }}">
+          <div style="width:50px;text-align:center;flex-shrink:0">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#E8B84B;line-height:1">{{ evt.day }}</div>
+            <div style="font-size:11px;color:#444;text-transform:uppercase;letter-spacing:1px">{{ evt.month }}</div>
+          </div>
+          <div style="width:1px;height:40px;background:#1e1e1e;flex-shrink:0"></div>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:600;font-size:15px;color:#fff;margin-bottom:3px">{{ evt.name }}</div>
+            <div style="font-size:13px;color:#666">{{ evt.venue }} · {{ evt.city }}</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="font-size:13px;color:#E8B84B;margin-bottom:3px">{{ evt.price }}</div>
+            <div style="font-size:11px;color:#333;text-transform:uppercase;letter-spacing:.5px">Tickets →</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="padding:80px 56px;background:#0a0a0a;border-top:1px solid #1a1a1a;text-align:center;position:relative;overflow:hidden">
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(232,184,75,.07) 0%,transparent 68%);pointer-events:none"></div>
+    <div style="position:relative;max-width:500px;margin:0 auto">
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B84B;margin-bottom:14px">YardVybes Newsletter</div>
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:1px;color:#fff;margin-bottom:10px">Stay in the Know</h2>
+      <p style="font-size:15px;color:#777;line-height:1.65;margin-bottom:32px">Get the latest dancehall news, new releases, and exclusive content every Thursday.</p>
+      <div style="display:flex;max-width:400px;margin:0 auto">
+        <input type="email" placeholder="Your email address" style="flex:1;background:#141414;border:1px solid #262626;border-right:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:14px;padding:13px 18px">
+        <button style="background:#E8B84B;color:#0A0A0A;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;padding:13px 22px;cursor:pointer;white-space:nowrap">Subscribe</button>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isNews }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:60px 56px 40px;background:#0D0D0D;border-bottom:1px solid #1a1a1a">
+    <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B84B;margin-bottom:10px">YardVybes</div>
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:#fff;letter-spacing:1px;margin-bottom:10px">Latest News</h1>
+    <p style="font-size:15px;color:#666;max-width:480px">Breaking stories, artist interviews, and cultural commentary from the Caribbean music scene.</p>
+  </section>
+  <section style="padding:0 56px;background:#0A0A0A;border-bottom:1px solid #1a1a1a;display:flex;gap:0">
+    <sc-for list="{{ newsCategories }}" as="cat" hint-placeholder-count="5">
+      <span style="font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:{{ cat.color }};padding:16px 20px;cursor:pointer;border-bottom:{{ cat.border }}" onclick="{{ cat.onClick }}">{{ cat.label }}</span>
+    </sc-for>
+  </section>
+  <section style="padding:44px 56px 72px;background:#0A0A0A">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+      <sc-for list="{{ newsArticles }}" as="art" hint-placeholder-count="6">
+        <div style="background:#0f0f0f;overflow:hidden;cursor:pointer" onclick="{{ art.onClick }}">
+          <div style="height:196px;background:{{ art.bg }};position:relative">
+            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(5,5,5,.65) 100%)"></div>
+            <div style="position:absolute;top:12px;left:12px;background:#E8B84B;color:#0A0A0A;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 8px">{{ art.tag }}</div>
+          </div>
+          <div style="padding:20px">
+            <h3 style="font-weight:600;font-size:15px;color:#fff;line-height:1.35;margin-bottom:9px">{{ art.title }}</h3>
+            <p style="font-size:13px;color:#666;line-height:1.5;margin-bottom:14px">{{ art.excerpt }}</p>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:11px;color:#444">{{ art.time }}</span>
+              <span style="font-size:11px;color:#E8B84B;text-transform:uppercase;letter-spacing:.8px">Read →</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isMusic }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:60px 56px 40px;background:#0D0D0D;border-bottom:1px solid #1a1a1a">
+    <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B84B;margin-bottom:10px">YardVybes</div>
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:#fff;letter-spacing:1px;margin-bottom:10px">Music</h1>
+    <p style="font-size:15px;color:#666;max-width:480px">New releases, charts, and the best of Jamaican sound from dancehall to roots reggae.</p>
+  </section>
+  <section style="padding:48px 56px 0;background:#0A0A0A">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#fff">New Releases</h2>
+      <div style="height:2px;width:36px;background:#E8B84B;flex-shrink:0"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:2px;margin-bottom:56px">
+      <sc-for list="{{ allTracks }}" as="track" hint-placeholder-count="6">
+        <div style="background:#0f0f0f;overflow:hidden;cursor:pointer">
+          <div style="height:156px;background:{{ track.bg }};position:relative;display:flex;align-items:center;justify-content:center">
+            <div style="width:38px;height:38px;background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.28);border-radius:50%;display:flex;align-items:center;justify-content:center">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#E8B84B"><path d="M8 5v14l11-7z"></path></svg>
+            </div>
+            <div style="position:absolute;bottom:6px;right:6px;background:#E8B84B;color:#0A0A0A;font-size:8px;font-weight:700;letter-spacing:.8px;padding:2px 6px;text-transform:uppercase">{{ track.genre }}</div>
+          </div>
+          <div style="padding:11px 12px">
+            <div style="font-weight:600;font-size:13px;color:#fff;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ track.title }}</div>
+            <div style="font-size:11px;color:#555">{{ track.artist }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  <section style="padding:0 56px 72px;background:#0A0A0A">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:28px">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:34px;color:#fff">Top Charts</h2>
+      <div style="height:2px;width:36px;background:#E8B84B;flex-shrink:0"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1px">
+      <sc-for list="{{ chartTracks }}" as="ct" hint-placeholder-count="8">
+        <div style="background:#0f0f0f;padding:15px 22px;display:flex;align-items:center;gap:18px;cursor:pointer">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:{{ ct.rankColor }};width:34px;flex-shrink:0;line-height:1">{{ ct.rank }}</span>
+          <div style="width:46px;height:46px;background:{{ ct.bg }};flex-shrink:0;display:flex;align-items:center;justify-content:center">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#E8B84B" opacity=".55"><path d="M8 5v14l11-7z"></path></svg>
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:600;font-size:14px;color:#fff;margin-bottom:2px">{{ ct.title }}</div>
+            <div style="font-size:12px;color:#555">{{ ct.artist }}</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="font-size:12px;color:#E8B84B">{{ ct.streams }}</div>
+            <div style="font-size:11px;color:#333">{{ ct.change }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isArtists }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:60px 56px 40px;background:#0D0D0D;border-bottom:1px solid #1a1a1a">
+    <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B84B;margin-bottom:10px">YardVybes</div>
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:#fff;letter-spacing:1px;margin-bottom:10px">Artists</h1>
+    <p style="font-size:15px;color:#666;max-width:480px">Profiles, interviews, and stories from the biggest names in Jamaican music.</p>
+  </section>
+  <section style="padding:44px 56px 72px;background:#0A0A0A">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px">
+      <sc-for list="{{ allArtists }}" as="artist" hint-placeholder-count="8">
+        <div style="background:#0f0f0f;overflow:hidden;cursor:pointer" onclick="{{ artist.onClick }}">
+          <div style="height:280px;background:{{ artist.bg }};position:relative;display:flex;align-items:flex-end;padding:16px">
+            <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(8,8,8,.92) 100%)"></div>
+            <svg width="78" height="126" viewBox="0 0 78 126" fill="none" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);opacity:.1"><ellipse cx="39" cy="28" rx="17" ry="21" fill="#E8B84B"></ellipse><path d="M4 88 Q18 58 39 54 Q60 58 74 88 L78 126 L0 126Z" fill="#E8B84B"></path></svg>
+            <div style="position:relative;z-index:1">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#fff;margin-bottom:2px">{{ artist.name }}</div>
+              <div style="font-size:12px;color:#999">{{ artist.genre }}</div>
+            </div>
+          </div>
+          <div style="padding:13px 16px;display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:12px;color:#E8B84B">{{ artist.streams }} streams</span>
+            <span style="font-size:11px;color:#333;text-transform:uppercase;letter-spacing:.8px">View →</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isEvents }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:60px 56px 40px;background:#0D0D0D;border-bottom:1px solid #1a1a1a">
+    <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B84B;margin-bottom:10px">YardVybes</div>
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:#fff;letter-spacing:1px;margin-bottom:10px">Events</h1>
+    <p style="font-size:15px;color:#666;max-width:480px">The biggest dancehall and reggae events happening near you and around the world.</p>
+  </section>
+  <section style="padding:44px 56px 72px;background:#0A0A0A">
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <sc-for list="{{ allEvents }}" as="evt" hint-placeholder-count="6">
+        <div style="background:#0f0f0f;padding:24px 28px;display:flex;align-items:center;gap:24px;cursor:pointer" onclick="{{ evt.onClick }}">
+          <div style="width:52px;text-align:center;flex-shrink:0">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:#E8B84B;line-height:1">{{ evt.day }}</div>
+            <div style="font-size:11px;color:#444;text-transform:uppercase;letter-spacing:1px">{{ evt.month }}</div>
+          </div>
+          <div style="width:1px;height:44px;background:#1e1e1e;flex-shrink:0"></div>
+          <div style="flex:1;min-width:0">
+            <div style="font-weight:600;font-size:16px;color:#fff;margin-bottom:3px">{{ evt.name }}</div>
+            <div style="font-size:13px;color:#666">{{ evt.venue }} · {{ evt.city }}</div>
+          </div>
+          <div style="flex-shrink:0">
+            <button style="background:#E8B84B;color:#0A0A0A;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;border:none;padding:10px 20px;cursor:pointer">{{ evt.price }}</button>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isDemand }}" hint-placeholder-val="{{ false }}">
+  <section style="padding:60px 56px 40px;background:#0D0D0D;border-bottom:1px solid #1a1a1a">
+    <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B84B;margin-bottom:10px">YardVybes</div>
+    <h1 style="font-family:'Bebas Neue',sans-serif;font-size:72px;color:#fff;letter-spacing:1px;margin-bottom:10px">On Demand</h1>
+    <p style="font-size:15px;color:#666;max-width:480px">Exclusive documentaries, live concert recordings, and artist interviews — only on YardVybes.</p>
+  </section>
+  <section style="padding:48px 56px 0;background:#0A0A0A">
+    <div style="background:#0f0f0f;position:relative;overflow:hidden;cursor:pointer;height:440px;display:flex;align-items:center;justify-content:center;margin-bottom:2px">
+      <div style="position:absolute;inset:0;background:linear-gradient(140deg,#0A1A0A 0%,#0A0A0A 55%,#180A00 100%)"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 28%,rgba(5,5,5,.82) 100%)"></div>
+      <div style="width:70px;height:70px;background:rgba(232,184,75,.12);border:2px solid rgba(232,184,75,.75);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:1">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="#E8B84B"><path d="M8 5v14l11-7z"></path></svg>
+      </div>
+      <div style="position:absolute;top:24px;left:24px;z-index:1">
+        <div style="background:#E8B84B;color:#0A0A0A;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;margin-bottom:14px;display:inline-block">Exclusive Documentary</div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:50px;color:#fff;line-height:1;max-width:480px">Vybz Kartel: The Legacy</h2>
+      </div>
+      <div style="position:absolute;bottom:20px;left:24px;font-size:13px;color:#888;z-index:1">3 Episodes · Series 1 · 2024</div>
+      <div style="position:absolute;bottom:20px;right:24px;background:rgba(10,10,10,.8);font-size:12px;color:#ccc;padding:4px 10px;z-index:1">42:18</div>
+    </div>
+  </section>
+  <section style="padding:2px 56px 72px;background:#0A0A0A">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+      <sc-for list="{{ allVideos }}" as="video" hint-placeholder-count="6">
+        <div style="background:#0f0f0f;overflow:hidden;cursor:pointer" onclick="{{ video.onClick }}">
+          <div style="height:178px;background:{{ video.bg }};position:relative;display:flex;align-items:center;justify-content:center">
+            <div style="width:44px;height:44px;background:rgba(232,184,75,.1);border:1px solid rgba(232,184,75,.45);border-radius:50%;display:flex;align-items:center;justify-content:center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#E8B84B"><path d="M8 5v14l11-7z"></path></svg>
+            </div>
+            <div style="position:absolute;top:10px;left:10px;border:1px solid rgba(232,184,75,.3);background:rgba(10,10,10,.78);font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E8B84B;padding:3px 8px">{{ video.tag }}</div>
+            <div style="position:absolute;bottom:8px;right:8px;background:rgba(10,10,10,.8);font-size:11px;color:#bbb;padding:2px 6px">{{ video.duration }}</div>
+          </div>
+          <div style="padding:14px 16px">
+            <div style="font-weight:600;font-size:14px;color:#fff;margin-bottom:4px;line-height:1.3">{{ video.title }}</div>
+            <div style="font-size:12px;color:#555">{{ video.subtitle }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isNewsletter }}" hint-placeholder-val="{{ false }}">
+  <section style="min-height:82vh;display:flex;align-items:center;justify-content:center;background:#0A0A0A;position:relative;overflow:hidden;padding:80px 56px">
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(232,184,75,.07) 0%,transparent 62%);pointer-events:none"></div>
+    <div style="max-width:540px;text-align:center;position:relative;z-index:1">
+      <svg width="46" height="40" viewBox="0 0 34 30" fill="none" style="margin-bottom:24px"><rect width="34" height="30" rx="3" fill="#E8B84B"></rect><path d="M9 7 L17 16 L25 7" stroke="#0A0A0A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"></path><line x1="17" y1="16" x2="17" y2="24" stroke="#0A0A0A" stroke-width="3.5" stroke-linecap="round"></line><circle cx="9" cy="7" r="2.5" fill="#0A0A0A" opacity=".4"></circle></svg>
+      <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B84B;margin-bottom:14px">The YardVybes Newsletter</div>
+      <h1 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,5.5vw,76px);color:#fff;line-height:.94;margin-bottom:18px">The Yard in Your Inbox</h1>
+      <p style="font-size:16px;color:#777;line-height:1.65;margin-bottom:38px">The freshest dancehall news, exclusive artist content, upcoming events, and new music drops — every Thursday morning.</p>
+      <div style="display:flex;margin-bottom:24px">
+        <input type="email" placeholder="Your email address" style="flex:1;background:#141414;border:1px solid #252525;border-right:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:15px;padding:15px 20px">
+        <button style="background:#E8B84B;color:#0A0A0A;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;padding:15px 28px;cursor:pointer;white-space:nowrap">Subscribe Free</button>
+      </div>
+      <div style="display:flex;gap:28px;justify-content:center">
+        <sc-for list="{{ newsletterPerks }}" as="perk" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:7px">
+            <span style="color:#E8B84B;font-size:13px">✓</span>
+            <span style="font-size:13px;color:#555">{{ perk.text }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+<sc-if value="{{ isArtistProfile }}" hint-placeholder-val="{{ false }}">
+  <div style="background:#0A0A0A;min-height:100vh">
+    <div style="padding:18px 56px;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="{{ goToArtists }}">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
+      <span style="font-size:12px;color:#666;text-transform:uppercase;letter-spacing:.8px">All Artists</span>
+    </div>
+    <div style="height:460px;background:{{ artistData.bg }};position:relative;display:flex;align-items:flex-end;padding:48px 56px">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 18%,rgba(5,5,5,.96) 100%)"></div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none">
+        <svg width="180" height="290" viewBox="0 0 130 210" fill="none" style="opacity:.09"><ellipse cx="65" cy="52" rx="30" ry="36" fill="#E8B84B"></ellipse><path d="M10 148 Q30 100 65 92 Q100 100 120 148 L130 210 L0 210Z" fill="#E8B84B"></path></svg>
+      </div>
+      <div style="position:relative;z-index:1">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E8B84B;margin-bottom:10px">{{ artistData.genre }}</div>
+        <h1 style="font-family:'Bebas Neue',sans-serif;font-size:80px;color:#fff;letter-spacing:1px;line-height:1;margin-bottom:14px">{{ artistData.name }}</h1>
+        <div style="display:flex;align-items:center;gap:18px">
+          <span style="font-size:14px;color:#999">{{ artistData.streams }} monthly streams</span>
+          <span style="width:4px;height:4px;background:#444;border-radius:50%"></span>
+          <span style="font-size:14px;color:#999">Kingston, Jamaica</span>
+        </div>
+      </div>
+    </div>
+    <div style="padding:48px 56px;display:grid;grid-template-columns:2fr 1fr;gap:52px">
+      <div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#fff;margin-bottom:14px">About</h2>
+        <p style="font-size:15px;color:#777;line-height:1.82;margin-bottom:36px">One of the most exciting voices in the current dancehall scene, known for their unique delivery and authentic Jamaican storytelling. Their music blends traditional dancehall rhythms with modern trap influences, creating a sound that resonates with audiences worldwide and has fundamentally shaped the direction of Jamaican popular music.</p>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#fff;margin-bottom:14px">Latest Tracks</h2>
+        <div style="display:flex;flex-direction:column;gap:1px">
+          <sc-for list="{{ artistTracks }}" as="at" hint-placeholder-count="5">
+            <div style="background:#0f0f0f;padding:13px 20px;display:flex;align-items:center;gap:16px">
+              <div style="width:42px;height:42px;background:{{ at.bg }};flex-shrink:0;display:flex;align-items:center;justify-content:center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="#E8B84B" opacity=".65"><path d="M8 5v14l11-7z"></path></svg>
+              </div>
+              <div style="flex:1">
+                <div style="font-weight:600;font-size:14px;color:#fff;margin-bottom:1px">{{ at.title }}</div>
+                <div style="font-size:12px;color:#444">{{ at.year }}</div>
+              </div>
+              <span style="font-size:12px;color:#E8B84B">{{ at.streams }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:#fff;margin-bottom:14px">Latest News</h2>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <sc-for list="{{ artistNews }}" as="an" hint-placeholder-count="3">
+            <div style="background:#0f0f0f;padding:18px;cursor:pointer" onclick="{{ an.onClick }}">
+              <div style="border:1px solid rgba(232,184,75,.2);background:rgba(232,184,75,.06);display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E8B84B;padding:2px 8px;margin-bottom:8px">{{ an.tag }}</div>
+              <div style="font-weight:600;font-size:14px;color:#fff;line-height:1.3;margin-bottom:5px">{{ an.title }}</div>
+              <div style="font-size:12px;color:#444">{{ an.time }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isArticle }}" hint-placeholder-val="{{ false }}">
+  <div style="background:#0A0A0A;min-height:100vh">
+    <div style="padding:18px 56px;border-bottom:1px solid #1a1a1a;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="{{ goToNews }}">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
+      <span style="font-size:12px;color:#666;text-transform:uppercase;letter-spacing:.8px">Back to News</span>
+    </div>
+    <div style="height:400px;background:{{ articleData.bg }};position:relative;display:flex;align-items:flex-end;padding:48px 56px">
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 22%,rgba(5,5,5,.94) 100%)"></div>
+      <div style="position:relative;z-index:1;max-width:760px">
+        <div style="background:#E8B84B;color:#0A0A0A;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;display:inline-block;margin-bottom:14px">{{ articleData.tag }}</div>
+        <h1 style="font-family:'Bebas Neue',sans-serif;font-size:54px;color:#fff;line-height:1;margin-bottom:14px">{{ articleData.title }}</h1>
+        <div style="display:flex;align-items:center;gap:14px">
+          <span style="font-size:13px;color:#999">By YardVybes Staff</span>
+          <span style="width:4px;height:4px;background:#444;border-radius:50%"></span>
+          <span style="font-size:13px;color:#999">{{ articleData.time }}</span>
+          <span style="width:4px;height:4px;background:#444;border-radius:50%"></span>
+          <span style="font-size:13px;color:#999">8 min read</span>
+        </div>
+      </div>
+    </div>
+    <div style="padding:56px 56px 80px;display:grid;grid-template-columns:1fr 300px;gap:64px;max-width:1200px">
+      <div>
+        <p style="font-size:20px;color:#ccc;line-height:1.72;font-weight:300;margin-bottom:30px">Dancehall music has always been more than just a genre — it's a living, breathing expression of Jamaican culture, politics, street life, and joy. And in the past decade, no artist has embodied and pushed that tradition forward more boldly.</p>
+        <p style="font-size:15px;color:#777;line-height:1.9;margin-bottom:22px">From the early days of recording in makeshift Kingston studios to topping international charts, the journey has been nothing short of remarkable. The unique blend of raw Jamaican patois with melodic hooks created a new template for what dancehall could sound like for a global audience.</p>
+        <p style="font-size:15px;color:#777;line-height:1.9;margin-bottom:22px">Critics initially dismissed the sound as too street, too raw, too specifically Jamaican to translate abroad. They were wrong. Within months of the first viral moment, streaming numbers surged in the UK, across the Caribbean diaspora, and then — unexpectedly — in East Africa and Southeast Asia.</p>
+        <div style="border-left:3px solid #E8B84B;padding:20px 28px;background:#0f0f0f;margin:36px 0">
+          <p style="font-size:18px;color:#ccc;line-height:1.6;font-style:italic">"The music had to be real. It couldn't be manufactured. People feel when you're authentic and when you're not."</p>
+          <span style="font-size:12px;color:#E8B84B;display:block;margin-top:12px;text-transform:uppercase;letter-spacing:.8px">— Featured Artist</span>
+        </div>
+        <p style="font-size:15px;color:#777;line-height:1.9">What makes the impact truly significant is not just the numbers but the culture shift. Younger producers across Jamaica now cite this sound as the defining influence of their work. Fashion, slang, and attitude have all been touched. This is not a moment — it's a movement.</p>
+      </div>
+      <div>
+        <h3 style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;margin-bottom:16px">Related Stories</h3>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <sc-for list="{{ relatedArticles }}" as="ra" hint-placeholder-count="3">
+            <div style="background:#0f0f0f;padding:16px;cursor:pointer" onclick="{{ ra.onClick }}">
+              <div style="border:1px solid rgba(232,184,75,.2);background:rgba(232,184,75,.06);display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E8B84B;padding:2px 8px;margin-bottom:8px">{{ ra.tag }}</div>
+              <div style="font-weight:600;font-size:13px;color:#fff;line-height:1.35;margin-bottom:5px">{{ ra.title }}</div>
+              <div style="font-size:11px;color:#444">{{ ra.time }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+</main>
+
+<footer style="background:#060606;border-top:1px solid #141414;padding:48px 56px 28px">
+  <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:44px">
+    <div>
+      <div style="display:flex;align-items:center;gap:9px;margin-bottom:14px">
+        <svg width="28" height="24" viewBox="0 0 34 30" fill="none"><rect width="34" height="30" rx="3" fill="#E8B84B"></rect><path d="M9 7 L17 16 L25 7" stroke="#0A0A0A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"></path><line x1="17" y1="16" x2="17" y2="24" stroke="#0A0A0A" stroke-width="3.5" stroke-linecap="round"></line><circle cx="9" cy="7" r="2.5" fill="#0A0A0A" opacity=".4"></circle></svg>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2.5px;color:#fff">YARD<span style="color:#E8B84B">VYBES</span></span>
+      </div>
+      <p style="font-size:13px;color:#444;line-height:1.72;max-width:210px">Your source for authentic Jamaican music news, artist features, and Caribbean culture stories.</p>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E8B84B;margin-bottom:14px">Navigate</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ footerNav }}" as="fn" hint-placeholder-count="7">
+          <span onclick="{{ fn.onClick }}" style="font-size:13px;color:#555;cursor:pointer">{{ fn.label }}</span>
+        </sc-for>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E8B84B;margin-bottom:14px">Connect</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:13px;color:#555;cursor:pointer">Instagram</span>
+        <span style="font-size:13px;color:#555;cursor:pointer">YouTube</span>
+        <span style="font-size:13px;color:#555;cursor:pointer">X (Twitter)</span>
+        <span style="font-size:13px;color:#555;cursor:pointer">TikTok</span>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E8B84B;margin-bottom:14px">Newsletter</div>
+      <p style="font-size:13px;color:#444;line-height:1.6;margin-bottom:14px">Weekly drops, straight to your inbox.</p>
+      <div style="display:flex">
+        <input type="email" placeholder="Email address" style="flex:1;background:#0f0f0f;border:1px solid #1e1e1e;border-right:none;color:#fff;font-family:'DM Sans',sans-serif;font-size:13px;padding:10px 14px">
+        <button style="background:#E8B84B;color:#0A0A0A;font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;border:none;padding:10px 14px;cursor:pointer">GO</button>
+      </div>
+    </div>
+  </div>
+  <div style="border-top:1px solid #141414;padding-top:22px;display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:12px;color:#333">© 2025 YardVybes.com — All rights reserved</span>
+    <div style="display:flex;gap:22px">
+      <span style="font-size:12px;color:#333;cursor:pointer">Privacy Policy</span>
+      <span style="font-size:12px;color:#333;cursor:pointer">Terms of Use</span>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = { page: 'home', selectedArtist: 0, selectedArticle: 0, newsFilter: 'all' };
+
+  navDefs = ['Home', 'News', 'Music', 'Artists', 'Events', 'Demand', 'Newsletter'];
+
+  artistsData = [
+    { name:'Skillibeng', genre:'Dancehall · Trap', streams:'142M', bg:'linear-gradient(135deg,#0E2210 0%,#0A0A0A 100%)' },
+    { name:'Popcaan', genre:'Dancehall · Reggae', streams:'98M', bg:'linear-gradient(135deg,#2A1800 0%,#0A0A0A 100%)' },
+    { name:'Chronic Law', genre:'Dancehall · Trap', streams:'67M', bg:'linear-gradient(135deg,#0A192A 0%,#0A0A0A 100%)' },
+    { name:'Masicka', genre:'Dancehall', streams:'55M', bg:'linear-gradient(135deg,#1A0A28 0%,#0A0A0A 100%)' },
+    { name:'Alkaline', genre:'Dancehall', streams:'120M', bg:'linear-gradient(135deg,#280A10 0%,#0A0A0A 100%)' },
+    { name:'Tommy Lee Sparta', genre:'Dancehall', streams:'45M', bg:'linear-gradient(135deg,#0A2828 0%,#0A0A0A 100%)' },
+    { name:'Shenseea', genre:'Dancehall · Pop', streams:'88M', bg:'linear-gradient(135deg,#1A1800 0%,#0A0A0A 100%)' },
+    { name:'Govana', genre:'Dancehall', streams:'38M', bg:'linear-gradient(135deg,#0A0A28 0%,#0A0A0A 100%)' },
+  ];
+
+  articlesData = [
+    { tag:'Feature', title:"Vybz Kartel's Impact on Global Dancehall Culture", excerpt:'How one artist changed the sound of a generation and brought Jamaican music worldwide.', time:'2 hours ago', bg:'linear-gradient(135deg,#0C1C0C,#0A0A0A)' },
+    { tag:'Music News', title:'Alkaline Drops Surprise Album at Midnight', excerpt:'The unannounced project dropped without any prior warning, sending fans into a frenzy.', time:'4 hours ago', bg:'linear-gradient(135deg,#1E2A10,#0A0A0A)' },
+    { tag:'Interview', title:"Popcaan on Life After Unruly Fest: 'Still Going Harder'", excerpt:"We sat down with Popcaan to talk about what's next for the dancehall icon.", time:'6 hours ago', bg:'linear-gradient(135deg,#2A1800,#0A0A0A)' },
+    { tag:'Events', title:'Reggae Sumfest 2025 Lineup Revealed — Who Made the Cut?', excerpt:'The full lineup for the biggest reggae festival on the planet has been confirmed.', time:'Yesterday', bg:'linear-gradient(135deg,#0A1928,#0A0A0A)' },
+    { tag:'Culture', title:"Kingston's New Sound: The Next Wave of Dancehall", excerpt:'A deep dive into the underground scene shaping the future of Jamaican music.', time:'2 days ago', bg:'linear-gradient(135deg,#1A0A28,#0A0A0A)' },
+    { tag:'Music News', title:'Sean Paul Announces 2025 World Tour Dates', excerpt:'The veteran performer confirms 40 dates across 20 countries starting this autumn.', time:'3 days ago', bg:'linear-gradient(135deg,#280A10,#0A0A0A)' },
+  ];
+
+  tracksData = [
+    { num:'01', title:'Big Road', artist:'Skillibeng', genre:'Dancehall', bg:'linear-gradient(135deg,#1A2A10 0%,#0A0A0A 100%)' },
+    { num:'02', title:'Temperature', artist:'Sean Paul', genre:'Reggae', bg:'linear-gradient(135deg,#2A1800 0%,#0A0A0A 100%)' },
+    { num:'03', title:'Blessings', artist:'Popcaan', genre:'Dancehall', bg:'linear-gradient(135deg,#0A1928 0%,#0A0A0A 100%)' },
+    { num:'04', title:'Slow Down', artist:'Skip Marley', genre:'Reggae', bg:'linear-gradient(135deg,#1A0A28 0%,#0A0A0A 100%)' },
+    { num:'05', title:'Uptown Babylon', artist:'Chronic Law', genre:'Trap', bg:'linear-gradient(135deg,#280A10 0%,#0A0A0A 100%)' },
+    { num:'06', title:'Gyal Session', artist:'Masicka', genre:'Dancehall', bg:'linear-gradient(135deg,#0A2818 0%,#0A0A0A 100%)' },
+  ];
+
+  eventsData = [
+    { day:'18', month:'Jul', name:'Reggae Sumfest 2025', venue:'Catherine Hall', city:'Montego Bay', price:'From $80' },
+    { day:'02', month:'Aug', name:'Alkaline: Vendetta World Tour', venue:'O2 Arena', city:'London, UK', price:'From £45' },
+    { day:'15', month:'Aug', name:'Popcaan Unruly Fest 2025', venue:'Mas Camp', city:'Kingston, JA', price:'From $40' },
+    { day:'28', month:'Sep', name:'Caribbean Vibez NYC', venue:'Barclays Center', city:'New York, USA', price:'From $65' },
+    { day:'12', month:'Oct', name:'YardVybes: The Dancehall Summit', venue:'Ritz-Carlton', city:'Miami, USA', price:'From $55' },
+    { day:'05', month:'Nov', name:'Masicka World Tour — Toronto', venue:'Scotiabank Arena', city:'Toronto, Canada', price:'From C$60' },
+  ];
+
+  videosData = [
+    { tag:'Exclusive', title:'Vybz Kartel: The Legacy Documentary', subtitle:'Ep. 1 · 3 Episodes', duration:'42:18', bg:'linear-gradient(135deg,#1A1800,#0A0A0A)' },
+    { tag:'Live', title:'Reggae Sumfest 2024 Full Livestream', subtitle:'Concert Recording', duration:'3:24:00', bg:'linear-gradient(135deg,#0A1A0A,#0A0A0A)' },
+    { tag:'Interview', title:'Masicka: In the Studio', subtitle:'Ep.4 · Behind the Music', duration:'28:45', bg:'linear-gradient(135deg,#0A0A1A,#0A0A0A)' },
+    { tag:'Documentary', title:"Kingston Rising: The Next Generation", subtitle:'Full Documentary', duration:'1:02:33', bg:'linear-gradient(135deg,#1A0A0A,#0A0A0A)' },
+    { tag:'Live', title:'Alkaline Live at Madison Square Garden', subtitle:'Concert Recording · 2024', duration:'1:48:20', bg:'linear-gradient(135deg,#0A1A1A,#0A0A0A)' },
+    { tag:'Exclusive', title:'Shenseea: From Kingston to the World', subtitle:'Mini-Series · Ep. 1 of 4', duration:'34:12', bg:'linear-gradient(135deg,#1A0A18,#0A0A0A)' },
+  ];
+
+  renderVals() {
+    const { page, selectedArtist, selectedArticle, newsFilter } = this.state;
+    const goPage = (p) => () => { this.setState({ page: p }); window.scrollTo(0, 0); };
+    const openArtist = (id) => () => { this.setState({ page: 'artist', selectedArtist: id }); window.scrollTo(0, 0); };
+    const openArticle = (id) => () => { this.setState({ page: 'article', selectedArticle: id }); window.scrollTo(0, 0); };
+
+    const navLinks = this.navDefs.map(label => ({
+      label,
+      color: (page === label.toLowerCase() || (page === 'artist' && label === 'Artists') || (page === 'article' && label === 'News')) ? '#E8B84B' : '#888',
+      underline: (page === label.toLowerCase() || (page === 'artist' && label === 'Artists') || (page === 'article' && label === 'News')) ? '2px solid #E8B84B' : '2px solid transparent',
+      onClick: () => { this.setState({ page: label.toLowerCase() }); window.scrollTo(0, 0); }
+    }));
+
+    const trendingTracks = this.tracksData.map(t => ({ ...t, onClick: goPage('music') }));
+    const allTracks = this.tracksData.map(t => ({ ...t, onClick: goPage('music') }));
+    const sideArticles = this.articlesData.slice(1, 4).map((a, i) => ({ ...a, onClick: openArticle(i + 1) }));
+    const newsArticles = this.articlesData.map((a, i) => ({ ...a, onClick: openArticle(i) }));
+    const spotlightArtists = this.artistsData.slice(0, 4).map((a, i) => ({ ...a, onClick: openArtist(i) }));
+    const allArtists = this.artistsData.map((a, i) => ({ ...a, onClick: openArtist(i) }));
+    const demandVideos = this.videosData.slice(0, 3).map(v => ({ ...v, onClick: goPage('demand') }));
+    const allVideos = this.videosData.map(v => ({ ...v, onClick: goPage('demand') }));
+    const upcomingEvents = this.eventsData.slice(0, 4).map(e => ({ ...e, onClick: goPage('events') }));
+    const allEvents = this.eventsData.map(e => ({ ...e, onClick: goPage('events') }));
+
+    const chartTracks = this.tracksData.map((t, i) => ({
+      ...t,
+      rank: String(i + 1).padStart(2, '0'),
+      rankColor: i === 0 ? '#E8B84B' : i < 3 ? '#fff' : '#444',
+      streams: `${(14 - i * 1.8).toFixed(1)}M`,
+      change: ['▲ New', '▲ 2', '▲ 1', '— —', '▼ 1', '▼ 2'][i]
+    }));
+
+    const newsCategories = ['All', 'Dancehall', 'Reggae', 'Culture', 'Events'].map(label => {
+      const val = label.toLowerCase() === 'all' ? 'all' : label.toLowerCase();
+      const active = newsFilter === val;
+      return {
+        label,
+        color: active ? '#E8B84B' : '#666',
+        border: active ? '2px solid #E8B84B' : '2px solid transparent',
+        onClick: () => this.setState({ newsFilter: val })
+      };
+    });
+
+    const artistData = this.artistsData[selectedArtist] || this.artistsData[0];
+    const articleData = this.articlesData[selectedArticle] || this.articlesData[0];
+
+    const artistTracks = this.tracksData.map((t, i) => ({
+      ...t,
+      year: `${2023 + (i % 2)}`,
+      streams: `${(9 - i * 1.3).toFixed(1)}M`
+    }));
+
+    const artistNews = this.articlesData.slice(0, 3).map((a, i) => ({ ...a, onClick: openArticle(i) }));
+    const relatedArticles = this.articlesData.slice(1, 4).map((a, i) => ({ ...a, onClick: openArticle(i + 1) }));
+    const newsletterPerks = [{ text:'Weekly drops' }, { text:'No spam, ever' }, { text:'Unsubscribe anytime' }];
+    const footerNav = this.navDefs.map(label => ({ label, onClick: () => { this.setState({ page: label.toLowerCase() }); window.scrollTo(0, 0); } }));
+
+    return {
+      navLinks,
+      goHome: goPage('home'), goToNews: goPage('news'), goToMusic: goPage('music'),
+      goToArtists: goPage('artists'), goToEvents: goPage('events'),
+      goToDemand: goPage('demand'), goToNewsletter: goPage('newsletter'),
+      openFeaturedArticle: openArticle(0), openFeaturedArtist: openArtist(0),
+      trendingTracks, allTracks, sideArticles, newsArticles,
+      spotlightArtists, allArtists, demandVideos, allVideos,
+      upcomingEvents, allEvents, chartTracks, newsCategories,
+      artistData, articleData, artistTracks, artistNews,
+      relatedArticles, newsletterPerks, footerNav,
+      isHome: page === 'home', isNews: page === 'news',
+      isMusic: page === 'music', isArtists: page === 'artists',
+      isEvents: page === 'events', isDemand: page === 'demand',
+      isNewsletter: page === 'newsletter',
+      isArtistProfile: page === 'artist', isArticle: page === 'article',
+    };
+  }
+}
+</script>
+
+
+</body></html>

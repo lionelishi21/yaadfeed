@@ -1,14 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { Menu, X, Search, User, Bell, LogOut, Settings, Sparkles, Zap } from 'lucide-react';
+import { Menu, X, Search, User, LogOut, Settings } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
-import { cn } from '@/utils';
 import AuthModal from '@/components/auth/AuthModal';
-import Button from '@/components/ui/Button';
-import logo from '@/assets/logo.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,33 +14,17 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   
-  // Only use session after component mounts (client-side)
   const { data: session, status } = useSession();
 
-  // Set mounted state after component mounts
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-  // Listen for custom auth modal events
-  useEffect(() => {
-    const handleOpenAuthModal = () => {
-      setIsAuthModalOpen(true);
-    };
-
+    const handleOpenAuthModal = () => setIsAuthModalOpen(true);
     window.addEventListener('open-auth-modal', handleOpenAuthModal);
-    
-    return () => {
-      window.removeEventListener('open-auth-modal', handleOpenAuthModal);
-    };
+    return () => window.removeEventListener('open-auth-modal', handleOpenAuthModal);
   }, []);
 
-  // Handle scroll effect
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -56,7 +36,6 @@ const Header = () => {
     { name: 'Artists', href: '/artists' },
     { name: 'Events', href: '/events' },
     { name: 'Demand', href: '/demand' },
-    { name: 'Newsletter', href: '/newsletter' },
   ];
 
   const handleSignOut = async () => {
@@ -65,31 +44,20 @@ const Header = () => {
   };
 
   const UserMenu = () => (
-    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-md border border-gray-200 py-2 z-50">
-      <div className="px-4 py-3 border-b border-gray-100">
-        <p className="text-sm font-semibold text-gray-900">{session?.user?.name || 'User'}</p>
-        <p className="text-xs text-gray-500">{session?.user?.email || ''}</p>
+    <div className="absolute right-0 mt-4 w-48 bg-yard-lightgray rounded shadow-lg border border-gray-800 py-2 z-50">
+      <div className="px-4 py-3 border-b border-gray-800">
+        <p className="text-sm font-semibold text-white">{session?.user?.name || 'User'}</p>
+        <p className="text-xs text-gray-400">{session?.user?.email || ''}</p>
       </div>
-      <Link
-        href="/profile"
-        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
-        onClick={() => setShowUserMenu(false)}
-      >
+      <Link href="/profile" className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-white/5 transition-colors" onClick={() => setShowUserMenu(false)}>
         <User className="w-4 h-4 mr-2" />
         Profile
       </Link>
-      <Link
-        href="/settings"
-        className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
-        onClick={() => setShowUserMenu(false)}
-      >
+      <Link href="/settings" className="flex items-center px-4 py-2 text-sm text-gray-300 hover:bg-white/5 transition-colors" onClick={() => setShowUserMenu(false)}>
         <Settings className="w-4 h-4 mr-2" />
         Settings
       </Link>
-      <button
-        onClick={handleSignOut}
-        className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200"
-      >
+      <button onClick={handleSignOut} className="flex items-center w-full px-4 py-2 text-sm text-red-500 hover:bg-white/5 transition-colors">
         <LogOut className="w-4 h-4 mr-2" />
         Sign Out
       </button>
@@ -98,126 +66,100 @@ const Header = () => {
 
   return (
     <>
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? 'bg-white shadow-sm border-b border-gray-200' 
-          : 'bg-white/95 backdrop-blur-sm'
+      <header className={`fixed top-0 left-0 right-0 z-[200] transition-colors duration-300 ${
+        scrolled ? 'bg-yard-dark/95 backdrop-blur-md border-b border-[#1a1a1a]' : 'bg-yard-dark/80 backdrop-blur-sm border-b border-transparent'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link href="/" className="flex items-center space-x-2">
-                <Image
-                  src={logo}
-                  alt="YaadFeed Logo"
-                  width={32}
-                  height={32}
-                  className="w-8 h-8"
-                />
-                <span className="text-xl font-bold text-gray-900">YaadFeed</span>
+        <div className="flex items-center justify-between px-4 sm:px-14 h-16">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
+            <svg width="34" height="30" viewBox="0 0 34 30" fill="none" className="transform group-hover:scale-105 transition-transform">
+              <rect width="34" height="30" rx="3" fill="#E8B84B"></rect>
+              <path d="M9 7 L17 16 L25 7" stroke="#0A0A0A" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none"></path>
+              <line x1="17" y1="16" x2="17" y2="24" stroke="#0A0A0A" strokeWidth="3.5" strokeLinecap="round"></line>
+              <circle cx="9" cy="7" r="2.5" fill="#0A0A0A" opacity=".4"></circle>
+            </svg>
+            <span className="font-bebas text-xl tracking-[3px] text-white mt-1">YARD<span className="text-yard-gold">VYBES</span></span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex flex-1 justify-center gap-7">
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="text-[12px] font-semibold tracking-[1.1px] uppercase text-gray-300 hover:text-white transition-colors pb-1 border-b-2 border-transparent hover:border-yard-gold"
+              >
+                {item.name}
               </Link>
-            </div>
+            ))}
+          </nav>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-gray-700 hover:text-logo-primary font-medium transition-colors duration-200"
+          {/* Desktop Actions */}
+          <div className="hidden md:flex items-center gap-5 flex-shrink-0">
+            <button onClick={() => setIsSearchOpen(!isSearchOpen)} className="text-[#666] hover:text-white transition-colors">
+              <Search className="w-[17px] h-[17px]" strokeWidth={2.5} />
+            </button>
+
+            {mounted && status === 'authenticated' ? (
+              <div className="relative">
+                <button
+                  onClick={() => setShowUserMenu(!showUserMenu)}
+                  className="w-8 h-8 bg-yard-gold rounded-full flex items-center justify-center hover:scale-105 transition-transform"
                 >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
-
-            {/* Desktop Actions */}
-            <div className="hidden md:flex items-center space-x-4">
-              {/* Search */}
+                  <span className="text-yard-dark text-sm font-bold">
+                    {session?.user?.name?.charAt(0) || 'U'}
+                  </span>
+                </button>
+                {showUserMenu && <UserMenu />}
+              </div>
+            ) : (
               <button
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="p-2 text-gray-500 hover:text-gray-700 transition-colors duration-200"
+                onClick={() => setIsAuthModalOpen(true)}
+                className="bg-yard-gold text-yard-dark font-sans text-[12px] font-bold tracking-[1px] uppercase border-none py-[9px] px-[22px] hover:bg-white transition-colors"
               >
-                <Search className="w-5 h-5" />
+                Sign In
               </button>
+            )}
+          </div>
 
-              {/* User Menu */}
-              {mounted && status === 'authenticated' ? (
-                <div className="relative">
-                  <button
-                    onClick={() => setShowUserMenu(!showUserMenu)}
-                    className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-                  >
-                    <div className="w-8 h-8 bg-logo-primary rounded-full flex items-center justify-center">
-                      <span className="text-white text-sm font-semibold">
-                        {session?.user?.name?.charAt(0) || 'U'}
-                      </span>
-                    </div>
-                  </button>
-                  {showUserMenu && <UserMenu />}
-                </div>
-              ) : (
-                <Button
-                  variant="primary"
-                  size="sm"
-                  onClick={() => setIsAuthModalOpen(true)}
-                >
-                  Sign In
-                </Button>
-              )}
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 text-gray-500 hover:text-gray-700 transition-colors duration-200"
-              >
-                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
-            </div>
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center gap-4">
+            <button onClick={() => setIsSearchOpen(!isSearchOpen)} className="text-[#666] hover:text-white">
+              <Search className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-[#666] hover:text-white transition-colors"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Dropdown */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-200">
-            <div className="px-4 py-2 space-y-1">
+          <div className="md:hidden bg-yard-gray border-t border-[#1a1a1a]">
+            <div className="px-4 py-4 flex flex-col gap-3">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 text-gray-700 hover:text-logo-primary hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                  className="block text-[13px] font-semibold tracking-wide uppercase text-gray-300 hover:text-yard-gold"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
               {status === 'authenticated' ? (
-                <div className="border-t border-gray-200 pt-2">
-                  <Link
-                    href="/profile"
-                    className="block px-3 py-2 text-gray-700 hover:text-logo-primary hover:bg-gray-50 rounded-lg transition-colors duration-200"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Profile
-                  </Link>
-                  <button
-                    onClick={handleSignOut}
-                    className="block w-full text-left px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
-                  >
-                    Sign Out
-                  </button>
+                <div className="border-t border-[#1a1a1a] pt-3 mt-1 flex flex-col gap-3">
+                  <Link href="/profile" className="block text-[13px] font-semibold tracking-wide uppercase text-gray-300 hover:text-white" onClick={() => setIsMenuOpen(false)}>Profile</Link>
+                  <button onClick={handleSignOut} className="block text-left text-[13px] font-semibold tracking-wide uppercase text-red-500 hover:text-red-400">Sign Out</button>
                 </div>
               ) : (
-                <div className="border-t border-gray-200 pt-2">
+                <div className="border-t border-[#1a1a1a] pt-4 mt-2">
                   <button
-                    onClick={() => {
-                      setIsAuthModalOpen(true);
-                      setIsMenuOpen(false);
-                    }}
-                    className="block w-full text-left px-3 py-2 text-gray-700 hover:text-logo-primary hover:bg-gray-50 rounded-lg transition-colors duration-200"
+                    onClick={() => { setIsAuthModalOpen(true); setIsMenuOpen(false); }}
+                    className="w-full bg-yard-gold text-yard-dark font-sans text-[12px] font-bold tracking-[1px] uppercase py-[10px]"
                   >
                     Sign In
                   </button>
@@ -229,35 +171,30 @@ const Header = () => {
 
         {/* Search Overlay */}
         {isSearchOpen && (
-          <div className="absolute inset-0 bg-white border-b border-gray-200 p-4">
-            <div className="max-w-2xl mx-auto">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Search articles, artists, events..."
-                  className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-logo-primary/30 focus:border-logo-primary"
-                  autoFocus
-                />
-                <button
-                  onClick={() => setIsSearchOpen(false)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
+          <div className="absolute inset-0 bg-yard-dark border-b border-[#1a1a1a] p-3 sm:px-14 flex items-center">
+            <div className="w-full max-w-3xl mx-auto relative flex items-center">
+              <Search className="absolute left-4 text-gray-500 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search articles, artists, events..."
+                className="w-full bg-[#111] pl-12 pr-12 py-3 border border-[#222] text-white font-sans text-sm focus:outline-none focus:border-yard-gold"
+                autoFocus
+              />
+              <button
+                onClick={() => setIsSearchOpen(false)}
+                className="absolute right-4 text-gray-500 hover:text-white"
+              >
+                <X className="w-5 h-5" />
+              </button>
             </div>
           </div>
         )}
       </header>
 
-      {/* Auth Modal */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-      />
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
     </>
   );
 };
 
 export default Header;
+
