@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Facebook, Twitter, Instagram, Youtube, Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
+import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -35,10 +36,10 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { name: 'Facebook', icon: Facebook, href: 'https://facebook.com/yaadfeed', color: 'hover:text-yard-gold' },
-    { name: 'Twitter', icon: Twitter, href: 'https://twitter.com/yaadfeed', color: 'hover:text-yard-gold' },
-    { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/yaadfeed', color: 'hover:text-yard-gold' },
-    { name: 'YouTube', icon: Youtube, href: 'https://youtube.com/yaadfeed', color: 'hover:text-yard-gold' },
+    { name: 'Facebook', icon: FaFacebook, href: 'https://facebook.com/yaadfeed', color: 'hover:text-yard-gold' },
+    { name: 'Twitter', icon: FaTwitter, href: 'https://twitter.com/yaadfeed', color: 'hover:text-yard-gold' },
+    { name: 'Instagram', icon: FaInstagram, href: 'https://instagram.com/yaadfeed', color: 'hover:text-yard-gold' },
+    { name: 'YouTube', icon: FaYoutube, href: 'https://youtube.com/yaadfeed', color: 'hover:text-yard-gold' },
   ];
 
   return (
