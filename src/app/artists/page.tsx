@@ -14,6 +14,42 @@ import { Artist } from '@/types';
 import { numberFormat, stringUtils } from '@/utils';
 import { ArtistSkeleton } from '@/components/ui/LoadingSkeleton';
 
+const fallbackArtists: Artist[] = [
+  {
+    id: 'vybz-kartel',
+    name: 'Vybz Kartel',
+    bio: 'Adidja Azim Palmer, better known as Vybz Kartel, is a Jamaican dancehall deejay.',
+    genres: ['dancehall'],
+    imageUrl: '/images/vybz-kartel.jpg',
+    followers: 1500000,
+    popularity: 95,
+    isJamaican: true,
+    isVerified: true
+  },
+  {
+    id: 'popcaan',
+    name: 'Popcaan',
+    bio: 'Andrae Hugh Sutherland, known professionally as Popcaan, is a Jamaican deejay.',
+    genres: ['dancehall'],
+    imageUrl: '/images/popcaan.jpg',
+    followers: 2100000,
+    popularity: 92,
+    isJamaican: true,
+    isVerified: true
+  },
+  {
+    id: 'skillibeng',
+    name: 'Skillibeng',
+    bio: 'Emwah Warmington, known professionally as Skillibeng, is a Jamaican dancehall DJ.',
+    genres: ['dancehall', 'trap-dancehall'],
+    imageUrl: '/images/skillibeng.jpg',
+    followers: 850000,
+    popularity: 88,
+    isJamaican: true,
+    isVerified: true
+  }
+];
+
 const ArtistsPage = () => {
   const [artists, setArtists] = useState<Artist[]>([]);
   const [filteredArtists, setFilteredArtists] = useState<Artist[]>([]);
@@ -31,10 +67,18 @@ const ArtistsPage = () => {
       try {
         const response = await fetch('/api/artists');
         const data = await response.json();
-        setArtists(data.artists);
-        setFilteredArtists(data.artists);
+        if (response.ok && data.artists && data.artists.length > 0) {
+          setArtists(data.artists);
+          setFilteredArtists(data.artists);
+        } else {
+          // Fallback
+          setArtists(fallbackArtists);
+          setFilteredArtists(fallbackArtists);
+        }
       } catch (error) {
         console.error('Error loading artists:', error);
+        setArtists(fallbackArtists);
+        setFilteredArtists(fallbackArtists);
       } finally {
         setLoading(false);
       }

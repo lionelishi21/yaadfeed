@@ -3,8 +3,8 @@
 import { useState, useEffect } from 'react';
 import GoogleAdsense from './GoogleAdsense';
 
-// Auto Ads default ON unless explicitly disabled with NEXT_PUBLIC_USE_AUTO_ADS="false"
-const AUTO_ADS = process.env.NEXT_PUBLIC_USE_AUTO_ADS !== 'false';
+// Auto Ads default OFF to always show manual ad units
+const AUTO_ADS = false;
 
 // Header Banner Ad (Above Navigation)
 export function HeaderBannerAd() {
