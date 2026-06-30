@@ -36,11 +36,21 @@ export default async function HomePage() {
         
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-16 px-6 sm:px-14">
-        <div className="absolute inset-0 bg-yard-dark"></div>
-        <div className="absolute -top-[120px] -right-[120px] w-[740px] h-[740px] bg-[radial-gradient(circle,rgba(232,184,75,0.1)_0%,transparent_62%)] pointer-events-none"></div>
-        <div className="absolute -bottom-[60px] left-1/4 w-[480px] h-[380px] bg-[radial-gradient(circle,rgba(5,50,15,0.22)_0%,transparent_68%)] pointer-events-none"></div>
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/jamaica-tourism.jpg"
+            alt="YaadFeed Background"
+            fill
+            className="object-cover opacity-60"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-yard-dark via-yard-dark/70 to-yard-dark/40"></div>
+        </div>
+        <div className="absolute -top-[120px] -right-[120px] w-[740px] h-[740px] bg-[radial-gradient(circle,rgba(232,184,75,0.15)_0%,transparent_62%)] pointer-events-none z-10"></div>
+        <div className="absolute -bottom-[60px] left-1/4 w-[480px] h-[380px] bg-[radial-gradient(circle,rgba(5,50,15,0.3)_0%,transparent_68%)] pointer-events-none z-10"></div>
         
-        <div className="relative z-10 max-w-xl w-full">
+        <div className="relative z-20 max-w-xl w-full">
           <div className="inline-flex items-center gap-2 border border-yard-gold/30 bg-yard-gold/10 px-3.5 py-1.5 mb-7">
             <span className="w-1.5 h-1.5 bg-yard-gold rounded-full animate-dot"></span>
             <span className="text-[11px] font-bold tracking-[2px] uppercase text-yard-gold">Live from the Yard</span>
@@ -70,21 +80,15 @@ export default async function HomePage() {
           <div className="border border-white/5 overflow-hidden bg-[#0f0f0f]">
             <div className="h-[420px] bg-[linear-gradient(155deg,#0E2210_0%,#0A0A0A_55%,#181000_100%)] relative flex items-end p-6">
               <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_35%,rgba(5,5,5,0.9)_100%)] z-10"></div>
-              {featuredSpotlight?.imageUrl ? (
-                 <Image src={featuredSpotlight.imageUrl} priority alt="Featured Spotlight" fill className="object-cover opacity-60" />
-              ) : (
-                <div className="absolute inset-0 flex items-center justify-center opacity-10">
-                  <svg width="130" height="210" viewBox="0 0 130 210" fill="none"><ellipse cx="65" cy="52" rx="30" ry="36" fill="#E8B84B"></ellipse><path d="M10 148 Q30 100 65 92 Q100 100 120 148 L130 210 L0 210Z" fill="#E8B84B"></path></svg>
-                </div>
-              )}
-              <div className="absolute top-4 right-4 bg-yard-gold text-yard-dark text-[10px] font-bold tracking-[1.5px] uppercase px-2.5 py-1 z-20">Artist Spotlight</div>
+              <Image src="/images/vybz-kartel-artist.png" priority alt="Vybz Kartel" fill className="object-cover opacity-60" />
+              <div className="absolute top-4 right-4 bg-yard-gold text-yard-dark text-[10px] font-bold tracking-[1.5px] uppercase px-2.5 py-1 z-20">Exclusive Feature</div>
               <div className="relative z-20">
-                <div className="font-bebas text-[34px] tracking-[1px] text-white leading-none">{featuredSpotlight?.artistName || 'Skillibeng'}</div>
-                <div className="text-[13px] text-[#aaa] mt-1">Dancehall Star · Kingston, JA</div>
+                <div className="font-bebas text-[34px] tracking-[1px] text-white leading-none">Vybz Kartel</div>
+                <div className="text-[13px] text-[#aaa] mt-1">Inside The World Boss's New Mega Mansion</div>
               </div>
             </div>
             <div className="p-4 flex justify-between items-center border-t border-white/5">
-              <Link href="/artists" className="text-[12px] text-yard-gold uppercase tracking-[0.8px] hover:text-white transition-colors">Read Feature →</Link>
+              <Link href="/news" className="text-[12px] text-yard-gold uppercase tracking-[0.8px] hover:text-white transition-colors">Read Feature →</Link>
               <div className="flex gap-1.5">
                 <span className="w-1.5 h-1.5 bg-yard-gold rounded-full"></span>
                 <span className="w-1.5 h-1.5 bg-[#2a2a2a] rounded-full"></span>

@@ -150,17 +150,28 @@ const ArtistsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
+    <div className="min-h-screen bg-yard-dark text-white font-sans overflow-x-hidden">
       <ClientHeader />
       
       {/* Page Header */}
-      <section className="bg-gradient-to-r from-logo-primary to-logo-secondary text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-yard-dark border-b border-[#141414] py-16 overflow-hidden">
+        {/* Subtle background elements */}
+        <div className="absolute top-20 right-20 w-32 h-32 bg-yard-gold/10 blur-3xl rounded-full pointer-events-none"></div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-14">
           <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold mb-4">
-              Jamaican Artists
+            {/* Minimalist badge */}
+            <div className="mb-6">
+              <div className="inline-flex items-center gap-2 border border-yard-gold/30 bg-yard-gold/10 px-3.5 py-1.5 rounded-none">
+                <span className="w-1.5 h-1.5 bg-yard-gold rounded-full animate-dot"></span>
+                <span className="text-[11px] font-bold tracking-[2px] uppercase text-yard-gold">Culture & Sound</span>
+              </div>
+            </div>
+
+            <h1 className="font-bebas text-[clamp(48px,5vw,72px)] leading-none text-white mb-6">
+              Jamaican <span className="text-yard-gold">Artists</span>
             </h1>
-            <p className="text-white/90 text-lg max-w-2xl mx-auto">
+            <p className="text-[#888] text-base max-w-2xl mx-auto leading-[1.65]">
               Discover the incredible talent and musical diversity of Jamaica's artists, from reggae legends to rising stars
             </p>
           </div>
@@ -168,59 +179,63 @@ const ArtistsPage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-white py-12 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <section className="bg-[#0f0f0f] py-10 border-b border-[#141414]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-14">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/5">
             <div>
-              <div className="text-3xl font-bold text-logo-primary mb-2">{artists.length}</div>
-              <div className="text-gray-600">Featured Artists</div>
+              <div className="text-4xl font-bebas text-yard-gold mb-1">{artists.length}</div>
+              <div className="text-[#888] text-[11px] font-bold tracking-[1px] uppercase">Featured Artists</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-logo-primary mb-2">
+              <div className="text-4xl font-bebas text-yard-gold mb-1">
                 {artists.filter(a => a.isVerified).length}
               </div>
-              <div className="text-gray-600">Verified Artists</div>
+              <div className="text-[#888] text-[11px] font-bold tracking-[1px] uppercase">Verified Artists</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-logo-primary mb-2">
+              <div className="text-4xl font-bebas text-yard-gold mb-1">
                 {new Set(artists.flatMap(a => a.genres)).size}
               </div>
-              <div className="text-gray-600">Music Genres</div>
+              <div className="text-[#888] text-[11px] font-bold tracking-[1px] uppercase">Music Genres</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-logo-primary mb-2">
+              <div className="text-4xl font-bebas text-yard-gold mb-1">
                 {numberFormat.compact(artists.reduce((sum, a) => sum + a.followers, 0))}
               </div>
-              <div className="text-gray-600">Total Followers</div>
+              <div className="text-[#888] text-[11px] font-bold tracking-[1px] uppercase">Total Followers</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Filters and Search */}
-      <section className="bg-gray-50 py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-[#0a0a0a] py-6 border-b border-[#141414]">
+        <div className="max-w-7xl mx-auto px-6 sm:px-14">
           <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
             {/* Search */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <div className="relative flex-1 max-w-md w-full">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Search className="h-5 w-5 text-[#555]" />
+              </div>
               <input
                 type="text"
                 placeholder="Search artists..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent outline-none shadow-soft"
+                className="w-full bg-[#141414] border border-[#222] text-white pl-11 pr-4 py-3.5 focus:outline-none focus:border-yard-gold/50 transition-colors text-sm placeholder:text-[#555]"
               />
             </div>
 
-            <div className="flex flex-wrap items-center space-x-4 gap-2">
+            <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
               {/* Genre Filter */}
-              <div className="flex items-center space-x-2">
-                <Filter className="w-5 h-5 text-gray-600" />
+              <div className="flex-shrink-0 relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Filter className="h-4 w-4 text-[#555]" />
+                </div>
                 <select
                   value={selectedGenre}
                   onChange={(e) => setSelectedGenre(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent outline-none shadow-soft"
+                  className="bg-[#141414] border border-[#222] text-[#888] pl-10 pr-8 py-3.5 focus:outline-none focus:border-yard-gold/50 transition-colors appearance-none cursor-pointer text-[12px] font-bold tracking-[0.5px] uppercase"
                 >
                   {genres.map(genre => (
                     <option key={genre} value={genre}>
@@ -230,39 +245,33 @@ const ArtistsPage = () => {
                 </select>
               </div>
 
-              {/* Jamaican/Non-Jamaican Filter */}
-              <div className="flex items-center space-x-2">
-                <span className="text-gray-600 text-sm">Origin:</span>
-                <select
-                  value={jamaicanFilter}
-                  onChange={e => setJamaicanFilter(e.target.value as 'all' | 'jamaican' | 'non-jamaican')}
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent outline-none shadow-soft"
-                >
-                  <option value="all">All</option>
-                  <option value="jamaican">Jamaican</option>
-                  <option value="non-jamaican">Non-Jamaican</option>
-                </select>
-              </div>
+              {/* Origin Filter */}
+              <select
+                value={jamaicanFilter}
+                onChange={e => setJamaicanFilter(e.target.value as 'all' | 'jamaican' | 'non-jamaican')}
+                className="bg-[#141414] border border-[#222] text-[#888] px-4 py-3.5 focus:outline-none focus:border-yard-gold/50 transition-colors appearance-none cursor-pointer text-[12px] font-bold tracking-[0.5px] uppercase"
+              >
+                <option value="all">All Origins</option>
+                <option value="jamaican">Jamaican</option>
+                <option value="non-jamaican">Non-Jamaican</option>
+              </select>
 
-              {/* Verified/Unverified Filter */}
-              <div className="flex items-center space-x-2">
-                <span className="text-gray-600 text-sm">Status:</span>
-                <select
-                  value={verifiedFilter}
-                  onChange={e => setVerifiedFilter(e.target.value as 'all' | 'verified' | 'unverified')}
-                  className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent outline-none shadow-soft"
-                >
-                  <option value="all">All</option>
-                  <option value="verified">Verified</option>
-                  <option value="unverified">Unverified</option>
-                </select>
-              </div>
+              {/* Status Filter */}
+              <select
+                value={verifiedFilter}
+                onChange={e => setVerifiedFilter(e.target.value as 'all' | 'verified' | 'unverified')}
+                className="bg-[#141414] border border-[#222] text-[#888] px-4 py-3.5 focus:outline-none focus:border-yard-gold/50 transition-colors appearance-none cursor-pointer text-[12px] font-bold tracking-[0.5px] uppercase"
+              >
+                <option value="all">All Status</option>
+                <option value="verified">Verified</option>
+                <option value="unverified">Unverified</option>
+              </select>
 
               {/* Sort By */}
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as 'popularity' | 'followers' | 'name')}
-                className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent outline-none shadow-soft"
+                className="bg-[#141414] border border-[#222] text-[#888] px-4 py-3.5 focus:outline-none focus:border-yard-gold/50 transition-colors appearance-none cursor-pointer text-[12px] font-bold tracking-[0.5px] uppercase"
               >
                 <option value="popularity">Sort by Popularity</option>
                 <option value="followers">Sort by Followers</option>
@@ -274,47 +283,50 @@ const ArtistsPage = () => {
       </section>
 
       {/* Artists Grid */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-yard-dark">
+        <div className="max-w-7xl mx-auto px-6 sm:px-14">
           {filteredArtists.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-gray-600 text-lg">No artists found matching your criteria.</p>
+            <div className="text-center py-20 border border-white/5 bg-[#0f0f0f]">
+              <div className="w-24 h-24 bg-yard-gray rounded-full flex items-center justify-center mx-auto mb-6">
+                <Search className="w-10 h-10 text-yard-gold" />
+              </div>
+              <p className="text-[#888] text-lg">No artists found matching your criteria.</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {filteredArtists.map((artist) => (
-                <Link key={artist.id} href={`/artists/${artist.id}`}>
-                  <Card variant="artist" className="group cursor-pointer soft-card">
-                  {/* Artist Image */}
-                  <div className="relative mb-6">
-                    <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-logo-secondary/30 group-hover:border-logo-secondary/60 transition-colors duration-200">
-                      <Image
-                        src={artist.imageUrl || '/images/jamaica-flag-bg.jpg'}
-                        alt={artist.name}
-                        width={128}
-                        height={128}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    {artist.isVerified && (
-                      <div className="absolute top-0 right-0 bg-logo-primary rounded-full p-1 shadow-soft">
-                        <CheckCircle className="w-6 h-6 text-white" />
+                <Link key={artist.id} href={`/artists/${artist.id}`} className="block h-full">
+                  <div className="bg-[#0f0f0f] border border-white/5 h-full group hover:border-yard-gold/30 transition-colors flex flex-col items-center text-center p-6 relative">
+                    
+                    {/* Artist Image */}
+                    <div className="relative mb-6">
+                      <div className="w-32 h-32 mx-auto rounded-full overflow-hidden border-2 border-white/10 group-hover:border-yard-gold/50 transition-colors duration-500 relative bg-[#141414]">
+                        <Image
+                          src={artist.imageUrl || '/images/jamaica-flag-bg.jpg'}
+                          alt={artist.name}
+                          width={128}
+                          height={128}
+                          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
+                        />
                       </div>
-                    )}
-                  </div>
+                      {artist.isVerified && (
+                        <div className="absolute top-0 right-2 bg-yard-dark rounded-full p-0.5 border border-white/10">
+                          <CheckCircle className="w-5 h-5 text-yard-gold" />
+                        </div>
+                      )}
+                    </div>
 
-                  {/* Artist Info */}
-                  <div className="text-center">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-logo-primary transition-colors">
+                    {/* Artist Info */}
+                    <h3 className="text-[22px] font-bebas tracking-[1px] text-white mb-2 group-hover:text-yard-gold transition-colors leading-none">
                       {artist.name}
                     </h3>
                     
                     {/* Genres */}
-                    <div className="flex flex-wrap justify-center gap-1 mb-4">
+                    <div className="flex flex-wrap justify-center gap-1.5 mb-4">
                       {artist.genres.slice(0, 2).map((genre) => (
                         <span
                           key={genre}
-                          className="bg-logo-primary/10 text-logo-primary/80 px-2 py-1 rounded-xl text-xs shadow-soft"
+                          className="bg-transparent border border-white/10 text-[#888] px-2 py-0.5 text-[9px] font-bold tracking-[1px] uppercase group-hover:border-yard-gold/30 group-hover:text-white transition-colors"
                         >
                           {stringUtils.capitalize(genre.replace('-', ' '))}
                         </span>
@@ -322,89 +334,39 @@ const ArtistsPage = () => {
                     </div>
 
                     {/* Stats */}
-                    <div className="grid grid-cols-2 gap-4 mb-6">
+                    <div className="grid grid-cols-2 gap-4 w-full mb-6 py-4 border-y border-white/5">
                       <div className="text-center">
-                        <div className="flex items-center justify-center space-x-1 text-gray-600 mb-1">
-                          <Users className="w-4 h-4" />
+                        <div className="flex items-center justify-center space-x-1 text-[#666] mb-1">
+                          <Users className="w-3.5 h-3.5" />
                         </div>
-                        <div className="text-lg font-semibold text-gray-900">
+                        <div className="text-lg font-bebas text-white">
                           {numberFormat.compact(artist.followers)}
                         </div>
-                        <div className="text-xs text-gray-500">Followers</div>
+                        <div className="text-[#666] text-[10px] uppercase tracking-[1px]">Followers</div>
                       </div>
                       <div className="text-center">
-                        <div className="flex items-center justify-center space-x-1 text-logo-secondary mb-1">
-                          <Star className="w-4 h-4" />
+                        <div className="flex items-center justify-center space-x-1 text-[#666] mb-1">
+                          <Star className="w-3.5 h-3.5" />
                         </div>
-                        <div className="text-lg font-semibold text-gray-900">
+                        <div className="text-lg font-bebas text-yard-gold">
                           {artist.popularity}%
                         </div>
-                        <div className="text-xs text-gray-500">Popularity</div>
+                        <div className="text-[#666] text-[10px] uppercase tracking-[1px]">Popularity</div>
                       </div>
                     </div>
-
-                    {/* Net Worth */}
-                    {artist.netWorth && (
-                      <div className="text-center mb-4">
-                        <div className="text-sm text-gray-600">Estimated Net Worth</div>
-                        <div className="text-lg font-semibold text-logo-primary">
-                          {numberFormat.currency(artist.netWorth)}
-                        </div>
-                      </div>
-                    )}
 
                     {/* Bio Preview */}
-                    <p className="text-gray-600 text-sm mb-6 line-clamp-3">
-                      {stringUtils.truncate(artist.bio, 120)}
+                    <p className="text-[#888] text-[13px] mb-6 line-clamp-2 flex-grow">
+                      {stringUtils.truncate(artist.bio, 100)}
                     </p>
 
-                    {/* Social Links */}
-                    <div className="flex justify-center space-x-3 mb-6">
-                      {artist.socialMedia && artist.socialMedia.spotify && (
-                        <a
-                          href={artist.socialMedia.spotify}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-logo-primary hover:text-logo-primary/80 transition-colors"
-                          title="Spotify"
-                        >
-                          <Music className="w-5 h-5" />
-                        </a>
-                      )}
-                      {artist.socialMedia && artist.socialMedia.instagram && (
-                        <a
-                          href={artist.socialMedia.instagram}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-logo-primary hover:text-logo-primary/80 transition-colors"
-                          title="Instagram"
-                        >
-                          <ExternalLink className="w-5 h-5" />
-                        </a>
-                      )}
-                      {artist.socialMedia && artist.socialMedia.website && (
-                        <a
-                          href={artist.socialMedia.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-logo-primary hover:text-logo-primary/80 transition-colors"
-                          title="Website"
-                        >
-                          <ExternalLink className="w-5 h-5" />
-                        </a>
-                      )}
-                    </div>
-
                     {/* Action Button */}
-                    <div className="w-full">
-                      <Link href={`/artists/${artist.id}`} className="block w-full">
-                        <Button variant="glamour" className="w-full" size="sm">
-                          View Profile
-                        </Button>
-                      </Link>
+                    <div className="w-full mt-auto">
+                      <div className="bg-transparent border border-yard-gold text-yard-gold text-[12px] font-bold tracking-[1px] uppercase px-4 py-3 w-full group-hover:bg-yard-gold group-hover:text-yard-dark transition-colors">
+                        View Profile
+                      </div>
                     </div>
                   </div>
-                  </Card>
                 </Link>
               ))}
             </div>

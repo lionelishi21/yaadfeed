@@ -264,14 +264,14 @@ const MusicPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-yard-dark">
         <ClientHeader />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-1/4 mb-8"></div>
+            <div className="h-8 bg-[#1a1a1a] rounded w-1/4 mb-8"></div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="bg-gray-200 h-64 rounded-lg"></div>
+                <div key={i} className="bg-[#1a1a1a] h-64 rounded-lg"></div>
               ))}
             </div>
           </div>
@@ -282,29 +282,42 @@ const MusicPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-yard-dark text-white overflow-x-hidden">
       <ClientHeader />
+      
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-logo-primary to-logo-dark text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-yard-dark py-32 border-b border-white/5 relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/popcaan.jpg"
+            alt="Music Background"
+            fill
+            className="object-cover opacity-20"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-yard-dark via-yard-dark/80 to-transparent"></div>
+        </div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-yard-gold/10 blur-[100px] rounded-full pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <SafeMotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-center"
           >
-            <div className="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium mb-6">
-              <Music className="w-4 h-4 mr-2" />
+            <div className="inline-flex items-center px-4 py-2 bg-[#1a1a1a] border border-white/10 rounded-full text-[11px] font-bold tracking-[1px] uppercase mb-6 text-yard-gold">
+              <Music className="w-3.5 h-3.5 mr-2" />
               Jamaica's Music Scene
             </div>
             
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="text-[clamp(40px,5vw,72px)] font-bebas tracking-[1px] mb-6 leading-none uppercase">
               Latest from the{' '}
-              <span className="text-logo-secondary">Music</span>{' '}
+              <span className="text-yard-gold">Music</span>{' '}
               World
             </h1>
             
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-[#ccc] mb-8 max-w-2xl mx-auto leading-[1.8]">
               Discover the latest news, artist updates, and cultural stories from Jamaica's vibrant music scene.
             </p>
           </SafeMotionDiv>
@@ -312,21 +325,21 @@ const MusicPage = () => {
       </section>
 
       {/* Category Filter */}
-      <section className="py-8 bg-gray-50 border-b border-gray-200">
+      <section className="py-6 border-b border-white/5 bg-[#0a0a0a] sticky top-[72px] z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-3">
             {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
+                className={`px-5 py-2 text-[11px] font-bold tracking-[1px] uppercase transition-colors border ${
                   selectedCategory === category.id
-                    ? 'bg-logo-primary text-white shadow-sm'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                    ? 'bg-yard-gold text-yard-dark border-yard-gold'
+                    : 'bg-transparent text-[#888] border-white/10 hover:border-yard-gold/50 hover:text-white'
                 }`}
               >
                 {category.name}
-                <span className="ml-2 text-sm opacity-75">({category.count})</span>
+                <span className="ml-2 opacity-75">({category.count})</span>
               </button>
             ))}
           </div>
@@ -334,27 +347,28 @@ const MusicPage = () => {
       </section>
 
       {/* Music News Grid */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-12">
+      <section className="py-20 relative">
+        <div className="absolute top-40 left-0 w-64 h-64 bg-yard-gold/5 blur-[100px] rounded-full pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-12 gap-6">
             <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+              <h2 className="text-4xl font-bebas tracking-[1px] mb-2 uppercase">
                 Music News
               </h2>
-              <p className="text-lg text-gray-600">
+              <p className="text-[#888] text-sm">
                 Stay updated with the latest from Jamaica's music scene
               </p>
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+            <div className="flex items-center space-x-4 w-full md:w-auto">
+              <div className="relative w-full md:w-64">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#555] w-4 h-4" />
                 <input
                   type="text"
                   placeholder="Search music news..."
-                  className="pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-logo-primary/30"
+                  className="w-full pl-10 pr-4 py-3 bg-[#1a1a1a] border border-[#333] text-white focus:outline-none focus:border-yard-gold/50 transition-colors text-sm placeholder:text-[#555]"
                 />
               </div>
-              <Button variant="outline" className="group">
+              <Button variant="outline" className="shrink-0 bg-transparent border-white/10 text-[#888] hover:text-white hover:border-yard-gold rounded-none">
                 <Filter className="w-4 h-4 mr-2" />
                 Filter
               </Button>
@@ -371,40 +385,38 @@ const MusicPage = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
                   <Link href={`/news/${article.slug || article.id}`}>
-                    <Card className="h-full bg-white border-0 shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer">
-                      <div className="aspect-[16/10] overflow-hidden rounded-t-lg">
+                    <Card className="h-full bg-[#0f0f0f] border border-white/5 hover:border-white/20 transition-all duration-300 group cursor-pointer rounded-none overflow-hidden flex flex-col">
+                      <div className="aspect-[16/10] overflow-hidden relative">
                         <MusicNewsImage 
                           article={article} 
                           width={400} 
                           height={250} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-80 group-hover:opacity-100" 
                         />
-                      </div>
-                      
-                      <CardContent className="p-6">
-                        <div className="flex items-center justify-between mb-3">
-                          <span className="text-sm text-gray-500 flex items-center">
-                            <Clock className="w-4 h-4 mr-1" />
-                            {formatters.relative(article.publishedAt)}
-                          </span>
-                          <span className="text-xs text-logo-primary bg-logo-primary/10 px-2 py-1 rounded-full font-medium">
+                        <div className="absolute top-4 left-4">
+                          <span className="bg-yard-gold text-yard-dark px-3 py-1 text-[10px] font-bold tracking-[1px] uppercase shadow-lg">
                             {stringUtils.capitalize(article.category || 'music')}
                           </span>
                         </div>
-                        
-                        <h3 className="text-lg font-semibold text-gray-900 mb-3 leading-tight group-hover:text-logo-primary transition-colors line-clamp-2">
+                      </div>
+                      
+                      <CardContent className="p-6 flex-1 flex flex-col">
+                        <h3 className="text-2xl font-bebas tracking-[1px] mb-3 leading-tight group-hover:text-yard-gold transition-colors line-clamp-2">
                           {article.title}
                         </h3>
                         
-                        <p className="text-gray-600 text-sm line-clamp-3 mb-4">
+                        <p className="text-[#888] text-sm line-clamp-3 mb-6 leading-relaxed flex-1">
                           {article.summary}
                         </p>
                         
-                        <div className="flex items-center justify-between">
-                          <span className="text-sm text-gray-500">
-                            {article.readTime || 1} min read
+                        <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+                          <span className="text-[11px] text-[#666] font-bold tracking-[1px] uppercase flex items-center">
+                            <Clock className="w-3.5 h-3.5 mr-1.5" />
+                            {formatters.relative(article.publishedAt)}
                           </span>
-                          <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-logo-primary group-hover:translate-x-1 transition-all" />
+                          <span className="text-[11px] text-yard-gold font-bold tracking-[1px] uppercase flex items-center group-hover:translate-x-1 transition-transform">
+                            Read More <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                          </span>
                         </div>
                       </CardContent>
                     </Card>
@@ -413,29 +425,30 @@ const MusicPage = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <Music className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No music news found</h3>
-              <p className="text-gray-600">Try adjusting your filters or check back later for new content.</p>
+            <div className="text-center py-16 border border-white/5 bg-[#0f0f0f]">
+              <Music className="w-12 h-12 text-[#333] mx-auto mb-4" />
+              <h3 className="text-2xl font-bebas tracking-[1px] mb-2 uppercase">No music news found</h3>
+              <p className="text-[#888] text-sm">Try adjusting your filters or check back later for new content.</p>
             </div>
           )}
         </div>
       </section>
 
       {/* Featured Artists Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-12">
+      <section className="py-20 bg-[#0f0f0f] border-y border-white/5 relative overflow-hidden">
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-yard-gold/5 blur-[100px] rounded-full pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-12 gap-6">
             <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+              <h2 className="text-4xl font-bebas tracking-[1px] mb-2 uppercase">
                 Featured Artists
               </h2>
-              <p className="text-lg text-gray-600">
+              <p className="text-[#888] text-sm">
                 Discover Jamaica's musical talents
               </p>
             </div>
             <Link href="/artists">
-              <Button variant="outline" className="group">
+              <Button variant="outline" className="bg-transparent border-white/10 text-white hover:border-yard-gold rounded-none uppercase text-[11px] font-bold tracking-[1px] px-6">
                 View All Artists
                 <ChevronRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Button>
@@ -452,36 +465,37 @@ const MusicPage = () => {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
                   <Link href={`/artists/${artist.id}`}>
-                    <Card className="h-full bg-white border-0 shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer">
-                      <CardContent className="p-6 text-center">
-                        <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden ring-2 ring-logo-primary/20">
+                    <Card className="h-full bg-yard-dark border border-white/5 hover:border-yard-gold/50 transition-all duration-300 group cursor-pointer rounded-none">
+                      <CardContent className="p-8 text-center relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-yard-gold/5 blur-[50px] rounded-full group-hover:bg-yard-gold/10 transition-colors"></div>
+                        <div className="w-24 h-24 mx-auto mb-6 rounded-full overflow-hidden ring-2 ring-white/10 group-hover:ring-yard-gold/50 transition-colors relative z-10">
                           <Image
-                            src={artist.imageUrl || '/images/jamaica-flag-bg.jpg'}
+                            src={artist.imageUrl || '/images/placeholder-entertainment.jpg'}
                             alt={artist.name || 'Artist'}
-                            width={80}
-                            height={80}
-                            className="w-full h-full object-cover"
+                            width={96}
+                            height={96}
+                            className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
                           />
                         </div>
                         
-                        <div className="flex items-center justify-center space-x-2 mb-2">
-                          <h3 className="text-lg font-semibold text-gray-900 group-hover:text-logo-primary transition-colors">
+                        <div className="flex items-center justify-center space-x-2 mb-3 relative z-10">
+                          <h3 className="text-2xl font-bebas tracking-[1px] group-hover:text-yard-gold transition-colors truncate">
                             {artist.name || 'Unknown Artist'}
                           </h3>
                           {artist.isVerified && (
-                            <div className="w-4 h-4 bg-logo-primary rounded-full flex items-center justify-center flex-shrink-0">
-                              <span className="text-white text-xs font-bold">✓</span>
+                            <div className="w-4 h-4 bg-yard-gold rounded-full flex items-center justify-center flex-shrink-0">
+                              <span className="text-yard-dark text-[10px] font-bold">✓</span>
                             </div>
                           )}
                         </div>
                         
-                        <p className="text-gray-600 text-sm mb-3">
+                        <p className="text-[#888] text-[11px] font-bold tracking-[1px] uppercase mb-4 relative z-10">
                           {(artist.genres || []).slice(0, 2).join(', ') || 'Music'}
                         </p>
                         
-                        <div className="flex items-center justify-center text-sm">
-                          <div className="flex items-center text-logo-primary font-medium">
-                            <div className="w-2 h-2 bg-logo-primary rounded-full mr-2"></div>
+                        <div className="flex items-center justify-center pt-4 border-t border-white/5 relative z-10">
+                          <div className="flex items-center text-yard-gold text-[10px] font-bold tracking-[1px] uppercase">
+                            <Sparkles className="w-3.5 h-3.5 mr-1.5" />
                             <span>{artist.popularity || 0}% popularity</span>
                           </div>
                         </div>
@@ -492,23 +506,24 @@ const MusicPage = () => {
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <Music className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No artists found</h3>
-              <p className="text-gray-600">Check back later for featured artists.</p>
+            <div className="text-center py-16 border border-white/5 bg-yard-dark">
+              {/* Using a standard SVG path or we can use the Sparkles icon since User is not imported here. Wait, User was imported from lucide-react in artists/page.tsx, but let's see if it's imported in music/page.tsx */}
+              <Music className="w-12 h-12 text-[#333] mx-auto mb-4" />
+              <h3 className="text-2xl font-bebas tracking-[1px] mb-2 uppercase">No artists found</h3>
+              <p className="text-[#888] text-sm">Check back later for featured artists.</p>
             </div>
           )}
         </div>
       </section>
 
       {/* Music Categories Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-16">
+            <h2 className="text-[clamp(40px,5vw,56px)] font-bebas tracking-[1px] mb-4 uppercase">
               Explore Music Genres
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-[#ccc] max-w-2xl mx-auto leading-[1.8]">
               Dive deep into Jamaica's diverse music culture
             </p>
           </div>
@@ -519,24 +534,18 @@ const MusicPage = () => {
                 title: 'Dancehall',
                 description: 'The energetic beats and rhythms of modern Jamaican music',
                 icon: Music,
-                color: 'text-logo-primary',
-                bgColor: 'bg-logo-primary/10',
                 href: '/news?category=dancehall'
               },
               {
                 title: 'Reggae',
                 description: 'The soulful sounds that put Jamaica on the world map',
-                icon: Music,
-                color: 'text-logo-secondary',
-                bgColor: 'bg-logo-secondary/10',
+                icon: Play,
                 href: '/news?category=reggae'
               },
               {
                 title: 'Afrobeats',
                 description: 'The fusion of African and Caribbean musical traditions',
-                icon: Music,
-                color: 'text-logo-accent',
-                bgColor: 'bg-logo-accent/10',
+                icon: Sparkles,
                 href: '/news?category=afrobeats'
               }
             ].map((genre, index) => (
@@ -547,24 +556,25 @@ const MusicPage = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
                 <Link href={genre.href}>
-                  <Card className="h-full bg-white border-0 shadow-sm hover:shadow-md transition-all duration-300 group cursor-pointer">
-                    <CardContent className="p-8 text-center">
-                      <div className={`w-16 h-16 mx-auto mb-6 rounded-xl ${genre.bgColor} flex items-center justify-center ${genre.color}`}>
-                        <genre.icon className="w-8 h-8" />
+                  <Card className="h-full bg-[#0f0f0f] border border-white/5 hover:border-yard-gold/30 transition-all duration-300 group cursor-pointer rounded-none">
+                    <CardContent className="p-8 text-center relative overflow-hidden">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-yard-gold/5 blur-[50px] rounded-full"></div>
+                      <div className="w-16 h-16 mx-auto mb-6 bg-[#1a1a1a] border border-white/10 flex items-center justify-center group-hover:border-yard-gold/50 transition-colors relative z-10">
+                        <genre.icon className="w-6 h-6 text-yard-gold" />
                       </div>
                       
-                      <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-logo-primary transition-colors">
+                      <h3 className="text-3xl font-bebas tracking-[1px] mb-3 group-hover:text-yard-gold transition-colors relative z-10">
                         {genre.title}
                       </h3>
                       
-                      <p className="text-gray-600 leading-relaxed mb-6">
+                      <p className="text-[#888] leading-[1.6] mb-8 text-sm relative z-10">
                         {genre.description}
                       </p>
                       
-                      <Button variant="outline" size="sm" className="group">
+                      <div className="inline-flex items-center text-[11px] font-bold tracking-[1px] uppercase text-white group-hover:text-yard-gold transition-colors relative z-10">
                         Explore {genre.title}
                         <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 </Link>
@@ -574,7 +584,6 @@ const MusicPage = () => {
         </div>
       </section>
 
-      {/* Newsletter CTA removed; footer contains subscription */}
       <Footer />
     </div>
   );

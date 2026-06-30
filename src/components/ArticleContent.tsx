@@ -198,312 +198,165 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
   }, [article]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+    <div className="min-h-screen bg-transparent text-white font-sans overflow-x-hidden">
       <ClientHeader />
-      <main className="pt-24 pb-16">
-        {/* Hero Section */}
-        <section className="relative mb-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Breadcrumb */}
-            <div className="mb-8">
-              <Link 
-                href="/news" 
-                className="inline-flex items-center text-gray-600 hover:text-jamaica-green-600 transition-colors duration-200 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-xl shadow-md hover:shadow-lg"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to News
-            </Link>
+
+      <main>
+        {/* Hero */}
+        <div className="relative w-full h-[420px] md:h-[500px] overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#091208] via-[#111f0a] to-[#020702]"></div>
+          
+          {/* Decorative SVG */}
+          <div className="absolute inset-0 flex items-center justify-center opacity-10">
+            <svg width="80" height="80" viewBox="0 0 80 80">
+              <rect x="6" y="6" width="68" height="68" rx="3" fill="none" stroke="#E8B84B" strokeWidth="1.5"/>
+              <circle cx="28" cy="30" r="11" fill="#E8B84B" opacity=".45"/>
+              <path d="M6 62 L24 40 L38 54 L52 32 L74 62Z" fill="#E8B84B" opacity=".3"/>
+            </svg>
+          </div>
+
+          <Image 
+            src={heroImage || `/images/placeholder-${article?.category || 'general'}.jpg`} 
+            alt={article.title} 
+            fill
+            className="object-cover opacity-60"
+            priority
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-black/40 to-transparent"></div>
+          
+          <div className="absolute bottom-0 left-0 right-0 max-w-4xl mx-auto p-6 md:p-12">
+            <div className="inline-block bg-[#E8B84B] text-[#0B0B0B] px-3 py-1 rounded-sm text-[10px] font-bold tracking-[0.12em] uppercase mb-4">
+              {stringUtils.capitalize(article.category)}
+            </div>
+            <h1 className="font-serif text-3xl md:text-[44px] font-black text-white leading-[1.1] m-0 tracking-[-0.01em] text-balance">
+              {contentUtils.sanitizeText(article.title)}
+            </h1>
+          </div>
         </div>
 
-            {/* Article Header */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-              <div className="lg:col-span-2">
-                <Card className="p-8 lg:p-12 bg-white/90 backdrop-blur-sm border border-white/20 shadow-xl">
-                  {/* Category & Meta */}
-                  <div className="flex flex-wrap items-center gap-4 mb-6">
-                    <span className="bg-gradient-to-r from-jamaica-green-500 to-jamaica-gold-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                      {stringUtils.capitalize(article.category)}
-                    </span>
-                    <div className="flex items-center text-gray-500 text-sm space-x-4">
-                      <span className="flex items-center">
-                        <Calendar className="w-4 h-4 mr-1" />
-                        {formatters.date(article.publishedAt)}
-                      </span>
-                      <span className="flex items-center">
-                        <Clock className="w-4 h-4 mr-1" />
-                        {article.readTime} min read
-                      </span>
-                      <span className="flex items-center">
-                        <Eye className="w-4 h-4 mr-1" />
-                        {Math.floor(Math.random() * 1000) + 500} views
-                </span>
+        {/* Content Container */}
+        <div className="max-w-4xl mx-auto bg-transparent">
+          
+          {/* Meta */}
+          <div className="flex items-center justify-between p-6 md:px-12 md:py-6 border-b border-white/5">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#E8B84B] to-[#9a7020] flex items-center justify-center text-[11px] font-bold text-[#0B0B0B] shrink-0">
+                YV
+              </div>
+              <div>
+                <div className="text-[13px] font-medium text-white">YardVybes Staff</div>
+                <div className="text-[11px] text-white/40">
+                  {formatters.date(article.publishedAt)} · {article.readTime} min read
                 </div>
               </div>
-
-                  {/* Title */}
-              <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-                {contentUtils.sanitizeText(article.title)}
-              </h1>
-
-                  {/* Summary */}
-                  <p className="text-xl text-gray-600 mb-8 leading-relaxed font-light">
-                {contentUtils.normalizeExcerpt(article.summary || '')}
-              </p>
-
-                  {/* Author & Share */}
-                  <div className="flex items-center justify-between pb-8 border-b border-gray-200">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-jamaica-green-500 to-jamaica-gold-500 rounded-full flex items-center justify-center">
-                        <User className="w-5 h-5 text-white" />
-                  </div>
-                      <div>
-                        <p className="font-semibold text-gray-900">YaadFeed Editorial</p>
-                        <p className="text-gray-500 text-sm">Verified Reporter</p>
-                </div>
-              </div>
-                    <div className="flex items-center space-x-2">
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        className="border-gray-300 hover:bg-jamaica-green-50 hover:border-jamaica-green-300"
-                      >
-                        <Share2 className="w-4 h-4 mr-1" />
-                        Share
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="sm"
-                        className="border-gray-300 hover:bg-jamaica-gold-50 hover:border-jamaica-gold-300"
-                      >
-                        <Bookmark className="w-4 h-4 mr-1" />
-                        Save
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-                </div>
-
-              {/* Hero Image */}
-              <div className="lg:col-span-1">
-                <div className="sticky top-24">
-                  <Card className="overflow-hidden bg-white/90 backdrop-blur-sm border border-white/20 shadow-xl">
-                    <div className="aspect-[4/3] overflow-hidden">
-                  <Image
-                        src={heroImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
-                    alt={article.title}
-                        width={1200}
-                        height={600}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    priority
-                  />
-                    </div>
-                    <div className="p-4">
-                      <p className="text-sm text-gray-500 text-center">{stringUtils.capitalize(article.category)} illustration</p>
-                    </div>
-                  </Card>
-                </div>
-              </div>
+            </div>
+            
+            <div className="flex gap-2">
+              <button className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors">
+                <Share2 className="w-4 h-4 text-[#E8B84B]" />
+              </button>
+              <button className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors">
+                <Bookmark className="w-4 h-4 text-[#E8B84B]" />
+              </button>
             </div>
           </div>
-        </section>
 
-        {/* Article Content */}
-        <section className="mb-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-              <div className="lg:col-span-2">
-                <Card className="p-8 lg:p-12 bg-white/90 backdrop-blur-sm border border-white/20 shadow-xl">
-                  <article className="yf-article max-w-none">
-                    <div className="article-content">
-                      <div className="text-gray-800 leading-relaxed space-y-6">
-                        {paragraphs.length > 0 ? (
-                          <>
-                            {paragraphs.map((p, idx) => (
-                              <div key={idx}>
-                                <p className="mb-6">{p}</p>
-                                {idx === 0 && (
-                                  <div className="my-8">
-                                    <Card className="overflow-hidden">
-                                      <div className="aspect-[16/9] overflow-hidden">
-                                        <Image
-                                          src={relatedImage || heroImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
-                                          alt={article.title}
-                                          width={1200}
-                                          height={675}
-                                          className="w-full h-full object-cover"
-                                        />
-                                      </div>
-                                      <div className="p-4 text-sm text-gray-600">Illustration: {stringUtils.capitalize(article.category)} context</div>
-                                    </Card>
-                                  </div>
-                                )}
-                                {idx === 2 && (
-                                  <blockquote className="bg-gradient-to-r from-jamaica-green-50 to-jamaica-gold-50 border-l-4 border-jamaica-gold-500 p-6 rounded-r-xl italic text-lg">
-                                    {article.summary || 'Authentic voices from Jamaica shaping the narrative.'}
-                                  </blockquote>
-                                )}
-                            </div>
-                            ))}
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
-                              <div>
-                                <Image
-                                  src={relatedImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
-                                  alt="Related to story"
-                                  width={600}
-                                  height={400}
-                                  className="w-full h-56 object-cover rounded-xl shadow-md"
-                                />
-                              </div>
-                              <div>
-                                <Image
-                                  src={heroImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
-                                  alt="Related visual"
-                                  width={600}
-                                  height={400}
-                                  className="w-full h-56 object-cover rounded-xl shadow-md"
-                                />
-                              </div>
-                            </div>
-                          </>
-                        ) : (
-                          <div className="space-y-6">
-                            <p className="text-lg leading-relaxed">{article.summary}</p>
-                            <div className="bg-gradient-to-r from-jamaica-green-50 to-jamaica-gold-50 border-l-4 border-jamaica-green-500 p-6 rounded-r-xl">
-                              <p className="text-gray-700 font-medium">This is a developing story from Jamaica's dynamic news landscape. Our editorial team is working to bring you comprehensive coverage of this important {article.category} story.</p>
-                            </div>
-                  </div>
-                )}
-              </div>
-            </div>
-
-                    {/* Tags */}
-                    {article.tags && article.tags.length > 0 && (
-            <div className="mt-12 pt-8 border-t border-gray-200">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Related Topics</h3>
-                        <div className="flex flex-wrap gap-2">
-                          {article.tags.map((tag: string, index: number) => (
-                            <span
-                              key={index}
-                              className="bg-gray-100 hover:bg-jamaica-green-100 text-gray-700 hover:text-jamaica-green-800 px-3 py-1 rounded-full text-sm transition-colors duration-200 cursor-pointer"
-                            >
-                              #{tag}
-                            </span>
-                          ))}
-                  </div>
-                </div>
+          {/* Body */}
+          <div className="px-6 py-8 md:px-12 md:py-10">
+            <article className="yf-article max-w-none">
+              {paragraphs.length > 0 ? (
+                paragraphs.map((p, idx) => (
+                  <div key={idx}>
+                    <p className="text-[16px] leading-[1.8] text-white/80 mb-6">{p}</p>
+                    
+                    {idx === 1 && (
+                      <div className="my-8 py-8 px-8 border-l-4 border-[#E8B84B] bg-[#E8B84B]/5">
+                        <div className="font-serif text-2xl italic text-[#E8B84B] leading-[1.46] mb-3">
+                          "{article.summary || 'Authentic voices from Jamaica shaping the narrative.'}"
+                        </div>
+                        <div className="text-[11px] text-white/30 font-bold tracking-[0.1em] uppercase">
+                          — YaadFeed
+                        </div>
+                      </div>
                     )}
-                  </article>
-                </Card>
 
-                {/* Comments Section */}
-                <div className="mt-12">
-                  <Card className="p-8 bg-white/90 backdrop-blur-sm border border-white/20 shadow-xl">
-                    <Comments 
-                      articleId={article._id || article.id || slug}
-                    />
-                  </Card>
-                </div>
-              </div>
-
-              {/* Sidebar */}
-              <div className="lg:col-span-1">
-                <div className="sticky top-24 space-y-8">
-                  {/* Key Facts */}
-                  <Card className="p-6 bg-white/90 backdrop-blur-sm border border-white/20">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">Key Facts</h3>
-                    <ul className="list-disc pl-5 text-gray-700 space-y-2">
-                      {(article.tags && article.tags.length > 0 ? article.tags.slice(0, 5) : (article.summary || '').split(/(?<=[.!?])\s+/).slice(0, 3)).map((fact: string, i: number) => (
-                        <li key={i}>{fact}</li>
-                      ))}
-                    </ul>
-                  </Card>
-                  {/* Newsletter Signup */}
-                  <Card className="p-6 bg-gradient-to-br from-jamaica-green-50 to-jamaica-gold-50 border border-jamaica-green-200">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">Never Miss a Beat</h3>
-                    <p className="text-gray-600 mb-4">
-                      Subscribe to our newsletter for exclusive content, breaking news, and the latest from Jamaica's vibrant culture.
-                    </p>
-                    <div className="space-y-3">
-                      <input
-                        type="email"
-                        placeholder="Enter your email"
-                        className="w-full px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-jamaica-green-500 focus:border-transparent"
-                      />
-                      <Button className="w-full bg-gradient-to-r from-jamaica-green-600 to-jamaica-gold-500 hover:from-jamaica-green-700 hover:to-jamaica-gold-600">
-                        Subscribe Free
-                      </Button>
-                      <p className="text-gray-500 text-xs text-center">Free forever. No spam. Unsubscribe anytime.</p>
-                    </div>
-                  </Card>
-
-        {/* Related Articles */}
-                  <Card className="p-6 bg-white/90 backdrop-blur-sm border border-white/20">
-                    <h3 className="text-xl font-bold text-gray-900 mb-6">You Might Also Like</h3>
-                    <div className="space-y-4">
-                      {relatedArticles && relatedArticles.length > 0 ? (
-                        relatedArticles.map((relatedArticle: any, index: number) => (
-                          <Link 
-                            key={relatedArticle.id}
-                            href={`/news/${relatedArticle.slug}`}
-                            className="block group hover:bg-gray-50 p-3 rounded-lg transition-colors duration-200"
-                          >
-                            <div className="flex space-x-3">
-                        <Image
-                                src={relatedImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
-                          alt={relatedArticle.title}
-                                width={80}
-                                height={60}
-                                className="w-20 h-15 object-cover rounded-lg flex-shrink-0"
-                              />
-                              <div className="flex-1">
-                                <h4 className="text-sm font-semibold text-gray-900 group-hover:text-jamaica-green-600 transition-colors line-clamp-2">
-                                  {relatedArticle.title}
-                                </h4>
-                                <p className="text-xs text-gray-500 mt-1">
-                                  {formatters.relative(relatedArticle.publishedAt)}
-                                </p>
-                              </div>
+                    {idx === 3 && (
+                      <div className="my-10 relative aspect-video">
+                         <Image
+                            src={relatedImage || heroImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
+                            alt="Related visual"
+                            fill
+                            className="object-cover rounded-sm"
+                          />
                       </div>
-                          </Link>
-                        ))
-                      ) : (
-                        [1, 2, 3].map((item) => (
-                          <Link 
-                            key={item}
-                            href="/news"
-                            className="block group hover:bg-gray-50 p-3 rounded-lg transition-colors duration-200"
-                          >
-                            <div className="flex space-x-3">
-                              <Image
-                                src={relatedImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
-                                alt={`Related story ${item}`}
-                                width={80}
-                                height={60}
-                                className="w-20 h-15 object-cover rounded-lg flex-shrink-0"
-                              />
-                              <div className="flex-1">
-                                <h4 className="text-sm font-semibold text-gray-900 group-hover:text-jamaica-green-600 transition-colors line-clamp-2">
-                                  Latest updates from Jamaica's vibrant community
-                                </h4>
-                                <p className="text-xs text-gray-500 mt-1">
-                                  about {Math.floor(Math.random() * 23) + 1} hours ago
-                                </p>
-                              </div>
-                      </div>
-                    </Link>
-                        ))
-                      )}
-                    </div>
-                  </Card>
+                    )}
+                  </div>
+                ))
+              ) : (
+                 <p className="text-[16px] leading-[1.8] text-white/80 mb-6">{article.summary}</p>
+              )}
+            </article>
+          </div>
+
+          {/* Tags */}
+          {article.tags && article.tags.length > 0 && (
+            <div className="px-6 pb-8 md:px-12 md:pb-10 flex flex-wrap gap-2">
+              {article.tags.map((tag: string, index: number) => (
+                <div key={index} className="border border-[#E8B84B]/40 text-[#E8B84B] px-3 py-1 rounded-sm text-[11px] font-medium tracking-[0.05em] hover:bg-[#E8B84B]/10 cursor-pointer transition-colors">
+                  {tag}
                 </div>
-              </div>
-              </div>
+              ))}
             </div>
-          </section>
-      </main>
+          )}
 
-        <Footer />
-      </div>
+          {/* Related */}
+          <div className="p-6 md:p-12 border-t border-white/5">
+            <div className="text-[9px] font-bold tracking-[0.14em] text-white/30 uppercase mb-6">More Stories</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {relatedArticles && relatedArticles.length > 0 ? (
+                relatedArticles.slice(0,3).map((relatedArticle: any, index: number) => (
+                  <Link href={`/news/${relatedArticle.slug}`} key={relatedArticle.id} className="flex-1 border border-white/5 rounded-sm overflow-hidden hover:border-white/20 transition-colors group flex flex-col">
+                    <div className="h-[88px] relative shrink-0">
+                      <Image src={relatedImage || `/images/placeholder-${relatedArticle?.category || 'general'}.jpg`} alt={relatedArticle.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                    </div>
+                    <div className="p-4 bg-[#090909] flex-1 flex flex-col justify-start">
+                      <div className="inline-block self-start bg-[#E8B84B]/10 text-[#E8B84B] px-2 py-0.5 rounded-sm text-[9px] font-bold tracking-[0.1em] uppercase mb-2">
+                        {stringUtils.capitalize(relatedArticle.category || 'News')}
+                      </div>
+                      <div className="font-serif text-[14px] font-bold text-white/90 leading-[1.35] line-clamp-3">
+                        {relatedArticle.title}
+                      </div>
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                [1, 2, 3].map((item) => (
+                  <div key={item} className="flex-1 border border-white/5 rounded-sm overflow-hidden hover:border-white/20 transition-colors cursor-pointer group flex flex-col">
+                    <div className="h-[88px] bg-gradient-to-br from-[#091500] to-[#1a2c00] shrink-0"></div>
+                    <div className="p-4 bg-[#090909] flex-1 flex flex-col justify-start">
+                      <div className="inline-block self-start bg-[#E8B84B]/10 text-[#E8B84B] px-2 py-0.5 rounded-sm text-[9px] font-bold tracking-[0.1em] uppercase mb-2">
+                        Culture
+                      </div>
+                      <div className="font-serif text-[14px] font-bold text-white/90 leading-[1.35]">
+                        Kingston Is Reshaping Global Pop Culture
+                      </div>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+
+          {/* Comments Section */}
+          <div className="p-6 md:p-12 border-t border-white/5">
+            <Comments articleId={article._id || article.id || slug} />
+          </div>
+
+        </div>
+      </main>
+      
+      <Footer />
+    </div>
   );
-} 
+}; 

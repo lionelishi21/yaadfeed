@@ -26,6 +26,7 @@ module.exports = {
       fontFamily: {
         bebas: ['var(--font-bebas-neue)', 'sans-serif'],
         sans: ['var(--font-dm-sans)', 'sans-serif'],
+        serif: ['var(--font-playfair)', 'serif'],
       },
     },
   },

@@ -3,16 +3,17 @@ const nextConfig = {
   output: 'standalone',
   trailingSlash: false,
   images: {
-    domains: [
-      'localhost',
-      'i.scdn.co',
-      'img.discogs.com',
-      'api.dicebear.com',
-      'source.unsplash.com',
-      'images.unsplash.com',
-      'urbanislandz.com',
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: '**',
+      },
     ],
-    formats: ['image/webp', 'image/avif'],
   },
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },

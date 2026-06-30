@@ -176,83 +176,82 @@ const NewsPage = () => {
             ))}
           </div>
         </div>
-        <Footer />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
+    <div className="min-h-screen bg-yard-dark text-white font-sans overflow-x-hidden">
       <ClientHeader />
       
       {/* OPTIMIZED PAGE HEADER */}
-      <section className="relative bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary text-white py-20 overflow-hidden">
-        {/* Simplified background elements */}
-        <div className="absolute inset-0 pointer-events-none z-0">
-          <div className="absolute top-20 left-20 w-2 h-2 bg-logo-secondary rounded-full animate-pulse opacity-60"></div>
-          <div className="absolute top-40 right-40 w-3 h-3 bg-logo-accent rounded-full animate-pulse opacity-40"></div>
+      <section className="relative bg-yard-dark border-b border-[#141414] py-16 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/koffee.jpg"
+            alt="YaadFeed News Background"
+            fill
+            className="object-cover opacity-20 grayscale"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-yard-dark/60 via-yard-dark/80 to-yard-dark"></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Subtle background elements */}
+        <div className="absolute top-20 right-20 w-32 h-32 bg-yard-gold/10 blur-3xl rounded-full pointer-events-none z-0"></div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-14">
           <div className={`text-center transform transition-all duration-500 ${pageAnimation ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
-            {/* Simplified badge */}
-            <div className="mb-6">
-              <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-logo-secondary to-logo-accent text-white px-4 py-2 rounded-full text-sm font-semibold shadow-soft">
-                <Sparkles className="w-4 h-4" />
-                <span>Breaking News & Updates</span>
-              </div>
-            </div>
-
-            <h1 className="text-4xl lg:text-5xl font-black mb-6 leading-tight">
-              Jamaica <span className="bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent">News</span>
-            </h1>
-            <p className="text-xl lg:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed font-light">
-              Stay connected with your island home through comprehensive coverage of Jamaica's vibrant culture, politics, and community
-            </p>
             
-            {/* Simplified stats */}
-            <div className="flex justify-center items-center space-x-8 text-white/80">
-              <div className="flex items-center space-x-2">
-                <TrendingUp className="w-5 h-5 text-logo-secondary" />
-                <span className="text-lg font-semibold">{news.length}+ Articles</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Clock className="w-5 h-5 text-logo-primary" />
-                <span className="text-lg font-semibold">24/7 Updates</span>
+            {/* Minimalist badge */}
+            <div className="mb-6">
+              <div className="inline-flex items-center gap-2 border border-yard-gold/30 bg-yard-gold/10 px-3.5 py-1.5 rounded-none">
+                <span className="w-1.5 h-1.5 bg-yard-gold rounded-full animate-dot"></span>
+                <span className="text-[11px] font-bold tracking-[2px] uppercase text-yard-gold">News & Updates</span>
               </div>
             </div>
+
+            <h1 className="font-bebas text-[clamp(48px,5vw,72px)] leading-none text-white mb-6">
+              Latest <span className="text-yard-gold">Stories</span>
+            </h1>
+            
+            <p className="text-[#888] text-base max-w-2xl mx-auto leading-[1.65]">
+              Stay updated with the latest news, entertainment updates, and cultural highlights from Jamaica and the wider Caribbean.
+            </p>
           </div>
-        </div>
-      </section>
 
-      {/* OPTIMIZED FILTERS SECTION */}
-      <section className="py-12 bg-white/80 backdrop-blur-lg border-b border-white/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-            {/* Optimized Search */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search news, topics, authors..."
-                value={searchQuery}
-                onChange={(e) => debouncedSearch(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent shadow-soft backdrop-blur-sm transition-all duration-200"
-              />
+          {/* Search and Filters Section */}
+          <div className={`mt-12 bg-[#0f0f0f] border border-white/5 p-4 transform transition-all duration-500 delay-100 ${pageAnimation ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+            <div className="flex flex-col md:flex-row md:items-center gap-4">
+              <div className="relative flex-grow">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <Search className="h-5 w-5 text-[#555]" />
+                </div>
+                <input
+                  type="text"
+                  placeholder="Search stories, artists, or topics..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-[#141414] border border-[#222] text-white pl-11 pr-4 py-3.5 focus:outline-none focus:border-yard-gold/50 transition-colors text-sm placeholder:text-[#555]"
+                />
+              </div>
+              
+              {/* Removed Source Filter */}
             </div>
 
-            {/* Optimized Category Filter */}
-            <div className="flex flex-wrap gap-3">
-              {categories.map((category, index) => {
+            {/* Categories */}
+            <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-[#222]">
+              {categories.map((category) => {
                 const IconComponent = category.icon;
                 return (
                   <button
                     key={category.value}
                     onClick={() => setSelectedCategory(category.value)}
-                    className={`flex items-center space-x-2 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 transform hover:scale-105 ${
+                    className={`flex items-center space-x-2 px-4 py-2 text-[12px] font-bold tracking-[0.8px] uppercase transition-colors ${
                       selectedCategory === category.value
-                        ? 'bg-gradient-to-r from-logo-primary to-logo-secondary text-white shadow-soft'
-                        : 'bg-white/80 backdrop-blur-sm text-gray-700 hover:bg-white hover:shadow-soft border border-white/30'
+                        ? 'bg-yard-gold text-yard-dark'
+                        : 'bg-transparent border border-white/10 text-[#888] hover:text-white hover:border-white/30'
                     }`}
                   >
                     <IconComponent className="w-4 h-4" />
@@ -264,84 +263,64 @@ const NewsPage = () => {
           </div>
         </div>
       </section>
-
       {/* OPTIMIZED NEWS CONTENT */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 bg-yard-dark">
+        <div className="max-w-7xl mx-auto px-6 sm:px-14">
           {filteredNews.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="w-24 h-24 bg-gradient-to-r from-logo-primary to-logo-secondary rounded-full flex items-center justify-center mx-auto mb-6 shadow-soft">
-                <Search className="w-12 h-12 text-white" />
+            <div className="text-center py-20 border border-white/5 bg-[#0f0f0f]">
+              <div className="w-24 h-24 bg-yard-gray rounded-full flex items-center justify-center mx-auto mb-6">
+                <Search className="w-10 h-10 text-yard-gold" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">No articles found</h3>
-              <p className="text-gray-600 text-lg">Try adjusting your search or filter criteria.</p>
+              <h3 className="text-2xl font-bold text-white mb-4">No stories found</h3>
+              <p className="text-[#888] text-lg">Try adjusting your search or filter criteria.</p>
             </div>
           ) : (
-            <div className="lg:grid lg:grid-cols-3 lg:gap-12">
-              {/* Optimized Featured Article */}
+            <div className="lg:grid lg:grid-cols-3 lg:gap-10">
+              {/* Featured Article */}
               {featuredArticle && (
                 <div className="lg:col-span-2">
-                  <Card className="group cursor-pointer overflow-hidden soft-card h-full">
-                    <div className="aspect-video overflow-hidden relative">
-                      <OptimizedImage
-                        src={featuredArticle.imageUrl || '/images/jamaica-flag-bg.jpg'}
-                        alt={featuredArticle.title}
-                        width={800}
-                        height={450}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        priority={true}
-                      />
-                      
-                      {/* Simplified overlay badges */}
-                      <div className="absolute top-4 left-4">
-                        <span className="bg-gradient-to-r from-logo-secondary to-logo-accent text-white px-4 py-2 rounded-xl text-sm font-bold shadow-soft">
-                          🔥 Featured Story
-                        </span>
-                      </div>
-                      <div className="absolute top-4 right-4 glass text-gray-700 px-3 py-1 rounded-xl text-sm font-semibold">
-                        <Clock className="w-4 h-4 inline mr-1" />
-                        {formatters.relative(featuredArticle.publishedAt)}
-                      </div>
-                    </div>
-                    
-                    <div className="p-6">
-                      <div className="flex items-center space-x-3 mb-4">
-                        <span className="bg-gradient-to-r from-logo-primary to-logo-primary/90 text-white px-3 py-1 rounded-xl text-sm font-semibold shadow-soft">
-                          {stringUtils.capitalize(featuredArticle.category)}
-                        </span>
-                      </div>
-                      
-                      <Link href={`/news/${featuredArticle.slug || featuredArticle.id}`}>
-                        <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-4 leading-tight group-hover:text-logo-primary transition-colors duration-200 cursor-pointer">
-                          {featuredArticle.title}
-                        </h2>
-                      </Link>
-                      
-                      <p className="text-gray-600 text-lg mb-6 leading-relaxed">
-                        {featuredArticle.summary}
-                      </p>
-                      
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-6 text-sm text-gray-500">
-                          <div className="flex items-center space-x-2">
-                            <User className="w-4 h-4 text-logo-primary" />
-                            <span className="font-semibold">{featuredArticle.author || 'YaadFeed Team'}</span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Calendar className="w-4 h-4 text-logo-secondary" />
-                            <span>{formatters.date(featuredArticle.publishedAt)}</span>
-                          </div>
+                  <div className="bg-[#0f0f0f] border border-white/5 h-full group relative overflow-hidden flex flex-col">
+                    <Link href={`/news/${featuredArticle.slug || featuredArticle.id}`} className="block flex-grow">
+                      <div className="aspect-video overflow-hidden relative">
+                        <OptimizedImage
+                          src={featuredArticle.imageUrl || '/images/jamaica-flag-bg.jpg'}
+                          alt={featuredArticle.title}
+                          width={800}
+                          height={450}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80"
+                          priority={true}
+                        />
+                        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_30%,rgba(5,5,5,0.95)_100%)] z-10"></div>
+                        
+                        {/* Simplified overlay badges */}
+                        <div className="absolute top-4 left-4 z-20">
+                          <span className="bg-yard-gold text-yard-dark px-3 py-1 text-[10px] font-bold tracking-[1.5px] uppercase">
+                            Featured Story
+                          </span>
                         </div>
                         
-                        <Link href={`/news/${featuredArticle.slug || featuredArticle.id}`}>
-                          <Button variant="glamour" className="group">
-                            Read Full Story
-                            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                          </Button>
-                        </Link>
+                        <div className="absolute bottom-6 left-6 right-6 z-20">
+                          <div className="flex items-center gap-3 mb-3">
+                            <span className="border border-yard-gold/50 text-yard-gold px-2.5 py-0.5 text-[10px] font-bold tracking-[1px] uppercase">
+                              {stringUtils.capitalize(featuredArticle.category)}
+                            </span>
+                            <span className="text-[#aaa] text-xs flex items-center">
+                              <Clock className="w-3.5 h-3.5 mr-1.5" />
+                              {formatters.relative(featuredArticle.publishedAt)}
+                            </span>
+                          </div>
+                          
+                          <h2 className="text-3xl lg:text-4xl font-bebas text-white mb-4 leading-none group-hover:text-yard-gold transition-colors">
+                            {featuredArticle.title}
+                          </h2>
+                          
+                          <p className="text-[#bbb] text-[13px] line-clamp-2 leading-[1.65]">
+                            {featuredArticle.summary}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  </Card>
+                    </Link>
+                  </div>
                   
                   {/* In-Article Ad after featured article */}
                   <div className="mt-8">
@@ -350,132 +329,118 @@ const NewsPage = () => {
                 </div>
               )}
 
-              {/* Optimized Sidebar */}
-              <div className="space-y-6">
-                <div className="flex items-center space-x-3 mb-6">
-                  <h3 className="text-2xl font-black text-gray-900">
+              {/* Sidebar */}
+              <div className="space-y-6 mt-10 lg:mt-0">
+                <div className="flex items-center gap-3.5 mb-6">
+                  <h3 className="text-[28px] font-bebas tracking-[1px] text-white leading-none">
                     {featuredArticle ? 'More Stories' : 'Latest News'}
                   </h3>
-                  <div className="w-8 h-1 bg-gradient-to-r from-logo-primary to-logo-secondary rounded-full"></div>
+                  <div className="h-[2px] w-8 bg-yard-gold shrink-0"></div>
                 </div>
                 
                 {/* Sidebar Rectangle Ad */}
                 <SidebarRectangleAd />
                 
                 {regularArticles.slice(0, 5).map((article, index) => (
-                  <Link key={article.id} href={`/news/${article.slug || article.id}`}>
-                    <Card className="group cursor-pointer soft-card">
-                      <div className="flex space-x-4">
-                        <div className="w-24 h-24 flex-shrink-0 overflow-hidden rounded-xl ring-2 ring-logo-primary/20">
+                  <Link key={article.id} href={`/news/${article.slug || article.id}`} className="block">
+                    <div className="bg-[#0f0f0f] border border-white/5 p-3 group hover:border-yard-gold/30 transition-colors">
+                      <div className="flex gap-4">
+                        <div className="w-24 h-24 flex-shrink-0 overflow-hidden bg-[#141414] relative">
                           <OptimizedImage
                             src={article.imageUrl || '/images/jamaica-flag-bg.jpg'}
                             alt={article.title}
                             width={96}
                             height={96}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                           />
                         </div>
-                        <div className="flex-1">
-                          <div className="flex items-center space-x-2 mb-3">
-                            <span className="bg-gradient-to-r from-logo-primary to-logo-primary/90 text-white px-2 py-1 rounded-xl text-xs font-semibold shadow-soft">
+                        <div className="flex-1 flex flex-col justify-center">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-yard-gold text-[9px] font-bold tracking-[1px] uppercase">
                               {stringUtils.capitalize(article.category)}
                             </span>
-                            <span className="text-gray-500 text-xs flex items-center">
+                          </div>
+                          <h4 className="text-sm font-semibold text-white line-clamp-2 mb-2 group-hover:text-yard-gold transition-colors leading-snug">
+                            {article.title}
+                          </h4>
+                          <div className="flex items-center justify-between text-[11px] text-[#666]">
+                            <span className="flex items-center">
                               <Clock className="w-3 h-3 mr-1" />
                               {formatters.relative(article.publishedAt)}
                             </span>
                           </div>
-                          <h4 className="text-sm font-bold text-gray-900 line-clamp-2 mb-2 group-hover:text-logo-primary transition-colors">
-                            {article.title}
-                          </h4>
-                          <div className="flex items-center justify-between text-xs text-gray-500">
-                            <span className="text-logo-primary font-semibold flex items-center">
-                              <Clock className="w-3 h-3 mr-1" />
-                              {article.readTime || 2} min read
-                            </span>
-                            <span className="flex items-center">
-                              <Eye className="w-3 h-3 mr-1" />
-                              {article.viewCount || 0} views
-                            </span>
-                          </div>
                         </div>
                       </div>
-                    </Card>
+                    </div>
                   </Link>
                 ))}
               </div>
             </div>
           )}
 
-          {/* Optimized All Articles Grid */}
+          {/* All Articles Grid */}
           {regularArticles.length > 5 && (
-            <div className="mt-16">
-              <div className="text-center mb-12">
-                <h3 className="text-3xl font-black text-gray-900 mb-4">
-                  All <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Articles</span>
+            <div className="mt-20 pt-16 border-t border-[#141414]">
+              <div className="flex items-center gap-3.5 mb-10">
+                <h3 className="text-[38px] font-bebas tracking-[1px] text-white leading-none">
+                  All Articles
                 </h3>
-                <p className="text-gray-600 text-lg">Discover more stories from Jamaica and beyond</p>
+                <div className="h-[2px] w-11 bg-yard-gold shrink-0"></div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {regularArticles.slice(5).map((article, index) => (
-                  <Link key={article.id} href={`/news/${article.slug || article.id}`}>
-                    <Card className="group cursor-pointer soft-card h-full">
-                      <div className="aspect-video mb-4 overflow-hidden rounded-xl relative">
+                  <Link key={article.id} href={`/news/${article.slug || article.id}`} className="block">
+                    <div className="bg-[#0f0f0f] border border-white/5 h-full group hover:border-yard-gold/30 transition-colors flex flex-col">
+                      <div className="aspect-[16/10] overflow-hidden bg-[#141414] relative">
                         <OptimizedImage
                           src={article.imageUrl || '/images/jamaica-flag-bg.jpg'}
                           alt={article.title}
                           width={400}
                           height={250}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                         />
-                        
-                        {/* Category badge */}
-                        <div className="absolute top-3 left-3">
-                          <span className="bg-gradient-to-r from-logo-primary to-logo-primary/90 text-white px-3 py-1 rounded-xl text-xs font-semibold shadow-soft">
+                        <div className="absolute top-3 left-3 bg-yard-dark/80 backdrop-blur-sm border border-white/10 px-2 py-0.5">
+                          <span className="text-yard-gold text-[9px] font-bold tracking-[1px] uppercase">
                             {stringUtils.capitalize(article.category)}
                           </span>
                         </div>
-                        
-                        {/* Time badge */}
-                        <div className="absolute top-3 right-3 glass text-gray-700 px-2 py-1 rounded-xl text-xs font-semibold">
-                          <Clock className="w-3 h-3 inline mr-1" />
-                          {formatters.relative(article.publishedAt)}
-                        </div>
                       </div>
                       
-                      <div className="p-6">
-                        <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-logo-primary transition-colors">
+                      <div className="p-5 flex-1 flex flex-col">
+                        <h3 className="text-[17px] font-semibold text-white mb-3 line-clamp-2 group-hover:text-yard-gold transition-colors leading-snug">
                           {article.title}
                         </h3>
-                        <p className="text-gray-600 text-sm line-clamp-3 mb-4 leading-relaxed">
+                        <p className="text-[13px] text-[#888] line-clamp-2 mb-4 leading-relaxed flex-1">
                           {article.summary}
                         </p>
-                        <div className="flex items-center justify-between">
-                          <span className="text-logo-primary text-sm font-semibold flex items-center">
-                            <Clock className="w-3 h-3 mr-1" />
-                            {article.readTime || 2} min read
-                          </span>
-                          <span className="text-gray-500 text-sm flex items-center">
-                            <Eye className="w-3 h-3 mr-1" />
-                            {article.viewCount || 0} views
+                        <div className="flex items-center justify-between text-[11px] text-[#666] pt-4 border-t border-white/5">
+                          <span className="flex items-center">
+                            <Clock className="w-3.5 h-3.5 mr-1.5" />
+                            {formatters.relative(article.publishedAt)}
                           </span>
                         </div>
                       </div>
-                    </Card>
+                    </div>
                   </Link>
                 ))}
               </div>
               
-              {/* Multiplex Ad after articles grid */}
-              <div className="mt-16">
-                <MultiplexAd />
+              {/* Pagination/Load More (placeholder for now) */}
+              <div className="mt-12 text-center">
+                <button className="bg-transparent border border-yard-gold text-yard-gold text-[12px] font-bold tracking-[1px] uppercase px-8 py-3 hover:bg-yard-gold hover:text-yard-dark transition-colors">
+                  Load More Stories
+                </button>
               </div>
             </div>
           )}
+
+          {/* Multiplex Ad at the bottom */}
+          <div className="mt-16">
+            <MultiplexAd />
+          </div>
         </div>
       </section>
-
       <Footer />
     </div>
   );
