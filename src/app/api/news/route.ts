@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cache, CACHE_KEYS } from '@/lib/cache';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   const startTime = Date.now();
   

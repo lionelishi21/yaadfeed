@@ -169,10 +169,10 @@ const ArtistsPage = () => {
             </div>
 
             <h1 className="font-bebas text-[clamp(48px,5vw,72px)] leading-none text-white mb-6">
-              Jamaican <span className="text-yard-gold">Artists</span>
+              Global <span className="text-yard-gold">Artists</span>
             </h1>
             <p className="text-[#888] text-base max-w-2xl mx-auto leading-[1.65]">
-              Discover the incredible talent and musical diversity of Jamaica's artists, from reggae legends to rising stars
+              Discover the incredible talent and musical diversity of artists from Jamaica, the wider Caribbean, Africa, and beyond.
             </p>
           </div>
         </div>
@@ -253,7 +253,7 @@ const ArtistsPage = () => {
               >
                 <option value="all">All Origins</option>
                 <option value="jamaican">Jamaican</option>
-                <option value="non-jamaican">Non-Jamaican</option>
+                <option value="non-jamaican">International (Afrobeats/Caribbean)</option>
               </select>
 
               {/* Status Filter */}

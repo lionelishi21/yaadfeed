@@ -39,10 +39,10 @@ export default async function HomePage() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
-            src="/images/jamaica-tourism.jpg"
-            alt="YaadFeed Background"
+            src={mainStory?.imageUrl || "/images/vybz-kartel-artist.png"}
+            alt={mainStory?.title || "Vybz Kartel Spotlight"}
             fill
-            className="object-cover opacity-60"
+            className="object-cover opacity-30"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-yard-dark via-yard-dark/70 to-yard-dark/40"></div>
@@ -53,23 +53,37 @@ export default async function HomePage() {
         <div className="relative z-20 max-w-xl w-full">
           <div className="inline-flex items-center gap-2 border border-yard-gold/30 bg-yard-gold/10 px-3.5 py-1.5 mb-7">
             <span className="w-1.5 h-1.5 bg-yard-gold rounded-full animate-dot"></span>
-            <span className="text-[11px] font-bold tracking-[2px] uppercase text-yard-gold">Live from the Yard</span>
+            <span className="text-[11px] font-bold tracking-[2px] uppercase text-yard-gold">Exclusive Feature</span>
           </div>
           <h1 className="font-bebas text-[clamp(60px,6.4vw,96px)] leading-[0.92] text-white mb-5 animate-fadeUp">
-            Latest from the<br/><span className="text-yard-gold">Dancehall</span><br/>Scene
+            {mainStory ? (
+              <>
+                {mainStory.title.split(':')[0]}<br/>
+                <span className="text-yard-gold text-[clamp(40px,4vw,60px)] leading-[1] mt-2 block">
+                  {mainStory.title.split(':').slice(1).join(':')}
+                </span>
+              </>
+            ) : (
+              <>
+                Vybz Kartel<br/>
+                <span className="text-yard-gold text-[clamp(40px,4vw,60px)] leading-[1] mt-2 block">
+                  Inside The World Boss's New Mega Mansion
+                </span>
+              </>
+            )}
           </h1>
           <p className="text-base text-[#888] leading-[1.65] max-w-[420px] mb-9 animate-fadeUp" style={{ animationDelay: '100ms' }}>
-            Your source for authentic Jamaican music news, artist features, and cultural stories from the heart of the Caribbean.
+            {mainStory?.excerpt || "Get an exclusive look inside the luxurious new mega mansion of Dancehall's World Boss, Vybz Kartel."}
           </p>
           <div className="flex gap-3.5 animate-fadeUp" style={{ animationDelay: '200ms' }}>
-            <Link href="/news">
+            <Link href={mainStory ? `/news/${mainStory.slug || mainStory._id}` : "/news"}>
               <button className="bg-yard-gold text-yard-dark font-sans text-[13px] font-bold tracking-[1px] uppercase border-none py-3.5 px-7 hover:bg-white transition-colors">
-                Explore Stories →
+                Read Full Story →
               </button>
             </Link>
-            <Link href="/music">
+            <Link href="/news">
               <button className="bg-transparent text-white font-sans text-[13px] font-semibold tracking-[0.8px] uppercase border border-white/20 py-3.5 px-7 hover:bg-white/10 transition-colors">
-                New Music
+                More News
               </button>
             </Link>
           </div>
@@ -80,15 +94,23 @@ export default async function HomePage() {
           <div className="border border-white/5 overflow-hidden bg-[#0f0f0f]">
             <div className="h-[420px] bg-[linear-gradient(155deg,#0E2210_0%,#0A0A0A_55%,#181000_100%)] relative flex items-end p-6">
               <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_35%,rgba(5,5,5,0.9)_100%)] z-10"></div>
-              <Image src="/images/vybz-kartel-artist.png" priority alt="Vybz Kartel" fill className="object-cover opacity-60" />
-              <div className="absolute top-4 right-4 bg-yard-gold text-yard-dark text-[10px] font-bold tracking-[1.5px] uppercase px-2.5 py-1 z-20">Exclusive Feature</div>
+              {sideStories.length > 0 ? (
+                <Image src={sideStories[0].imageUrl || "/images/vybz-kartel-artist.png"} priority alt={sideStories[0].title} fill className="object-cover opacity-60" />
+              ) : (
+                <Image src="/images/vybz-kartel-artist.png" priority alt="Vybz Kartel Spotlight" fill className="object-cover opacity-60" />
+              )}
+              <div className="absolute top-4 right-4 bg-yard-gold text-yard-dark text-[10px] font-bold tracking-[1.5px] uppercase px-2.5 py-1 z-20">Trending</div>
               <div className="relative z-20">
-                <div className="font-bebas text-[34px] tracking-[1px] text-white leading-none">Vybz Kartel</div>
-                <div className="text-[13px] text-[#aaa] mt-1">Inside The World Boss's New Mega Mansion</div>
+                <div className="font-bebas text-[34px] tracking-[1px] text-white leading-none line-clamp-2">
+                  {sideStories.length > 0 ? sideStories[0].title : "Latest Dancehall News"}
+                </div>
+                <div className="text-[13px] text-[#aaa] mt-1 line-clamp-2">
+                  {sideStories.length > 0 ? sideStories[0].excerpt : "Stay tuned for more updates from the culture."}
+                </div>
               </div>
             </div>
             <div className="p-4 flex justify-between items-center border-t border-white/5">
-              <Link href="/news" className="text-[12px] text-yard-gold uppercase tracking-[0.8px] hover:text-white transition-colors">Read Feature →</Link>
+              <Link href={sideStories.length > 0 ? `/news/${sideStories[0].slug || sideStories[0]._id}` : "/news"} className="text-[12px] text-yard-gold uppercase tracking-[0.8px] hover:text-white transition-colors">Read Article →</Link>
               <div className="flex gap-1.5">
                 <span className="w-1.5 h-1.5 bg-yard-gold rounded-full"></span>
                 <span className="w-1.5 h-1.5 bg-[#2a2a2a] rounded-full"></span>
