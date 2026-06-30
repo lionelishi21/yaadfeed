@@ -13,6 +13,7 @@
     "axios": "^1.18.1",
     "bcryptjs": "^3.0.3",
     "dayjs": "^1.11.21",
+    "dotenv": "^17.4.2",
     "framer-motion": "^12.42.0",
     "lucide-react": "^1.21.0",
     "mongodb": "^5.9.2",

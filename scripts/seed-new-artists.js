@@ -1,15 +1,22 @@
+require('dotenv').config({ path: '.env' });
 const { MongoClient } = require('mongodb');
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/yaadfeed';
+const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_DB = process.env.MONGODB_DB || 'yardvybes';
+
+if (!MONGODB_URI) {
+  console.error('❌ MONGODB_URI is not set in .env');
+  process.exit(1);
+}
 
 async function seedNewArtists() {
   const client = new MongoClient(MONGODB_URI);
   
   try {
     await client.connect();
-    console.log('✅ Connected to MongoDB');
+    console.log('✅ Connected to MongoDB Atlas');
     
-    const db = client.db();
+    const db = client.db(MONGODB_DB);
     const artistsCollection = db.collection('artists');
     
     const newArtists = [
@@ -19,7 +26,7 @@ async function seedNewArtists() {
         genres: ["afrobeats", "dancehall", "reggae"],
         popularity: 98,
         followers: 12000000,
-        imageUrl: "/images/placeholder-music.jpg",
+        imageUrl: "/images/burna-boy.png",
         bio: "Grammy award-winning Afrobeats superstar hailing from Nigeria.",
         isVerified: true
       },
@@ -29,7 +36,7 @@ async function seedNewArtists() {
         genres: ["afrobeats"],
         popularity: 95,
         followers: 10000000,
-        imageUrl: "/images/placeholder-entertainment.jpg",
+        imageUrl: "/images/wizkid.png",
         bio: "One of Nigeria's biggest exports, bringing Afrobeats to the global stage.",
         isVerified: true
       },
@@ -39,7 +46,7 @@ async function seedNewArtists() {
         genres: ["european-dance", "edm", "pop"],
         popularity: 92,
         followers: 25000000,
-        imageUrl: "/images/placeholder-music.jpg",
+        imageUrl: "/images/david-guetta.png",
         bio: "Legendary European dance and EDM DJ/producer.",
         isVerified: true
       },
@@ -49,7 +56,7 @@ async function seedNewArtists() {
         genres: ["european-dance", "edm"],
         popularity: 90,
         followers: 18000000,
-        imageUrl: "/images/placeholder-entertainment.jpg",
+        imageUrl: "/images/calvin-harris.png",
         bio: "Scottish DJ, record producer, singer, and songwriter known for electronic dance music.",
         isVerified: true
       },
@@ -69,7 +76,7 @@ async function seedNewArtists() {
         genres: ["caribbean", "dancehall", "pop"],
         popularity: 88,
         followers: 6500000,
-        imageUrl: "/images/placeholder-entertainment.jpg",
+        imageUrl: "/images/shenseea.png",
         bio: "Rising Jamaican dancehall artist making waves internationally.",
         isVerified: true
       },

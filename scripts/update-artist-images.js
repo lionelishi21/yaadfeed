@@ -1,15 +1,22 @@
+require('dotenv').config({ path: '.env' });
 const { MongoClient } = require('mongodb');
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/yaadfeed';
+const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_DB = process.env.MONGODB_DB || 'yardvybes';
+
+if (!MONGODB_URI) {
+  console.error('❌ MONGODB_URI is not set in .env');
+  process.exit(1);
+}
 
 async function updateArtistImages() {
   const client = new MongoClient(MONGODB_URI);
   
   try {
     await client.connect();
-    console.log('✅ Connected to MongoDB');
+    console.log('✅ Connected to MongoDB Atlas');
     
-    const db = client.db();
+    const db = client.db(MONGODB_DB);
     const artistsCollection = db.collection('artists');
     
     const updates = [
@@ -21,11 +28,11 @@ async function updateArtistImages() {
     ];
 
     for (const update of updates) {
-      await artistsCollection.updateOne({ id: update.id }, { $set: { imageUrl: update.imageUrl } });
-      console.log(`✅ Updated image for ${update.id}`);
+      const result = await artistsCollection.updateOne({ id: update.id }, { $set: { imageUrl: update.imageUrl } });
+      console.log(`✅ Updated image for ${update.id} (Matched: ${result.matchedCount}, Modified: ${result.modifiedCount})`);
     }
     
-    console.log('✅ Image updates completed');
+    console.log('✅ Image updates completed successfully on Atlas');
   } catch (error) {
     console.error('❌ Error:', error);
   } finally {

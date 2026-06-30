@@ -76,8 +76,8 @@ export async function GET() {
   try {
     const { ArtistService } = await import('@/lib/mongodb');
     
-    // Fetch artists from MongoDB with default limit
-    const artists = await ArtistService.getAllArtists(4);
+    // Fetch artists from MongoDB with larger limit
+    const artists = await ArtistService.getAllArtists(50);
     
     // Transform MongoDB _id to id for frontend compatibility
     let transformedArtists = artists.map(artist => ({
