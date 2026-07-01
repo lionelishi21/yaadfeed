@@ -19,5 +19,5 @@ export const ARTICLE_HIGHLIGHT_KEYWORDS = [
 ];
 
 export const getHighlightInstructions = () => {
-  return `Whenever you use terms related to Jamaican law, politics, economy, infrastructure, or culture (e.g., Police, PNP, JLP, Kingston, BOJ, crime, real estate), wrap them in <mark class="yf-highlight"> tags to make them stand out.`;
+  return `Whenever you mention specific monetary values, specific company names, country names (like Jamaica), or terms related to Jamaican law, politics, economy, infrastructure, and culture (e.g., Police, PNP, JLP, Kingston, BOJ, crime, real estate), wrap them in <mark class="yf-highlight"> tags to make them stand out.`;
 };
