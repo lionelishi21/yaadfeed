@@ -2,6 +2,7 @@
 import OpenAI from '@/lib/stubs/openai';
 import { ImageService } from './imageService';
 import { connectToDatabase, NewsService } from './mongodb';
+import { getHighlightInstructions } from '@/config/keywords';
 
 // Only initialize OpenAI on server-side
 const openai = typeof window === 'undefined' ? new OpenAI({
@@ -207,7 +208,8 @@ CONTENT: [Write the full article content (400-600 words) as RICH HTML FORMATTING
 - Do NOT output plain text blobs. Wrap all text in appropriate HTML tags.
 - Jamaican context and perspective
 - Engaging conclusion
-- Use some Jamaican expressions naturally]
+- Use some Jamaican expressions naturally
+- ${getHighlightInstructions()}]
 
 AUTHOR: [Choose a realistic Jamaican journalist name]
 

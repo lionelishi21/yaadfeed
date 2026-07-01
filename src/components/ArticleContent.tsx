@@ -8,8 +8,11 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Footer from '@/components/Footer';
 import Comments from '@/components/Comments';
-import { formatters, stringUtils, contentUtils } from '@/utils';
+import { formatters, stringUtils, contentUtils, highlightKeywords } from '@/utils';
 import ClientHeader from '@/components/ClientHeader';
+import AudioPlayer from '@/components/AudioPlayer';
+import SocialShare from '@/components/SocialShare';
+import { ARTICLE_HIGHLIGHT_KEYWORDS } from '@/config/keywords';
 
 interface ArticleContentProps {
   article: any;
@@ -170,7 +173,10 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
       processedContent = content.replace(/<!\[CDATA\[|]]>/g, '');
     }
     
-    setHtmlContent(processedContent);
+    // Highlight configured keywords
+    const highlightedContent = highlightKeywords(processedContent, ARTICLE_HIGHLIGHT_KEYWORDS);
+    
+    setHtmlContent(highlightedContent);
   }, [article]);
 
   return (
@@ -230,9 +236,6 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
             
             <div className="flex gap-2">
               <button className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors">
-                <Share2 className="w-4 h-4 text-[#E8B84B]" />
-              </button>
-              <button className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/5 transition-colors">
                 <Bookmark className="w-4 h-4 text-[#E8B84B]" />
               </button>
             </div>
@@ -240,6 +243,19 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
 
           {/* Body */}
           <div className="px-6 py-8 md:px-12 md:py-10">
+            {/* Summary Block */}
+            {article.summary && (
+              <div className="mb-8 p-6 bg-yard-gold/5 border-l-4 border-yard-gold rounded-r-md">
+                <h3 className="text-yard-gold font-bold text-sm uppercase tracking-wider mb-2">Quick Summary</h3>
+                <p className="text-white/90 text-lg font-medium leading-relaxed">
+                  {article.summary.replace(/<!\[CDATA\[|]]>/g, '')}
+                </p>
+              </div>
+            )}
+            
+            {/* Audio Player */}
+            <AudioPlayer title={article.title} content={htmlContent} />
+
             <div className="mb-10 relative w-full h-[300px] md:float-right md:w-[400px] md:ml-8 md:mb-6 rounded-sm overflow-hidden border border-white/10">
               <Image
                 src={relatedImage || heroImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
@@ -263,8 +279,11 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
               dangerouslySetInnerHTML={{ __html: htmlContent }} 
             />
           </div>
+          
+          {/* Social Share Buttons */}
+          <SocialShare url={`/news/${slug}`} title={article.title} />
 
-          {/* Tags */}
+          {/* Author / Source Box */}
           {article.tags && article.tags.length > 0 && (
             <div className="px-6 pb-8 md:px-12 md:pb-10 flex flex-wrap gap-2">
               {article.tags.map((tag: string, index: number) => (

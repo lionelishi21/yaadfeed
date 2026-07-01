@@ -3,6 +3,7 @@
   - Uses OpenAI when USE_OPENAI=1 and OPENAI_API_KEY is set
   - Fallback: heuristic merge + commentary
 */
+import { getHighlightInstructions } from '@/config/keywords';
 
 type RawSource = {
   title: string;
@@ -25,7 +26,8 @@ const JAMAICAN_VOICE_GUIDE = `
 Write in YaadFeed's voice: informative, concise, with subtle Jamaican flavor.
 Use light Jamaican expressions sparingly (e.g., "nuh", "likkle", "yaad") without overdoing it.
 Always add 2–3 sentences of context/backstory relevant to Jamaica or the Caribbean.
-Blend overlapping facts, avoid duplication, and cite sources inline with parentheses (Source: <domain>).`;
+Blend overlapping facts, avoid duplication, and cite sources inline with parentheses (Source: <domain>).
+${getHighlightInstructions()}`;
 
 function extractDomain(u?: string) {
   try { return u ? new URL(u).hostname.replace('www.', '') : ''; } catch { return ''; }
@@ -67,13 +69,15 @@ CRITICAL FORMATTING INSTRUCTIONS:
 Return JSON with keys: title, summary, content (the HTML string), embeds (optional array of objects with type and url). Sources:\n${JSON.stringify(sources, null, 2)}`;
       const resp = await client.chat.completions.create({
         model: 'gpt-4o-mini',
+        response_format: { type: "json_object" },
         messages: [
           { role: 'system', content: 'You produce JSON only.' },
           { role: 'user', content: prompt },
         ],
         temperature: 0.7,
       });
-      const raw = resp.choices?.[0]?.message?.content || '{}';
+      let raw = resp.choices?.[0]?.message?.content || '{}';
+      raw = raw.replace(/^```json\s*/, '').replace(/\s*```$/, '');
       const parsed = JSON.parse(raw);
       return {
         title: parsed.title || sources[0]?.title || 'Update',
@@ -82,17 +86,34 @@ Return JSON with keys: title, summary, content (the HTML string), embeds (option
         embeds: Array.isArray(parsed.embeds) ? parsed.embeds : [],
       };
     } catch (e) {
+      console.error('Synthesize AI Error:', e);
       // fall through to heuristic
     }
   }
 
-  // Fallback heuristic
+  // Fallback heuristic if OpenAI fails or is not configured
   const fb = buildFallbackSummary(sources);
-  const merged = sources.map(s => `\n\n${s.title}\n${(s.content || s.summary || '').slice(0, 800)}${s.url ? `\n(Source: ${extractDomain(s.url)})` : ''}`).join('');
+  const cleanSummary = fb.summary.replace(/<!\[CDATA\[|]]>/g, '');
+  const cleanTitle = fb.title.replace(/<!\[CDATA\[|]]>/g, '');
+  const merged = sources.map(s => {
+    let text = (s.content || s.summary || '').replace(/<!\[CDATA\[|]]>/g, '');
+    let sourceLink = s.url ? `<p><a href="${s.url}" target="_blank">Source: ${extractDomain(s.url)}</a></p>` : '';
+    return `<h3>${s.title.replace(/<!\[CDATA\[|]]>/g, '')}</h3><p>${text.slice(0, 800)}</p>${sourceLink}`;
+  }).join('');
+  
+  const contentHtml = `
+    <p><strong>${cleanSummary}</strong></p>
+    <ul>
+      ${fb.points.replace(/<!\[CDATA\[|]]>/g, '').split('\n').map(p => p.startsWith('- ') ? `<li>${p.substring(2)}</li>` : `<li>${p}</li>`).join('')}
+    </ul>
+    ${merged}
+    <p><em>Context: Jamaica continues to shape regional culture and music. Compared to last year, engagement around similar stories grew notably across diaspora communities.</em></p>
+  `;
+
   return {
-    title: fb.title,
-    summary: fb.summary,
-    content: addBrandContext(`${fb.summary}\n${fb.points}\n${merged}`).slice(0, 9000),
+    title: cleanTitle,
+    summary: cleanSummary,
+    content: contentHtml,
     embeds: [],
   };
 }

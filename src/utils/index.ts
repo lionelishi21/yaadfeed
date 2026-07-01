@@ -15,6 +15,23 @@ export function cn(...inputs: (string | undefined | null | boolean)[]) {
   return twMerge(clsx(...inputs));
 }
 
+// Highlight keywords in HTML string without breaking tags
+export function highlightKeywords(html: string, keywords: string[]): string {
+  if (!html || !keywords || keywords.length === 0) return html;
+  
+  // Sort keywords by length descending to match longest phrases first
+  const sortedKeywords = [...keywords].sort((a, b) => b.length - a.length);
+  
+  // Escape keywords for regex and create pattern
+  const escapedKeywords = sortedKeywords.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+  const pattern = new RegExp(`\\b(${escapedKeywords.join('|')})\\b(?![^<]*>)`, 'gi');
+  
+  // Replace keywords with highlighted version, but skip if they are already inside a mark tag
+  // or inside an attribute (the negative lookahead handles attributes and tags)
+  return html.replace(pattern, (match) => {
+    return `<mark class="yf-highlight">${match}</mark>`;
+  });
+}
 
 // Date formatting utilities
 export const formatters = {

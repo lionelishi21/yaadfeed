@@ -76,7 +76,10 @@ class JamaicanNewsScraper {
     ];
 
     for (const category of categories) {
-      if (category.keywords.some(keyword => text.includes(keyword))) {
+      if (category.keywords.some(keyword => {
+        const regex = new RegExp(`\\b${keyword}\\b`, 'i');
+        return regex.test(text);
+      })) {
         return category.name;
       }
     }
@@ -159,6 +162,8 @@ class JamaicanNewsScraper {
     if (!html) return '';
     
     return html
+      .replace(/<!\[CDATA\[/g, '')
+      .replace(/]]>/g, '')
       .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '') // Remove scripts
       .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '') // Remove styles
       .replace(/<[^>]+>/g, ' ') // Remove HTML tags

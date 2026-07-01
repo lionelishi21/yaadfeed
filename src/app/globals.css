@@ -78,3 +78,12 @@
     @apply text-[#E8B84B] underline decoration-[#E8B84B]/30 hover:decoration-[#E8B84B] transition-colors;
   }
 }
+
+/* Keyword Highlighting */
+.yf-highlight {
+  background-color: rgba(232, 184, 75, 0.2);
+  color: #e8b84b;
+  font-weight: 600;
+  padding: 0 4px;
+  border-radius: 4px;
+}
