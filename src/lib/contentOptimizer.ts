@@ -53,9 +53,18 @@ export async function synthesizeArticle(sources: RawSource[]): Promise<Synthesiz
       const mod: any = await (new Function('m', 'return import(m)'))('openai');
       const OpenAI = mod.default || mod;
       const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-      const prompt = `You are an editor at YaadFeed. ${JAMAICAN_VOICE_GUIDE}
-Blend these sources into one original article with a crisp summary (1–2 sentences) and 4–7 short paragraphs. If there are stats/dates, transform them into an insight.
-Return JSON with keys: title, summary, content, embeds (optional array of objects with type and url). Sources:\n${JSON.stringify(sources, null, 2)}`;
+      const prompt = `You are a top-tier journalist and editor at YaadFeed. ${JAMAICAN_VOICE_GUIDE}
+Blend these sources into one original, highly engaging article.
+CRITICAL FORMATTING INSTRUCTIONS:
+- Do NOT output a single blob of text.
+- Write the 'content' field as richly formatted HTML.
+- Use <h3> tags for compelling subheadings.
+- Use <p> tags for well-paced paragraphs.
+- Use <strong> to highlight key names, events, or facts.
+- Include at least one impactful pull-quote using <blockquote>.
+- Use <ul>/<li> for lists if there are multiple items to summarize.
+- Write naturally with a journalistic, human tone. Avoid robotic transitions like "Furthermore" or "In conclusion".
+Return JSON with keys: title, summary, content (the HTML string), embeds (optional array of objects with type and url). Sources:\n${JSON.stringify(sources, null, 2)}`;
       const resp = await client.chat.completions.create({
         model: 'gpt-4o-mini',
         messages: [

@@ -197,9 +197,14 @@ SUMMARY: [Write a 2-3 sentence summary]
 
 KEYWORDS: [List 5-7 relevant keywords separated by commas]
 
-CONTENT: [Write the full article content (400-600 words). Include:
-- Strong lead paragraph
-- Multiple body paragraphs with facts and quotes
+CONTENT: [Write the full article content (400-600 words) as RICH HTML FORMATTING. Include:
+- Strong lead paragraph using <p>
+- Multiple body paragraphs using <p>
+- Compelling subheadings using <h3>
+- Important names/facts highlighted using <strong>
+- At least one impactful quote using <blockquote>
+- Bullet lists where appropriate using <ul><li>
+- Do NOT output plain text blobs. Wrap all text in appropriate HTML tags.
 - Jamaican context and perspective
 - Engaging conclusion
 - Use some Jamaican expressions naturally]

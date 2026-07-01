@@ -86,44 +86,8 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
   const [heroImage, setHeroImage] = useState<string>('');
   const [relatedImage, setRelatedImage] = useState<string>('');
   const [loading, setLoading] = useState(true);
-  const [paragraphs, setParagraphs] = useState<string[]>([]);
+  const [htmlContent, setHtmlContent] = useState<string>('');
 
-  const stripHtmlToText = (html: string): string => {
-    if (!html) return '';
-    return html
-      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-      .replace(/<br\s*\/?\s*>/gi, '\n')
-      .replace(/<\/(p|div|section|article|h\d|li)>/gi, '\n\n')
-      .replace(/<[^>]+>/g, ' ')
-      .replace(/&nbsp;/g, ' ')
-      .replace(/&amp;/g, '&')
-      .replace(/&quot;/g, '"')
-      .replace(/&apos;/g, "'")
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/\r/g, '')
-      .replace(/\t/g, ' ')
-      .replace(/ +/g, ' ')
-      .trim();
-  };
-
-  const splitIntoParagraphs = (text: string): string[] => {
-    if (!text) return [];
-    const raw = text.split(/\n\n+/).map(p => p.trim()).filter(Boolean);
-    if (raw.length > 0) return raw;
-    const sentences = text.split(/(?<=[.!?])\s+/);
-    const blocks: string[] = [];
-    let buf = '';
-    sentences.forEach((s, i) => {
-      buf = buf ? `${buf} ${s}` : s;
-      if (buf.length > 280 || i === sentences.length - 1) {
-        blocks.push(buf.trim());
-        buf = '';
-      }
-    });
-    return blocks.filter(Boolean);
-  };
 
   const renderEmbed = (embed: any, idx: number) => {
     if (!embed || !embed.url) return null;
@@ -192,9 +156,8 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
     };
 
     loadImages();
-    const raw = stripHtmlToText(article?.content || article?.summary || '');
-    const text = contentUtils.sanitizeText(raw);
-    setParagraphs(splitIntoParagraphs(text));
+    const content = article?.content || article?.summary || '';
+    setHtmlContent(contentUtils.sanitizeText(content));
   }, [article]);
 
   return (
@@ -264,39 +227,28 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
 
           {/* Body */}
           <div className="px-6 py-8 md:px-12 md:py-10">
-            <article className="yf-article max-w-none">
-              {paragraphs.length > 0 ? (
-                paragraphs.map((p, idx) => (
-                  <div key={idx}>
-                    <p className="text-[16px] leading-[1.8] text-white/80 mb-6">{p}</p>
-                    
-                    {idx === 1 && (
-                      <div className="my-8 py-8 px-8 border-l-4 border-[#E8B84B] bg-[#E8B84B]/5">
-                        <div className="font-serif text-2xl italic text-[#E8B84B] leading-[1.46] mb-3">
-                          "{article.summary || 'Authentic voices from Jamaica shaping the narrative.'}"
-                        </div>
-                        <div className="text-[11px] text-white/30 font-bold tracking-[0.1em] uppercase">
-                          — YaadFeed
-                        </div>
-                      </div>
-                    )}
-
-                    {idx === 3 && (
-                      <div className="my-10 relative aspect-video">
-                         <Image
-                            src={relatedImage || heroImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
-                            alt="Related visual"
-                            fill
-                            className="object-cover rounded-sm"
-                          />
-                      </div>
-                    )}
-                  </div>
-                ))
-              ) : (
-                 <p className="text-[16px] leading-[1.8] text-white/80 mb-6">{article.summary}</p>
-              )}
-            </article>
+            <div className="mb-10 relative w-full h-[300px] md:float-right md:w-[400px] md:ml-8 md:mb-6 rounded-sm overflow-hidden border border-white/10">
+              <Image
+                src={relatedImage || heroImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
+                alt="Related visual"
+                fill
+                className="object-cover"
+              />
+            </div>
+            {article.summary && (
+              <div className="my-8 py-8 px-8 border-l-4 border-[#E8B84B] bg-[#E8B84B]/5 mb-10 clear-left">
+                <div className="font-serif text-2xl italic text-[#E8B84B] leading-[1.46] mb-3">
+                  "{article.summary}"
+                </div>
+                <div className="text-[11px] text-white/30 font-bold tracking-[0.1em] uppercase">
+                  — YaadFeed
+                </div>
+              </div>
+            )}
+            <article 
+              className="yf-article max-w-none" 
+              dangerouslySetInnerHTML={{ __html: htmlContent }} 
+            />
           </div>
 
           {/* Tags */}
