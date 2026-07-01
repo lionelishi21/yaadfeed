@@ -157,7 +157,20 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
 
     loadImages();
     const content = article?.content || article?.summary || '';
-    setHtmlContent(contentUtils.sanitizeText(content));
+    
+    const hasHtml = /<(p|br|h[1-6]|ul|ol|li|blockquote)[^>]*>/i.test(content);
+    let processedContent = content;
+    
+    if (!hasHtml) {
+      // Legacy plain text: convert double newlines to paragraph tags
+      const sanitized = contentUtils.sanitizeText(content);
+      processedContent = sanitized.split(/\n\n+/).map((p: string) => `<p>${p}</p>`).join('');
+    } else {
+      // New HTML format: just strip XML CDATA markers if present
+      processedContent = content.replace(/<!\[CDATA\[|]]>/g, '');
+    }
+    
+    setHtmlContent(processedContent);
   }, [article]);
 
   return (
