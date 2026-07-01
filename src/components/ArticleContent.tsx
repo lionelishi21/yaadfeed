@@ -254,7 +254,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
             )}
             
             {/* Audio Player */}
-            <AudioPlayer title={article.title} content={htmlContent} />
+            <AudioPlayer title={article.title} content={htmlContent} slug={slug} />
 
             <div className="mb-10 relative w-full h-[300px] md:float-right md:w-[400px] md:ml-8 md:mb-6 rounded-sm overflow-hidden border border-white/10">
               <Image

@@ -123,6 +123,7 @@ export interface NewsItem {
   viewCount: number;
   createdAt: Date;
   updatedAt: Date;
+  audioBase64?: string;
 }
 
 export interface User {
@@ -376,7 +377,22 @@ export class NewsService {
       }
     );
   }
-  
+
+  // Save generated audio to a specific article
+  static async saveAudio(slug: string, base64Audio: string): Promise<boolean> {
+    try {
+      const collection = await getNewsCollection();
+      const result = await collection.updateOne(
+        { slug },
+        { $set: { audioBase64: base64Audio, updatedAt: new Date() } }
+      );
+      return result.modifiedCount > 0;
+    } catch (error) {
+      console.error('Error saving audio to MongoDB:', error);
+      return false;
+    }
+  }
+
   // ⚠️ WARNING: This method deletes old articles and should NOT be used automatically
   // Deleting old articles breaks content history, SEO, and user experience
   // Only use this method manually when absolutely necessary

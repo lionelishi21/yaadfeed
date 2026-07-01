@@ -7,88 +7,75 @@ import { cn } from '@/utils';
 interface AudioPlayerProps {
   title: string;
   content: string;
+  slug: string;
 }
 
-export default function AudioPlayer({ title, content }: AudioPlayerProps) {
+export default function AudioPlayer({ title, content, slug }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isAdPlaying, setIsAdPlaying] = useState(false);
-  const [isSupported, setIsSupported] = useState(true);
+  const [error, setError] = useState('');
   
-  const synthRef = useRef<SpeechSynthesis | null>(null);
-  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
-      synthRef.current = window.speechSynthesis;
-    } else {
-      setIsSupported(false);
-    }
-
     return () => {
-      if (synthRef.current) {
-        synthRef.current.cancel();
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.src = '';
       }
     };
   }, []);
 
-  const getCleanText = () => {
-    // Strip HTML tags for clean audio reading
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = content;
-    return tempDiv.textContent || tempDiv.innerText || '';
-  };
-
-  const playAudio = () => {
-    if (!synthRef.current) return;
-
+  const playAudio = async () => {
     // Wait for ad to finish
     setIsAdPlaying(true);
     
-    setTimeout(() => {
+    setTimeout(async () => {
       setIsAdPlaying(false);
       setIsPlaying(true);
+      setError('');
       
-      const cleanText = getCleanText();
-      const fullText = `${title}. ... ... ${cleanText}`;
-      
-      const utterance = new SpeechSynthesisUtterance(fullText);
-      
-      // Try to find a good English voice
-      const voices = synthRef.current?.getVoices() || [];
-      const englishVoice = voices.find(v => v.lang.includes('en-GB') || v.lang.includes('en-US'));
-      if (englishVoice) {
-        utterance.voice = englishVoice;
+      try {
+        if (!audioRef.current) {
+          audioRef.current = new Audio();
+          audioRef.current.onended = () => setIsPlaying(false);
+          audioRef.current.onerror = () => {
+            setError('Failed to play audio');
+            setIsPlaying(false);
+          };
+        }
+
+        // Only fetch if we haven't already
+        if (!audioRef.current.src) {
+          const res = await fetch(`/api/tts?slug=${slug}`);
+          if (!res.ok) throw new Error('TTS Failed');
+          
+          const blob = await res.blob();
+          const url = URL.createObjectURL(blob);
+          audioRef.current.src = url;
+        }
+        
+        await audioRef.current.play();
+      } catch (err) {
+        console.error('Audio play error:', err);
+        setError('Audio currently unavailable');
+        setIsPlaying(false);
       }
-      
-      utterance.rate = 0.95; // Slightly slower for readability
-      utterance.pitch = 1.0;
-      
-      utterance.onend = () => {
-        setIsPlaying(false);
-      };
-
-      utterance.onerror = (e) => {
-        console.error('SpeechSynthesis error:', e);
-        setIsPlaying(false);
-      };
-
-      utteranceRef.current = utterance;
-      synthRef.current?.speak(utterance);
     }, 3000); // 3-second simulated ad break
   };
 
   const stopAudio = () => {
-    if (synthRef.current) {
-      synthRef.current.cancel();
+    if (audioRef.current) {
+      audioRef.current.pause();
       setIsPlaying(false);
     }
   };
 
-  if (!isSupported) {
+  if (error) {
     return (
       <div className="flex items-center gap-2 p-3 bg-red-900/20 border border-red-500/20 rounded-md text-red-200 text-sm">
         <AlertCircle size={16} />
-        <span>Audio playback is not supported in your browser.</span>
+        <span>{error}</span>
       </div>
     );
   }
