@@ -62,6 +62,9 @@
   .yf-article p {
     @apply text-[16px] leading-[1.8] text-white/80 mb-6;
   }
+  .yf-article p:first-of-type::first-letter {
+    @apply float-left text-5xl font-serif text-[#E8B84B] mr-3 mt-1 leading-none;
+  }
   .yf-article strong {
     @apply font-bold text-white;
   }

@@ -6,13 +6,13 @@ export const ARTICLE_HIGHLIGHT_KEYWORDS = [
   'Parliament', 'PNP', 'JLP', 'Andrew Holness', 'Mark Golding', 'Prime Minister', 'MP', 'Mayor',
   
   // Economy & Business
-  'BOJ', 'JSE', 'inflation', 'exchange rate', 'stocks', 'investment', 'company', 'registered company', 'real estate', 'house', 'money', 'value', 'business',
+  'BOJ', 'JSE', 'inflation', 'exchange rate', 'stocks', 'investment', 'registered company', 'real estate', 'house',
   
   // Infrastructure
   'JPS', 'NWC', 'highway', 'toll', 'power outage', 'water supply',
   
   // Locations
-  'Kingston', 'Montego Bay', 'Portmore', 'St. Andrew', 'Ochi', 'Ocho Rios', 'Parish', 'Country', 'Jamaica',
+  'Kingston', 'Montego Bay', 'Portmore', 'St. Andrew', 'Ochi', 'Ocho Rios', 'Jamaica',
   
   // Culture
   'Dancehall', 'Reggae', 'Carnival', 'Soundclash', 'artiste', 'music'

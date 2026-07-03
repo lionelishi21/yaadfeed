@@ -165,9 +165,12 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
     let processedContent = content;
     
     if (!hasHtml) {
-      // Legacy plain text: convert double newlines to paragraph tags
+      // Legacy plain text: convert newlines to paragraph tags
       const sanitized = contentUtils.sanitizeText(content);
-      processedContent = sanitized.split(/\n\n+/).map((p: string) => `<p>${p}</p>`).join('');
+      const paragraphs = sanitized.split(/\n+/).filter(p => p.trim().length > 0);
+      
+      // Wrap paragraphs (the CSS will automatically add a drop-cap to the first paragraph)
+      processedContent = paragraphs.map((p: string) => `<p>${p}</p>`).join('');
     } else {
       // New HTML format: just strip XML CDATA markers if present
       processedContent = content.replace(/<!\[CDATA\[|]]>/g, '');
