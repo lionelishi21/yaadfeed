@@ -58,6 +58,8 @@ export async function synthesizeArticle(sources: RawSource[]): Promise<Synthesiz
       const prompt = `You are a top-tier journalist and editor at YaadFeed. ${JAMAICAN_VOICE_GUIDE}
 Blend these sources into one original, highly engaging article.
 CRITICAL FORMATTING INSTRUCTIONS:
+- You must maintain a strictly objective, neutral journalistic standpoint (avoid biased or sensationalist language).
+- End the article with a brief philosophical or sociological insight about what this event means for Jamaican culture or human nature.
 - Do NOT output a single blob of text.
 - Write the 'content' field as richly formatted HTML.
 - Use <h3> tags for compelling subheadings.

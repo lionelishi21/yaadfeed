@@ -214,12 +214,13 @@ CONTENT: [Write the full article content (400-600 words) as RICH HTML FORMATTING
 AUTHOR: [Choose a realistic Jamaican journalist name]
 
 Requirements:
-- Use professional journalism style
-- Include realistic quotes from officials or experts
-- Reference real Jamaican locations and institutions
-- Maintain authenticity to Jamaican culture
-- Write in present/recent past tense
-- Include specific details and numbers where appropriate
+- Maintain a strictly objective, neutral journalistic standpoint (avoid biased or sensationalist language).
+- End the article with a brief philosophical or sociological insight about what this event means for Jamaican culture or human nature.
+- Include realistic quotes from officials or experts.
+- Reference real Jamaican locations and institutions.
+- Maintain authenticity to Jamaican culture without losing objective reporting.
+- Write in present/recent past tense.
+- Include specific details and numbers where appropriate.
     `;
   }
 
