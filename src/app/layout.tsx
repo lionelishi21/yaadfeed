@@ -1,5 +1,6 @@
 
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import { Bebas_Neue, DM_Sans, Playfair_Display } from 'next/font/google'
 import './globals.css'
 import Providers from '@/components/providers'
@@ -82,6 +83,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6524318430609026"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
       <body className={`${bebasNeue.variable} ${dmSans.variable} ${playfairDisplay.variable} font-sans bg-[#0B0B0B] text-white overflow-x-hidden`}>
         <Providers>
           {children}
