@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import logoImg from '@/assets/logo.png';
 import { Menu, X, Search, User, LogOut, Settings } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
 import AuthModal from '@/components/auth/AuthModal';
@@ -72,13 +74,8 @@ const Header = () => {
         <div className="flex items-center justify-between px-4 sm:px-14 h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
-            <svg width="34" height="30" viewBox="0 0 34 30" fill="none" className="transform group-hover:scale-105 transition-transform">
-              <rect width="34" height="30" rx="3" fill="#E8B84B"></rect>
-              <path d="M9 7 L17 16 L25 7" stroke="#0A0A0A" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none"></path>
-              <line x1="17" y1="16" x2="17" y2="24" stroke="#0A0A0A" strokeWidth="3.5" strokeLinecap="round"></line>
-              <circle cx="9" cy="7" r="2.5" fill="#0A0A0A" opacity=".4"></circle>
-            </svg>
-            <span className="font-bebas text-xl tracking-[3px] text-white mt-1">YARD<span className="text-yard-gold">VYBES</span></span>
+            <Image src={logoImg} alt="YardVybz Logo" className="h-8 w-8 object-contain transform group-hover:scale-105 transition-transform" />
+            <span className="font-bebas text-xl tracking-[3px] text-white mt-1">YARD<span className="text-yard-gold">VYBZ</span></span>
           </Link>
 
           {/* Desktop Navigation */}
