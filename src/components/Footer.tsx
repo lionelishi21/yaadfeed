@@ -80,7 +80,7 @@ const Footer = () => {
                   <line x1="17" y1="16" x2="17" y2="24" stroke="#0A0A0A" strokeWidth="3.5" strokeLinecap="round"></line>
                   <circle cx="9" cy="7" r="2.5" fill="#0A0A0A" opacity=".4"></circle>
                 </svg>
-                <span className="font-bebas text-xl tracking-[3px] text-white mt-1">YARD<span className="text-yard-gold">VYBES</span></span>
+                <span className="font-bebas text-xl tracking-[3px] text-white mt-1">YARD<span className="text-yard-gold">VYBZ</span></span>
               </div>
               <p className="text-gray-400 mb-8 max-w-xs text-sm leading-relaxed">
                 Jamaica's premier platform for news, music, and cultural content. 
@@ -95,11 +95,11 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-yard-gold" />
-                  <span>hello@yardvybes.com</span>
+                  <span>info@yardvybz.com</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-yard-gold" />
-                  <span>+1 (876) 555-YARD</span>
+                  <span>18765995544</span>
                 </div>
               </div>
             </div>
