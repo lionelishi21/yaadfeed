@@ -2,8 +2,10 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import React, { useState } from "react";
-import { Bell, DiscAlbum, Menu, Search, X } from "lucide-react";
+import { Bell, Menu, Search, X } from "lucide-react";
+import logoImg from "@/assets/logo.png";
 
 export function SimpleNavbarWithHoverEffects() {
   return <Navbar />;
@@ -162,8 +164,8 @@ const Logo = () => {
       href="/"
       className="relative z-20 flex items-center gap-2 text-lg font-bold"
     >
-      <DiscAlbum className="h-7 w-7 text-secondary" />
-      <span className="font-bold text-background">YaadFeed</span>
+      <Image src={logoImg} alt="YardVybz Logo" className="h-7 w-7 object-contain" />
+      <span className="font-bold text-background">YardVybz</span>
     </Link>
   );
 };
