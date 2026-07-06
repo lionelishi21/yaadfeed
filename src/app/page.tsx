@@ -30,6 +30,37 @@ export default async function HomePage() {
   const mainStory = featuredNews.length > 0 ? featuredNews[0] : null;
   const sideStories = featuredNews.length > 1 ? featuredNews.slice(1, 4) : [];
 
+  let heroExcerpt = "The latest news and exclusive updates from the heart of Jamaica. Stay connected to the heartbeat of the Caribbean with YardVybz.";
+  if (mainStory?.excerpt) {
+    heroExcerpt = mainStory.excerpt;
+  } else if (mainStory?.content) {
+    heroExcerpt = mainStory.content.replace(/<[^>]*>?/gm, '').substring(0, 130) + '...';
+  }
+
+  const staticSpotlights = [
+    { _id: 'vybz-kartel-fixed', artistName: 'Vybz Kartel', songTitle: 'World Boss', status: 'Dancehall King', imageUrl: '/images/vybz-kartel-artist.png' },
+    { _id: 'burna-boy-fixed', artistName: 'Burna Boy', songTitle: 'City Boys', status: 'Afrobeats', imageUrl: '/images/burna-boy.png' },
+    { _id: 'shenseea-fixed', artistName: 'Shenseea', songTitle: 'Hit & Run', status: 'Dancehall', imageUrl: '/images/shenseea.png' },
+    { _id: 'wizkid-fixed', artistName: 'Wizkid', songTitle: 'Essence', status: 'Afrobeats', imageUrl: '/images/wizkid.png' },
+  ];
+
+  const vybz = recentSpotlights.find((s: any) => s.artistName.toLowerCase().includes('kartel')) || staticSpotlights[0];
+  const othersDb = recentSpotlights.filter((s: any) => !s.artistName.toLowerCase().includes('kartel'));
+  
+  const displaySpotlights = [vybz];
+  let i = 0;
+  while(displaySpotlights.length < 4 && i < othersDb.length) {
+    displaySpotlights.push(othersDb[i]);
+    i++;
+  }
+  let j = 1;
+  while(displaySpotlights.length < 4 && j < staticSpotlights.length) {
+    if (!displaySpotlights.some(s => s.artistName === staticSpotlights[j].artistName)) {
+      displaySpotlights.push(staticSpotlights[j]);
+    }
+    j++;
+  }
+
   return (
     <div className="min-h-screen bg-yard-dark text-white font-sans overflow-x-hidden">
       <ClientHeader />
@@ -73,7 +104,7 @@ export default async function HomePage() {
             )}
           </h1>
           <p className="text-base text-[#888] leading-[1.65] max-w-[420px] mb-9 animate-fadeUp" style={{ animationDelay: '100ms' }}>
-            {mainStory?.excerpt || "Get an exclusive look inside the luxurious new mega mansion of Dancehall's World Boss, Vybz Kartel."}
+            {heroExcerpt}
           </p>
           <div className="flex gap-3.5 animate-fadeUp" style={{ animationDelay: '200ms' }}>
             <Link href={mainStory ? `/news/${mainStory.slug || mainStory._id}` : "/news"}>
@@ -207,7 +238,7 @@ export default async function HomePage() {
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0.5">
-          {recentSpotlights.length > 0 ? recentSpotlights.slice(0,4).map((spotlight: any, i: number) => (
+          {displaySpotlights.map((spotlight: any, i: number) => (
             <div key={spotlight._id || i} className="bg-yard-gray overflow-hidden cursor-pointer group">
               <div className="h-[240px] bg-[#1a1a1a] relative flex items-center justify-center">
                 {spotlight.imageUrl ? (
