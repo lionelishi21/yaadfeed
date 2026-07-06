@@ -22,28 +22,32 @@ const playfairDisplay = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'YaadFeed - Jamaican News, Music & Culture',
-  description: 'Stay updated with the latest Jamaican news, dancehall and reggae music, culture, and entertainment. Your #1 source for Caribbean vibes.',
-  keywords: ['Jamaica', 'News', 'Dancehall', 'Reggae', 'Culture', 'Vybz Kartel', 'Afrobeats', 'Caribbean Music', 'Entertainment'],
-  authors: [{ name: 'YaadFeed Editorial' }],
-  creator: 'YaadFeed',
-  publisher: 'YaadFeed',
+  title: 'YardVybz - Jamaican News, Gossip, Music & Culture',
+  description: 'Stay updated with the latest Jamaican news, Vybz Kartel updates, gossip, dancehall, and reggae music. Your #1 source for everything Yard, Yardie, and Yaad.',
+  keywords: [
+    'YardVybz', 'YardVybz News', 'vybz', 'vybes', 'Vybz Kartel', 'Jamaica news', 
+    'Gossip', 'Yard', 'Yardie', 'Yardy', 'Yaad', 'Dancehall', 'Reggae', 
+    'Culture', 'Afrobeats', 'Caribbean Music', 'Entertainment', 'Jamaican gossip'
+  ],
+  authors: [{ name: 'YardVybz Editorial' }],
+  creator: 'YardVybz',
+  publisher: 'YardVybz',
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   openGraph: {
-    title: 'YaadFeed - Jamaican News, Music & Culture',
-    description: 'Stay updated with the latest Jamaican news, dancehall and reggae music, culture, and entertainment.',
-    url: 'https://yaadfeed.com', // Replace with your actual domain
-    siteName: 'YaadFeed',
+    title: 'YardVybz - Jamaican News, Gossip, Music & Culture',
+    description: 'Stay updated with the latest Jamaican news, Vybz Kartel updates, gossip, dancehall, and reggae music. Your #1 source for everything Yard, Yardie, and Yaad.',
+    url: 'https://yardvybz.news',
+    siteName: 'YardVybz',
     images: [
       {
         url: '/images/jamaica-tourism.jpg', // Placeholder OG image
         width: 1200,
         height: 630,
-        alt: 'YaadFeed - Jamaican News & Culture',
+        alt: 'YardVybz - Jamaican News & Culture',
       },
     ],
     locale: 'en_JM',
@@ -51,8 +55,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'YaadFeed - Jamaican News, Music & Culture',
-    description: 'Stay updated with the latest Jamaican news, dancehall and reggae music, culture, and entertainment.',
+    title: 'YardVybz - Jamaican News, Gossip, Music & Culture',
+    description: 'Stay updated with the latest Jamaican news, Vybz Kartel updates, gossip, dancehall, and reggae music.',
     images: ['/images/jamaica-tourism.jpg'],
   },
   robots: {
