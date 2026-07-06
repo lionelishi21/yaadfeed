@@ -31,10 +31,11 @@ export default async function HomePage() {
   const sideStories = featuredNews.length > 1 ? featuredNews.slice(1, 4) : [];
 
   let heroExcerpt = "The latest news and exclusive updates from the heart of Jamaica. Stay connected to the heartbeat of the Caribbean with YardVybz.";
-  if (mainStory?.excerpt) {
-    heroExcerpt = mainStory.excerpt;
-  } else if (mainStory?.content) {
-    heroExcerpt = mainStory.content.replace(/<[^>]*>?/gm, '').substring(0, 130) + '...';
+  const anyStory = mainStory as any;
+  if (anyStory?.excerpt) {
+    heroExcerpt = anyStory.excerpt;
+  } else if (anyStory?.content) {
+    heroExcerpt = anyStory.content.replace(/<[^>]*>?/gm, '').substring(0, 130) + '...';
   }
 
   const staticSpotlights = [
@@ -257,9 +258,7 @@ export default async function HomePage() {
                 </div>
               </div>
             </div>
-          )) : (
-            <div className="col-span-full text-[#666] text-sm">No recent spotlight artists available.</div>
-          )}
+          ))}
         </div>
       </section>
 
