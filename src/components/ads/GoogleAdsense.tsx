@@ -7,7 +7,7 @@ export function GoogleAdsenseScript() {
   return (
     <script
       async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6524318430609026"
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8872711759728449"
       crossOrigin="anonymous"
     />
   );
@@ -24,7 +24,7 @@ type GoogleAdsenseProps = {
 
 export default function GoogleAdsense({
   adSlot,
-  adClient = 'ca-pub-6524318430609026',
+  adClient = 'ca-pub-8872711759728449',
   adFormat = 'auto',
   adLayout,
   className,
