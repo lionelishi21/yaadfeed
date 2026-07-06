@@ -25,9 +25,9 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 
 export const metadata: Metadata = {
-  title: 'Advertise with YaadFeed | Reach Jamaica\'s Digital Community',
-  description: 'Partner with YaadFeed to promote your business to Jamaica\'s most engaged digital audience. Premium advertising solutions for authentic Jamaican businesses.',
-  keywords: 'Jamaica advertising, digital marketing, Caribbean marketing, Jamaican audience, YaadFeed advertising',
+  title: 'Advertise with YardVybz | Reach Jamaica\'s Digital Community',
+  description: 'Partner with YardVybz to promote your business to Jamaica\'s most engaged digital audience. Premium advertising solutions for authentic Jamaican businesses.',
+  keywords: 'Jamaica advertising, digital marketing, Caribbean marketing, Jamaican audience, YardVybz advertising, vybz, vybes',
 };
 
 const AdvertisePage = () => {
