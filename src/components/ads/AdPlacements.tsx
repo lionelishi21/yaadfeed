@@ -259,7 +259,7 @@ export function AdBlockerDetector() {
               box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             ">
               <div style="font-weight: bold; margin-bottom: 8px;">
-                📢 Support YaadFeed
+                📢 Support YardVybz
               </div>
               <div style="font-size: 14px; margin-bottom: 12px;">
                 We noticed you're using an ad blocker. Ads help us keep bringing you the latest Jamaica news and music for free!

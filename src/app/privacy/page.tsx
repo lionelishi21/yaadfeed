@@ -77,8 +77,8 @@ const PrivacyPage = () => {
   return (
     <>
       <Head>
-        <title>Privacy Policy | YaadFeed</title>
-        <meta name="description" content="Learn how YaadFeed collects, uses, and protects your data." />
+        <title>Privacy Policy | YardVybz</title>
+        <meta name="description" content="Learn how YardVybz collects, uses, and protects your data." />
       </Head>
       <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
         <ClientHeader />
@@ -91,7 +91,7 @@ const PrivacyPage = () => {
             Privacy <span className="bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent">Policy</span>
           </h1>
           <p className="text-2xl lg:text-3xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-            How we protect and respect your privacy on YaadFeed
+            How we protect and respect your privacy on YardVybz
           </p>
           <div className="flex items-center justify-center gap-4 text-white/80">
             <Calendar className="w-5 h-5" />
@@ -251,8 +251,8 @@ const PrivacyPage = () => {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <Mail className="w-4 h-4 text-logo-primary" />
-                    <a href="mailto:privacy@yaadfeed.com" className="text-logo-primary hover:underline">
-                      privacy@yaadfeed.com
+                    <a href="mailto:info@yardvybz.news" className="text-logo-primary hover:underline">
+                      info@yardvybz.news
                     </a>
                   </div>
                   <div className="flex items-center gap-2">

@@ -183,7 +183,7 @@ const AuthModal: React.FC<AuthModalProps> = ({
             <span className="text-white font-bold text-xl">Y</span>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            {mode === 'signin' ? 'Welcome Back' : 'Join YaadFeed'}
+            {mode === 'signin' ? 'Welcome Back' : 'Join YardVybz'}
           </h2>
           <p className="text-gray-600">
             {mode === 'signin' 

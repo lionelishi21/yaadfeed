@@ -33,7 +33,7 @@ export default function Preloader({ isLoading, children }: PreloaderProps) {
         <div className="relative mb-8">
           <img
             src="/logo.gif"
-            alt="Loading YaadFeed"
+            alt="Loading YardVybz"
             className="h-20 w-20 mx-auto rounded-full object-contain"
           />
         </div>

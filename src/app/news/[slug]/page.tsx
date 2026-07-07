@@ -146,13 +146,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   
   if (!article) {
     return {
-      title: 'Article Not Found - YaadFeed',
+      title: 'Article Not Found - YardVybz',
       description: 'The requested article could not be found.'
     };
   }
 
   return {
-    title: `${article.title} - YaadFeed`,
+    title: `${article.title} - YardVybz`,
     description: article.summary,
     alternates: { canonical: `/news/${article.slug}` },
     openGraph: {

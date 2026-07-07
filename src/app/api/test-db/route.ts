@@ -4,12 +4,12 @@ import { clientPromise } from '@/lib/mongodb';
 export async function GET() {
   try {
     const client = await clientPromise;
-    const db = client.db(process.env.MONGODB_DB || 'yaadfeed');
+    const db = client.db(process.env.MONGODB_DB || 'yardvybz');
     const collections = await db.listCollections().toArray();
 
     return NextResponse.json({
       connected: true,
-      db: process.env.MONGODB_DB || 'yaadfeed',
+      db: process.env.MONGODB_DB || 'yardvybz',
       collections: collections.map(c => c.name),
       timestamp: new Date().toISOString(),
       environment: process.env.NODE_ENV

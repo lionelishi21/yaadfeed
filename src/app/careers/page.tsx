@@ -82,7 +82,7 @@ const CareersPage = () => {
       type: 'Full-time',
       experience: '4-6 years',
       salary: '$70K - $90K',
-      description: 'Lead our marketing efforts to grow YaadFeed\'s presence across the Caribbean and diaspora.',
+      description: 'Lead our marketing efforts to grow YardVybz\'s presence across the Caribbean and diaspora.',
       requirements: [
         'Digital marketing expertise',
         'Caribbean market knowledge',
@@ -232,7 +232,7 @@ const CareersPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-black text-gray-900 mb-6">
-              Why Work at <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">YaadFeed</span>
+              Why Work at <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">YardVybz</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               We believe in taking care of our team so they can do their best work

@@ -88,7 +88,7 @@ export default function AudioPlayer({ title, content, slug }: AudioPlayerProps) 
         </div>
         <div>
           <h3 className="font-bold text-white text-sm">Listen to this article</h3>
-          <p className="text-xs text-white/50">Powered by YaadFeed Audio</p>
+          <p className="text-xs text-white/50">Powered by YardVybz Audio</p>
         </div>
       </div>
       

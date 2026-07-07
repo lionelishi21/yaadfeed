@@ -4,8 +4,8 @@ import type { Metadata } from 'next';
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | YaadFeed',
-  description: 'Read the YaadFeed Terms of Service, including user responsibilities, acceptable use, and legal terms.',
+  title: 'Terms of Service | YardVybz',
+  description: 'Read the YardVybz Terms of Service, including user responsibilities, acceptable use, and legal terms.',
 };
 
 export default function TermsOfServicePage() {
@@ -16,7 +16,7 @@ export default function TermsOfServicePage() {
 
       <section className="space-y-6 text-gray-800 leading-7">
         <p>
-          Welcome to YaadFeed. By accessing or using our website, mobile site, or any related
+          Welcome to YardVybz. By accessing or using our website, mobile site, or any related
           services (collectively, the "Services"), you agree to be bound by these Terms of Service
           ("Terms"). If you do not agree to these Terms, please discontinue use of the Services.
         </p>
@@ -46,7 +46,7 @@ export default function TermsOfServicePage() {
         <h2 className="text-xl font-semibold">4. Content and Intellectual Property</h2>
         <p>
           The content on the Services, including text, images, graphics, logos, and audiovisual
-          materials, is owned by or licensed to YaadFeed and is protected by applicable intellectual
+          materials, is owned by or licensed to YardVybz and is protected by applicable intellectual
           property laws. You may not copy, reproduce, distribute, modify, or create derivative works
           from our content without prior written permission, except as allowed by fair use or other
           applicable law.
@@ -54,7 +54,7 @@ export default function TermsOfServicePage() {
 
         <h2 className="text-xl font-semibold">5. User Submissions</h2>
         <p>
-          If you submit or post content (for example, comments or messages), you grant YaadFeed a
+          If you submit or post content (for example, comments or messages), you grant YardVybz a
           non-exclusive, worldwide, royalty-free license to use, reproduce, adapt, publish, and
           display such content in connection with operating and promoting the Services. You represent
           and warrant that you have the rights necessary to grant this license and that your content
@@ -64,7 +64,7 @@ export default function TermsOfServicePage() {
         <h2 className="text-xl font-semibold">6. Third-Party Links and Services</h2>
         <p>
           The Services may contain links to third-party websites, services, or resources that are
-          not owned or controlled by YaadFeed. We are not responsible for the content, policies, or
+          not owned or controlled by YardVybz. We are not responsible for the content, policies, or
           practices of any third parties, and you access them at your own risk.
         </p>
 
@@ -86,7 +86,7 @@ export default function TermsOfServicePage() {
 
         <h2 className="text-xl font-semibold">9. Limitation of Liability</h2>
         <p>
-          To the maximum extent permitted by law, YaadFeed and its affiliates, officers, employees,
+          To the maximum extent permitted by law, YardVybz and its affiliates, officers, employees,
           and agents will not be liable for any indirect, incidental, special, consequential, or
           punitive damages, or any loss of profits or revenues, whether incurred directly or
           indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from
@@ -95,7 +95,7 @@ export default function TermsOfServicePage() {
 
         <h2 className="text-xl font-semibold">10. Indemnification</h2>
         <p>
-          You agree to indemnify and hold harmless YaadFeed and its affiliates from and against any
+          You agree to indemnify and hold harmless YardVybz and its affiliates from and against any
           claims, liabilities, damages, losses, and expenses, including reasonable legal and
           accounting fees, arising out of or in any way connected with your use of the Services or
           violation of these Terms.
@@ -120,7 +120,7 @@ export default function TermsOfServicePage() {
         <p>
           If you have questions about these Terms, please contact us at
           <span className="whitespace-pre"> </span>
-          <a className="text-teal-600 underline" href="mailto:contact@yaadfeed.com">contact@yaadfeed.com</a>.
+          <a className="text-teal-600 underline" href="mailto:info@yardvybz.news">info@yardvybz.news</a>.
         </p>
       </section>
     </div>

@@ -42,7 +42,7 @@ export default function GoogleAdsense({
           return;
         }
         // Load script if not present
-        const existing = document.querySelector('script[data-yaadfeed-adsbygoogle]') as HTMLScriptElement | null;
+        const existing = document.querySelector('script[data-yardvybz-adsbygoogle]') as HTMLScriptElement | null;
         if (existing) {
           existing.addEventListener('load', () => resolve());
           // Also resolve after a short delay in case load already fired
@@ -53,7 +53,7 @@ export default function GoogleAdsense({
         script.async = true;
         script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adClient}`;
         script.crossOrigin = 'anonymous';
-        script.setAttribute('data-yaadfeed-adsbygoogle', 'true');
+        script.setAttribute('data-yardvybz-adsbygoogle', 'true');
         script.addEventListener('load', () => resolve());
         document.head.appendChild(script);
         // Fallback resolve

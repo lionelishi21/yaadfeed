@@ -61,7 +61,7 @@ const HelpPage = () => {
     {
       category: 'technical',
       question: 'I can\'t see images or videos. How do I fix this?',
-      answer: 'This is usually caused by ad blockers or browser extensions. Try disabling your ad blocker for our site, or whitelist yaadfeed.com. You can also try opening the site in an incognito/private window.'
+      answer: 'This is usually caused by ad blockers or browser extensions. Try disabling your ad blocker for our site, or whitelist yardvybz.news. You can also try opening the site in an incognito/private window.'
     }
   ];
 
@@ -78,7 +78,7 @@ const HelpPage = () => {
       title: 'Email Support',
       description: 'Get help via email within 24 hours',
       action: 'Send Email',
-      href: 'mailto:support@yaadfeed.com'
+      href: 'mailto:info@yardvybz.news'
     },
     {
       icon: MessageCircle,

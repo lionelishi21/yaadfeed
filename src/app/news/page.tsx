@@ -50,7 +50,7 @@ const getFallbackNews = (): NewsItem[] => [
     tags: ['dancehall', 'music', 'jamaica'],
     keywords: ['dancehall', 'jamaica', 'music'],
     isPopular: true,
-    author: 'YaadFeed Team',
+    author: 'YardVybz Team',
     viewCount: 1500,
     readTime: 3
   },
@@ -66,7 +66,7 @@ const getFallbackNews = (): NewsItem[] => [
     publishedAt: new Date().toISOString(),
     tags: ['reggae', 'festival', 'jamaica'],
     keywords: ['reggae', 'festival', 'jamaica'],
-    author: 'YaadFeed Team',
+    author: 'YardVybz Team',
     viewCount: 1200,
     readTime: 4
   },
@@ -82,7 +82,7 @@ const getFallbackNews = (): NewsItem[] => [
     publishedAt: new Date().toISOString(),
     tags: ['olympics', 'athletics', 'jamaica'],
     keywords: ['olympics', 'athletics', 'jamaica'],
-    author: 'YaadFeed Team',
+    author: 'YardVybz Team',
     viewCount: 1800,
     readTime: 3
   }
@@ -190,7 +190,7 @@ const NewsPage = () => {
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/koffee.jpg"
-            alt="YaadFeed News Background"
+            alt="YardVybz News Background"
             fill
             className="object-cover opacity-20 grayscale"
             priority

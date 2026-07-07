@@ -371,7 +371,7 @@ export const errorUtils = {
 
 // SEO utilities
 export const seoUtils = {
-  generateMetaTitle: (title: string, siteName = 'YaadFeed') => {
+  generateMetaTitle: (title: string, siteName = 'YardVybz') => {
     return `${title} | ${siteName}`;
   },
   

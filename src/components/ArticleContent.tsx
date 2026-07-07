@@ -273,7 +273,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
                   "{article.summary}"
                 </div>
                 <div className="text-[11px] text-white/30 font-bold tracking-[0.1em] uppercase">
-                  — YaadFeed
+                  — YardVybz
                 </div>
               </div>
             )}

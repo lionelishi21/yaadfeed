@@ -44,7 +44,7 @@ const NewsletterPage = () => {
     {
       name: 'Marcus Johnson',
       location: 'Kingston, Jamaica',
-      quote: 'YaadFeed keeps me connected to the culture. Best investment I\'ve made!',
+      quote: 'YardVybz keeps me connected to the culture. Best investment I\'ve made!',
       rating: 5
     },
     {
@@ -95,7 +95,7 @@ const NewsletterPage = () => {
               <Check className="w-8 h-8 text-white" />
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              Welcome to YaadFeed!
+              Welcome to YardVybz!
             </h2>
             <p className="text-gray-600 mb-6">
               Thank you for subscribing, {firstName}! You'll receive your first newsletter this Friday.
@@ -233,7 +233,7 @@ const NewsletterPage = () => {
             {/* Benefits */}
             <div>
               <h3 className="text-2xl font-bold text-gray-900 mb-6">
-                Why Choose YaadFeed Premium?
+                Why Choose YardVybz Premium?
               </h3>
               
               <div className="space-y-4">

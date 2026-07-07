@@ -47,7 +47,7 @@ const ContactPage = () => {
     {
       icon: Mail,
       title: 'Email Us',
-      details: ['hello@yaadfeed.com', 'support@yaadfeed.com'],
+      details: ['info@yardvybz.news'],
       description: 'We typically respond within 24 hours'
     },
     {
@@ -91,7 +91,7 @@ const ContactPage = () => {
             Get in <span className="bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent">Touch</span>
           </h1>
           <p className="text-2xl lg:text-3xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-            We'd love to hear from you. Connect with the YaadFeed team and let's build something amazing together.
+            We'd love to hear from you. Connect with the YardVybz team and let's build something amazing together.
           </p>
         </div>
       </section>
@@ -153,7 +153,7 @@ const ContactPage = () => {
                   Thank you for reaching out. We'll get back to you as soon as possible.
                 </p>
                 <div className="text-logo-primary font-semibold">
-                  YaadFeed Team
+                  YardVybz Team
                 </div>
               </div>
             ) : (
@@ -275,7 +275,7 @@ const ContactPage = () => {
                 answer: "We typically respond to all inquiries within 24 hours during business days. For urgent matters, we'll get back to you as soon as possible."
               },
               {
-                question: "Can I submit content to YaadFeed?",
+                question: "Can I submit content to YardVybz?",
                 answer: "Absolutely! We welcome content submissions from our community. Please use the contact form above and select 'Content Submission' as your subject."
               },
               {
@@ -283,7 +283,7 @@ const ContactPage = () => {
                 answer: "Yes! We have various advertising options available. Contact us with 'Advertising' as your subject and we'll send you our media kit."
               },
               {
-                question: "How can I partner with YaadFeed?",
+                question: "How can I partner with YardVybz?",
                 answer: "We're always open to partnerships that align with our mission. Send us a message with 'Partnership' as your subject and let's discuss possibilities."
               }
             ].map((faq, index) => (

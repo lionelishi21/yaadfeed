@@ -38,13 +38,13 @@ interface SystemSettings {
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState<'general' | 'api' | 'content' | 'ads' | 'system'>('general');
   const [settings, setSettings] = useState<SystemSettings>({
-    siteName: 'YaadFeed',
+    siteName: 'YardVybz',
     siteDescription: 'Jamaica\'s Premier News & Music Platform',
-    siteUrl: 'https://yaadfeed.com',
-    adminEmail: 'admin@yaadfeed.com',
+    siteUrl: 'https://yardvybz.news',
+    adminEmail: 'admin@yardvybz.news',
     openaiApiKey: 'sk-xxxxxxxxxxxxxxxxxx',
     googleAdsenseId: 'ca-pub-xxxxxxxxxx',
-    mongodbUri: 'mongodb://localhost:27017/yaadfeed',
+    mongodbUri: 'mongodb://localhost:27017/yardvybz',
     autoGenerateArticles: true,
     autoGenerateImages: true,
     adBlockerDetection: false,
@@ -79,7 +79,7 @@ export default function SettingsPage() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">System Settings</h1>
-          <p className="mt-2 text-gray-600">Configure your YaadFeed platform settings</p>
+          <p className="mt-2 text-gray-600">Configure your YardVybz platform settings</p>
         </div>
         <button
           onClick={handleSave}
@@ -243,7 +243,7 @@ export default function SettingsPage() {
                     value={settings.mongodbUri}
                     onChange={(e) => updateSetting('mongodbUri', e.target.value)}
                     className="w-full border border-gray-300 rounded-lg px-3 py-2 pr-10 focus:ring-green-500 focus:border-green-500"
-                    placeholder="mongodb://localhost:27017/yaadfeed"
+                    placeholder="mongodb://localhost:27017/yardvybz"
                   />
                   <Database className="absolute right-3 top-3 w-4 h-4 text-gray-400" />
                 </div>

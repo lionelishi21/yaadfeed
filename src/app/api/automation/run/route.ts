@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     console.log(`🤖 Running automation tasks: ${actionsToRun.join(', ')}`);
 
     const results = [];
-    const automationPath = '/workspace/yaadfeed/automation';
+    const automationPath = '/workspace/yardvybz/automation';
 
     for (const actionToRun of actionsToRun) {
       let command = '';
@@ -126,7 +126,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     // Get automation status and recent logs
-    const automationPath = '/workspace/yaadfeed/automation';
+    const automationPath = '/workspace/yardvybz/automation';
     
     // Read recent automation summary
     const { stdout: lsOutput } = await execAsync(`ls -la ${automationPath}/automation_summary_*.md | tail -1`);

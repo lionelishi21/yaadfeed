@@ -153,7 +153,7 @@ class ArticleGeneratorClass {
         messages: [
           {
             role: "system",
-            content: "You are a professional Jamaican journalist writing for YaadFeed, Jamaica's premier news platform. Write engaging, authentic articles that capture Jamaican culture, language, and perspective. Use proper journalism standards but with a distinctly Jamaican voice."
+            content: "You are a professional Jamaican journalist writing for YardVybz, Jamaica's premier news platform. Write engaging, authentic articles that capture Jamaican culture, language, and perspective. Use proper journalism standards but with a distinctly Jamaican voice."
           },
           {
             role: "user",
@@ -267,7 +267,7 @@ Requirements:
     if (!result.slug) result.slug = this.generateSlug(topic);
     if (!result.summary) result.summary = `Latest developments in ${category} from Jamaica.`;
     if (!result.keywords) result.keywords = [category, 'jamaica', 'news'];
-    if (!result.author) result.author = 'YaadFeed Editorial Team';
+    if (!result.author) result.author = 'YardVybz Editorial Team';
     if (!result.content) result.content = this.createFallbackContent(topic, category);
 
     return result;
@@ -293,7 +293,7 @@ Requirements:
       content: this.createFallbackContent(topic, category),
       category,
       keywords: [category, 'jamaica', 'news', 'caribbean'],
-      author: 'YaadFeed Editorial Team',
+      author: 'YardVybz Editorial Team',
       readTime: 3,
       publishedAt: new Date(),
       isPopular: Math.random() > 0.7,
@@ -315,7 +315,7 @@ The initiative aligns with Jamaica's broader goals of sustainable development an
 
 Further updates on this story will be provided as more information becomes available.
 
-Stay tuned to YaadFeed for the latest news and developments from Jamaica and the Caribbean diaspora.
+Stay tuned to YardVybz for the latest news and developments from Jamaica and the Caribbean diaspora.
     `.trim();
   }
 
@@ -358,7 +358,7 @@ Stay tuned to YaadFeed for the latest news and developments from Jamaica and the
           summary: articleData.summary || '',
           category: articleData.category || category,
           keywords: articleData.keywords || [],
-          author: articleData.author || 'YaadFeed Editorial Team',
+          author: articleData.author || 'YardVybz Editorial Team',
           slug: articleData.slug || this.generateSlug(topic),
           readTime: articleData.readTime || 3,
           imageUrl,
@@ -394,8 +394,8 @@ Stay tuned to YaadFeed for the latest news and developments from Jamaica and the
       for (const article of articles) {
         await NewsService.createNews({
           ...article,
-          url: `https://yaadfeed.com/news/${article.slug}`,
-          source: 'YaadFeed Generated Content',
+          url: `https://yardvybz.news/news/${article.slug}`,
+          source: 'YardVybz Generated Content',
           tags: article.keywords,
           isPopular: article.isPopular,
           viewCount: 0,

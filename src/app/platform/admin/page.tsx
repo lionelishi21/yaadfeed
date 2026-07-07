@@ -72,7 +72,7 @@ export default function AdminLoginPage() {
             <Shield className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            YaadFeed Admin
+            YardVybz Admin
           </h1>
           <p className="text-gray-600">
             Sign in to access the admin dashboard
@@ -106,7 +106,7 @@ export default function AdminLoginPage() {
                 value={credentials.email}
                 onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
                 className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
-                placeholder="admin@yaadfeed.com"
+                placeholder="admin@yardvybz.news"
                 disabled={isLoading}
                 required
               />
@@ -167,7 +167,7 @@ export default function AdminLoginPage() {
             <p className="text-blue-800 text-sm font-medium mb-2">Development Mode</p>
             <p className="text-blue-700 text-xs">
               Default admin credentials:<br />
-              Email: admin@yaadfeed.com<br />
+              Email: admin@yardvybz.news<br />
               Password: Admin@123
             </p>
             <p className="text-blue-600 text-xs mt-2">

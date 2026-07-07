@@ -120,7 +120,7 @@ const AdvertisePage = () => {
     {
       name: 'Marcus Brown',
       company: 'Island Spice Company',
-      quote: 'YaadFeed helped us reach authentic Jamaican food lovers worldwide. Our online sales increased 300% in 3 months.',
+      quote: 'YardVybz helped us reach authentic Jamaican food lovers worldwide. Our online sales increased 300% in 3 months.',
       rating: 5
     },
     {
@@ -152,7 +152,7 @@ const AdvertisePage = () => {
                 <span className="block text-jamaica-gold-300">Digital Community</span>
               </h1>
               <p className="text-xl text-white/90 mb-8 max-w-xl">
-                Partner with YaadFeed to promote your business to the most engaged 
+                Partner with YardVybz to promote your business to the most engaged 
                 Jamaican audience online. Authentic connections, real results.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -190,7 +190,7 @@ const AdvertisePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Why Advertise with YaadFeed?
+              Why Advertise with YardVybz?
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
               Join successful businesses reaching Jamaica's most engaged digital audience
@@ -274,7 +274,7 @@ const AdvertisePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose YaadFeed?
+              Why Choose YardVybz?
             </h2>
           </div>
 
@@ -303,7 +303,7 @@ const AdvertisePage = () => {
               Success Stories
             </h2>
             <p className="text-gray-600 text-lg">
-              See how businesses are growing with YaadFeed
+              See how businesses are growing with YardVybz
             </p>
           </div>
 
@@ -335,7 +335,7 @@ const AdvertisePage = () => {
             Ready to Reach Jamaica's Digital Community?
           </h2>
           <p className="text-white/90 text-lg mb-8 max-w-2xl mx-auto">
-            Join successful businesses already advertising with YaadFeed. 
+            Join successful businesses already advertising with YardVybz. 
             Get started today and see results within your first month.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
@@ -347,7 +347,7 @@ const AdvertisePage = () => {
             </Button>
           </div>
           <p className="text-white/80 text-sm mt-6">
-            Questions? Email us at advertise@yaadfeed.com or call +1-876-555-YAAD
+            Questions? Email us at advertise@yardvybz.news or call +1-876-555-YAAD
           </p>
         </div>
       </section>

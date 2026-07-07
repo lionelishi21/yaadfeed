@@ -209,7 +209,7 @@ export default function AdminDashboard() {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-          <p className="text-gray-600 mt-1">Welcome back! Here's what's happening with YaadFeed.</p>
+          <p className="text-gray-600 mt-1">Welcome back! Here's what's happening with YardVybz.</p>
         </div>
         <div className="flex items-center space-x-4">
           <div className="text-right">
@@ -400,7 +400,7 @@ export default function AdminDashboard() {
           <div>
             <h2 className="text-xl font-semibold mb-2">🚀 Traffic Magnet Status</h2>
             <p className="text-green-100 mb-4">
-              Your YaadFeed platform is performing exceptionally well!
+              Your YardVybz platform is performing exceptionally well!
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="text-center">

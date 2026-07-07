@@ -62,7 +62,7 @@ export async function GET() {
     
     return NextResponse.json({
       success: true,
-      message: 'YaadFeed Article Generation System - Local Image Storage',
+      message: 'YardVybz Article Generation System - Local Image Storage',
       imageStats,
       info: {
         description: 'Images are generated once during article creation and saved locally',

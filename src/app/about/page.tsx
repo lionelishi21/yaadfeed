@@ -70,7 +70,7 @@ const AboutPage = () => {
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl lg:text-6xl font-black mb-6 leading-tight">
-            About <span className="bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent">YaadFeed</span>
+            About <span className="bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent">YardVybz</span>
           </h1>
           <p className="text-2xl lg:text-3xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
             Jamaica's premier digital platform connecting the diaspora with the heartbeat of the island
@@ -105,7 +105,7 @@ const AboutPage = () => {
                 Connecting the Jamaican Diaspora
               </h3>
               <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-                YaadFeed was born from a simple idea: to create a digital home where Jamaicans 
+                YardVybz was born from a simple idea: to create a digital home where Jamaicans 
                 everywhere could stay connected to their roots, culture, and community.
               </p>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
@@ -137,7 +137,7 @@ const AboutPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-black text-gray-900 mb-6">
-              YaadFeed by the <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Numbers</span>
+              YardVybz by the <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Numbers</span>
             </h2>
           </div>
           
@@ -167,7 +167,7 @@ const AboutPage = () => {
               Our <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Values</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The principles that guide everything we do at YaadFeed
+              The principles that guide everything we do at YardVybz
             </p>
           </div>
           
@@ -196,7 +196,7 @@ const AboutPage = () => {
               Meet Our <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Team</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The passionate individuals behind YaadFeed's mission
+              The passionate individuals behind YardVybz's mission
             </p>
           </div>
           
@@ -224,7 +224,7 @@ const AboutPage = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
             <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">
-              Join the YaadFeed Family
+              Join the YardVybz Family
             </h2>
             <p className="text-white/90 text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
               Be part of the movement that's bringing Jamaica to the world and keeping 

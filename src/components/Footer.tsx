@@ -36,10 +36,10 @@ const Footer = () => {
   };
 
   const socialLinks = [
-    { name: 'Facebook', icon: FaFacebook, href: 'https://facebook.com/yaadfeed', color: 'hover:text-yard-gold' },
-    { name: 'Twitter', icon: FaTwitter, href: 'https://twitter.com/yaadfeed', color: 'hover:text-yard-gold' },
-    { name: 'Instagram', icon: FaInstagram, href: 'https://instagram.com/yaadfeed', color: 'hover:text-yard-gold' },
-    { name: 'YouTube', icon: FaYoutube, href: 'https://youtube.com/yaadfeed', color: 'hover:text-yard-gold' },
+    { name: 'Facebook', icon: FaFacebook, href: 'https://facebook.com/yardvybz', color: 'hover:text-yard-gold' },
+    { name: 'Twitter', icon: FaTwitter, href: 'https://twitter.com/yardvybz', color: 'hover:text-yard-gold' },
+    { name: 'Instagram', icon: FaInstagram, href: 'https://instagram.com/yardvybz', color: 'hover:text-yard-gold' },
+    { name: 'YouTube', icon: FaYoutube, href: 'https://youtube.com/yardvybz', color: 'hover:text-yard-gold' },
   ];
 
   return (
@@ -95,7 +95,7 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-yard-gold" />
-                  <span>info@yardvybz.com</span>
+                  <span>info@yardvybz.news</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-yard-gold" />
@@ -176,10 +176,17 @@ const Footer = () => {
           {/* Bottom Section */}
           <div className="border-t border-[#1a1a1a] mt-16 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="text-gray-500 text-sm">
-                © {currentYear} YardVybes. All rights reserved.
+              <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+                <div className="text-gray-500 text-sm">
+                  © {currentYear} YardVybes. All rights reserved.
+                </div>
+                <div className="flex items-center gap-6 text-sm">
+                  <Link href="/contact" className="text-gray-500 hover:text-yard-gold transition-colors">Contact</Link>
+                  <Link href="/privacy" className="text-gray-500 hover:text-yard-gold transition-colors">Privacy Policy</Link>
+                  <Link href="/terms" className="text-gray-500 hover:text-yard-gold transition-colors">Terms of Service</Link>
+                  <Link href="/cookies" className="text-gray-500 hover:text-yard-gold transition-colors">Cookie Policy</Link>
+                </div>
               </div>
-              
               {/* Social Links */}
               <div className="flex gap-5">
                 {socialLinks.map((social) => (

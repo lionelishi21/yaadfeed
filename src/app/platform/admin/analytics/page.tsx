@@ -191,7 +191,7 @@ export default function AnalyticsPage() {
           <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-6 text-white">
             <h2 className="text-xl font-semibold mb-2">🚀 Traffic Growth</h2>
             <p className="text-green-100 mb-4">
-              Your YaadFeed platform is experiencing exceptional growth across all metrics!
+              Your YardVybz platform is experiencing exceptional growth across all metrics!
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="text-center">

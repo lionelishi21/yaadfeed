@@ -382,7 +382,7 @@ const FeaturedAds: React.FC = () => {
         {/* Sponsor Note */}
         <div className="text-center mt-8 pt-8 border-t border-gray-200">
           <p className="text-gray-500 text-sm">
-            <strong>Partner with YaadFeed:</strong> Promote your business to Jamaica's digital community. 
+            <strong>Partner with YardVybz:</strong> Promote your business to Jamaica's digital community. 
             <Link href="/advertise" className="text-jamaica-green-600 hover:underline ml-1">
               Learn more about advertising
             </Link>

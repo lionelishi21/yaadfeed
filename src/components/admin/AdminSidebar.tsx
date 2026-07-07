@@ -131,7 +131,7 @@ export default function AdminSidebar({ className = '' }: AdminSidebarProps) {
                 <Shield className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="font-bold text-lg text-gray-900">YaadFeed</h1>
+                <h1 className="font-bold text-lg text-gray-900">YardVybz</h1>
                 <p className="text-xs text-gray-500">Admin Panel</p>
               </div>
             </div>
@@ -203,7 +203,7 @@ export default function AdminSidebar({ className = '' }: AdminSidebarProps) {
           {!isCollapsed && (
             <div className="mt-3 pt-3 border-t border-gray-200">
               <p className="text-xs text-gray-500 text-center">
-                YaadFeed Admin v1.0
+                YardVybz Admin v1.0
               </p>
             </div>
           )}

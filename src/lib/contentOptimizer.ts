@@ -23,7 +23,7 @@ export type Synthesized = {
 };
 
 const JAMAICAN_VOICE_GUIDE = `
-Write in YaadFeed's voice: informative, concise, with subtle Jamaican flavor.
+Write in YardVybz's voice: informative, concise, with subtle Jamaican flavor.
 Use light Jamaican expressions sparingly (e.g., "nuh", "likkle", "yaad") without overdoing it.
 Always add 2–3 sentences of context/backstory relevant to Jamaica or the Caribbean.
 Blend overlapping facts, avoid duplication, and cite sources inline with parentheses (Source: <domain>).
@@ -55,7 +55,7 @@ export async function synthesizeArticle(sources: RawSource[]): Promise<Synthesiz
       const mod: any = await (new Function('m', 'return import(m)'))('openai');
       const OpenAI = mod.default || mod;
       const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-      const prompt = `You are a top-tier journalist and editor at YaadFeed. ${JAMAICAN_VOICE_GUIDE}
+      const prompt = `You are a top-tier journalist and editor at YardVybz. ${JAMAICAN_VOICE_GUIDE}
 Blend these sources into one original, highly engaging article.
 CRITICAL FORMATTING INSTRUCTIONS:
 - You must maintain a strictly objective, neutral journalistic standpoint (avoid biased or sensationalist language).

@@ -285,7 +285,7 @@ const EventsPage = () => {
             </h3>
             <p className="text-[#888] text-[14px] mb-8 max-w-2xl mx-auto leading-[1.65]">
               Reach thousands of music lovers and event-goers across Jamaica and the diaspora. 
-              Submit your event for consideration on YaadFeed.
+              Submit your event for consideration on YardVybz.
             </p>
             <div className="inline-block bg-yard-gold text-yard-dark text-[13px] font-bold tracking-[1px] uppercase px-8 py-3.5 cursor-pointer hover:bg-white transition-colors">
               Submit Event

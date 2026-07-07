@@ -77,7 +77,7 @@ const Loading: React.FC<LoadingProps> = ({
               <div className="w-8 h-8 bg-gradient-to-br from-jamaica-green-500 to-jamaica-gold-500 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">Y</span>
               </div>
-              <span className="font-semibold">YaadFeed</span>
+              <span className="font-semibold">YardVybz</span>
             </div>
           </div>
         </div>

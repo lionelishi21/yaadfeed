@@ -12,14 +12,14 @@ import Button from '@/components/ui/Button';
 const MediaKitPage = () => {
   const brandAssets = [
     {
-      name: 'YaadFeed Logo (PNG)',
+      name: 'YardVybz Logo (PNG)',
       description: 'High-resolution logo with transparent background',
       size: '2.4 MB',
       format: 'PNG',
       icon: ImageIcon
     },
     {
-      name: 'YaadFeed Logo (SVG)',
+      name: 'YardVybz Logo (SVG)',
       description: 'Scalable vector logo for digital use',
       size: '45 KB',
       format: 'SVG',
@@ -34,7 +34,7 @@ const MediaKitPage = () => {
     },
     {
       name: 'Color Palette',
-      description: 'Official YaadFeed color codes and combinations',
+      description: 'Official YardVybz color codes and combinations',
       size: '156 KB',
       format: 'PDF',
       icon: Palette
@@ -70,7 +70,7 @@ const MediaKitPage = () => {
 
   const pressReleases = [
     {
-      title: 'YaadFeed Launches New Mobile App',
+      title: 'YardVybz Launches New Mobile App',
       date: '2024-01-15',
       summary: 'Revolutionary mobile experience for Jamaican news and culture'
     },
@@ -82,14 +82,14 @@ const MediaKitPage = () => {
     {
       title: 'Community Awards Recognition',
       date: '2023-11-20',
-      summary: 'YaadFeed honored for cultural preservation efforts'
+      summary: 'YardVybz honored for cultural preservation efforts'
     }
   ];
 
   const contactInfo = {
-    press: 'press@yaadfeed.com',
-    marketing: 'marketing@yaadfeed.com',
-    general: 'hello@yaadfeed.com',
+    press: 'press@yardvybz.news',
+    marketing: 'marketing@yardvybz.news',
+    general: 'info@yardvybz.news',
     phone: '+1 (876) 555-YAAD'
   };
 
@@ -105,7 +105,7 @@ const MediaKitPage = () => {
             Media <span className="bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent">Kit</span>
           </h1>
           <p className="text-2xl lg:text-3xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Everything you need to tell the YaadFeed story. Brand assets, statistics, and press information.
+            Everything you need to tell the YardVybz story. Brand assets, statistics, and press information.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="glamour" size="lg">
@@ -123,7 +123,7 @@ const MediaKitPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-black text-gray-900 mb-6">
-              YaadFeed by the <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Numbers</span>
+              YardVybz by the <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Numbers</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Key metrics and statistics that showcase our platform's growth and impact
@@ -156,7 +156,7 @@ const MediaKitPage = () => {
               Brand <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Assets</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Download official YaadFeed logos, brand guidelines, and design resources
+              Download official YardVybz logos, brand guidelines, and design resources
             </p>
           </div>
           
@@ -199,7 +199,7 @@ const MediaKitPage = () => {
               Recent <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Press</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Latest announcements and press releases from YaadFeed
+              Latest announcements and press releases from YardVybz
             </p>
           </div>
           
