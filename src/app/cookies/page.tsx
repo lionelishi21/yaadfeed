@@ -46,15 +46,15 @@ const CookiesPage = () => {
         <title>Cookie Policy | YardVybz</title>
         <meta name="description" content="Learn about how YardVybz uses cookies and similar technologies on our platform." />
       </Head>
-      <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
+      <div className="min-h-screen bg-yard-dark">
         <ClientHeader />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary text-white py-20 overflow-hidden">
+      <section className="relative bg-yard-gray border-b border-[#1a1a1a] text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl lg:text-6xl font-black mb-6 leading-tight">
-            Cookie <span className="bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent">Policy</span>
+            Cookie <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Policy</span>
           </h1>
           <p className="text-2xl lg:text-3xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
             How we use cookies to improve your experience on YardVybz
@@ -66,10 +66,10 @@ const CookiesPage = () => {
       </section>
 
       {/* Intro text */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-black text-gray-900 mb-6">What Are Cookies?</h2>
-          <p className="text-lg text-gray-600 leading-relaxed">
+          <h2 className="text-3xl font-black text-white mb-6">What Are Cookies?</h2>
+          <p className="text-lg text-gray-400 leading-relaxed">
             Cookies are small text files that are placed on your computer or mobile device by websites that you visit. 
             They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site.
           </p>
@@ -77,11 +77,11 @@ const CookiesPage = () => {
       </section>
 
       {/* Types of Cookies */}
-      <section className="py-20 bg-gradient-to-r from-logo-light to-logo-muted">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
-              Types of <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Cookies</span> We Use
+            <h2 className="text-4xl font-black text-white mb-6">
+              Types of <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Cookies</span> We Use
             </h2>
           </div>
           
@@ -89,15 +89,15 @@ const CookiesPage = () => {
             {cookieTypes.map((cookie, index) => {
               const IconComponent = cookie.icon;
               return (
-                <div key={index} className="soft-card p-8 bg-white rounded-xl shadow-soft">
+                <div key={index} className="border border-[#222] bg-[#111] p-8 bg-yard-dark rounded-xl shadow-soft">
                   <div className="w-16 h-16 bg-gradient-to-r from-logo-primary/20 to-logo-secondary/20 rounded-2xl flex items-center justify-center mb-6">
-                    <IconComponent className="w-8 h-8 text-logo-primary" />
+                    <IconComponent className="w-8 h-8 text-yard-gold" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{cookie.title}</h3>
-                  <p className="text-gray-600 leading-relaxed mb-4">{cookie.description}</p>
+                  <h3 className="text-2xl font-bold text-white mb-4">{cookie.title}</h3>
+                  <p className="text-gray-400 leading-relaxed mb-4">{cookie.description}</p>
                   <div>
-                    <strong className="text-gray-900 text-sm">Examples:</strong>
-                    <ul className="list-disc pl-5 text-gray-600 text-sm mt-2">
+                    <strong className="text-white text-sm">Examples:</strong>
+                    <ul className="list-disc pl-5 text-gray-400 text-sm mt-2">
                       {cookie.examples.map((ex, i) => (
                         <li key={i}>{ex}</li>
                       ))}
@@ -111,16 +111,16 @@ const CookiesPage = () => {
       </section>
 
       {/* Managing Cookies Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-black text-gray-900 mb-6">
+          <h2 className="text-4xl font-black text-white mb-6">
             Managing Your Cookie Preferences
           </h2>
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
             You can change your cookie preferences at any time. Most web browsers allow some control of most cookies through the browser settings.
           </p>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            To find out more about cookies, including how to see what cookies have been set, visit <a href="https://www.aboutcookies.org" target="_blank" rel="noreferrer" className="text-logo-primary underline">www.aboutcookies.org</a> or <a href="https://www.allaboutcookies.org" target="_blank" rel="noreferrer" className="text-logo-primary underline">www.allaboutcookies.org</a>.
+          <p className="text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+            To find out more about cookies, including how to see what cookies have been set, visit <a href="https://www.aboutcookies.org" target="_blank" rel="noreferrer" className="text-yard-gold underline">www.aboutcookies.org</a> or <a href="https://www.allaboutcookies.org" target="_blank" rel="noreferrer" className="text-yard-gold underline">www.allaboutcookies.org</a>.
           </p>
           
           <div className="flex justify-center mt-8">
@@ -132,10 +132,10 @@ const CookiesPage = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="py-12 bg-gray-50">
+      <section className="py-12 bg-yard-gray">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-600">
-            If you have any questions about our use of cookies, please contact us at <a href="mailto:info@yardvybz.news" className="text-logo-primary font-semibold">info@yardvybz.news</a>.
+          <p className="text-gray-400">
+            If you have any questions about our use of cookies, please contact us at <a href="mailto:info@yardvybz.news" className="text-yard-gold font-semibold">info@yardvybz.news</a>.
           </p>
         </div>
       </section>

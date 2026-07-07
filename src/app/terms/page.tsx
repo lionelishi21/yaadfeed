@@ -1,3 +1,5 @@
+import ClientHeader from '@/components/ClientHeader';
+import Footer from '@/components/Footer';
 import type { Metadata } from 'next';
 
 // Force dynamic rendering for terms page
@@ -10,11 +12,11 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
+    <div className="min-h-screen bg-yard-dark text-white"><ClientHeader /><div className="mx-auto max-w-3xl px-4 py-20">
       <h1 className="text-3xl font-bold mb-6">Terms of Service</h1>
-      <p className="text-sm text-gray-500 mb-8">Last updated: {new Date().toLocaleDateString()}</p>
+      <p className="text-sm text-gray-400 mb-8">Last updated: {new Date().toLocaleDateString()}</p>
 
-      <section className="space-y-6 text-gray-800 leading-7">
+      <section className="space-y-6 text-gray-200 leading-7">
         <p>
           Welcome to YardVybz. By accessing or using our website, mobile site, or any related
           services (collectively, the "Services"), you agree to be bound by these Terms of Service
@@ -123,7 +125,7 @@ export default function TermsOfServicePage() {
           <a className="text-teal-600 underline" href="mailto:info@yardvybz.news">info@yardvybz.news</a>.
         </p>
       </section>
-    </div>
+    </div><Footer /></div>
   );
 }
 

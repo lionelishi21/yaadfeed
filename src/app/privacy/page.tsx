@@ -80,15 +80,15 @@ const PrivacyPage = () => {
         <title>Privacy Policy | YardVybz</title>
         <meta name="description" content="Learn how YardVybz collects, uses, and protects your data." />
       </Head>
-      <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
+      <div className="min-h-screen bg-yard-dark">
         <ClientHeader />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary text-white py-20 overflow-hidden">
+      <section className="relative bg-yard-gray border-b border-[#1a1a1a] text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl lg:text-6xl font-black mb-6 leading-tight">
-            Privacy <span className="bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent">Policy</span>
+            Privacy <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Policy</span>
           </h1>
           <p className="text-2xl lg:text-3xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
             How we protect and respect your privacy on YardVybz
@@ -101,13 +101,13 @@ const PrivacyPage = () => {
       </section>
 
       {/* Privacy Principles */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
-              Our Privacy <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Principles</span>
+            <h2 className="text-4xl font-black text-white mb-6">
+              Our Privacy <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Principles</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               The fundamental principles that guide how we handle your personal information
             </p>
           </div>
@@ -116,12 +116,12 @@ const PrivacyPage = () => {
             {privacyPrinciples.map((principle, index) => {
               const IconComponent = principle.icon;
               return (
-                <div key={index} className="soft-card p-8">
+                <div key={index} className="border border-[#222] bg-[#111] p-8">
                   <div className="w-16 h-16 bg-gradient-to-r from-logo-primary/20 to-logo-secondary/20 rounded-2xl flex items-center justify-center mb-6">
-                    <IconComponent className="w-8 h-8 text-logo-primary" />
+                    <IconComponent className="w-8 h-8 text-yard-gold" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{principle.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{principle.description}</p>
+                  <h3 className="text-2xl font-bold text-white mb-4">{principle.title}</h3>
+                  <p className="text-gray-400 leading-relaxed">{principle.description}</p>
                 </div>
               );
             })}
@@ -130,27 +130,27 @@ const PrivacyPage = () => {
       </section>
 
       {/* Data Collection */}
-      <section className="py-20 bg-gradient-to-r from-logo-light to-logo-muted">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
-              What Data We <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Collect</span>
+            <h2 className="text-4xl font-black text-white mb-6">
+              What Data We <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Collect</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               Transparent information about the data we collect and why we need it
             </p>
           </div>
           
           <div className="space-y-8">
             {dataCollection.map((item, index) => (
-              <div key={index} className="soft-card p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{item.category}</h3>
+              <div key={index} className="border border-[#222] bg-[#111] p-8">
+                <h3 className="text-2xl font-bold text-white mb-4">{item.category}</h3>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   <div>
-                    <h4 className="text-lg font-semibold text-logo-primary mb-3">Examples:</h4>
+                    <h4 className="text-lg font-semibold text-yard-gold mb-3">Examples:</h4>
                     <ul className="space-y-2">
                       {item.examples.map((example, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-gray-600">
+                        <li key={idx} className="flex items-start gap-2 text-gray-400">
                           <div className="w-2 h-2 bg-logo-primary rounded-full mt-2 flex-shrink-0"></div>
                           {example}
                         </li>
@@ -158,8 +158,8 @@ const PrivacyPage = () => {
                     </ul>
                   </div>
                   <div>
-                    <h4 className="text-lg font-semibold text-logo-primary mb-3">Purpose:</h4>
-                    <p className="text-gray-600">{item.purpose}</p>
+                    <h4 className="text-lg font-semibold text-yard-gold mb-3">Purpose:</h4>
+                    <p className="text-gray-400">{item.purpose}</p>
                   </div>
                 </div>
               </div>
@@ -169,24 +169,24 @@ const PrivacyPage = () => {
       </section>
 
       {/* Data Sharing */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
-              How We <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Share</span> Data
+            <h2 className="text-4xl font-black text-white mb-6">
+              How We <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Share</span> Data
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               Clear guidelines on when and how your data might be shared
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {dataSharing.map((section, index) => (
-              <div key={index} className="soft-card p-8">
-                <h3 className="text-2xl font-bold text-gray-900 mb-6">{section.title}</h3>
+              <div key={index} className="border border-[#222] bg-[#111] p-8">
+                <h3 className="text-2xl font-bold text-white mb-6">{section.title}</h3>
                 <ul className="space-y-3">
                   {section.items.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-gray-600">
+                    <li key={idx} className="flex items-start gap-3 text-gray-400">
                       <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
                         section.title === 'We Never Share' ? 'bg-red-500' : 'bg-logo-primary'
                       }`}></div>
@@ -201,29 +201,29 @@ const PrivacyPage = () => {
       </section>
 
       {/* User Rights */}
-      <section className="py-20 bg-gradient-to-r from-logo-light to-logo-muted">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
-              Your <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Rights</span>
+            <h2 className="text-4xl font-black text-white mb-6">
+              Your <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Rights</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               You have complete control over your personal information
             </p>
           </div>
           
-          <div className="soft-card p-8">
+          <div className="border border-[#222] bg-[#111] p-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {userRights.map((right, index) => (
                 <div key={index} className="flex items-center gap-3">
                   <div className="w-3 h-3 bg-logo-primary rounded-full"></div>
-                  <span className="text-gray-700 font-medium">{right}</span>
+                  <span className="text-gray-300 font-medium">{right}</span>
                 </div>
               ))}
             </div>
             
             <div className="mt-8 text-center">
-              <p className="text-gray-600 mb-6">
+              <p className="text-gray-400 mb-6">
                 To exercise any of these rights, contact us using the information below.
               </p>
               <Button variant="glamour">
@@ -235,42 +235,42 @@ const PrivacyPage = () => {
       </section>
 
       {/* Contact & Updates */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="soft-card p-12">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
+          <div className="border border-[#222] bg-[#111] p-12">
+            <h2 className="text-4xl font-black text-white mb-6">
               Questions About Privacy?
             </h2>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
               Our privacy team is here to help with any questions about how we handle your data
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-left">
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Privacy Inquiries</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">Privacy Inquiries</h3>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-logo-primary" />
-                    <a href="mailto:info@yardvybz.news" className="text-logo-primary hover:underline">
+                    <Mail className="w-4 h-4 text-yard-gold" />
+                    <a href="mailto:info@yardvybz.news" className="text-yard-gold hover:underline">
                       info@yardvybz.news
                     </a>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Settings className="w-4 h-4 text-logo-primary" />
+                    <Settings className="w-4 h-4 text-yard-gold" />
                     <span>Privacy Settings in your account dashboard</span>
                   </div>
                 </div>
               </div>
               
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Policy Updates</h3>
+                <h3 className="text-lg font-semibold text-white mb-4">Policy Updates</h3>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-logo-primary" />
+                    <Calendar className="w-4 h-4 text-yard-gold" />
                     <span>Last updated: {lastUpdated}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Globe className="w-4 h-4 text-logo-primary" />
+                    <Globe className="w-4 h-4 text-yard-gold" />
                     <span>We'll notify you of any significant changes</span>
                   </div>
                 </div>

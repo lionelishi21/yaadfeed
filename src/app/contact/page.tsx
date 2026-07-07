@@ -80,15 +80,15 @@ const ContactPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
+    <div className="min-h-screen bg-yard-dark">
       <ClientHeader />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary text-white py-20 overflow-hidden">
+      <section className="relative bg-yard-gray border-b border-[#1a1a1a] text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl lg:text-6xl font-black mb-6 leading-tight">
-            Get in <span className="bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent">Touch</span>
+            Get in <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Touch</span>
           </h1>
           <p className="text-2xl lg:text-3xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
             We'd love to hear from you. Connect with the YardVybz team and let's build something amazing together.
@@ -97,13 +97,13 @@ const ContactPage = () => {
       </section>
 
       {/* Contact Information */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
-              Contact <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Information</span>
+            <h2 className="text-4xl font-black text-white mb-6">
+              Contact <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Information</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               Multiple ways to reach us. Choose what works best for you.
             </p>
           </div>
@@ -112,17 +112,17 @@ const ContactPage = () => {
             {contactInfo.map((info, index) => {
               const IconComponent = info.icon;
               return (
-                <div key={index} className="text-center soft-card p-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-logo-primary to-logo-secondary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-soft">
+                <div key={index} className="text-center border border-[#222] bg-[#111] p-8">
+                  <div className="w-16 h-16 bg-gradient-to-r from-yard-gold to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-soft">
                     <IconComponent className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">{info.title}</h3>
+                  <h3 className="text-xl font-bold text-white mb-4">{info.title}</h3>
                   <div className="space-y-2 mb-4">
                     {info.details.map((detail, idx) => (
-                      <div key={idx} className="text-logo-primary font-semibold">{detail}</div>
+                      <div key={idx} className="text-yard-gold font-semibold">{detail}</div>
                     ))}
                   </div>
-                  <p className="text-gray-600 text-sm">{info.description}</p>
+                  <p className="text-gray-400 text-sm">{info.description}</p>
                 </div>
               );
             })}
@@ -131,28 +131,28 @@ const ContactPage = () => {
       </section>
 
       {/* Contact Form */}
-      <section className="py-20 bg-gradient-to-r from-logo-light to-logo-muted">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
-              Send us a <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Message</span>
+            <h2 className="text-4xl font-black text-white mb-6">
+              Send us a <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Message</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
               Have a question, suggestion, or just want to say hello? We're all ears!
             </p>
           </div>
           
-          <div className="soft-card p-8 lg:p-12">
+          <div className="border border-[#222] bg-[#111] p-8 lg:p-12">
             {isSubmitted ? (
               <div className="text-center py-12">
-                <div className="w-20 h-20 bg-gradient-to-r from-logo-primary to-logo-secondary rounded-full flex items-center justify-center mx-auto mb-6 shadow-soft">
+                <div className="w-20 h-20 bg-gradient-to-r from-yard-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-soft">
                   <CheckCircle className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Message Sent Successfully!</h3>
-                <p className="text-gray-600 mb-6">
+                <h3 className="text-2xl font-bold text-white mb-4">Message Sent Successfully!</h3>
+                <p className="text-gray-400 mb-6">
                   Thank you for reaching out. We'll get back to you as soon as possible.
                 </p>
-                <div className="text-logo-primary font-semibold">
+                <div className="text-yard-gold font-semibold">
                   YardVybz Team
                 </div>
               </div>
@@ -160,7 +160,7 @@ const ContactPage = () => {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label htmlFor="name" className="block text-sm font-semibold text-gray-300 mb-2">
                       Full Name *
                     </label>
                     <input
@@ -170,13 +170,13 @@ const ContactPage = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent shadow-soft transition-all duration-200"
+                      className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent shadow-soft transition-all duration-200"
                       placeholder="Enter your full name"
                     />
                   </div>
                   
                   <div>
-                    <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                    <label htmlFor="email" className="block text-sm font-semibold text-gray-300 mb-2">
                       Email Address *
                     </label>
                     <input
@@ -186,14 +186,14 @@ const ContactPage = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent shadow-soft transition-all duration-200"
+                      className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent shadow-soft transition-all duration-200"
                       placeholder="Enter your email address"
                     />
                   </div>
                 </div>
                 
                 <div>
-                  <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label htmlFor="subject" className="block text-sm font-semibold text-gray-300 mb-2">
                     Subject *
                   </label>
                   <select
@@ -202,7 +202,7 @@ const ContactPage = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent shadow-soft transition-all duration-200"
+                    className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent shadow-soft transition-all duration-200"
                   >
                     <option value="">Select a subject</option>
                     {departments.map((dept) => (
@@ -214,7 +214,7 @@ const ContactPage = () => {
                 </div>
                 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
+                  <label htmlFor="message" className="block text-sm font-semibold text-gray-300 mb-2">
                     Message *
                   </label>
                   <textarea
@@ -224,7 +224,7 @@ const ContactPage = () => {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent shadow-soft transition-all duration-200 resize-none"
+                    className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent shadow-soft transition-all duration-200 resize-none"
                     placeholder="Tell us what's on your mind..."
                   />
                 </div>
@@ -257,13 +257,13 @@ const ContactPage = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
-              Frequently Asked <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Questions</span>
+            <h2 className="text-4xl font-black text-white mb-6">
+              Frequently Asked <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Questions</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-400">
               Quick answers to common questions
             </p>
           </div>
@@ -287,9 +287,9 @@ const ContactPage = () => {
                 answer: "We're always open to partnerships that align with our mission. Send us a message with 'Partnership' as your subject and let's discuss possibilities."
               }
             ].map((faq, index) => (
-              <div key={index} className="soft-card p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{faq.question}</h3>
-                <p className="text-gray-600">{faq.answer}</p>
+              <div key={index} className="border border-[#222] bg-[#111] p-6">
+                <h3 className="text-lg font-bold text-white mb-3">{faq.question}</h3>
+                <p className="text-gray-400">{faq.answer}</p>
               </div>
             ))}
           </div>
@@ -299,7 +299,7 @@ const ContactPage = () => {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-logo-primary via-logo-secondary to-logo-accent">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
+          <div className="bg-yard-dark/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
             <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">
               Let's Build Something Amazing
             </h2>
@@ -308,12 +308,12 @@ const ContactPage = () => {
               we're here to help make Jamaica's digital presence stronger.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-white/90 backdrop-blur-lg text-logo-primary hover:bg-white shadow-soft hover:shadow-soft-xl transition-all duration-300 text-xl font-bold px-8 py-4">
+              <Button className="bg-yard-dark/90 backdrop-blur-lg text-yard-gold hover:bg-yard-dark shadow-soft hover:shadow-soft-xl transition-all duration-300 text-xl font-bold px-8 py-4">
                 Start a Conversation
               </Button>
               <Button 
                 variant="outline" 
-                className="border-white/80 bg-white/10 backdrop-blur-lg text-white hover:bg-white hover:text-logo-primary shadow-soft text-xl font-bold px-8 py-4"
+                className="border-white/80 bg-yard-dark/10 backdrop-blur-lg text-white hover:bg-yard-dark hover:text-yard-gold shadow-soft text-xl font-bold px-8 py-4"
               >
                 Learn More
               </Button>
