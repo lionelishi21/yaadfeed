@@ -109,12 +109,12 @@ export default async function HomePage() {
           </p>
           <div className="flex gap-3.5 animate-fadeUp" style={{ animationDelay: '200ms' }}>
             <Link href={mainStory ? `/news/${mainStory.slug || mainStory._id}` : "/news"}>
-              <button className="bg-yard-gold text-yard-dark font-sans text-[13px] font-bold tracking-[1px] uppercase border-none py-3.5 px-7 hover:bg-white transition-colors">
+              <button className="bg-yard-gold text-yard-dark font-sans text-[13px] font-bold tracking-[1px] uppercase border-none py-3.5 px-7 hover:bg-yard-dark transition-colors">
                 Read Full Story →
               </button>
             </Link>
             <Link href="/news">
-              <button className="bg-transparent text-white font-sans text-[13px] font-semibold tracking-[0.8px] uppercase border border-white/20 py-3.5 px-7 hover:bg-white/10 transition-colors">
+              <button className="bg-transparent text-white font-sans text-[13px] font-semibold tracking-[0.8px] uppercase border border-white/20 py-3.5 px-7 hover:bg-yard-dark/10 transition-colors">
                 More News
               </button>
             </Link>
@@ -179,7 +179,7 @@ export default async function HomePage() {
               <div className="text-[12px] text-[#666] line-clamp-2 leading-snug">{artist.bio || 'Trending Artist'}</div>
             </div>
           )) : (
-            <div className="text-gray-500 text-sm">No trending artists found.</div>
+            <div className="text-gray-400 text-sm">No trending artists found.</div>
           )}
         </div>
       </section>

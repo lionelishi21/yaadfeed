@@ -94,10 +94,10 @@ const NewsletterPage = () => {
             <div className="w-16 h-16 bg-jamaica-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
               <Check className="w-8 h-8 text-white" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-white mb-4">
               Welcome to YardVybz!
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-400 mb-6">
               Thank you for subscribing, {firstName}! You'll receive your first newsletter this Friday.
             </p>
             <Button onClick={() => setShowSuccess(false)} className="w-full">
@@ -124,7 +124,7 @@ const NewsletterPage = () => {
             Join thousands of readers who get exclusive access to the best of Jamaican news, 
             music, and culture delivered directly to their inbox.
           </p>
-          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 inline-block">
+          <div className="bg-yard-dark/10 backdrop-blur-sm rounded-xl p-6 inline-block">
             <div className="text-3xl font-bold mb-2">$5/month</div>
             <div className="text-white/80">Cancel anytime</div>
           </div>
@@ -132,13 +132,13 @@ const NewsletterPage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-white mb-4">
               What You'll Get
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Our premium newsletter offers exclusive content and insights you won't find anywhere else
             </p>
           </div>
@@ -151,10 +151,10 @@ const NewsletterPage = () => {
                   <div className="w-16 h-16 bg-gradient-to-br from-jamaica-green-500 to-jamaica-gold-500 rounded-full flex items-center justify-center mx-auto mb-4">
                     <IconComponent className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  <h3 className="text-lg font-semibold text-white mb-3">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-400">
                     {feature.description}
                   </p>
                 </Card>
@@ -165,18 +165,18 @@ const NewsletterPage = () => {
       </section>
 
       {/* Subscription Form */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-yard-gray">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Form */}
             <Card className="p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">
+              <h3 className="text-2xl font-bold text-white mb-6">
                 Subscribe Today
               </h3>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">
                     First Name
                   </label>
                   <input
@@ -184,14 +184,14 @@ const NewsletterPage = () => {
                     id="firstName"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-jamaica-green-500 focus:border-transparent outline-none"
+                    className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-lg focus:ring-2 focus:ring-jamaica-green-500 focus:border-transparent outline-none"
                     placeholder="Enter your first name"
                     required
                   />
                 </div>
                 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                     Email Address
                   </label>
                   <input
@@ -199,7 +199,7 @@ const NewsletterPage = () => {
                     id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-jamaica-green-500 focus:border-transparent outline-none"
+                    className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-lg focus:ring-2 focus:ring-jamaica-green-500 focus:border-transparent outline-none"
                     placeholder="Enter your email address"
                     required
                   />
@@ -223,7 +223,7 @@ const NewsletterPage = () => {
               </form>
 
               <div className="mt-6 text-center">
-                <div className="flex items-center justify-center space-x-2 text-sm text-gray-500">
+                <div className="flex items-center justify-center space-x-2 text-sm text-gray-400">
                   <Shield className="w-4 h-4" />
                   <span>Secure payment • Cancel anytime • No hidden fees</span>
                 </div>
@@ -232,7 +232,7 @@ const NewsletterPage = () => {
 
             {/* Benefits */}
             <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">
+              <h3 className="text-2xl font-bold text-white mb-6">
                 Why Choose YardVybz Premium?
               </h3>
               
@@ -249,7 +249,7 @@ const NewsletterPage = () => {
                     <div className="w-6 h-6 bg-jamaica-green-500 rounded-full flex items-center justify-center flex-shrink-0">
                       <Check className="w-4 h-4 text-white" />
                     </div>
-                    <span className="text-gray-700">{benefit}</span>
+                    <span className="text-gray-300">{benefit}</span>
                   </div>
                 ))}
               </div>
@@ -259,13 +259,13 @@ const NewsletterPage = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-white mb-4">
               What Our Subscribers Say
             </h2>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-400 text-lg">
               Join the community of satisfied readers
             </p>
           </div>
@@ -278,12 +278,12 @@ const NewsletterPage = () => {
                     <Star key={i} className="w-5 h-5 text-jamaica-gold-500 fill-current" />
                   ))}
                 </div>
-                <p className="text-gray-600 italic mb-4">
+                <p className="text-gray-400 italic mb-4">
                   "{testimonial.quote}"
                 </p>
                 <div>
-                  <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                  <div className="text-gray-500 text-sm">{testimonial.location}</div>
+                  <div className="font-semibold text-white">{testimonial.name}</div>
+                  <div className="text-gray-400 text-sm">{testimonial.location}</div>
                 </div>
               </Card>
             ))}
@@ -292,10 +292,10 @@ const NewsletterPage = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-yard-gray">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-white mb-4">
               Frequently Asked Questions
             </h2>
           </div>
@@ -320,10 +320,10 @@ const NewsletterPage = () => {
               }
             ].map((faq, index) => (
               <Card key={index} className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                <h3 className="text-lg font-semibold text-white mb-2">
                   {faq.question}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-400">
                   {faq.answer}
                 </p>
               </Card>

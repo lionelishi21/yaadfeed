@@ -228,18 +228,18 @@ const AdminMusicPage = () => {
       'hip-hop': 'bg-blue-100 text-blue-800',
       'reggae-fusion': 'bg-indigo-100 text-indigo-800'
     };
-    return colors[genre] || 'bg-gray-100 text-gray-800';
+    return colors[genre] || 'bg-gray-100 text-gray-200';
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted p-6">
+      <div className="min-h-screen bg-yard-dark p-6">
         <div className="max-w-7xl mx-auto">
           <div className="animate-pulse">
             <div className="h-8 bg-gray-200 rounded w-1/4 mb-6"></div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="bg-white rounded-lg p-6 shadow-soft">
+                <div key={i} className="bg-yard-dark rounded-lg p-6 shadow-soft">
                   <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
                   <div className="h-3 bg-gray-200 rounded w-1/2 mb-2"></div>
                   <div className="h-3 bg-gray-200 rounded w-1/3"></div>
@@ -253,17 +253,17 @@ const AdminMusicPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted p-6">
+    <div className="min-h-screen bg-yard-dark p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="glass rounded-xl p-6 mb-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
-                <Music className="w-8 h-8 text-logo-primary" />
+              <h1 className="text-3xl font-bold text-white flex items-center gap-3">
+                <Music className="w-8 h-8 text-yard-gold" />
                 Artist Management
               </h1>
-              <p className="text-gray-600 mt-1">
+              <p className="text-gray-400 mt-1">
                 Manage artist profiles, content, and analytics
               </p>
             </div>
@@ -288,42 +288,42 @@ const AdminMusicPage = () => {
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-          <div className="soft-card p-6">
+          <div className="border border-[#222] bg-[#111] p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Artists</p>
-                <p className="text-2xl font-bold text-gray-900">{artists.length}</p>
+                <p className="text-sm font-medium text-gray-400">Total Artists</p>
+                <p className="text-2xl font-bold text-white">{artists.length}</p>
               </div>
-              <Users className="w-8 h-8 text-logo-primary" />
+              <Users className="w-8 h-8 text-yard-gold" />
             </div>
           </div>
-          <div className="soft-card p-6">
+          <div className="border border-[#222] bg-[#111] p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Verified Artists</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-sm font-medium text-gray-400">Verified Artists</p>
+                <p className="text-2xl font-bold text-white">
                   {artists.filter(a => a.isVerified).length}
                 </p>
               </div>
               <CheckCircle className="w-8 h-8 text-green-500" />
             </div>
           </div>
-          <div className="soft-card p-6">
+          <div className="border border-[#222] bg-[#111] p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Articles</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-sm font-medium text-gray-400">Total Articles</p>
+                <p className="text-2xl font-bold text-white">
                   {artists.reduce((sum, a) => sum + (a.articleCount || 0), 0)}
                 </p>
               </div>
               <TrendingUp className="w-8 h-8 text-blue-500" />
             </div>
           </div>
-          <div className="soft-card p-6">
+          <div className="border border-[#222] bg-[#111] p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-gray-600">Total Views</p>
-                <p className="text-2xl font-bold text-gray-900">
+                <p className="text-sm font-medium text-gray-400">Total Views</p>
+                <p className="text-2xl font-bold text-white">
                   {artists.reduce((sum, a) => sum + (a.totalViews || 0), 0).toLocaleString()}
                 </p>
               </div>
@@ -396,7 +396,7 @@ const AdminMusicPage = () => {
         {selectedArtists.length > 0 && (
           <div className="glass rounded-xl p-4 mb-6 bg-logo-primary/10 border border-logo-primary/20">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-medium text-gray-300">
                 {selectedArtists.length} artist{selectedArtists.length !== 1 ? 's' : ''} selected
               </span>
               <div className="flex gap-2">
@@ -409,7 +409,7 @@ const AdminMusicPage = () => {
                 </button>
                 <button
                   onClick={() => setSelectedArtists([])}
-                  className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                  className="px-4 py-2 bg-yard-gray0 text-white rounded-lg hover:bg-gray-600 transition-colors"
                 >
                   Clear Selection
                 </button>
@@ -421,16 +421,16 @@ const AdminMusicPage = () => {
         {/* Artists Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredArtists.map((artist) => (
-            <div key={artist.id} className="soft-card p-6 hover:shadow-lg transition-shadow">
+            <div key={artist.id} className="border border-[#222] bg-[#111] p-6 hover:shadow-lg transition-shadow">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <input
                     type="checkbox"
                     checked={selectedArtists.includes(artist.id)}
                     onChange={() => handleSelectArtist(artist.id)}
-                    className="w-4 h-4 text-logo-primary border-gray-300 rounded focus:ring-logo-primary"
+                    className="w-4 h-4 text-yard-gold border-[#333] bg-[#222] text-white rounded focus:ring-logo-primary"
                   />
-                  <div className="w-12 h-12 bg-gradient-to-br from-logo-primary to-logo-secondary rounded-full flex items-center justify-center text-white font-bold text-lg">
+                  <div className="w-12 h-12 bg-gradient-to-br from-yard-gold to-yellow-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
                     {artist.name.charAt(0).toUpperCase()}
                   </div>
                 </div>
@@ -447,9 +447,9 @@ const AdminMusicPage = () => {
               </div>
 
               <div className="mb-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">{artist.name}</h3>
+                <h3 className="text-lg font-semibold text-white mb-1">{artist.name}</h3>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="text-sm text-gray-600 flex items-center gap-1">
+                  <span className="text-sm text-gray-400 flex items-center gap-1">
                     {getCountryFlag(artist.birthPlace || '')} {artist.birthPlace}
                   </span>
                   {artist.genres && artist.genres.length > 0 && (
@@ -459,22 +459,22 @@ const AdminMusicPage = () => {
                   )}
                 </div>
                 {artist.bio && (
-                  <p className="text-sm text-gray-600 line-clamp-2">{artist.bio}</p>
+                  <p className="text-sm text-gray-400 line-clamp-2">{artist.bio}</p>
                 )}
               </div>
 
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-gray-900">{artist.followers?.toLocaleString() || '0'}</p>
-                  <p className="text-xs text-gray-500">Followers</p>
+                  <p className="text-2xl font-bold text-white">{artist.followers?.toLocaleString() || '0'}</p>
+                  <p className="text-xs text-gray-400">Followers</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl font-bold text-gray-900">{artist.articleCount || 0}</p>
-                  <p className="text-xs text-gray-500">Articles</p>
+                  <p className="text-2xl font-bold text-white">{artist.articleCount || 0}</p>
+                  <p className="text-xs text-gray-400">Articles</p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+              <div className="flex items-center justify-between text-sm text-gray-400 mb-4">
                 <span>Last article: {artist.lastArticleDate ? new Date(artist.lastArticleDate).toLocaleDateString() : 'Never'}</span>
                 <span>{artist.totalViews?.toLocaleString() || 0} views</span>
               </div>
@@ -489,7 +489,7 @@ const AdminMusicPage = () => {
                 </button>
                 <button
                   onClick={() => window.open(`/artists/${artist.id}`, '_blank')}
-                  className="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                  className="px-3 py-2 bg-gray-100 text-gray-300 rounded-lg hover:bg-gray-200 transition-colors"
                 >
                   <ExternalLink className="w-4 h-4" />
                 </button>
@@ -507,8 +507,8 @@ const AdminMusicPage = () => {
         {filteredArtists.length === 0 && (
           <div className="text-center py-12">
             <Music className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No artists found</h3>
-            <p className="text-gray-500 mb-4">
+            <h3 className="text-lg font-medium text-white mb-2">No artists found</h3>
+            <p className="text-gray-400 mb-4">
               {searchQuery || selectedGenre !== 'all' || selectedCountry !== 'all'
                 ? 'Try adjusting your filters or search terms'
                 : 'Get started by adding your first artist'

@@ -208,13 +208,13 @@ export default function AdminDashboard() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
-          <p className="text-gray-600 mt-1">Welcome back! Here's what's happening with YardVybz.</p>
+          <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
+          <p className="text-gray-400 mt-1">Welcome back! Here's what's happening with YardVybz.</p>
         </div>
         <div className="flex items-center space-x-4">
           <div className="text-right">
-            <p className="text-sm text-gray-500">Last updated</p>
-            <p className="text-sm font-medium text-gray-900">{new Date().toLocaleTimeString()}</p>
+            <p className="text-sm text-gray-400">Last updated</p>
+            <p className="text-sm font-medium text-white">{new Date().toLocaleTimeString()}</p>
           </div>
           <div className="w-3 h-3 bg-green-500 animate-pulse"></div>
         </div>
@@ -222,11 +222,11 @@ export default function AdminDashboard() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white/10 backdrop-blur-md p-6 rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20">
+        <div className="bg-yard-dark/10 backdrop-blur-md p-6 rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Total Articles</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalArticles.toLocaleString()}</p>
+              <p className="text-sm font-medium text-gray-400">Total Articles</p>
+              <p className="text-2xl font-bold text-white">{stats.totalArticles.toLocaleString()}</p>
               <p className="text-sm text-green-600 mt-1">+12% from last month</p>
             </div>
             <div className="p-3 bg-blue-50">
@@ -235,11 +235,11 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-md p-6 rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20">
+        <div className="bg-yard-dark/10 backdrop-blur-md p-6 rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Monthly Views</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.monthlyViews.toLocaleString()}</p>
+              <p className="text-sm font-medium text-gray-400">Monthly Views</p>
+              <p className="text-2xl font-bold text-white">{stats.monthlyViews.toLocaleString()}</p>
               <p className="text-sm text-green-600 mt-1">+18% from last month</p>
             </div>
             <div className="p-3 bg-green-50">
@@ -248,11 +248,11 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-md p-6 rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20">
+        <div className="bg-yard-dark/10 backdrop-blur-md p-6 rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Ad Revenue</p>
-              <p className="text-2xl font-bold text-gray-900">${stats.adRevenue.toFixed(2)}</p>
+              <p className="text-sm font-medium text-gray-400">Ad Revenue</p>
+              <p className="text-2xl font-bold text-white">${stats.adRevenue.toFixed(2)}</p>
               <p className="text-sm text-green-600 mt-1">+25% from last month</p>
             </div>
             <div className="p-3 bg-yellow-50">
@@ -261,11 +261,11 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-md p-6 rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20">
+        <div className="bg-yard-dark/10 backdrop-blur-md p-6 rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">AI Images</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalImages}</p>
+              <p className="text-sm font-medium text-gray-400">AI Images</p>
+              <p className="text-2xl font-bold text-white">{stats.totalImages}</p>
               <p className="text-sm text-purple-600 mt-1">95% cost savings</p>
             </div>
             <div className="p-3 bg-purple-50">
@@ -276,8 +276,8 @@ export default function AdminDashboard() {
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white/10 backdrop-blur-md rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20 p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h2>
+      <div className="bg-yard-dark/10 backdrop-blur-md rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20 p-6">
+        <h2 className="text-xl font-semibold text-white mb-4">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {quickActions.map((action) => {
             const Icon = action.icon;
@@ -285,17 +285,17 @@ export default function AdminDashboard() {
               <Link
                 key={action.href}
                 href={action.href}
-                className="p-4 border border-white/20 bg-white/5 backdrop-blur hover:shadow-md transition-shadow group rounded-none"
+                className="p-4 border border-white/20 bg-yard-dark/5 backdrop-blur hover:shadow-md transition-shadow group rounded-none"
               >
                 <div className="flex items-start space-x-3">
                   <div className={`p-2 ${action.bgColor} group-hover:scale-110 transition-transform`}>
                     <Icon className={`w-5 h-5 ${action.color}`} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-medium text-gray-900 group-hover:text-green-600 transition-colors">
+                    <h3 className="font-medium text-white group-hover:text-green-600 transition-colors">
                       {action.title}
                     </h3>
-                    <p className="text-sm text-gray-600 mt-1">{action.description}</p>
+                    <p className="text-sm text-gray-400 mt-1">{action.description}</p>
                   </div>
                 </div>
               </Link>
@@ -312,13 +312,13 @@ export default function AdminDashboard() {
       {/* Dashboard Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Activity */}
-        <div className="lg:col-span-2 bg-white/10 backdrop-blur-md rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
+        <div className="lg:col-span-2 bg-yard-dark/10 backdrop-blur-md rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20 p-6">
+          <h2 className="text-xl font-semibold text-white mb-4">Recent Activity</h2>
           <div className="space-y-4">
             {recentActivity.map((activity) => {
               const Icon = getIconComponent(activity.icon);
               return (
-                <div key={activity.id} className="flex items-center space-x-3 p-3 bg-white/5 backdrop-blur">
+                <div key={activity.id} className="flex items-center space-x-3 p-3 bg-yard-dark/5 backdrop-blur">
                   <div className={`p-2 ${
                     activity.status === 'success' ? 'bg-green-100' :
                     activity.status === 'warning' ? 'bg-yellow-100' : 'bg-blue-100'
@@ -329,8 +329,8 @@ export default function AdminDashboard() {
                     }`} />
                   </div>
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-900">{activity.action}</p>
-                    <p className="text-xs text-gray-500">{activity.time}</p>
+                    <p className="text-sm font-medium text-white">{activity.action}</p>
+                    <p className="text-xs text-gray-400">{activity.time}</p>
                   </div>
                 </div>
               );
@@ -339,39 +339,39 @@ export default function AdminDashboard() {
         </div>
 
         {/* System Status */}
-        <div className="bg-white/10 backdrop-blur-md rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">System Status</h2>
+        <div className="bg-yard-dark/10 backdrop-blur-md rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20 p-6">
+          <h2 className="text-xl font-semibold text-white mb-4">System Status</h2>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Database</span>
+              <span className="text-sm text-gray-400">Database</span>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500"></div>
                 <span className="text-sm font-medium text-green-600">Healthy</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">API Services</span>
+              <span className="text-sm text-gray-400">API Services</span>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500"></div>
                 <span className="text-sm font-medium text-green-600">Online</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">AdSense</span>
+              <span className="text-sm text-gray-400">AdSense</span>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500"></div>
                 <span className="text-sm font-medium text-green-600">Active</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">OpenAI</span>
+              <span className="text-sm text-gray-400">OpenAI</span>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-green-500"></div>
                 <span className="text-sm font-medium text-green-600">Connected</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Image Storage</span>
+              <span className="text-sm text-gray-400">Image Storage</span>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-yellow-500"></div>
                 <span className="text-sm font-medium text-yellow-600">75% Full</span>
@@ -380,10 +380,10 @@ export default function AdminDashboard() {
           </div>
 
           <div className="mt-6 pt-4 border-t border-gray-200">
-            <h3 className="text-sm font-medium text-gray-900 mb-2">Performance</h3>
+            <h3 className="text-sm font-medium text-white mb-2">Performance</h3>
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-gray-600">Page Speed</span>
+                <span className="text-gray-400">Page Speed</span>
                 <span className="font-medium">94/100</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">

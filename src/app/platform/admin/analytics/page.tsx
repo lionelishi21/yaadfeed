@@ -82,14 +82,14 @@ export default function AnalyticsPage() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Analytics Dashboard</h1>
-          <p className="mt-2 text-gray-600">Track your website performance and user engagement</p>
+          <h1 className="text-3xl font-bold text-white">Analytics Dashboard</h1>
+          <p className="mt-2 text-gray-400">Track your website performance and user engagement</p>
         </div>
         <div className="flex space-x-3">
           <select
             value={timeRange}
             onChange={(e) => setTimeRange(e.target.value as any)}
-            className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-green-500 focus:border-green-500"
+            className="border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2 text-sm focus:ring-green-500 focus:border-green-500"
           >
             <option value="7d">Last 7 days</option>
             <option value="30d">Last 30 days</option>
@@ -108,11 +108,11 @@ export default function AnalyticsPage() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+        <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Page Views</p>
-              <p className="text-2xl font-bold text-gray-900">{analytics.pageViews.toLocaleString()}</p>
+              <p className="text-sm font-medium text-gray-400">Page Views</p>
+              <p className="text-2xl font-bold text-white">{analytics.pageViews.toLocaleString()}</p>
               <p className="text-sm text-green-600 mt-1">+18% from last period</p>
             </div>
             <div className="p-3 bg-blue-50 rounded-lg">
@@ -121,11 +121,11 @@ export default function AnalyticsPage() {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+        <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Unique Visitors</p>
-              <p className="text-2xl font-bold text-gray-900">{analytics.uniqueVisitors.toLocaleString()}</p>
+              <p className="text-sm font-medium text-gray-400">Unique Visitors</p>
+              <p className="text-2xl font-bold text-white">{analytics.uniqueVisitors.toLocaleString()}</p>
               <p className="text-sm text-green-600 mt-1">+12% from last period</p>
             </div>
             <div className="p-3 bg-green-50 rounded-lg">
@@ -134,11 +134,11 @@ export default function AnalyticsPage() {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+        <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Avg. Session Duration</p>
-              <p className="text-2xl font-bold text-gray-900">{analytics.avgSessionDuration}</p>
+              <p className="text-sm font-medium text-gray-400">Avg. Session Duration</p>
+              <p className="text-2xl font-bold text-white">{analytics.avgSessionDuration}</p>
               <p className="text-sm text-green-600 mt-1">+8% from last period</p>
             </div>
             <div className="p-3 bg-purple-50 rounded-lg">
@@ -147,11 +147,11 @@ export default function AnalyticsPage() {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+        <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Bounce Rate</p>
-              <p className="text-2xl font-bold text-gray-900">{analytics.bounceRate}%</p>
+              <p className="text-sm font-medium text-gray-400">Bounce Rate</p>
+              <p className="text-2xl font-bold text-white">{analytics.bounceRate}%</p>
               <p className="text-sm text-red-600 mt-1">-5% from last period</p>
             </div>
             <div className="p-3 bg-orange-50 rounded-lg">
@@ -176,7 +176,7 @@ export default function AnalyticsPage() {
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === tab.key
                   ? 'border-green-500 text-green-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-[#333] bg-[#222] text-white'
               }`}
             >
               {tab.label}
@@ -210,7 +210,7 @@ export default function AnalyticsPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+            <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
               <h3 className="text-lg font-semibold mb-4">Device Breakdown</h3>
               <div className="space-y-4">
                 {analytics.deviceBreakdown.map((device) => (
@@ -226,7 +226,7 @@ export default function AnalyticsPage() {
                           style={{ width: `${device.percentage}%` }}
                         ></div>
                       </div>
-                      <span className="text-sm font-medium text-gray-600 w-12 text-right">
+                      <span className="text-sm font-medium text-gray-400 w-12 text-right">
                         {device.percentage}%
                       </span>
                     </div>
@@ -235,7 +235,7 @@ export default function AnalyticsPage() {
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+            <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
               <h3 className="text-lg font-semibold mb-4">Top Content</h3>
               <div className="space-y-3">
                 {analytics.topPages.slice(0, 5).map((page, index) => (
@@ -248,7 +248,7 @@ export default function AnalyticsPage() {
                       </div>
                       <span className="text-sm truncate max-w-xs">{page.page}</span>
                     </div>
-                    <span className="text-sm font-medium text-gray-600">
+                    <span className="text-sm font-medium text-gray-400">
                       {page.views.toLocaleString()}
                     </span>
                   </div>
@@ -261,24 +261,24 @@ export default function AnalyticsPage() {
 
       {activeTab === 'traffic' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+          <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
             <h3 className="text-lg font-semibold mb-4">Traffic Sources</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {analytics.trafficSources.map((source, index) => (
                 <div key={source.source} className="p-4 border border-gray-200 rounded-lg">
                   <div className="flex items-center justify-between mb-3">
-                    <h4 className="font-medium text-gray-900">{source.source}</h4>
+                    <h4 className="font-medium text-white">{source.source}</h4>
                     <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
                       {index === 0 ? <Target className="w-4 h-4 text-blue-600" /> : <Globe className="w-4 h-4 text-blue-600" />}
                     </div>
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">Visitors</span>
+                      <span className="text-sm text-gray-400">Visitors</span>
                       <span className="text-sm font-medium">{source.visitors.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-600">Share</span>
+                      <span className="text-sm text-gray-400">Share</span>
                       <span className="text-sm font-medium">{source.percentage}%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
@@ -297,11 +297,11 @@ export default function AnalyticsPage() {
 
       {activeTab === 'content' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+          <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
             <h3 className="text-lg font-semibold mb-4">Top Performing Content</h3>
             <div className="space-y-4">
               {analytics.topPages.map((page, index) => (
-                <div key={page.page} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div key={page.page} className="flex items-center justify-between p-3 bg-yard-gray rounded-lg">
                   <div className="flex items-center space-x-3">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
                       index === 0 ? 'bg-yellow-500' : index === 1 ? 'bg-gray-400' : 'bg-amber-600'
@@ -312,7 +312,7 @@ export default function AnalyticsPage() {
                   </div>
                   <div className="text-right">
                     <p className="font-semibold text-green-600">{page.views.toLocaleString()}</p>
-                    <p className="text-xs text-gray-500">{page.percentage}% of traffic</p>
+                    <p className="text-xs text-gray-400">{page.percentage}% of traffic</p>
                   </div>
                 </div>
               ))}
@@ -323,7 +323,7 @@ export default function AnalyticsPage() {
 
       {activeTab === 'audience' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+          <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
             <h3 className="text-lg font-semibold mb-4">Geographic Distribution</h3>
             <div className="space-y-4">
               {analytics.geographicData.map((country) => (
@@ -339,10 +339,10 @@ export default function AnalyticsPage() {
                         style={{ width: `${country.percentage}%` }}
                       ></div>
                     </div>
-                    <span className="text-sm font-medium text-gray-600 w-10 text-right">
+                    <span className="text-sm font-medium text-gray-400 w-10 text-right">
                       {country.percentage}%
                     </span>
-                    <span className="text-sm text-gray-500 w-16 text-right">
+                    <span className="text-sm text-gray-400 w-16 text-right">
                       {country.visitors.toLocaleString()}
                     </span>
                   </div>

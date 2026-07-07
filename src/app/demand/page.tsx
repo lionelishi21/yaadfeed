@@ -101,11 +101,11 @@ export default function DemandPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(6)].map((_, i) => (
                 <div key={i} className="h-80 bg-[#141414] border border-white/5 animate-pulse p-8">
-                  <div className="h-6 bg-white/10 rounded mb-4 w-3/4"></div>
-                  <div className="h-4 bg-white/10 rounded mb-2 w-full"></div>
-                  <div className="h-4 bg-white/10 rounded mb-2 w-full"></div>
-                  <div className="h-4 bg-white/10 rounded mb-6 w-5/6"></div>
-                  <div className="h-8 bg-white/10 rounded w-1/3 mt-auto"></div>
+                  <div className="h-6 bg-yard-dark/10 rounded mb-4 w-3/4"></div>
+                  <div className="h-4 bg-yard-dark/10 rounded mb-2 w-full"></div>
+                  <div className="h-4 bg-yard-dark/10 rounded mb-2 w-full"></div>
+                  <div className="h-4 bg-yard-dark/10 rounded mb-6 w-5/6"></div>
+                  <div className="h-8 bg-yard-dark/10 rounded w-1/3 mt-auto"></div>
                 </div>
               ))}
             </div>
@@ -118,7 +118,7 @@ export default function DemandPage() {
             <div className="text-center py-20 border border-white/5 bg-[#141414]">
               <div className="text-white text-xl font-semibold mb-4">No Demands Yet</div>
               <p className="text-[#888] mb-6">Be the first to request an artist in your area!</p>
-              <Button onClick={handleCreateDemand} className="bg-yard-gold text-black hover:bg-white transition-colors">
+              <Button onClick={handleCreateDemand} className="bg-yard-gold text-black hover:bg-yard-dark transition-colors">
                 Create First Demand
               </Button>
             </div>
@@ -195,7 +195,7 @@ export default function DemandPage() {
               Create a demand and rally your community to bring your favorite artists to perform live in your area.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button onClick={handleCreateDemand} className="bg-yard-gold text-black hover:bg-white font-bold tracking-[1px] uppercase transition-colors px-8 py-4">
+              <Button onClick={handleCreateDemand} className="bg-yard-gold text-black hover:bg-yard-dark font-bold tracking-[1px] uppercase transition-colors px-8 py-4">
                 Create Demand
               </Button>
             </div>

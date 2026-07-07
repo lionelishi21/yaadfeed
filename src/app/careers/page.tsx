@@ -173,15 +173,15 @@ const CareersPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
+    <div className="min-h-screen bg-yard-dark">
       <ClientHeader />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary text-white py-20 overflow-hidden">
+      <section className="relative bg-yard-gray border-b border-[#1a1a1a] text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl lg:text-6xl font-black mb-6 leading-tight">
-            Join Our <span className="bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent">Team</span>
+            Join Our <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Team</span>
           </h1>
           <p className="text-2xl lg:text-3xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
             Help us build the digital bridge that connects Jamaica to the world. 
@@ -191,7 +191,7 @@ const CareersPage = () => {
             <Button variant="glamour" size="lg">
               View Open Positions
             </Button>
-            <Button variant="outline" className="border-white/30 text-white hover:bg-white hover:text-logo-primary">
+            <Button variant="outline" className="border-white/30 text-white hover:bg-yard-dark hover:text-yard-gold">
               Learn About Culture
             </Button>
           </div>
@@ -199,13 +199,13 @@ const CareersPage = () => {
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
-              Our <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Values</span>
+            <h2 className="text-4xl font-black text-white mb-6">
+              Our <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Values</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               The principles that guide our work and shape our culture
             </p>
           </div>
@@ -214,12 +214,12 @@ const CareersPage = () => {
             {values.map((value, index) => {
               const IconComponent = value.icon;
               return (
-                <div key={index} className="soft-card p-8">
+                <div key={index} className="border border-[#222] bg-[#111] p-8">
                   <div className="w-16 h-16 bg-gradient-to-r from-logo-primary/20 to-logo-secondary/20 rounded-2xl flex items-center justify-center mb-6">
-                    <IconComponent className="w-8 h-8 text-logo-primary" />
+                    <IconComponent className="w-8 h-8 text-yard-gold" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{value.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                  <h3 className="text-2xl font-bold text-white mb-4">{value.title}</h3>
+                  <p className="text-gray-400 leading-relaxed">{value.description}</p>
                 </div>
               );
             })}
@@ -228,13 +228,13 @@ const CareersPage = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 bg-gradient-to-r from-logo-light to-logo-muted">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
-              Why Work at <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">YardVybz</span>
+            <h2 className="text-4xl font-black text-white mb-6">
+              Why Work at <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">YardVybz</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               We believe in taking care of our team so they can do their best work
             </p>
           </div>
@@ -243,12 +243,12 @@ const CareersPage = () => {
             {benefits.map((benefit, index) => {
               const IconComponent = benefit.icon;
               return (
-                <div key={index} className="text-center soft-card p-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-logo-primary to-logo-secondary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-soft">
+                <div key={index} className="text-center border border-[#222] bg-[#111] p-8">
+                  <div className="w-16 h-16 bg-gradient-to-r from-yard-gold to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-soft">
                     <IconComponent className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">{benefit.title}</h3>
-                  <p className="text-gray-600 text-sm">{benefit.description}</p>
+                  <h3 className="text-xl font-bold text-white mb-4">{benefit.title}</h3>
+                  <p className="text-gray-400 text-sm">{benefit.description}</p>
                 </div>
               );
             })}
@@ -257,13 +257,13 @@ const CareersPage = () => {
       </section>
 
       {/* Job Openings Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
-              Open <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Positions</span>
+            <h2 className="text-4xl font-black text-white mb-6">
+              Open <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Positions</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               Find the perfect role that matches your skills and passion
             </p>
           </div>
@@ -273,7 +273,7 @@ const CareersPage = () => {
             <select
               value={selectedDepartment}
               onChange={(e) => setSelectedDepartment(e.target.value)}
-              className="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent shadow-soft"
+              className="px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent shadow-soft"
             >
               {departments.map((dept) => (
                 <option key={dept.value} value={dept.value}>
@@ -285,7 +285,7 @@ const CareersPage = () => {
             <select
               value={selectedLocation}
               onChange={(e) => setSelectedLocation(e.target.value)}
-              className="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-logo-primary/30 focus:border-transparent shadow-soft"
+              className="px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent shadow-soft"
             >
               {locations.map((loc) => (
                 <option key={loc.value} value={loc.value}>
@@ -297,17 +297,17 @@ const CareersPage = () => {
           
           <div className="space-y-8">
             {filteredJobs.map((job) => (
-              <div key={job.id} className="soft-card p-8">
+              <div key={job.id} className="border border-[#222] bg-[#111] p-8">
                 <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <h3 className="text-2xl font-bold text-gray-900">{job.title}</h3>
+                      <h3 className="text-2xl font-bold text-white">{job.title}</h3>
                       <span className="bg-gradient-to-r from-logo-primary to-logo-primary/90 text-white px-3 py-1 rounded-xl text-sm font-semibold shadow-soft">
                         {job.type}
                       </span>
                     </div>
                     
-                    <div className="flex flex-wrap items-center gap-4 mb-4 text-sm text-gray-600">
+                    <div className="flex flex-wrap items-center gap-4 mb-4 text-sm text-gray-400">
                       <div className="flex items-center gap-2">
                         <Briefcase className="w-4 h-4" />
                         <span>{departments.find(d => d.value === job.department)?.label}</span>
@@ -326,14 +326,14 @@ const CareersPage = () => {
                       </div>
                     </div>
                     
-                    <p className="text-gray-600 mb-6 leading-relaxed">{job.description}</p>
+                    <p className="text-gray-400 mb-6 leading-relaxed">{job.description}</p>
                     
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <h4 className="font-semibold text-gray-900 mb-3">Requirements:</h4>
+                        <h4 className="font-semibold text-white mb-3">Requirements:</h4>
                         <ul className="space-y-2">
                           {job.requirements.map((req, idx) => (
-                            <li key={idx} className="flex items-center gap-2 text-sm text-gray-600">
+                            <li key={idx} className="flex items-center gap-2 text-sm text-gray-400">
                               <div className="w-2 h-2 bg-logo-primary rounded-full"></div>
                               {req}
                             </li>
@@ -342,10 +342,10 @@ const CareersPage = () => {
                       </div>
                       
                       <div>
-                        <h4 className="font-semibold text-gray-900 mb-3">Benefits:</h4>
+                        <h4 className="font-semibold text-white mb-3">Benefits:</h4>
                         <ul className="space-y-2">
                           {job.benefits.map((benefit, idx) => (
-                            <li key={idx} className="flex items-center gap-2 text-sm text-gray-600">
+                            <li key={idx} className="flex items-center gap-2 text-sm text-gray-400">
                               <div className="w-2 h-2 bg-logo-secondary rounded-full"></div>
                               {benefit}
                             </li>
@@ -367,11 +367,11 @@ const CareersPage = () => {
             
             {filteredJobs.length === 0 && (
               <div className="text-center py-16">
-                <div className="w-24 h-24 bg-gradient-to-r from-logo-primary to-logo-secondary rounded-full flex items-center justify-center mx-auto mb-6 shadow-soft">
+                <div className="w-24 h-24 bg-gradient-to-r from-yard-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-soft">
                   <Briefcase className="w-12 h-12 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">No positions found</h3>
-                <p className="text-gray-600 mb-6">
+                <h3 className="text-2xl font-bold text-white mb-4">No positions found</h3>
+                <p className="text-gray-400 mb-6">
                   No positions match your current filters. Try adjusting your criteria or check back later.
                 </p>
                 <Button 
@@ -392,7 +392,7 @@ const CareersPage = () => {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-logo-primary via-logo-secondary to-logo-accent">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
+          <div className="bg-yard-dark/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
             <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">
               Don't See the Right Fit?
             </h2>
@@ -401,12 +401,12 @@ const CareersPage = () => {
               Send us your resume and let's start a conversation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-white/90 backdrop-blur-lg text-logo-primary hover:bg-white shadow-soft hover:shadow-soft-xl transition-all duration-300 text-xl font-bold px-8 py-4">
+              <Button className="bg-yard-dark/90 backdrop-blur-lg text-yard-gold hover:bg-yard-dark shadow-soft hover:shadow-soft-xl transition-all duration-300 text-xl font-bold px-8 py-4">
                 Send Resume
               </Button>
               <Button 
                 variant="outline" 
-                className="border-white/80 bg-white/10 backdrop-blur-lg text-white hover:bg-white hover:text-logo-primary shadow-soft text-xl font-bold px-8 py-4"
+                className="border-white/80 bg-yard-dark/10 backdrop-blur-lg text-white hover:bg-yard-dark hover:text-yard-gold shadow-soft text-xl font-bold px-8 py-4"
               >
                 Contact Us
               </Button>

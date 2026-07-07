@@ -138,7 +138,7 @@ const AdvertisePage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-yard-dark">
       <ClientHeader />
       
       {/* Hero Section */}
@@ -156,14 +156,14 @@ const AdvertisePage = () => {
                 Jamaican audience online. Authentic connections, real results.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-white text-jamaica-green-600 hover:bg-gray-100">
+                <Button size="lg" className="bg-yard-dark text-jamaica-green-600 hover:bg-gray-100">
                   Start Advertising
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 <Button 
                   variant="outline" 
                   size="lg"
-                  className="border-white text-white hover:bg-white hover:text-jamaica-green-600"
+                  className="border-white text-white hover:bg-yard-dark hover:text-jamaica-green-600"
                 >
                   View Media Kit
                 </Button>
@@ -171,7 +171,7 @@ const AdvertisePage = () => {
             </div>
             
             <div className="relative">
-              <div className="aspect-video bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden">
+              <div className="aspect-video bg-yard-dark/10 backdrop-blur-sm rounded-2xl overflow-hidden">
                 <Image
                   src="/images/jamaica-flag-bg.jpg"
                   alt="Jamaica Digital Community"
@@ -186,13 +186,13 @@ const AdvertisePage = () => {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-yard-gray">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
               Why Advertise with YardVybz?
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Join successful businesses reaching Jamaica's most engaged digital audience
             </p>
           </div>
@@ -202,11 +202,11 @@ const AdvertisePage = () => {
               const IconComponent = stat.icon;
               return (
                 <div key={stat.label} className="text-center animate-fade-in" style={{animationDelay: `${index * 0.1}s`}}>
-                  <div className={`inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-4 shadow-lg ${stat.color}`}>
+                  <div className={`inline-flex items-center justify-center w-16 h-16 bg-yard-dark rounded-full mb-4 shadow-lg ${stat.color}`}>
                     <IconComponent className="w-8 h-8" />
                   </div>
-                  <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
-                  <div className="text-gray-600">{stat.label}</div>
+                  <div className="text-3xl font-bold text-white mb-2">{stat.value}</div>
+                  <div className="text-gray-400">{stat.label}</div>
                 </div>
               );
             })}
@@ -215,13 +215,13 @@ const AdvertisePage = () => {
       </section>
 
       {/* Ad Placements */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
               Advertising Solutions
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Choose the perfect placement to showcase your business
             </p>
           </div>
@@ -242,8 +242,8 @@ const AdvertisePage = () => {
                 )}
 
                 <div className="text-center mb-6">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{placement.name}</h3>
-                  <p className="text-gray-600 mb-4">{placement.description}</p>
+                  <h3 className="text-2xl font-bold text-white mb-2">{placement.name}</h3>
+                  <p className="text-gray-400 mb-4">{placement.description}</p>
                   <div className="text-4xl font-bold text-jamaica-green-600 mb-4">
                     {placement.price}
                   </div>
@@ -251,7 +251,7 @@ const AdvertisePage = () => {
 
                 <ul className="space-y-3 mb-8">
                   {placement.features.map((feature, i) => (
-                    <li key={i} className="flex items-center text-gray-700">
+                    <li key={i} className="flex items-center text-gray-300">
                       <CheckCircle className="w-5 h-5 text-jamaica-green-500 mr-3 flex-shrink-0" />
                       {feature}
                     </li>
@@ -270,10 +270,10 @@ const AdvertisePage = () => {
       </section>
 
       {/* Benefits */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-yard-gray">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
               Why Choose YardVybz?
             </h2>
           </div>
@@ -286,8 +286,8 @@ const AdvertisePage = () => {
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-jamaica-green-100 rounded-full mb-4">
                     <IconComponent className="w-8 h-8 text-jamaica-green-600" />
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{benefit.title}</h3>
-                  <p className="text-gray-600">{benefit.description}</p>
+                  <h3 className="text-xl font-semibold text-white mb-2">{benefit.title}</h3>
+                  <p className="text-gray-400">{benefit.description}</p>
                 </div>
               );
             })}
@@ -296,13 +296,13 @@ const AdvertisePage = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
               Success Stories
             </h2>
-            <p className="text-gray-600 text-lg">
+            <p className="text-gray-400 text-lg">
               See how businesses are growing with YardVybz
             </p>
           </div>
@@ -315,12 +315,12 @@ const AdvertisePage = () => {
                     <Star key={i} className="w-5 h-5 text-jamaica-gold-500 fill-current" />
                   ))}
                 </div>
-                <blockquote className="text-gray-700 mb-4 italic">
+                <blockquote className="text-gray-300 mb-4 italic">
                   "{testimonial.quote}"
                 </blockquote>
                 <div>
-                  <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                  <div className="text-gray-600 text-sm">{testimonial.company}</div>
+                  <div className="font-semibold text-white">{testimonial.name}</div>
+                  <div className="text-gray-400 text-sm">{testimonial.company}</div>
                 </div>
               </Card>
             ))}
@@ -339,10 +339,10 @@ const AdvertisePage = () => {
             Get started today and see results within your first month.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <Button className="bg-white text-jamaica-green-600 hover:bg-gray-100 flex-1">
+            <Button className="bg-yard-dark text-jamaica-green-600 hover:bg-gray-100 flex-1">
               Start Advertising
             </Button>
-            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-jamaica-green-600 flex-1">
+            <Button variant="outline" className="border-white text-white hover:bg-yard-dark hover:text-jamaica-green-600 flex-1">
               Contact Sales
             </Button>
           </div>

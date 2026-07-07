@@ -171,10 +171,10 @@ const MusicNewsImage = ({ article, width, height, className }: { article: NewsIt
     return <div className="w-full h-full bg-gray-100 animate-pulse rounded-lg"></div>;
   }
   if (error) {
-    return <div className="w-full h-full bg-gray-100 flex items-center justify-center rounded-lg"><p className="text-gray-500">{error}</p></div>;
+    return <div className="w-full h-full bg-gray-100 flex items-center justify-center rounded-lg"><p className="text-gray-400">{error}</p></div>;
   }
   if (!imageSrc) {
-    return <div className="w-full h-full bg-gray-100 flex items-center justify-center rounded-lg"><p className="text-gray-500">No image available</p></div>;
+    return <div className="w-full h-full bg-gray-100 flex items-center justify-center rounded-lg"><p className="text-gray-400">No image available</p></div>;
   }
   return (
     <Image

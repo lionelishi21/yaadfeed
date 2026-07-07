@@ -81,7 +81,7 @@ const EventsPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
+      <div className="min-h-screen bg-yard-dark">
         <ClientHeader />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -287,7 +287,7 @@ const EventsPage = () => {
               Reach thousands of music lovers and event-goers across Jamaica and the diaspora. 
               Submit your event for consideration on YardVybz.
             </p>
-            <div className="inline-block bg-yard-gold text-yard-dark text-[13px] font-bold tracking-[1px] uppercase px-8 py-3.5 cursor-pointer hover:bg-white transition-colors">
+            <div className="inline-block bg-yard-gold text-yard-dark text-[13px] font-bold tracking-[1px] uppercase px-8 py-3.5 cursor-pointer hover:bg-yard-dark transition-colors">
               Submit Event
             </div>
           </div>

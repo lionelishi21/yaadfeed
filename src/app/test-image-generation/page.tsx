@@ -14,17 +14,17 @@ export default function TestImageGeneration() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-yard-gray py-8">
       <div className="max-w-4xl mx-auto px-4">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Image Generation Test</h1>
+        <div className="bg-yard-dark rounded-lg shadow-lg p-8">
+          <h1 className="text-3xl font-bold text-white mb-8">Image Generation Test</h1>
           
           <div className="mb-8">
             <h2 className="text-xl font-semibold mb-4">Test Article</h2>
-            <div className="bg-gray-50 p-4 rounded-lg">
+            <div className="bg-yard-gray p-4 rounded-lg">
               <p className="font-medium">Title: "Vybz Kartel Releases New Dancehall Anthem"</p>
-              <p className="text-sm text-gray-600">Category: music</p>
-              <p className="text-sm text-gray-600">Keywords: ["vybz kartel", "dancehall", "music"]</p>
+              <p className="text-sm text-gray-400">Category: music</p>
+              <p className="text-sm text-gray-400">Keywords: ["vybz kartel", "dancehall", "music"]</p>
             </div>
           </div>
 

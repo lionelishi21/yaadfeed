@@ -63,10 +63,10 @@ export default function AdminLayout({
   // Show loading while checking authentication or before mounting
   if (!mounted || status === 'loading') {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-yard-gray flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Verifying admin access...</p>
+          <p className="text-gray-400">Verifying admin access...</p>
         </div>
       </div>
     );
@@ -75,9 +75,9 @@ export default function AdminLayout({
   // Show login redirect message for unauthenticated users
   if (status === 'unauthenticated') {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-yard-gray flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-600">Redirecting to admin login...</p>
+          <p className="text-gray-400">Redirecting to admin login...</p>
         </div>
       </div>
     );
@@ -86,10 +86,10 @@ export default function AdminLayout({
   // Show access denied message for non-admin users
   if (session?.user && (session.user as any).role !== 'admin') {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-yard-gray flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600">Access denied. Admin privileges required.</p>
-          <p className="text-gray-600">Redirecting to login...</p>
+          <p className="text-gray-400">Redirecting to login...</p>
         </div>
       </div>
     );
@@ -97,7 +97,7 @@ export default function AdminLayout({
 
   // Render admin layout for authenticated admin users
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-yard-gray flex">
       {/* Sidebar */}
       <AdminSidebar />
       

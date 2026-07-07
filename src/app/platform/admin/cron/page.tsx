@@ -72,7 +72,7 @@ export default function AdminCronPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-yard-dark">
       <ClientHeader />
       <div className="max-w-5xl mx-auto px-4 py-10">
         <h1 className="text-2xl font-bold mb-6">Cron & Scraper Control</h1>
@@ -80,20 +80,20 @@ export default function AdminCronPage() {
         <div className="grid gap-6">
           <div className="p-4 rounded-lg border">
             <h2 className="font-semibold mb-3">Settings</h2>
-            <div className="text-sm text-gray-600 mb-2">Site URL: {siteUrl || 'unset'}</div>
-            <div className="text-sm text-gray-600 mb-4">Has Secret: {hasSecret ? 'Yes' : 'No'}</div>
+            <div className="text-sm text-gray-400 mb-2">Site URL: {siteUrl || 'unset'}</div>
+            <div className="text-sm text-gray-400 mb-4">Has Secret: {hasSecret ? 'Yes' : 'No'}</div>
             <div className="flex gap-2 items-center mb-3">
-              <label className="w-36 text-sm text-gray-700">Cron schedule</label>
+              <label className="w-36 text-sm text-gray-300">Cron schedule</label>
               <input className="border rounded px-3 py-2 flex-1" value={schedule} onChange={e => setSchedule(e.target.value)} placeholder="e.g. 0 */4 * * *" />
               <Button onClick={saveSchedule} disabled={loading}>Save</Button>
             </div>
-            <div className="text-xs text-gray-500">Note: Changing schedule here stores preference; updating actual Vercel cron still requires a deploy.</div>
+            <div className="text-xs text-gray-400">Note: Changing schedule here stores preference; updating actual Vercel cron still requires a deploy.</div>
           </div>
 
           <div className="p-4 rounded-lg border">
             <h2 className="font-semibold mb-3">Manual Trigger</h2>
             <div className="flex gap-2 items-center mb-3">
-              <label className="w-36 text-sm text-gray-700">CRON Secret</label>
+              <label className="w-36 text-sm text-gray-300">CRON Secret</label>
               <input className="border rounded px-3 py-2 flex-1" value={token} onChange={e => setToken(e.target.value)} placeholder="Enter CRON_SECRET" />
               <Button onClick={trigger} disabled={loading}>Trigger Now</Button>
             </div>
@@ -106,12 +106,12 @@ export default function AdminCronPage() {
                 <div key={idx} className="text-sm border rounded p-3">
                   <div className="flex justify-between mb-1">
                     <div className="font-medium">{log.type || 'run'}</div>
-                    <div className="text-gray-500">{new Date(log.createdAt).toLocaleString()}</div>
+                    <div className="text-gray-400">{new Date(log.createdAt).toLocaleString()}</div>
                   </div>
                   <pre className="text-xs whitespace-pre-wrap">{JSON.stringify(log.response || log, null, 2)}</pre>
                 </div>
               ))}
-              {logs.length === 0 && <div className="text-sm text-gray-500">No logs yet</div>}
+              {logs.length === 0 && <div className="text-sm text-gray-400">No logs yet</div>}
             </div>
           </div>
         </div>

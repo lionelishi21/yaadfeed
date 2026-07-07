@@ -27,7 +27,7 @@ const getStatusColor = (status: string) => {
     case 'published': return 'bg-green-100 text-green-800';
     case 'draft': return 'bg-yellow-100 text-yellow-800';
     case 'pending': return 'bg-blue-100 text-blue-800';
-    default: return 'bg-gray-100 text-gray-800';
+    default: return 'bg-gray-100 text-gray-200';
   }
 };
 
@@ -37,7 +37,7 @@ const getCategoryColor = (category: string) => {
     case 'politics': return 'bg-blue-100 text-blue-800';
     case 'sports': return 'bg-orange-100 text-orange-800';
     case 'business': return 'bg-green-100 text-green-800';
-    default: return 'bg-gray-100 text-gray-800';
+    default: return 'bg-gray-100 text-gray-200';
   }
 };
 
@@ -241,8 +241,8 @@ export default function ArticlesPage() {
       {/* Header */}
       <div className="flex justify-between items-center glass rounded-xl p-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Article Management</h1>
-          <p className="mt-2 text-gray-600">Create, manage, and optimize your content with AI assistance</p>
+          <h1 className="text-3xl font-bold text-white">Article Management</h1>
+          <p className="mt-2 text-gray-400">Create, manage, and optimize your content with AI assistance</p>
         </div>
         <div className="flex space-x-3">
           <button className="soft-button px-4 py-2 rounded-lg flex items-center space-x-2">
@@ -271,74 +271,74 @@ export default function ArticlesPage() {
 
       {/* Key Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
-        <div className="soft-card p-6 rounded-lg">
+        <div className="border border-[#222] bg-[#111] p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-blue-50 rounded-lg">
               <FileText className="w-6 h-6 text-blue-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total Articles</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalArticles}</p>
+              <p className="text-sm font-medium text-gray-400">Total Articles</p>
+              <p className="text-2xl font-bold text-white">{stats.totalArticles}</p>
             </div>
           </div>
         </div>
 
-        <div className="soft-card p-6 rounded-lg">
+        <div className="border border-[#222] bg-[#111] p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-green-50 rounded-lg">
               <Eye className="w-6 h-6 text-green-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Published</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.published}</p>
+              <p className="text-sm font-medium text-gray-400">Published</p>
+              <p className="text-2xl font-bold text-white">{stats.published}</p>
             </div>
           </div>
         </div>
 
-        <div className="soft-card p-6 rounded-lg">
+        <div className="border border-[#222] bg-[#111] p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-yellow-50 rounded-lg">
               <Edit className="w-6 h-6 text-yellow-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Drafts</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.drafts}</p>
+              <p className="text-sm font-medium text-gray-400">Drafts</p>
+              <p className="text-2xl font-bold text-white">{stats.drafts}</p>
             </div>
           </div>
         </div>
 
-        <div className="soft-card p-6 rounded-lg">
+        <div className="border border-[#222] bg-[#111] p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-purple-50 rounded-lg">
               <TrendingUp className="w-6 h-6 text-purple-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total Views</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.totalViews.toLocaleString()}</p>
+              <p className="text-sm font-medium text-gray-400">Total Views</p>
+              <p className="text-2xl font-bold text-white">{stats.totalViews.toLocaleString()}</p>
             </div>
           </div>
         </div>
 
-        <div className="soft-card p-6 rounded-lg">
+        <div className="border border-[#222] bg-[#111] p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-orange-50 rounded-lg">
               <BarChart3 className="w-6 h-6 text-orange-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Avg Views</p>
-              <p className="text-2xl font-bold text-gray-900">{stats.avgViews}</p>
+              <p className="text-sm font-medium text-gray-400">Avg Views</p>
+              <p className="text-2xl font-bold text-white">{stats.avgViews}</p>
             </div>
           </div>
         </div>
 
-        <div className="soft-card p-6 rounded-lg">
+        <div className="border border-[#222] bg-[#111] p-6 rounded-lg">
           <div className="flex items-center">
             <div className="p-2 bg-pink-50 rounded-lg">
               <Tag className="w-6 h-6 text-pink-600" />
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Top Category</p>
-              <p className="text-2xl font-bold text-gray-900 capitalize">{stats.topCategory}</p>
+              <p className="text-sm font-medium text-gray-400">Top Category</p>
+              <p className="text-2xl font-bold text-white capitalize">{stats.topCategory}</p>
             </div>
           </div>
         </div>
@@ -359,7 +359,7 @@ export default function ArticlesPage() {
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === tab.key
                   ? 'border-green-500 text-green-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-[#333] bg-[#222] text-white'
               }`}
             >
               {tab.label}
@@ -393,46 +393,46 @@ export default function ArticlesPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+            <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
               <h3 className="text-lg font-semibold mb-4">Content Categories</h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Music & Artists</span>
+                  <span className="text-gray-400">Music & Artists</span>
                   <span className="font-medium">456 articles</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Politics & Government</span>
+                  <span className="text-gray-400">Politics & Government</span>
                   <span className="font-medium">234 articles</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Sports & Culture</span>
+                  <span className="text-gray-400">Sports & Culture</span>
                   <span className="font-medium">189 articles</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Business & Economy</span>
+                  <span className="text-gray-400">Business & Economy</span>
                   <span className="font-medium">156 articles</span>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+            <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
               <h3 className="text-lg font-semibold mb-4">Recent Activity</h3>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="text-sm text-gray-600">15 articles generated today</span>
+                  <span className="text-sm text-gray-400">15 articles generated today</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span className="text-sm text-gray-600">23 articles published this week</span>
+                  <span className="text-sm text-gray-400">23 articles published this week</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                  <span className="text-sm text-gray-600">89% articles have AI images</span>
+                  <span className="text-sm text-gray-400">89% articles have AI images</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                  <span className="text-sm text-gray-600">Average 203 views per article</span>
+                  <span className="text-sm text-gray-400">Average 203 views per article</span>
                 </div>
               </div>
             </div>
@@ -443,8 +443,8 @@ export default function ArticlesPage() {
       {/* Articles Tab */}
       {activeTab === 'articles' && (
         <div className="space-y-6">
-          <div className="bg-white rounded-lg shadow border border-gray-200">
-            <div className="px-6 py-4 border-b border-gray-200 backdrop-blur-sm bg-white/70">
+          <div className="bg-yard-dark rounded-lg shadow border border-gray-200">
+            <div className="px-6 py-4 border-b border-gray-200 backdrop-blur-sm bg-yard-dark/70">
               <div className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold">All Articles</h3>
                 <div className="flex space-x-3">
@@ -452,16 +452,16 @@ export default function ArticlesPage() {
                     placeholder="Search by title, author, or keyword"
                     value={query}
                     onChange={(e) => { setQuery(e.target.value); setPage(1); }}
-                    className="border border-gray-300 rounded-lg px-3 py-2 text-sm w-64"
+                    className="border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2 text-sm w-64"
                   />
-                  <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                  <select className="border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2 text-sm">
                     <option>All Categories</option>
                     <option>Music</option>
                     <option>Politics</option>
                     <option>Sports</option>
                     <option>Business</option>
                   </select>
-                  <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                  <select className="border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2 text-sm">
                     <option>All Status</option>
                     <option>Published</option>
                     <option>Draft</option>
@@ -474,35 +474,35 @@ export default function ArticlesPage() {
             {loading ? (
               <div className="p-8 text-center">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500 mx-auto mb-4"></div>
-                <p className="text-gray-600">Loading articles...</p>
+                <p className="text-gray-400">Loading articles...</p>
               </div>
             ) : (
               <>
-                <div className="overflow-x-auto bg-white/70 backdrop-blur-sm">
+                <div className="overflow-x-auto bg-yard-dark/70 backdrop-blur-sm">
                   <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-yard-gray">
                       <tr>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                           Article
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                           Category
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                           Status
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                           Views
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                           Date
                         </th>
-                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                           Actions
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="bg-white/70 divide-y divide-gray-200">
+                    <tbody className="bg-yard-dark/70 divide-y divide-gray-200">
                       {articles
                         .filter(a => {
                           const q = query.toLowerCase();
@@ -515,17 +515,17 @@ export default function ArticlesPage() {
                         })
                         .slice((page - 1) * pageSize, page * pageSize)
                         .map((article) => (
-                        <tr key={article.id} className="hover:bg-gray-50">
+                        <tr key={article.id} className="hover:bg-yard-gray">
                           <td className="px-6 py-4">
                             <div className="flex items-center">
                               {article.featured && (
                                 <div className="w-2 h-2 bg-yellow-500 rounded-full mr-3"></div>
                               )}
                               <div>
-                                <div className="text-sm font-medium text-gray-900 max-w-xs truncate">
+                                <div className="text-sm font-medium text-white max-w-xs truncate">
                                   {article.title}
                                 </div>
-                                <div className="text-sm text-gray-500">
+                                <div className="text-sm text-gray-400">
                                   by {article.author}
                                 </div>
                               </div>
@@ -541,10 +541,10 @@ export default function ArticlesPage() {
                               {article.status}
                             </span>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-white">
                             {article.views.toLocaleString()}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
                             {new Date(article.createdAt).toLocaleDateString()}
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -581,17 +581,17 @@ export default function ArticlesPage() {
                     </tbody>
                   </table>
                 </div>
-                <div className="flex items-center justify-between px-6 py-4 bg-white/70 backdrop-blur-sm border-t">
-                  <div className="text-sm text-gray-600">
+                <div className="flex items-center justify-between px-6 py-4 bg-yard-dark/70 backdrop-blur-sm border-t">
+                  <div className="text-sm text-gray-400">
                     Showing {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, articles.filter(a => a.title.toLowerCase().includes(query.toLowerCase())).length)} of {articles.length}
                   </div>
                   <div className="flex items-center space-x-3">
                     <select value={pageSize} onChange={(e) => { setPageSize(parseInt(e.target.value) || 10); setPage(1); }} className="border rounded px-2 py-1 text-sm">
                       {[10, 20, 50].map(n => <option key={n} value={n}>{n}/page</option>)}
                     </select>
-                    <button onClick={() => setPage(Math.max(1, page - 1))} className="px-3 py-1 rounded border bg-white hover:bg-gray-50 text-sm">Prev</button>
+                    <button onClick={() => setPage(Math.max(1, page - 1))} className="px-3 py-1 rounded border bg-yard-dark hover:bg-yard-gray text-sm">Prev</button>
                     <span className="text-sm">Page {page}</span>
-                    <button onClick={() => setPage(page + 1)} className="px-3 py-1 rounded border bg-white hover:bg-gray-50 text-sm">Next</button>
+                    <button onClick={() => setPage(page + 1)} className="px-3 py-1 rounded border bg-yard-dark hover:bg-yard-gray text-sm">Next</button>
                   </div>
                 </div>
               </>
@@ -603,33 +603,33 @@ export default function ArticlesPage() {
       {/* Edit Modal */}
       {editing && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="bg-white w-full max-w-3xl rounded-lg shadow-lg border border-gray-200">
+          <div className="bg-yard-dark w-full max-w-3xl rounded-lg shadow-lg border border-gray-200">
             <div className="px-6 py-4 border-b flex items-center justify-between">
               <h3 className="text-lg font-semibold">Edit Article</h3>
-              <button onClick={() => setEditing(null)} className="text-gray-500 hover:text-gray-700">✕</button>
+              <button onClick={() => setEditing(null)} className="text-gray-400 hover:text-gray-300">✕</button>
             </div>
             <div className="p-6 space-y-4 max-h-[70vh] overflow-auto">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Title</label>
                 <input
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  className="w-full border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2"
                   value={editing.title}
                   onChange={(e) => setEditing({ ...editing, title: e.target.value })}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Summary</label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Summary</label>
                 <textarea
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  className="w-full border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2"
                   rows={3}
                   value={editing.summary}
                   onChange={(e) => setEditing({ ...editing, summary: e.target.value })}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Content</label>
                 <textarea
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2 font-mono"
+                  className="w-full border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2 font-mono"
                   rows={12}
                   value={editing.content}
                   onChange={(e) => setEditing({ ...editing, content: e.target.value })}
@@ -637,17 +637,17 @@ export default function ArticlesPage() {
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">Category</label>
                   <input
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                    className="w-full border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2"
                     value={editing.category}
                     onChange={(e) => setEditing({ ...editing, category: e.target.value })}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Author</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">Author</label>
                   <input
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                    className="w-full border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2"
                     value={editing.author}
                     onChange={(e) => setEditing({ ...editing, author: e.target.value })}
                   />
@@ -660,19 +660,19 @@ export default function ArticlesPage() {
                     checked={editing.featured}
                     onChange={(e) => setEditing({ ...editing, featured: e.target.checked })}
                   />
-                  <label htmlFor="featured" className="text-sm text-gray-700">Featured</label>
+                  <label htmlFor="featured" className="text-sm text-gray-300">Featured</label>
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Keywords (comma-separated)</label>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Keywords (comma-separated)</label>
                 <input
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2"
+                  className="w-full border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2"
                   value={(editing.keywords || []).join(', ')}
                   onChange={(e) => setEditing({ ...editing, keywords: e.target.value.split(',').map(s => s.trim()).filter(Boolean) })}
                 />
               </div>
             </div>
-            <div className="px-6 py-4 border-t bg-gray-50 flex items-center justify-end space-x-3">
+            <div className="px-6 py-4 border-t bg-yard-gray flex items-center justify-end space-x-3">
               <button onClick={() => setEditing(null)} className="px-4 py-2 rounded-lg border">Cancel</button>
               <button onClick={saveArticle} disabled={saving} className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50">
                 {saving ? 'Saving…' : 'Save Changes'}
@@ -685,12 +685,12 @@ export default function ArticlesPage() {
       {/* AI Generator Tab */}
       {activeTab === 'generate' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+          <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
             <h3 className="text-lg font-semibold mb-4">AI Article Generator</h3>
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
                     Number of Articles
                   </label>
                   <input
@@ -699,17 +699,17 @@ export default function ArticlesPage() {
                     onChange={(e) => setGenerateCount(parseInt(e.target.value) || 10)}
                     min="1"
                     max="50"
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-green-500 focus:border-green-500"
+                    className="w-full border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2 focus:ring-green-500 focus:border-green-500"
                   />
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-gray-400 mt-1">
                     Estimated cost: ${(generateCount * 0.03).toFixed(2)}
                   </p>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-300 mb-2">
                     Content Focus
                   </label>
-                  <select className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-green-500 focus:border-green-500">
+                  <select className="w-full border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2 focus:ring-green-500 focus:border-green-500">
                     <option>Mixed Content (Recommended)</option>
                     <option>Music & Artists Only</option>
                     <option>News & Politics Only</option>
@@ -742,7 +742,7 @@ export default function ArticlesPage() {
               </div>
 
               <div className="flex justify-between items-center">
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-gray-400">
                   <p>Last generation: 2 hours ago (15 articles)</p>
                   <p>Total AI articles this month: 234</p>
                 </div>
@@ -773,11 +773,11 @@ export default function ArticlesPage() {
       {activeTab === 'analytics' && (
         <div className="space-y-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+            <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
               <h3 className="text-lg font-semibold mb-4">Top Performing Articles</h3>
               <div className="space-y-4">
                 {articles.slice(0, 5).map((article, index) => (
-                  <div key={article.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div key={article.id} className="flex items-center justify-between p-3 bg-yard-gray rounded-lg">
                     <div className="flex items-center">
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold ${
                         index === 0 ? 'bg-yellow-500' : index === 1 ? 'bg-gray-400' : 'bg-amber-600'
@@ -786,35 +786,35 @@ export default function ArticlesPage() {
                       </div>
                       <div className="ml-4">
                         <h4 className="font-medium text-sm truncate max-w-xs">{article.title}</h4>
-                        <p className="text-xs text-gray-500">{article.category} • {article.author}</p>
+                        <p className="text-xs text-gray-400">{article.category} • {article.author}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <p className="font-semibold text-green-600">{article.views.toLocaleString()}</p>
-                      <p className="text-xs text-gray-500">views</p>
+                      <p className="text-xs text-gray-400">views</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+            <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
               <h3 className="text-lg font-semibold mb-4">Content Performance</h3>
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Average views per article</span>
+                  <span className="text-gray-400">Average views per article</span>
                   <span className="font-medium">{stats.avgViews}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Most popular category</span>
+                  <span className="text-gray-400">Most popular category</span>
                   <span className="font-medium capitalize">{stats.topCategory}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Articles with images</span>
+                  <span className="text-gray-400">Articles with images</span>
                   <span className="font-medium">89%</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Featured articles</span>
+                  <span className="text-gray-400">Featured articles</span>
                   <span className="font-medium">12%</span>
                 </div>
               </div>

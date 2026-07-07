@@ -212,8 +212,8 @@ export default function ImagesPage() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Image Management</h1>
-          <p className="mt-2 text-gray-600">Generate, manage, and optimize AI images for your articles</p>
+          <h1 className="text-3xl font-bold text-white">Image Management</h1>
+          <p className="mt-2 text-gray-400">Generate, manage, and optimize AI images for your articles</p>
         </div>
         <div className="flex space-x-3">
           <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center space-x-2">
@@ -243,7 +243,7 @@ export default function ImagesPage() {
               className={`py-2 px-1 border-b-2 font-medium text-sm ${
                 activeTab === tab.key
                   ? 'border-green-500 text-green-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-[#333] bg-[#222] text-white'
               }`}
             >
               {tab.label}
@@ -255,50 +255,50 @@ export default function ImagesPage() {
       {/* Overview Tab */}
       {activeTab === 'overview' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+          <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
             <div className="flex items-center">
               <div className="p-2 bg-blue-100 rounded-lg">
                 <Image className="w-6 h-6 text-blue-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Images</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.totalImages}</p>
+                <p className="text-sm font-medium text-gray-400">Total Images</p>
+                <p className="text-2xl font-bold text-white">{stats.totalImages}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+          <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
             <div className="flex items-center">
               <div className="p-2 bg-green-100 rounded-lg">
                 <Zap className="w-6 h-6 text-green-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">AI Generated</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.aiGenerated}</p>
+                <p className="text-sm font-medium text-gray-400">AI Generated</p>
+                <p className="text-2xl font-bold text-white">{stats.aiGenerated}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+          <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
             <div className="flex items-center">
               <div className="p-2 bg-purple-100 rounded-lg">
                 <Download className="w-6 h-6 text-purple-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Local Stored</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.localStored}</p>
+                <p className="text-sm font-medium text-gray-400">Local Stored</p>
+                <p className="text-2xl font-bold text-white">{stats.localStored}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+          <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
             <div className="flex items-center">
               <div className="p-2 bg-yellow-100 rounded-lg">
                 <AlertCircle className="w-6 h-6 text-yellow-600" />
               </div>
               <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Missing Images</p>
-                <p className="text-2xl font-bold text-gray-900">{stats.missingImages}</p>
+                <p className="text-sm font-medium text-gray-400">Missing Images</p>
+                <p className="text-2xl font-bold text-white">{stats.missingImages}</p>
               </div>
             </div>
           </div>
@@ -310,7 +310,7 @@ export default function ImagesPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Article List */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow border border-gray-200">
+            <div className="bg-yard-dark rounded-lg shadow border border-gray-200">
               <div className="p-4 border-b border-gray-200">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -319,7 +319,7 @@ export default function ImagesPage() {
                     placeholder="Search articles..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    className="w-full pl-10 pr-4 py-2 border border-[#333] bg-[#222] text-white rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   />
                 </div>
               </div>
@@ -329,16 +329,16 @@ export default function ImagesPage() {
                   <div
                     key={article.id}
                     onClick={() => setSelectedArticle(article)}
-                    className={`p-4 cursor-pointer hover:bg-gray-50 border-b border-gray-100 ${
+                    className={`p-4 cursor-pointer hover:bg-yard-gray border-b border-gray-100 ${
                       selectedArticle?.id === article.id ? 'bg-green-50 border-green-200' : ''
                     }`}
                   >
-                    <h4 className="font-medium text-gray-900 truncate">{article.title}</h4>
+                    <h4 className="font-medium text-white truncate">{article.title}</h4>
                     <div className="flex items-center space-x-2 mt-1">
                       <span className={`px-2 py-1 rounded-full text-xs ${
                         article.category === 'music' ? 'bg-pink-100 text-pink-800' :
                         article.category === 'politics' ? 'bg-blue-100 text-blue-800' :
-                        'bg-gray-100 text-gray-800'
+                        'bg-gray-100 text-gray-200'
                       }`}>
                         {article.category}
                       </span>
@@ -357,10 +357,10 @@ export default function ImagesPage() {
           {/* Image Selector */}
           <div className="lg:col-span-2">
             {selectedArticle ? (
-              <div className="bg-white rounded-lg shadow border border-gray-200 p-6">
+              <div className="bg-yard-dark rounded-lg shadow border border-gray-200 p-6">
                 <div className="mb-4">
-                  <h3 className="text-lg font-semibold text-gray-900">{selectedArticle.title}</h3>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <h3 className="text-lg font-semibold text-white">{selectedArticle.title}</h3>
+                  <p className="text-sm text-gray-400 mt-1">
                     Category: {selectedArticle.category} • 
                     {selectedArticle.hasImage ? ' Has Image' : ' Missing Image'}
                   </p>
@@ -376,8 +376,8 @@ export default function ImagesPage() {
                 />
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow border border-gray-200 p-6">
-                <div className="text-center text-gray-500">
+              <div className="bg-yard-dark rounded-lg shadow border border-gray-200 p-6">
+                <div className="text-center text-gray-400">
                   <Image className="w-12 h-12 mx-auto mb-4 text-gray-300" />
                   <h3 className="text-lg font-medium mb-2">Select an Article</h3>
                   <p className="text-sm">Choose an article from the list to manage its image</p>
@@ -391,17 +391,17 @@ export default function ImagesPage() {
       {/* Missing Images Tab */}
       {activeTab === 'missing' && (
         <div className="space-y-6">
-          <div className="bg-white rounded-lg shadow border border-gray-200">
+          <div className="bg-yard-dark rounded-lg shadow border border-gray-200">
             <div className="px-6 py-4 border-b border-gray-200">
               <div className="flex justify-between items-center">
                 <div>
                   <h3 className="text-lg font-semibold">Articles Missing Images</h3>
-                  <p className="text-gray-600">Generate AI images for articles that need them</p>
+                  <p className="text-gray-400">Generate AI images for articles that need them</p>
                 </div>
                 <div className="flex space-x-3">
                   <button
                     onClick={handleSelectAll}
-                    className="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50"
+                    className="px-4 py-2 text-sm border border-[#333] bg-[#222] text-white rounded-lg hover:bg-yard-gray"
                   >
                     {selectedArticles.length === missingImages.length ? 'Deselect All' : 'Select All'}
                   </button>
@@ -429,12 +429,12 @@ export default function ImagesPage() {
             {loading ? (
               <div className="p-8 text-center">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500 mx-auto mb-4"></div>
-                <p className="text-gray-600">Loading articles...</p>
+                <p className="text-gray-400">Loading articles...</p>
               </div>
             ) : (
               <div className="divide-y divide-gray-200">
                 {missingImages.map((article) => (
-                  <div key={article.id} className="p-6 hover:bg-gray-50">
+                  <div key={article.id} className="p-6 hover:bg-yard-gray">
                     <div className="flex items-center space-x-4">
                       <input
                         type="checkbox"
@@ -443,12 +443,12 @@ export default function ImagesPage() {
                         className="w-4 h-4 text-green-600 rounded focus:ring-green-500"
                       />
                       <div className="flex-1">
-                        <h4 className="font-medium text-gray-900">{article.title}</h4>
-                        <div className="flex items-center space-x-4 mt-1 text-sm text-gray-500">
+                        <h4 className="font-medium text-white">{article.title}</h4>
+                        <div className="flex items-center space-x-4 mt-1 text-sm text-gray-400">
                           <span className={`px-2 py-1 rounded-full text-xs ${
                             article.category === 'music' ? 'bg-pink-100 text-pink-800' :
                             article.category === 'politics' ? 'bg-blue-100 text-blue-800' :
-                            'bg-gray-100 text-gray-800'
+                            'bg-gray-100 text-gray-200'
                           }`}>
                             {article.category}
                           </span>
@@ -457,7 +457,7 @@ export default function ImagesPage() {
                       </div>
                       <div className="flex items-center space-x-2">
                         <AlertCircle className="w-5 h-5 text-yellow-500" />
-                        <span className="text-sm text-gray-500">No image</span>
+                        <span className="text-sm text-gray-400">No image</span>
                       </div>
                     </div>
                   </div>
@@ -471,28 +471,28 @@ export default function ImagesPage() {
       {/* Bulk Generate Tab */}
       {activeTab === 'generate' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+          <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
             <h3 className="text-lg font-semibold mb-4">Bulk Image Generation</h3>
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <button className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-green-500 hover:bg-green-50 group transition-colors">
+                <button className="p-4 border-2 border-dashed border-[#333] bg-[#222] text-white rounded-lg hover:border-green-500 hover:bg-green-50 group transition-colors">
                   <Zap className="w-8 h-8 text-gray-400 group-hover:text-green-500 mx-auto mb-2" />
-                  <h4 className="font-medium text-gray-900 group-hover:text-green-600">Generate All Missing</h4>
-                  <p className="text-sm text-gray-500">Create images for all articles without them</p>
+                  <h4 className="font-medium text-white group-hover:text-green-600">Generate All Missing</h4>
+                  <p className="text-sm text-gray-400">Create images for all articles without them</p>
                   <p className="text-xs text-gray-400 mt-2">~$1.64 estimated cost</p>
                 </button>
 
-                <button className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-blue-500 hover:bg-blue-50 group transition-colors">
+                <button className="p-4 border-2 border-dashed border-[#333] bg-[#222] text-white rounded-lg hover:border-blue-500 hover:bg-blue-50 group transition-colors">
                   <RefreshCw className="w-8 h-8 text-gray-400 group-hover:text-blue-500 mx-auto mb-2" />
-                  <h4 className="font-medium text-gray-900 group-hover:text-blue-600">Regenerate Low Quality</h4>
-                  <p className="text-sm text-gray-500">Replace poor performing images</p>
+                  <h4 className="font-medium text-white group-hover:text-blue-600">Regenerate Low Quality</h4>
+                  <p className="text-sm text-gray-400">Replace poor performing images</p>
                   <p className="text-xs text-gray-400 mt-2">~$0.80 estimated cost</p>
                 </button>
 
-                <button className="p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-purple-500 hover:bg-purple-50 group transition-colors">
+                <button className="p-4 border-2 border-dashed border-[#333] bg-[#222] text-white rounded-lg hover:border-purple-500 hover:bg-purple-50 group transition-colors">
                   <Upload className="w-8 h-8 text-gray-400 group-hover:text-purple-500 mx-auto mb-2" />
-                  <h4 className="font-medium text-gray-900 group-hover:text-purple-600">Upload Custom Images</h4>
-                  <p className="text-sm text-gray-500">Manually upload images for specific articles</p>
+                  <h4 className="font-medium text-white group-hover:text-purple-600">Upload Custom Images</h4>
+                  <p className="text-sm text-gray-400">Manually upload images for specific articles</p>
                   <p className="text-xs text-gray-400 mt-2">No API cost</p>
                 </button>
               </div>
@@ -521,24 +521,24 @@ export default function ImagesPage() {
       {/* Settings Tab */}
       {activeTab === 'settings' && (
         <div className="space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
+          <div className="bg-yard-dark p-6 rounded-lg shadow border border-gray-200">
             <h3 className="text-lg font-semibold mb-4">Image Generation Settings</h3>
             <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-medium">Auto-generate for new articles</h4>
-                  <p className="text-sm text-gray-600">Automatically create images when articles are published</p>
+                  <p className="text-sm text-gray-400">Automatically create images when articles are published</p>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input type="checkbox" className="sr-only peer" defaultChecked />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-yard-dark after:border-[#333] bg-[#222] text-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
                 </label>
               </div>
 
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-medium">Priority categories for AI generation</h4>
-                  <p className="text-sm text-gray-600">Only generate AI images for selected categories</p>
+                  <p className="text-sm text-gray-400">Only generate AI images for selected categories</p>
                 </div>
                 <div className="flex space-x-2">
                   <span className="inline-flex px-2 py-1 text-xs font-medium bg-pink-100 text-pink-800 rounded-full">music</span>
@@ -550,16 +550,16 @@ export default function ImagesPage() {
                 <h4 className="font-medium mb-4">DALL-E Settings</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Image Size</label>
-                    <select className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-green-500 focus:border-green-500">
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Image Size</label>
+                    <select className="w-full border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2 focus:ring-green-500 focus:border-green-500">
                       <option value="1024x1024">1024x1024 (Square)</option>
                       <option value="1792x1024">1792x1024 (Landscape)</option>
                       <option value="1024x1792">1024x1792 (Portrait)</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Quality</label>
-                    <select className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-green-500 focus:border-green-500">
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Quality</label>
+                    <select className="w-full border border-[#333] bg-[#222] text-white rounded-lg px-3 py-2 focus:ring-green-500 focus:border-green-500">
                       <option value="standard">Standard (Faster, Cheaper)</option>
                       <option value="hd">HD (Slower, More Expensive)</option>
                     </select>
