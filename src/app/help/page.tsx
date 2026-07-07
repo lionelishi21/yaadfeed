@@ -97,15 +97,15 @@ const HelpPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
+    <div className="min-h-screen bg-yard-dark">
       <ClientHeader />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary text-white py-20 overflow-hidden">
+      <section className="relative bg-yard-gray border-b border-[#1a1a1a] text-white py-20 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-5xl lg:text-6xl font-black mb-6 leading-tight">
-            Help <span className="bg-gradient-to-r from-logo-secondary to-logo-accent bg-clip-text text-transparent">Center</span>
+            Help <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Center</span>
           </h1>
           <p className="text-2xl lg:text-3xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
             Find answers to your questions and get the support you need
@@ -120,7 +120,7 @@ const HelpPage = () => {
                 placeholder="Search for help articles, FAQs, and guides..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 shadow-soft"
+                className="w-full pl-12 pr-4 py-4 bg-yard-dark/20 backdrop-blur-sm border border-white/30 rounded-2xl text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50 shadow-soft"
               />
             </div>
           </div>
@@ -128,13 +128,13 @@ const HelpPage = () => {
       </section>
 
       {/* Categories */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-black text-gray-900 mb-4">
-              Browse by <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Category</span>
+            <h2 className="text-3xl font-black text-white mb-4">
+              Browse by <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Category</span>
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-400">
               Find help organized by topic
             </p>
           </div>
@@ -148,8 +148,8 @@ const HelpPage = () => {
                   onClick={() => setSelectedCategory(category.value)}
                   className={`p-6 rounded-2xl transition-all duration-300 ${
                     selectedCategory === category.value
-                      ? 'bg-gradient-to-r from-logo-primary to-logo-secondary text-white shadow-soft'
-                      : 'bg-white hover:bg-logo-light/50 text-gray-700 hover:text-logo-primary shadow-soft hover:shadow-soft-lg'
+                      ? 'bg-gradient-to-r from-yard-gold to-yellow-600 text-white shadow-soft'
+                      : 'bg-yard-dark hover:bg-logo-light/50 text-gray-300 hover:text-yard-gold shadow-soft hover:shadow-soft-lg'
                   }`}
                 >
                   <IconComponent className="w-8 h-8 mx-auto mb-3" />
@@ -162,13 +162,13 @@ const HelpPage = () => {
       </section>
 
       {/* FAQs */}
-      <section className="py-20 bg-gradient-to-r from-logo-light to-logo-muted">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
-              Frequently Asked <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Questions</span>
+            <h2 className="text-4xl font-black text-white mb-6">
+              Frequently Asked <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Questions</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-400">
               Quick answers to common questions
             </p>
           </div>
@@ -176,18 +176,18 @@ const HelpPage = () => {
           <div className="space-y-6">
             {filteredFAQs.length > 0 ? (
               filteredFAQs.map((faq, index) => (
-                <div key={index} className="soft-card p-8">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">{faq.question}</h3>
-                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                <div key={index} className="border border-[#222] bg-[#111] p-8">
+                  <h3 className="text-xl font-bold text-white mb-4">{faq.question}</h3>
+                  <p className="text-gray-400 leading-relaxed">{faq.answer}</p>
                 </div>
               ))
             ) : (
               <div className="text-center py-16">
-                <div className="w-24 h-24 bg-gradient-to-r from-logo-primary to-logo-secondary rounded-full flex items-center justify-center mx-auto mb-6 shadow-soft">
+                <div className="w-24 h-24 bg-gradient-to-r from-yard-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-soft">
                   <Search className="w-12 h-12 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">No results found</h3>
-                <p className="text-gray-600 mb-6">
+                <h3 className="text-2xl font-bold text-white mb-4">No results found</h3>
+                <p className="text-gray-400 mb-6">
                   Try adjusting your search terms or browse by category
                 </p>
                 <Button 
@@ -206,13 +206,13 @@ const HelpPage = () => {
       </section>
 
       {/* Contact Support */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-yard-dark">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-gray-900 mb-6">
-              Still Need <span className="bg-gradient-to-r from-logo-primary to-logo-secondary bg-clip-text text-transparent">Help?</span>
+            <h2 className="text-4xl font-black text-white mb-6">
+              Still Need <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Help?</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               Our support team is here to help you with any questions or issues
             </p>
           </div>
@@ -221,12 +221,12 @@ const HelpPage = () => {
             {contactMethods.map((method, index) => {
               const IconComponent = method.icon;
               return (
-                <div key={index} className="text-center soft-card p-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-logo-primary to-logo-secondary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-soft">
+                <div key={index} className="text-center border border-[#222] bg-[#111] p-8">
+                  <div className="w-16 h-16 bg-gradient-to-r from-yard-gold to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-soft">
                     <IconComponent className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">{method.title}</h3>
-                  <p className="text-gray-600 mb-6">{method.description}</p>
+                  <h3 className="text-xl font-bold text-white mb-4">{method.title}</h3>
+                  <p className="text-gray-400 mb-6">{method.description}</p>
                   <a href={method.href}>
                     <Button variant="glamour" className="w-full">
                       {method.action}
@@ -242,7 +242,7 @@ const HelpPage = () => {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-logo-primary via-logo-secondary to-logo-accent">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
+          <div className="bg-yard-dark/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
             <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">
               Can't Find What You're Looking For?
             </h2>
@@ -251,12 +251,12 @@ const HelpPage = () => {
               based on user feedback.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-white/90 backdrop-blur-lg text-logo-primary hover:bg-white shadow-soft hover:shadow-soft-xl transition-all duration-300 text-xl font-bold px-8 py-4">
+              <Button className="bg-yard-dark/90 backdrop-blur-lg text-yard-gold hover:bg-yard-dark shadow-soft hover:shadow-soft-xl transition-all duration-300 text-xl font-bold px-8 py-4">
                 Contact Support
               </Button>
               <Button 
                 variant="outline" 
-                className="border-white/80 bg-white/10 backdrop-blur-lg text-white hover:bg-white hover:text-logo-primary shadow-soft text-xl font-bold px-8 py-4"
+                className="border-white/80 bg-yard-dark/10 backdrop-blur-lg text-white hover:bg-yard-dark hover:text-yard-gold shadow-soft text-xl font-bold px-8 py-4"
               >
                 Give Feedback
               </Button>
