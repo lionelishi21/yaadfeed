@@ -1,19 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Generate static params for all artist IDs
-export async function generateStaticParams() {
-  // Return the known artist IDs from the sample data
-  return [
-    { id: '1' },
-    { id: '2' },
-    { id: '3' },
-    { id: '4' },
-    { id: '5' },
-    { id: '6' },
-    { id: '7' },
-    { id: '8' },
-  ];
-}
+
 
 export async function GET(
   request: NextRequest,

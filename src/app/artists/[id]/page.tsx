@@ -10,29 +10,20 @@ import Footer from '@/components/Footer';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 
-// Generate static params for static export
-export async function generateStaticParams() {
-  return [
-    { id: '1' },
-    { id: '2' },
-    { id: '3' },
-    { id: '4' },
-    { id: '5' }
-  ];
-}
-
 async function getArtist(id: string) {
-  // Derive base URL from headers at runtime (supports dev/prod and custom ports)
-  const { headers } = await import('next/headers');
-  const headersList = await headers();
-  const host = headersList.get('host') || 'localhost:3000';
-  const protocol = host.includes('localhost') || host.includes('127.0.0.1') ? 'http' : 'https';
-  const baseUrl = `${protocol}://${host}`;
-
-  const res = await fetch(`${baseUrl}/api/artists/${id}`, { cache: 'no-store' });
-  if (!res.ok) return null;
-  const data = await res.json();
-  return data;
+  const { NewsService, ArtistService } = await import('@/lib/mongodb');
+  try {
+    const artist = await NewsService.getArtistById(id) || await ArtistService.getArtistById(id);
+    if (!artist) return null;
+    
+    // Attempt to get related articles
+    const relatedArticles = await NewsService.getAllNews({ artistId: id, limit: 3 }).catch(() => []);
+    
+    return { artist, relatedArticles };
+  } catch (error) {
+    console.error('Error fetching artist:', error);
+    return null;
+  }
 }
 
 export default async function ArtistPage({ params }: { params: Promise<{ id: string }> }) {
