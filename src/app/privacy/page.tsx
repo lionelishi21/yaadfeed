@@ -117,7 +117,7 @@ const PrivacyPage = () => {
               const IconComponent = principle.icon;
               return (
                 <div key={index} className="border border-[#222] bg-[#111] p-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-logo-primary/20 to-logo-secondary/20 rounded-2xl flex items-center justify-center mb-6">
+                  <div className="w-16 h-16 bg-[#1a1a1a] rounded-2xl flex items-center justify-center mb-6">
                     <IconComponent className="w-8 h-8 text-yard-gold" />
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">{principle.title}</h3>
@@ -151,7 +151,7 @@ const PrivacyPage = () => {
                     <ul className="space-y-2">
                       {item.examples.map((example, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-gray-400">
-                          <div className="w-2 h-2 bg-logo-primary rounded-full mt-2 flex-shrink-0"></div>
+                          <div className="w-2 h-2 bg-yard-gold rounded-full mt-2 flex-shrink-0"></div>
                           {example}
                         </li>
                       ))}
@@ -188,7 +188,7 @@ const PrivacyPage = () => {
                   {section.items.map((item, idx) => (
                     <li key={idx} className="flex items-start gap-3 text-gray-400">
                       <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                        section.title === 'We Never Share' ? 'bg-red-500' : 'bg-logo-primary'
+                        section.title === 'We Never Share' ? 'bg-red-500' : 'bg-yard-gold'
                       }`}></div>
                       {item}
                     </li>
@@ -216,7 +216,7 @@ const PrivacyPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {userRights.map((right, index) => (
                 <div key={index} className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-logo-primary rounded-full"></div>
+                  <div className="w-3 h-3 bg-yard-gold rounded-full"></div>
                   <span className="text-gray-300 font-medium">{right}</span>
                 </div>
               ))}

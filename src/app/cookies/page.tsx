@@ -90,7 +90,7 @@ const CookiesPage = () => {
               const IconComponent = cookie.icon;
               return (
                 <div key={index} className="border border-[#222] bg-[#111] p-8 bg-yard-dark rounded-xl shadow-soft">
-                  <div className="w-16 h-16 bg-gradient-to-r from-logo-primary/20 to-logo-secondary/20 rounded-2xl flex items-center justify-center mb-6">
+                  <div className="w-16 h-16 bg-[#1a1a1a] rounded-2xl flex items-center justify-center mb-6">
                     <IconComponent className="w-8 h-8 text-yard-gold" />
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">{cookie.title}</h3>

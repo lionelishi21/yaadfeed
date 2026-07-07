@@ -166,11 +166,11 @@ const MediaKitPage = () => {
               return (
                 <div key={index} className="border border-[#222] bg-[#111] p-8">
                   <div className="flex items-start justify-between mb-6">
-                    <div className="w-16 h-16 bg-gradient-to-r from-logo-primary/20 to-logo-secondary/20 rounded-2xl flex items-center justify-center">
+                    <div className="w-16 h-16 bg-[#1a1a1a] rounded-2xl flex items-center justify-center">
                       <IconComponent className="w-8 h-8 text-yard-gold" />
                     </div>
                     <div className="text-right">
-                      <span className="bg-logo-primary/10 text-yard-gold px-3 py-1 rounded-xl text-sm font-semibold">
+                      <span className="bg-yard-gold text-yard-gold px-3 py-1 rounded-xl text-sm font-semibold">
                         {asset.format}
                       </span>
                     </div>

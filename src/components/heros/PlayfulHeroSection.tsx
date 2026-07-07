@@ -9,12 +9,12 @@ export function PlayfulHeroSection() {
   const ref = useRef(null);
 
   return (
-    <section className="relative bg-gradient-to-br from-logo-primary to-logo-dark text-white py-20 lg:py-32 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-yard-gold to-yellow-600 text-white py-20 lg:py-32 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 w-20 h-20 bg-logo-secondary rounded-full"></div>
-        <div className="absolute top-32 right-20 w-16 h-16 bg-logo-accent rounded-full"></div>
-        <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-logo-secondary rounded-full"></div>
+        <div className="absolute top-10 left-10 w-20 h-20 bg-yard-gold rounded-full"></div>
+        <div className="absolute top-32 right-20 w-16 h-16 bg-yard-gold rounded-full"></div>
+        <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-yard-gold rounded-full"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -32,7 +32,7 @@ export function PlayfulHeroSection() {
             
             <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
               Latest from the{' '}
-              <span className="text-logo-secondary">Dancehall</span>{' '}
+              <span className="text-yard-gold">Dancehall</span>{' '}
               Scene
             </h1>
             
@@ -45,7 +45,7 @@ export function PlayfulHeroSection() {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center px-8 py-4 bg-logo-secondary text-gray-900 font-semibold rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
+                  className="inline-flex items-center px-8 py-4 bg-yard-gold text-gray-900 font-semibold rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
                 >
                   Explore Stories
                   <ArrowRight className="ml-2 w-5 h-5" />
@@ -89,9 +89,9 @@ export function PlayfulHeroSection() {
             <div className="relative">
               {/* Main Hero Image */}
               <div className="relative w-80 h-80 lg:w-96 lg:h-96 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 p-8 flex items-center justify-center">
-                <div className="absolute inset-0 bg-gradient-to-br from-logo-secondary/20 to-transparent rounded-2xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-yard-gold to-transparent rounded-2xl"></div>
                 <div className="relative z-10">
-                  <Music className="w-24 h-24 text-logo-secondary" />
+                  <Music className="w-24 h-24 text-yard-gold" />
                 </div>
               </div>
               
@@ -99,17 +99,17 @@ export function PlayfulHeroSection() {
               <motion.div
                 animate={{ y: [-10, 10, -10] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-4 -right-4 w-16 h-16 bg-logo-secondary/20 backdrop-blur-sm rounded-full border border-white/20 flex items-center justify-center"
+                className="absolute -top-4 -right-4 w-16 h-16 bg-yard-gold backdrop-blur-sm rounded-full border border-white/20 flex items-center justify-center"
               >
-                <Sparkles className="w-6 h-6 text-logo-secondary" />
+                <Sparkles className="w-6 h-6 text-yard-gold" />
               </motion.div>
               
               <motion.div
                 animate={{ y: [10, -10, 10] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-4 -left-4 w-12 h-12 bg-logo-accent/20 backdrop-blur-sm rounded-full border border-white/20 flex items-center justify-center"
+                className="absolute -bottom-4 -left-4 w-12 h-12 bg-yard-gold backdrop-blur-sm rounded-full border border-white/20 flex items-center justify-center"
               >
-                <Music className="w-4 h-4 text-logo-accent" />
+                <Music className="w-4 h-4 text-yard-gold" />
               </motion.div>
             </div>
           </motion.div>
@@ -124,7 +124,7 @@ export const MusicImagery = () => {
     <div className="relative flex h-full w-full items-center justify-center">
       <div className="relative h-[300px] w-[300px]">
         <div className="flex h-full w-full items-center justify-center rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-          <Music className="h-16 w-16 text-logo-secondary" />
+          <Music className="h-16 w-16 text-yard-gold" />
         </div>
       </div>
     </div>

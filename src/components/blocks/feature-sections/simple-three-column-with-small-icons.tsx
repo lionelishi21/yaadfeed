@@ -27,8 +27,8 @@ export default function SimpleThreeColumnWithSmallIcons() {
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-base/7 font-semibold text-logo-primary">LATEST NEWS</h2>
-          <p className="mt-2 text-4xl font-bold tracking-tight text-pretty text-logo-dark sm:text-5xl lg:text-balance">
+          <h2 className="text-base/7 font-semibold text-yard-gold">LATEST NEWS</h2>
+          <p className="mt-2 text-4xl font-bold tracking-tight text-pretty text-yard-gold sm:text-5xl lg:text-balance">
             Breaking in Dancehall
           </p>
           <p className="mt-6 text-lg/8 text-gray-600">
@@ -40,14 +40,14 @@ export default function SimpleThreeColumnWithSmallIcons() {
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
             {features.map((feature) => (
               <div key={feature.name} className="flex flex-col">
-                <dt className="flex items-center gap-x-3 text-base/7 font-semibold text-logo-dark">
-                  <feature.icon aria-hidden="true" className="size-5 flex-none text-logo-primary" />
+                <dt className="flex items-center gap-x-3 text-base/7 font-semibold text-yard-gold">
+                  <feature.icon aria-hidden="true" className="size-5 flex-none text-yard-gold" />
                   {feature.name}
                 </dt>
                 <dd className="mt-4 flex flex-auto flex-col text-base/7 text-gray-600">
                   <p className="flex-auto">{feature.description}</p>
                   <p className="mt-6">
-                    <a href={feature.href} className="text-sm/6 font-semibold text-logo-primary hover:text-logo-dark">
+                    <a href={feature.href} className="text-sm/6 font-semibold text-yard-gold hover:text-yard-gold">
                       Learn more <span aria-hidden="true">→</span>
                     </a>
                   </p>

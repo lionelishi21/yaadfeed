@@ -107,7 +107,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
       <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       
       {/* Navigation */}
-      <div className="sticky top-0 z-30 w-full bg-yard-dark/80 backdrop-blur-md shadow-soft border-b border-logo-primary/20">
+      <div className="sticky top-0 z-30 w-full bg-yard-dark/80 backdrop-blur-md shadow-soft border-b border-yard-gold">
         <div className="max-w-screen-2xl mx-auto px-4 sm:px-8 py-4">
           <Link href="/artists" className="inline-flex items-center text-yard-gold hover:text-yard-gold/80 transition-colors">
             <ArrowLeft className="mr-2 w-5 h-5" />
@@ -120,7 +120,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
       <section className="relative w-full flex flex-col items-center justify-center py-16 md:py-24 bg-yard-gray border-b border-[#1a1a1a] text-white">
         <div className="w-full flex flex-col md:flex-row items-center justify-center gap-12 max-w-screen-2xl mx-auto px-4 sm:px-8">
           {/* Artist Image */}
-          <div className="flex-shrink-0 flex items-center justify-center w-56 h-56 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-logo-secondary/30 shadow-soft-xl bg-gradient-to-br from-logo-primary/10 to-logo-secondary/10">
+          <div className="flex-shrink-0 flex items-center justify-center w-56 h-56 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-yard-gold shadow-soft-xl bg-[#111]">
             <Image
               src={artist.imageUrl || "/images/jamaica-flag-bg.jpg"}
               alt={artist.name}
@@ -136,7 +136,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
             <h1 className="text-4xl md:text-6xl font-black mb-2 text-white drop-shadow-lg">{artist.name}</h1>
             <div className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
               {artist.genres?.map((genre: string) => (
-                <span key={genre} className="bg-logo-secondary/20 text-yard-gold px-4 py-1 rounded-xl text-sm font-semibold backdrop-blur-md shadow-soft">
+                <span key={genre} className="bg-yard-gold text-yard-gold px-4 py-1 rounded-xl text-sm font-semibold backdrop-blur-md shadow-soft">
                   {genre.replace("-", " ").replace(/\b\w/g, l => l.toUpperCase())}
                 </span>
               ))}
@@ -241,7 +241,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
                   href={`https://open.spotify.com/artist/${artist.spotifyId}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 bg-logo-primary/10 rounded-xl hover:bg-logo-primary/20 transition-colors shadow-soft"
+                  className="flex items-center justify-between p-3 bg-yard-gold rounded-xl hover:bg-yard-gold transition-colors shadow-soft"
                 >
                   <div className="flex items-center space-x-3">
                     <Music className="w-5 h-5 text-yard-gold" />
@@ -255,7 +255,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
                   href={artist.socialMedia.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 bg-logo-primary/10 rounded-xl hover:bg-logo-primary/20 transition-colors shadow-soft"
+                  className="flex items-center justify-between p-3 bg-yard-gold rounded-xl hover:bg-yard-gold transition-colors shadow-soft"
                 >
                   <div className="flex items-center space-x-3">
                     <ExternalLink className="w-5 h-5 text-pink-400" />
@@ -269,7 +269,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
                   href={artist.socialMedia.website}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between p-3 bg-logo-primary/10 rounded-xl hover:bg-logo-primary/20 transition-colors shadow-soft"
+                  className="flex items-center justify-between p-3 bg-yard-gold rounded-xl hover:bg-yard-gold transition-colors shadow-soft"
                 >
                   <div className="flex items-center space-x-3">
                     <ExternalLink className="w-5 h-5 text-yard-gold" />
@@ -311,7 +311,7 @@ export default async function ArtistPage({ params }: { params: Promise<{ id: str
                       
                       {/* Category badge */}
                       <div className="absolute top-3 left-3">
-                        <span className="bg-gradient-to-r from-logo-primary to-logo-primary/90 text-white px-3 py-1 rounded-xl text-xs font-semibold shadow-soft">
+                        <span className="bg-yard-gold text-white px-3 py-1 rounded-xl text-xs font-semibold shadow-soft">
                           {article.category?.replace('-', ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())}
                         </span>
                       </div>

@@ -18,13 +18,13 @@ const Button: React.FC<ButtonProps> = ({
   const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variantClasses = {
-    primary: 'bg-logo-primary text-white hover:bg-logo-dark shadow-sm hover:shadow-md focus:ring-logo-primary/30',
-    secondary: 'bg-logo-secondary text-gray-900 hover:bg-logo-secondary/90 shadow-sm hover:shadow-md focus:ring-logo-secondary/30',
-    accent: 'bg-logo-accent text-white hover:bg-logo-accent/90 shadow-sm hover:shadow-md focus:ring-logo-accent/30',
+    primary: 'bg-yard-gold text-white hover:bg-yard-gold shadow-sm hover:shadow-md focus:ring-yard-gold',
+    secondary: 'bg-yard-gold text-gray-900 hover:bg-yard-gold shadow-sm hover:shadow-md focus:ring-yard-gold',
+    accent: 'bg-yard-gold text-white hover:bg-yard-gold shadow-sm hover:shadow-md focus:ring-yard-gold',
     outline: 'border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 focus:ring-gray-300 bg-white',
     ghost: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-300',
     soft: 'bg-white/95 backdrop-blur-sm border border-white/50 text-gray-700 hover:bg-white shadow-soft hover:shadow-soft-lg focus:ring-gray-300',
-    glamour: 'bg-gradient-to-r from-logo-primary to-logo-dark text-white shadow-sm hover:shadow-md focus:ring-logo-primary/30',
+    glamour: 'bg-gradient-to-r from-yard-gold to-yellow-600 text-white shadow-sm hover:shadow-md focus:ring-yard-gold',
     flat: 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 focus:ring-gray-300',
   };
 

@@ -117,7 +117,7 @@ const AboutPage = () => {
               </Button>
             </div>
             <div className="relative">
-              <div className="bg-gradient-to-br from-logo-primary/20 to-logo-secondary/20 rounded-3xl p-8 shadow-soft">
+              <div className="bg-[#1a1a1a] rounded-3xl p-8 shadow-soft">
                 <div className="text-center">
                   <Heart className="w-20 h-20 text-yard-gold mx-auto mb-6" />
                   <h4 className="text-2xl font-bold text-white mb-4">Jamaica to the World</h4>
@@ -176,7 +176,7 @@ const AboutPage = () => {
               const IconComponent = value.icon;
               return (
                 <div key={index} className="border border-[#222] bg-[#111] p-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-logo-primary/20 to-logo-secondary/20 rounded-2xl flex items-center justify-center mb-6">
+                  <div className="w-16 h-16 bg-[#1a1a1a] rounded-2xl flex items-center justify-center mb-6">
                     <IconComponent className="w-8 h-8 text-yard-gold" />
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">{value.title}</h3>
@@ -220,7 +220,7 @@ const AboutPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-logo-primary via-logo-secondary to-logo-accent">
+      <section className="py-20 bg-gradient-to-br from-yard-dark via-[#111] to-yard-gray">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="bg-yard-dark/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
             <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">

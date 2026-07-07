@@ -343,7 +343,7 @@ const AdminMusicPage = () => {
                   placeholder="Search artists..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-logo-primary focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yard-gold focus:border-transparent"
                 />
               </div>
             </div>
@@ -351,7 +351,7 @@ const AdminMusicPage = () => {
               <select
                 value={selectedGenre}
                 onChange={(e) => setSelectedGenre(e.target.value)}
-                className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-logo-primary focus:border-transparent"
+                className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yard-gold focus:border-transparent"
               >
                 {genres.map(genre => (
                   <option key={genre} value={genre}>
@@ -362,7 +362,7 @@ const AdminMusicPage = () => {
               <select
                 value={selectedCountry}
                 onChange={(e) => setSelectedCountry(e.target.value)}
-                className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-logo-primary focus:border-transparent"
+                className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yard-gold focus:border-transparent"
               >
                 {countries.map(country => (
                   <option key={country} value={country}>
@@ -377,7 +377,7 @@ const AdminMusicPage = () => {
                   setSortBy(field as any);
                   setSortOrder(order as any);
                 }}
-                className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-logo-primary focus:border-transparent"
+                className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yard-gold focus:border-transparent"
               >
                 <option value="name-asc">Name A-Z</option>
                 <option value="name-desc">Name Z-A</option>
@@ -394,7 +394,7 @@ const AdminMusicPage = () => {
 
         {/* Bulk Actions */}
         {selectedArtists.length > 0 && (
-          <div className="glass rounded-xl p-4 mb-6 bg-logo-primary/10 border border-logo-primary/20">
+          <div className="glass rounded-xl p-4 mb-6 bg-yard-gold border border-yard-gold">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-300">
                 {selectedArtists.length} artist{selectedArtists.length !== 1 ? 's' : ''} selected
@@ -428,7 +428,7 @@ const AdminMusicPage = () => {
                     type="checkbox"
                     checked={selectedArtists.includes(artist.id)}
                     onChange={() => handleSelectArtist(artist.id)}
-                    className="w-4 h-4 text-yard-gold border-[#333] bg-[#222] text-white rounded focus:ring-logo-primary"
+                    className="w-4 h-4 text-yard-gold border-[#333] bg-[#222] text-white rounded focus:ring-yard-gold"
                   />
                   <div className="w-12 h-12 bg-gradient-to-br from-yard-gold to-yellow-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
                     {artist.name.charAt(0).toUpperCase()}
@@ -482,7 +482,7 @@ const AdminMusicPage = () => {
               <div className="flex gap-2">
                 <button
                   onClick={() => setEditingArtist(artist)}
-                  className="flex-1 px-3 py-2 bg-logo-primary text-white rounded-lg hover:bg-logo-secondary transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-3 py-2 bg-yard-gold text-white rounded-lg hover:bg-yard-gold transition-colors flex items-center justify-center gap-2"
                 >
                   <Edit className="w-4 h-4" />
                   Edit

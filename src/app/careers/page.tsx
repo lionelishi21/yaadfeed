@@ -215,7 +215,7 @@ const CareersPage = () => {
               const IconComponent = value.icon;
               return (
                 <div key={index} className="border border-[#222] bg-[#111] p-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-logo-primary/20 to-logo-secondary/20 rounded-2xl flex items-center justify-center mb-6">
+                  <div className="w-16 h-16 bg-[#1a1a1a] rounded-2xl flex items-center justify-center mb-6">
                     <IconComponent className="w-8 h-8 text-yard-gold" />
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-4">{value.title}</h3>
@@ -302,7 +302,7 @@ const CareersPage = () => {
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
                       <h3 className="text-2xl font-bold text-white">{job.title}</h3>
-                      <span className="bg-gradient-to-r from-logo-primary to-logo-primary/90 text-white px-3 py-1 rounded-xl text-sm font-semibold shadow-soft">
+                      <span className="bg-yard-gold text-white px-3 py-1 rounded-xl text-sm font-semibold shadow-soft">
                         {job.type}
                       </span>
                     </div>
@@ -334,7 +334,7 @@ const CareersPage = () => {
                         <ul className="space-y-2">
                           {job.requirements.map((req, idx) => (
                             <li key={idx} className="flex items-center gap-2 text-sm text-gray-400">
-                              <div className="w-2 h-2 bg-logo-primary rounded-full"></div>
+                              <div className="w-2 h-2 bg-yard-gold rounded-full"></div>
                               {req}
                             </li>
                           ))}
@@ -346,7 +346,7 @@ const CareersPage = () => {
                         <ul className="space-y-2">
                           {job.benefits.map((benefit, idx) => (
                             <li key={idx} className="flex items-center gap-2 text-sm text-gray-400">
-                              <div className="w-2 h-2 bg-logo-secondary rounded-full"></div>
+                              <div className="w-2 h-2 bg-yard-gold rounded-full"></div>
                               {benefit}
                             </li>
                           ))}
@@ -390,7 +390,7 @@ const CareersPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-logo-primary via-logo-secondary to-logo-accent">
+      <section className="py-20 bg-gradient-to-br from-yard-dark via-[#111] to-yard-gray">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="bg-yard-dark/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
             <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">

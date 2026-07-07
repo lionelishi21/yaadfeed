@@ -14,7 +14,7 @@ export default function Preloader({ isLoading, children }: PreloaderProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-logo-light via-white to-logo-muted">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-yard-gold via-white to-yellow-600">
       <div className="text-center">
         {/* Logo/Title Animation */}
         <motion.div
@@ -23,8 +23,8 @@ export default function Preloader({ isLoading, children }: PreloaderProps) {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <h1 className="text-4xl md:text-6xl font-black text-logo-dark mb-2">
-            Yaad<span className="text-logo-primary">Feed</span>
+          <h1 className="text-4xl md:text-6xl font-black text-yard-gold mb-2">
+            Yaad<span className="text-yard-gold">Feed</span>
           </h1>
           <p className="text-lg text-gray-600">Jamaica's Premier News & Music Platform</p>
         </motion.div>
@@ -45,7 +45,7 @@ export default function Preloader({ isLoading, children }: PreloaderProps) {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="space-y-2"
         >
-          <p className="text-logo-primary font-semibold text-lg">Loading...</p>
+          <p className="text-yard-gold font-semibold text-lg">Loading...</p>
           <p className="text-gray-500 text-sm">Connecting to Jamaica's finest content</p>
         </motion.div>
 
@@ -54,13 +54,13 @@ export default function Preloader({ isLoading, children }: PreloaderProps) {
           initial={{ width: 0 }}
           animate={{ width: "100%" }}
           transition={{ delay: 0.5, duration: 2, ease: "easeOut" }}
-          className="mt-8 h-2 bg-logo-primary/20 rounded-full overflow-hidden"
+          className="mt-8 h-2 bg-yard-gold rounded-full overflow-hidden"
         >
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: "100%" }}
             transition={{ delay: 0.5, duration: 2, ease: "easeOut" }}
-            className="h-full bg-gradient-to-r from-logo-primary to-logo-secondary rounded-full"
+            className="h-full bg-gradient-to-r from-yard-gold to-yellow-600 rounded-full"
           />
         </motion.div>
 
@@ -78,7 +78,7 @@ export default function Preloader({ isLoading, children }: PreloaderProps) {
                 repeat: Infinity, 
                 delay: i * 0.2 
               }}
-              className="w-3 h-3 bg-logo-primary rounded-full"
+              className="w-3 h-3 bg-yard-gold rounded-full"
             />
           ))}
         </div>
@@ -95,9 +95,9 @@ export function CompactPreloader({ className = "" }: { className?: string }) {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-          className="w-8 h-8 border-3 border-logo-primary/20 border-t-logo-primary rounded-full mx-auto mb-3"
+          className="w-8 h-8 border-3 border-yard-gold border-t-logo-primary rounded-full mx-auto mb-3"
         />
-        <p className="text-logo-primary text-sm font-medium">Loading...</p>
+        <p className="text-yard-gold text-sm font-medium">Loading...</p>
       </div>
     </div>
   );
@@ -108,9 +108,9 @@ export function SkeletonPreloader({ className = "" }: { className?: string }) {
   return (
     <div className={`animate-pulse ${className}`}>
       <div className="space-y-4">
-        <div className="h-4 bg-logo-primary/10 rounded w-3/4"></div>
-        <div className="h-4 bg-logo-primary/10 rounded w-1/2"></div>
-        <div className="h-4 bg-logo-primary/10 rounded w-5/6"></div>
+        <div className="h-4 bg-yard-gold rounded w-3/4"></div>
+        <div className="h-4 bg-yard-gold rounded w-1/2"></div>
+        <div className="h-4 bg-yard-gold rounded w-5/6"></div>
       </div>
     </div>
   );

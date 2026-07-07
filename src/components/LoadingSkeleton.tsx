@@ -50,9 +50,9 @@ export const ArtistCardSkeleton: React.FC = () => (
 );
 
 export const HomePageSkeleton: React.FC = () => (
-  <div className="min-h-screen bg-gradient-to-br from-logo-light via-white to-logo-muted">
+  <div className="min-h-screen bg-gradient-to-br from-yard-gold via-white to-yellow-600">
     {/* Header Skeleton */}
-    <div className="bg-gradient-to-br from-logo-dark via-logo-primary to-logo-secondary text-white py-20">
+    <div className="bg-gradient-to-br from-yard-gold via-yellow-500 to-yellow-600 text-white py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center space-y-6">
           <Skeleton height="h-12" width="w-64" className="mx-auto bg-white/20" />

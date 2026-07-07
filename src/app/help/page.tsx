@@ -149,7 +149,7 @@ const HelpPage = () => {
                   className={`p-6 rounded-2xl transition-all duration-300 ${
                     selectedCategory === category.value
                       ? 'bg-gradient-to-r from-yard-gold to-yellow-600 text-white shadow-soft'
-                      : 'bg-yard-dark hover:bg-logo-light/50 text-gray-300 hover:text-yard-gold shadow-soft hover:shadow-soft-lg'
+                      : 'bg-yard-dark hover:bg-yard-gold text-gray-300 hover:text-yard-gold shadow-soft hover:shadow-soft-lg'
                   }`}
                 >
                   <IconComponent className="w-8 h-8 mx-auto mb-3" />
@@ -240,7 +240,7 @@ const HelpPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-logo-primary via-logo-secondary to-logo-accent">
+      <section className="py-20 bg-gradient-to-br from-yard-dark via-[#111] to-yard-gray">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="bg-yard-dark/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
             <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">

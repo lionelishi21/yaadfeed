@@ -297,7 +297,7 @@ const ContactPage = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-logo-primary via-logo-secondary to-logo-accent">
+      <section className="py-20 bg-gradient-to-br from-yard-dark via-[#111] to-yard-gray">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="bg-yard-dark/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
             <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">
