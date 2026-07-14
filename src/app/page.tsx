@@ -330,11 +330,13 @@ export default async function HomePage() {
               </div>
             )
           }) : (
-            <div className="text-[#666] text-sm">No upcoming events found.</div>
-            {/* Smart Link Ad in empty events section */}
-            <div className="mt-6">
-              <EffectiveSmartLink variant="card" />
-            </div>
+            <>
+              <div className="text-[#666] text-sm">No upcoming events found.</div>
+              {/* Smart Link Ad in empty events section */}
+              <div className="mt-6">
+                <EffectiveSmartLink variant="card" />
+              </div>
+            </>
           )}
         </div>
       </section>
