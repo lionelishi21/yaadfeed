@@ -83,10 +83,7 @@ automation/
 data/
 logs/
 
-# Large image files
-public/images/*.jpg
-public/images/*.png
-public/images/*.gif
+# Removed image exclusions so they deploy correctly
 
 # Exclude all markdown files except essential ones
 *.md

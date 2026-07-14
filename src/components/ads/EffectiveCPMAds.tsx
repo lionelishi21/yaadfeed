@@ -1,95 +1,101 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 /**
  * EffectiveCPM Ad Network Components
- * Temporary alternative while Google AdSense approval is pending.
- * 
- * Ad Units:
- * 1. BannerAd1 - General banner (homepage between sections)
- * 2. BannerAd2 - Secondary banner (article pages)
- * 3. NativeAd  - Native ad with container (in-content / sidebar)
- * 4. SmartLink - Monetized link (sponsored buttons / footer)
+ * Using iframes to prevent React DOM conflicts and allow document.write()
+ * which many third-party ad networks require.
  */
 
-// ─── Banner Ad #1 — Best between homepage sections ───
 export function EffectiveBannerAd1({ className = '' }: { className?: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const loaded = useRef(false);
-
-  useEffect(() => {
-    if (loaded.current || !containerRef.current) return;
-    loaded.current = true;
-
-    const script = document.createElement('script');
-    script.src = 'https://pl30357558.effectivecpmnetwork.com/0c/37/4a/0c374a1acbf1b10324b793a817601b67.js';
-    script.async = true;
-    containerRef.current.appendChild(script);
-  }, []);
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <style>body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; background: transparent; }</style>
+      </head>
+      <body>
+        <script src="https://pl30357558.effectivecpmnetwork.com/0c/37/4a/0c374a1acbf1b10324b793a817601b67.js"></script>
+      </body>
+    </html>
+  `;
 
   return (
-    <div className={`w-full flex justify-center ${className}`}>
-      <div className="w-full max-w-4xl">
-        <p className="text-[10px] text-white/20 uppercase tracking-[1.5px] text-center mb-2">Sponsored</p>
-        <div ref={containerRef} className="min-h-[90px] flex items-center justify-center" />
-      </div>
+    <div className={`w-full flex flex-col items-center justify-center ${className}`}>
+      <p className="text-[10px] text-white/20 uppercase tracking-[1.5px] text-center mb-2">Sponsored</p>
+      <iframe
+        srcDoc={htmlContent}
+        width="100%"
+        height="250"
+        style={{ border: 'none', overflow: 'hidden', maxWidth: '300px' }}
+        scrolling="no"
+        title="Advertisement"
+      />
     </div>
   );
 }
 
-// ─── Banner Ad #2 — Best in article pages ───
 export function EffectiveBannerAd2({ className = '' }: { className?: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const loaded = useRef(false);
-
-  useEffect(() => {
-    if (loaded.current || !containerRef.current) return;
-    loaded.current = true;
-
-    const script = document.createElement('script');
-    script.src = 'https://pl30357559.effectivecpmnetwork.com/89/53/6d/89536d42a461106489c834524298956c.js';
-    script.async = true;
-    containerRef.current.appendChild(script);
-  }, []);
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <style>body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; background: transparent; }</style>
+      </head>
+      <body>
+        <script src="https://pl30357559.effectivecpmnetwork.com/89/53/6d/89536d42a461106489c834524298956c.js"></script>
+      </body>
+    </html>
+  `;
 
   return (
-    <div className={`w-full flex justify-center ${className}`}>
-      <div className="w-full max-w-4xl">
-        <p className="text-[10px] text-white/20 uppercase tracking-[1.5px] text-center mb-2">Sponsored</p>
-        <div ref={containerRef} className="min-h-[90px] flex items-center justify-center" />
-      </div>
+    <div className={`w-full flex flex-col items-center justify-center ${className}`}>
+      <p className="text-[10px] text-white/20 uppercase tracking-[1.5px] text-center mb-2">Sponsored</p>
+      <iframe
+        srcDoc={htmlContent}
+        width="100%"
+        height="250"
+        style={{ border: 'none', overflow: 'hidden', maxWidth: '300px' }}
+        scrolling="no"
+        title="Advertisement"
+      />
     </div>
   );
 }
 
-// ─── Native Ad with Container — Best in-content or sidebar ───
 export function EffectiveNativeAd({ className = '' }: { className?: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const loaded = useRef(false);
-
-  useEffect(() => {
-    if (loaded.current || !containerRef.current) return;
-    loaded.current = true;
-
-    const script = document.createElement('script');
-    script.src = 'https://pl30357560.effectivecpmnetwork.com/dbb5da5ded09fd4d6c874d73735f5837/invoke.js';
-    script.async = true;
-    script.setAttribute('data-cfasync', 'false');
-    containerRef.current.appendChild(script);
-  }, []);
+  const htmlContent = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <style>body { margin: 0; padding: 0; background: transparent; }</style>
+      </head>
+      <body>
+        <script async="async" data-cfasync="false" src="https://pl30357560.effectivecpmnetwork.com/dbb5da5ded09fd4d6c874d73735f5837/invoke.js"></script>
+        <div id="container-dbb5da5ded09fd4d6c874d73735f5837"></div>
+      </body>
+    </html>
+  `;
 
   return (
     <div className={`w-full ${className}`}>
       <p className="text-[10px] text-white/20 uppercase tracking-[1.5px] text-center mb-2">Sponsored</p>
-      <div ref={containerRef}>
-        <div id="container-dbb5da5ded09fd4d6c874d73735f5837"></div>
-      </div>
+      <iframe
+        srcDoc={htmlContent}
+        width="100%"
+        height="250"
+        style={{ border: 'none', overflow: 'hidden' }}
+        scrolling="no"
+        title="Advertisement"
+      />
     </div>
   );
 }
 
-// ─── Smart Link — Monetized sponsored link/button ───
 const SMART_LINK_URL = 'https://www.effectivecpmnetwork.com/bq9t6rgsg?key=6e361d111ba7846a44c39319d5ea94b8';
 
 export function EffectiveSmartLink({ 
