@@ -356,7 +356,16 @@ export class NewsService {
     
     try {
       const result = await collection.insertOne(news as NewsItem);
-      return await collection.findOne({ _id: result.insertedId }) || null;
+      const insertedArticle = await collection.findOne({ _id: result.insertedId });
+      
+      if (insertedArticle) {
+        // Fire and forget Facebook posting
+        import('./facebookService').then(({ FacebookService }) => {
+          FacebookService.postArticle(insertedArticle as unknown as NewsItem).catch(console.error);
+        });
+      }
+      
+      return insertedArticle || null;
     } catch (error: any) {
       if (error.code === 11000) {
         // Duplicate key error
@@ -533,10 +542,19 @@ export class NewsService {
 
   static async getArtistById(id: string): Promise<any> {
     const collection = await getArtistsCollection();
+    const { ObjectId } = await loadMongo();
     
     try {
-      // Try to find by _id first (assuming it's a valid ObjectId)
-      let artist = await collection.findOne({ _id: id as any });
+      // Try to find by _id first (convert to ObjectId if valid)
+      let artist = null;
+      if (ObjectId.isValid(id) && new ObjectId(id).toString() === id) {
+        artist = await collection.findOne({ _id: new ObjectId(id) as any });
+      }
+      
+      if (!artist) {
+        // Also try matching _id as a raw string (some docs may store it that way)
+        artist = await collection.findOne({ _id: id as any });
+      }
       
       if (!artist) {
         // If not found by _id, try to find by string id field
@@ -791,10 +809,19 @@ export class ArtistService {
 
   static async getArtistById(id: string): Promise<any> {
     const collection = await getArtistsCollection();
+    const { ObjectId } = await loadMongo();
     
     try {
-      // Try to find by _id first (assuming it's a valid ObjectId)
-      let artist = await collection.findOne({ _id: id as any });
+      // Try to find by _id first (convert to ObjectId if valid)
+      let artist = null;
+      if (ObjectId.isValid(id) && new ObjectId(id).toString() === id) {
+        artist = await collection.findOne({ _id: new ObjectId(id) as any });
+      }
+      
+      if (!artist) {
+        // Also try matching _id as a raw string (some docs may store it that way)
+        artist = await collection.findOne({ _id: id as any });
+      }
       
       if (!artist) {
         // If not found by _id, try to find by string id field
