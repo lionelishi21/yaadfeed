@@ -13,6 +13,7 @@ import ClientHeader from '@/components/ClientHeader';
 import AudioPlayer from '@/components/AudioPlayer';
 import SocialShare from '@/components/SocialShare';
 import { ARTICLE_HIGHLIGHT_KEYWORDS } from '@/config/keywords';
+import { EffectiveBannerAd2, EffectiveNativeAd, EffectiveSmartLink } from '@/components/ads/EffectiveCPMAds';
 
 interface ArticleContentProps {
   article: any;
@@ -259,6 +260,11 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
             {/* Audio Player */}
             <AudioPlayer title={article.title} content={htmlContent} slug={slug} />
 
+            {/* Ad: After summary, before article body */}
+            <div className="my-8">
+              <EffectiveBannerAd2 />
+            </div>
+
             <div className="mb-10 relative w-full h-[300px] md:float-right md:w-[400px] md:ml-8 md:mb-6 rounded-sm overflow-hidden border border-white/10">
               <Image
                 src={relatedImage || heroImage || `/images/placeholder-${article?.category || 'general'}.jpg`}
@@ -299,7 +305,10 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
 
           {/* Related */}
           <div className="p-6 md:p-12 border-t border-white/5">
-            <div className="text-[9px] font-bold tracking-[0.14em] text-white/30 uppercase mb-6">More Stories</div>
+            <div className="flex items-center justify-between mb-6">
+              <div className="text-[9px] font-bold tracking-[0.14em] text-white/30 uppercase">More Stories</div>
+              <EffectiveSmartLink variant="text" />
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {relatedArticles && relatedArticles.length > 0 ? (
                 relatedArticles.slice(0,3).map((relatedArticle: any, index: number) => (
@@ -333,6 +342,11 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
                 ))
               )}
             </div>
+          </div>
+
+          {/* Ad: Before comments - high engagement zone */}
+          <div className="px-6 md:px-12 pb-8">
+            <EffectiveNativeAd />
           </div>
 
           {/* Comments Section */}

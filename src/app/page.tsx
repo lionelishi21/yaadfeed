@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Play, ArrowRight, Calendar, ExternalLink, Music, Newspaper, Eye, Heart, ChevronRight } from 'lucide-react';
 import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
+import { EffectiveBannerAd1, EffectiveNativeAd, EffectiveSmartLink } from '@/components/ads/EffectiveCPMAds';
 
 // Use direct DB imports for optimal server-side rendering
 import { NewsService, ArtistService } from '@/lib/mongodb';
@@ -184,6 +185,11 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Ad Placement: Between Trending and Featured Story */}
+      <section className="py-6 px-6 sm:px-14 bg-yard-dark">
+        <EffectiveBannerAd1 />
+      </section>
+
       {/* Featured Story */}
       <section className="pb-16 px-6 sm:px-14 bg-yard-dark border-t border-[#141414]">
         <div className="flex items-center gap-3.5 mb-8 pt-16">
@@ -262,6 +268,11 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Ad Placement: Between Artist Spotlight and News */}
+      <section className="py-8 px-6 sm:px-14 bg-yard-dark">
+        <EffectiveNativeAd />
+      </section>
+
       {/* Latest News Grid */}
       <section className="py-16 px-6 sm:px-14 bg-yard-dark border-t border-[#141414]">
         <div className="flex items-center gap-3.5 mb-8">
@@ -320,6 +331,10 @@ export default async function HomePage() {
             )
           }) : (
             <div className="text-[#666] text-sm">No upcoming events found.</div>
+            {/* Smart Link Ad in empty events section */}
+            <div className="mt-6">
+              <EffectiveSmartLink variant="card" />
+            </div>
           )}
         </div>
       </section>
