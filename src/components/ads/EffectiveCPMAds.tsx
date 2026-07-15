@@ -9,24 +9,11 @@ import React from 'react';
  */
 
 export function EffectiveBannerAd1({ className = '' }: { className?: string }) {
-  const htmlContent = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <style>body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; background: transparent; }</style>
-      </head>
-      <body>
-        <script src="https://pl30357558.effectivecpmnetwork.com/0c/37/4a/0c374a1acbf1b10324b793a817601b67.js"></script>
-      </body>
-    </html>
-  `;
-
   return (
     <div className={`w-full flex flex-col items-center justify-center ${className}`}>
       <p className="text-[10px] text-white/20 uppercase tracking-[1.5px] text-center mb-2">Sponsored</p>
       <iframe
-        srcDoc={htmlContent}
+        src="/ads/banner1.html"
         width="100%"
         height="250"
         style={{ border: 'none', overflow: 'hidden', maxWidth: '300px' }}
@@ -38,24 +25,11 @@ export function EffectiveBannerAd1({ className = '' }: { className?: string }) {
 }
 
 export function EffectiveBannerAd2({ className = '' }: { className?: string }) {
-  const htmlContent = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <style>body { margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; background: transparent; }</style>
-      </head>
-      <body>
-        <script src="https://pl30357559.effectivecpmnetwork.com/89/53/6d/89536d42a461106489c834524298956c.js"></script>
-      </body>
-    </html>
-  `;
-
   return (
     <div className={`w-full flex flex-col items-center justify-center ${className}`}>
       <p className="text-[10px] text-white/20 uppercase tracking-[1.5px] text-center mb-2">Sponsored</p>
       <iframe
-        srcDoc={htmlContent}
+        src="/ads/banner2.html"
         width="100%"
         height="250"
         style={{ border: 'none', overflow: 'hidden', maxWidth: '300px' }}
@@ -67,25 +41,11 @@ export function EffectiveBannerAd2({ className = '' }: { className?: string }) {
 }
 
 export function EffectiveNativeAd({ className = '' }: { className?: string }) {
-  const htmlContent = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <style>body { margin: 0; padding: 0; background: transparent; }</style>
-      </head>
-      <body>
-        <script async="async" data-cfasync="false" src="https://pl30357560.effectivecpmnetwork.com/dbb5da5ded09fd4d6c874d73735f5837/invoke.js"></script>
-        <div id="container-dbb5da5ded09fd4d6c874d73735f5837"></div>
-      </body>
-    </html>
-  `;
-
   return (
     <div className={`w-full ${className}`}>
       <p className="text-[10px] text-white/20 uppercase tracking-[1.5px] text-center mb-2">Sponsored</p>
       <iframe
-        srcDoc={htmlContent}
+        src="/ads/native.html"
         width="100%"
         height="250"
         style={{ border: 'none', overflow: 'hidden' }}
