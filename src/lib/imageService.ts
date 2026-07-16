@@ -24,7 +24,7 @@ async function loadOpenAIClient() {
   
   return OpenAIClient;
 }
-import { writeFile, mkdir } from 'fs/promises';
+import { writeFile, mkdir, readdir } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
 import crypto from 'crypto';
@@ -70,7 +70,7 @@ class ImageServiceClass {
 
   // Check if local image exists
   private getLocalImagePath(filename: string): string | null {
-    const fullPath = path.join(process.cwd(), 'public/images/generated', filename);
+    const fullPath = path.join(/*turbopackIgnore: true*/ process.cwd(), 'public/images/generated', filename);
     return existsSync(fullPath) ? `${this.publicPath}/${filename}` : null;
   }
 
@@ -92,7 +92,7 @@ class ImageServiceClass {
       }
       
       const buffer = await response.arrayBuffer();
-      const fullPath = path.join(process.cwd(), 'public/images/generated', filename);
+      const fullPath = path.join(/*turbopackIgnore: true*/ process.cwd(), 'public/images/generated', filename);
       
       await writeFile(fullPath, Buffer.from(buffer));
       console.log(`✅ Saved image: ${filename}`);
@@ -425,11 +425,10 @@ class ImageServiceClass {
     if (!this.isServerSide()) return { totalImages: 0, directory: '' };
     
     try {
-      const fs = await import('fs/promises');
-      const fullPath = path.join(process.cwd(), 'public/images/generated');
+      const fullPath = path.join(/*turbopackIgnore: true*/ process.cwd(), 'public/images/generated');
       
       if (existsSync(fullPath)) {
-        const files = await fs.readdir(fullPath);
+        const files = await readdir(fullPath);
         return {
           totalImages: files.filter(f => f.endsWith('.jpg') || f.endsWith('.png')).length,
           directory: this.imagesDir
