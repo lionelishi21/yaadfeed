@@ -45,18 +45,7 @@ async function fetchAndExtractMainContent(url: string): Promise<string> {
   }
 }
 
-// Generate static params for static export
-export async function generateStaticParams() {
-  try {
-    const { default: NewsService } = await import('@/lib/mongodb');
-    const slugs = await NewsService.getAllSlugs();
-    return slugs.map(slug => ({ slug }));
-  } catch (error) {
-    console.error('Error fetching slugs for generateStaticParams:', error);
-    // Fallback to empty array if database is not available
-    return [];
-  }
-}
+
 // lazy import heavy service
 
 export async function GET(

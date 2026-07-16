@@ -1,13 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// Generate static params for static export
-export async function generateStaticParams() {
-  return [
-    { commentId: '1' },
-    { commentId: '2' },
-    { commentId: '3' }
-  ];
-}
+
 
 export async function POST(
   request: NextRequest,
