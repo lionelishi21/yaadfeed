@@ -28,7 +28,7 @@ function createClientPromise(): Promise<MongoClient> {
 }
 
 if (!process.env.MONGODB_URI) {
-  throw new Error("Please add MONGODB_URI to Vercel Environment Variables");
+  console.warn("WARNING: MONGODB_URI is not set. Database connection will fail at runtime.");
 }
 
 if (process.env.NODE_ENV === "development") {
