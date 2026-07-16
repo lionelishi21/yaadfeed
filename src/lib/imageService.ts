@@ -70,7 +70,7 @@ class ImageServiceClass {
 
   // Check if local image exists
   private getLocalImagePath(filename: string): string | null {
-    const fullPath = path.join(process.cwd(), this.imagesDir, filename);
+    const fullPath = path.join(process.cwd(), 'public/images/generated', filename);
     return existsSync(fullPath) ? `${this.publicPath}/${filename}` : null;
   }
 
@@ -92,7 +92,7 @@ class ImageServiceClass {
       }
       
       const buffer = await response.arrayBuffer();
-      const fullPath = path.join(process.cwd(), this.imagesDir, filename);
+      const fullPath = path.join(process.cwd(), 'public/images/generated', filename);
       
       await writeFile(fullPath, Buffer.from(buffer));
       console.log(`✅ Saved image: ${filename}`);
@@ -426,7 +426,7 @@ class ImageServiceClass {
     
     try {
       const fs = await import('fs/promises');
-      const fullPath = path.join(process.cwd(), this.imagesDir);
+      const fullPath = path.join(process.cwd(), 'public/images/generated');
       
       if (existsSync(fullPath)) {
         const files = await fs.readdir(fullPath);
