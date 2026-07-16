@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "cross-env NODE_OPTIONS=\"--max_old_space_size=6144\" next build",
     "start": "next start",
     "lint": "eslint"
   },
@@ -16,6 +16,7 @@
     "autoprefixer": "^10.5.2",
     "axios": "^1.18.1",
     "bcryptjs": "^3.0.3",
+    "cross-env": "^10.1.0",
     "dayjs": "^1.11.21",
     "dotenv": "^17.4.2",
     "framer-motion": "^12.42.0",
