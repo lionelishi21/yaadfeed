@@ -7,8 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "pwd && ls -la src && ls -la src/components",
-    "build": "next build --webpack --debug",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
