@@ -8,8 +8,7 @@ async function loadOpenAIClient() {
   if (typeof window === 'undefined') {
     try {
       if (process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY !== 'your_openai_api_key_here') {
-        const dynamicImport: (m: string) => Promise<any> = new Function('m', 'return import(m)') as any;
-        const mod = await dynamicImport('openai');
+        const mod = await import('openai');
         OpenAIClient = (mod as any).default || (mod as any);
       } else {
         const stub = await import('@/lib/stubs/openai');

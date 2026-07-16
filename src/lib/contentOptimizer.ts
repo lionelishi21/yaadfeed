@@ -52,7 +52,7 @@ export async function synthesizeArticle(sources: RawSource[]): Promise<Synthesiz
 
   if (hasOpenAI) {
     try {
-      const mod: any = await (new Function('m', 'return import(m)'))('openai');
+      const mod: any = await import('openai');
       const OpenAI = mod.default || mod;
       const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
       const prompt = `You are a top-tier journalist and editor at YardVybz. ${JAMAICAN_VOICE_GUIDE}
