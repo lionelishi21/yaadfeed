@@ -23,7 +23,11 @@ let clientPromise: Promise<MongoClient>;
 function createClientPromise(): Promise<MongoClient> {
   return loadMongo().then(({ MongoClient }) => {
     const c = new MongoClient(MONGODB_URI);
-    return c.connect();
+    return c.connect().catch(err => {
+      console.error("Top-level MongoDB connection failed:", err.message);
+      // Return the unconnected client to prevent unhandled rejection crash during build
+      return c;
+    });
   });
 }
 
