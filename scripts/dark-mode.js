@@ -1,16 +1,23 @@
 const fs = require('fs');
 const path = require('path');
 
-const files = [
-  '/Users/lionelfrancis/workspace/yaadfeed/src/app/cookies/page.tsx',
-  '/Users/lionelfrancis/workspace/yaadfeed/src/app/privacy/page.tsx',
-  '/Users/lionelfrancis/workspace/yaadfeed/src/app/terms/page.tsx',
-  '/Users/lionelfrancis/workspace/yaadfeed/src/app/contact/page.tsx',
-];
+function walkDir(dir, callback) {
+  if (!fs.existsSync(dir)) return;
+  fs.readdirSync(dir).forEach(f => {
+    let dirPath = path.join(dir, f);
+    let isDirectory = fs.statSync(dirPath).isDirectory();
+    if (isDirectory) {
+      walkDir(dirPath, callback);
+    } else {
+      callback(path.join(dir, f));
+    }
+  });
+}
 
-files.forEach(filePath => {
-  if (!fs.existsSync(filePath)) return;
+function replaceInFile(filePath) {
+  if (!filePath.endsWith('.tsx')) return;
   let content = fs.readFileSync(filePath, 'utf8');
+  let original = content;
 
   // Backgrounds
   content = content.replace(/bg-gradient-to-br from-logo-light via-white to-logo-muted/g, 'bg-yard-dark');
@@ -35,16 +42,12 @@ files.forEach(filePath => {
   // Borders & Inputs
   content = content.replace(/border-gray-300/g, 'border-[#333] bg-[#222] text-white');
   content = content.replace(/focus:ring-logo-primary\/30/g, 'focus:ring-yard-gold/30');
-  
-  // Specific Terms page fixes
-  content = content.replace(/<div className="mx-auto max-w-3xl px-4 py-10">/g, '<div className="min-h-screen bg-yard-dark text-white"><ClientHeader /><div className="mx-auto max-w-3xl px-4 py-20">');
-  content = content.replace(/<\/section>\n    <\/div>\n  \);\n}/g, '<\/section>\n    <\/div><Footer /><\/div>\n  );\n}');
-  if (filePath.includes('terms/page.tsx')) {
-    if (!content.includes('import ClientHeader')) {
-      content = "import ClientHeader from '@/components/ClientHeader';\nimport Footer from '@/components/Footer';\n" + content;
-    }
-  }
 
-  fs.writeFileSync(filePath, content, 'utf8');
-  console.log(`Updated styles for ${filePath}`);
-});
+  if (content !== original) {
+    fs.writeFileSync(filePath, content, 'utf8');
+    console.log(`Updated styles for ${filePath}`);
+  }
+}
+
+walkDir('/Users/lionelfrancis/workspace/yaadfeed/src/app', replaceInFile);
+console.log('Done styling pass!');
