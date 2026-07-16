@@ -15,5 +15,8 @@ const nextConfig = {
     ],
   },
   typescript: { ignoreBuildErrors: true },
+  experimental: {
+    serverComponentsExternalPackages: ['mongoose', 'mongodb', 'sharp'],
+  },
 };
 module.exports = nextConfig;
