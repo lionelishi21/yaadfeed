@@ -5,9 +5,9 @@ export const dynamic = "force-dynamic";
 
 import React from 'react';
 import { Users, Globe, Award, Heart, Music, Newspaper, Calendar, Star } from 'lucide-react';
-import ClientHeader from '@/components/ClientHeader';
-import Footer from '@/components/Footer';
-import Button from '@/components/ui/Button';
+import ClientHeader from '../../components/ClientHeader';
+import Footer from '../../components/Footer';
+import Button from '../../components/ui/Button';
 
 const AboutPage = () => {
   const stats = [
