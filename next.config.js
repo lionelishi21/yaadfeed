@@ -14,9 +14,10 @@ const nextConfig = {
       },
     ],
   },
-  typescript: { ignoreBuildErrors: true },
+  serverExternalPackages: ['mongoose', 'mongodb', 'sharp'],
   experimental: {
-    serverComponentsExternalPackages: ['mongoose', 'mongodb', 'sharp'],
+    workerThreads: false,
+    cpus: 1,
   },
 };
 module.exports = nextConfig;
