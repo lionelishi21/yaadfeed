@@ -3,22 +3,16 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm install 20
-        - nvm use 20
-        - npm ci
+        - nvm install 22
+        - nvm use 22
+        - npm install
     build:
       commands:
-        - echo "MONGODB_URI=$MONGODB_URI" >> .env.production
-        - echo "MONGODB_DB=$MONGODB_DB" >> .env.production
-        - echo "NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL" >> .env.production
         - npm run build
-        - rm -rf .next/cache
   artifacts:
     baseDirectory: .next
     files:
       - '**/*'
-      - '!cache/**/*'
   cache:
     paths:
       - node_modules/**/*
-      - .next/cache/**/*
