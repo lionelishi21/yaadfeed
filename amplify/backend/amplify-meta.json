@@ -9,7 +9,6 @@
       "UnauthRoleName": "amplify-yaadfeedappnew-dev-bf3d0-unauthRole",
       "StackName": "amplify-yaadfeedappnew-dev-bf3d0",
       "StackId": "arn:aws:cloudformation:us-east-2:995805900928:stack/amplify-yaadfeedappnew-dev-bf3d0/dd67d900-94b4-11f0-93ff-0615d69d4d59",
-      "AmplifyAppId": "d1o83uxzyju9dt",
       "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-yaadfeedappnew-dev-bf3d0-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     }
   },
