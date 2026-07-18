@@ -24,9 +24,6 @@
       },
       "api": {
         "api908c5bdf": {}
-      },
-      "hosting": {
-        "S3AndCloudFront": {}
       }
     }
   }
