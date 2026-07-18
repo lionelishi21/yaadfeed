@@ -8,6 +8,7 @@ frontend:
         - npm install
     build:
       commands:
+        - env | grep -e MONGODB_URI -e MONGODB_DB -e NEXT_PUBLIC_APP_NAME -e OPENAI_API_KEY -e NEXTAUTH_URL -e NEXTAUTH_SECRET -e GOOGLE_CLIENT_ID -e GOOGLE_CLIENT_SECRET -e FACEBOOK_CLIENT_ID -e FACEBOOK_CLIENT_SECRET -e FACEBOOK_PAGE_ID -e FACEBOOK_PAGE_ACCESS_TOKEN -e TWITTER_CLIENT_ID -e TWITTER_CLIENT_SECRET -e NEXT_PUBLIC_SITE_URL -e NEXT_PUBLIC_USE_AUTO_ADS -e ELEVENLABS_API_KEY -e ELEVENLABS_VOICE_ID >> .env.production || true
         - npm run build
   artifacts:
     baseDirectory: .next
