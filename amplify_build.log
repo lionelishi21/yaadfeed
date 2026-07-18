@@ -1,5 +1,0 @@
-2026-07-17T10:23:19.629Z [INFO]: # Build environment configured with Standard build compute type: 8GiB Memory, 4vCPUs, 128GB Disk Space
-2026-07-17T10:23:20.125Z [ERROR]: !!! Unable to assume specified IAM Role. Please ensure the selected IAM Role has sufficient permissions and the Trust Relationship is configured correctly.
-2026-07-17T10:23:20.125Z [INFO]: # Starting environment caching...
-2026-07-17T10:23:20.125Z [INFO]: # Environment caching completed
-
