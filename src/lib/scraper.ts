@@ -950,15 +950,58 @@ async function updateArtistMentions(articleId: string, artists: string[]): Promi
 
 // Try to fetch and extract main article content from a webpage
 async function fetchFullArticleContent(url: string): Promise<string> {
-  const res = await fetch(url, {
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36',
-      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+  try {
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      }
+    });
+    
+    if (!res.ok) return '';
+    const html = await res.text();
+    
+    try {
+      // Use cheerio if available for better parsing
+      const cheerio = require('cheerio');
+      const $ = cheerio.load(html);
+      
+      // Remove unwanted elements
+      $('script, style, nav, header, footer, iframe, aside, .ad, .advertisement, .social-share').remove();
+      
+      let articleText = '';
+      
+      // Find the main article container
+      const container = $('article').length > 0 ? $('article') 
+                        : $('main').length > 0 ? $('main')
+                        : $('.article-content, .post-content, .entry-content');
+                        
+      if (container.length > 0) {
+        // Extract text from paragraphs within the container
+        container.find('p').each((_: any, el: any) => {
+          const pText = $(el).text().trim();
+          if (pText.length > 30) { // filter out tiny snippets or links
+            articleText += pText + '\n\n';
+          }
+        });
+      } else {
+        // Fallback: just get all substantial paragraphs
+        $('p').each((_: any, el: any) => {
+          const pText = $(el).text().trim();
+          if (pText.length > 50) { 
+            articleText += pText + '\n\n';
+          }
+        });
+      }
+      
+      return articleText.trim();
+    } catch (e) {
+      // Fallback to basic string extraction if cheerio fails or isn't installed
+      return extractMainContentFromHtml(html);
     }
-  });
-  if (!res.ok) return '';
-  const html = await res.text();
-  return extractMainContentFromHtml(html);
+  } catch (err) {
+    return '';
+  }
 }
 
 function extractMainContentFromHtml(html: string): string {

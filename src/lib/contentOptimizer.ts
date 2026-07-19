@@ -97,20 +97,37 @@ Return JSON with keys: title, summary, content (the HTML string), embeds (option
   const fb = buildFallbackSummary(sources);
   const cleanSummary = fb.summary.replace(/<!\[CDATA\[|]]>/g, '');
   const cleanTitle = fb.title.replace(/<!\[CDATA\[|]]>/g, '');
-  const merged = sources.map(s => {
-    let text = (s.content || s.summary || '').replace(/<!\[CDATA\[|]]>/g, '');
-    let sourceLink = s.url ? `<p><a href="${s.url}" target="_blank">Source: ${extractDomain(s.url)}</a></p>` : '';
-    return `<h3>${s.title.replace(/<!\[CDATA\[|]]>/g, '')}</h3><p>${text.slice(0, 800)}</p>${sourceLink}`;
-  }).join('');
   
-  const contentHtml = `
-    <p><strong>${cleanSummary}</strong></p>
-    <ul>
-      ${fb.points.replace(/<!\[CDATA\[|]]>/g, '').split('\n').map(p => p.startsWith('- ') ? `<li>${p.substring(2)}</li>` : `<li>${p}</li>`).join('')}
-    </ul>
-    ${merged}
-    <p><em>Context: Jamaica continues to shape regional culture and music. Compared to last year, engagement around similar stories grew notably across diaspora communities.</em></p>
-  `;
+  // Format the main article (first source) to preserve its full content
+  const mainSource = sources[0];
+  let mainText = (mainSource?.content || mainSource?.summary || '').replace(/<!\[CDATA\[|]]>/g, '');
+  
+  // Format mainText into paragraphs by splitting on newlines
+  const paragraphs = mainText
+    .split(/\n+/)
+    .map(p => p.trim())
+    .filter(p => p.length > 0)
+    .map(p => `<p>${p}</p>`)
+    .join('\n');
+    
+  let contentHtml = paragraphs;
+  
+  // Append link to source
+  if (mainSource?.url) {
+    contentHtml += `\n<p><em><a href="${mainSource.url}" target="_blank">Read original at ${extractDomain(mainSource.url)}</a></em></p>`;
+  }
+  
+  // Briefly list other sources if they were included
+  if (sources.length > 1) {
+    contentHtml += `\n<hr/>\n<h4>Related Stories:</h4>\n<ul>`;
+    for (let i = 1; i < sources.length; i++) {
+      const s = sources[i];
+      const title = s.title.replace(/<!\[CDATA\[|]]>/g, '');
+      const link = s.url ? `<a href="${s.url}" target="_blank">${extractDomain(s.url)}</a>` : '';
+      contentHtml += `\n<li><strong>${title}</strong> ${link ? `- via ${link}` : ''}</li>`;
+    }
+    contentHtml += `\n</ul>`;
+  }
 
   return {
     title: cleanTitle,

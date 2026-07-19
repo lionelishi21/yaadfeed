@@ -14,8 +14,8 @@ let client: MongoClient | null = null;
 let db: Db | null = null;
 let isConnected = false;
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017';
-const MONGODB_DB = process.env.MONGODB_DB || 'yardvybz';
+const MONGODB_URI = process.env.MONGODB_URI as string;
+const MONGODB_DB = process.env.MONGODB_DB || 'yardvybes';
 
 // Client promise for NextAuth compatibility
 let clientPromise: Promise<MongoClient>;
