@@ -1,3 +1,8 @@
+console.log("=== BUILD DIAGNOSTICS ===");
+console.log("MONGODB_URI present:", !!process.env.MONGODB_URI);
+console.log("NEXTAUTH_SECRET present:", !!process.env.NEXTAUTH_SECRET);
+console.log("=========================");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   trailingSlash: false,
@@ -14,7 +19,6 @@ const nextConfig = {
       },
     ],
   },
-  typescript: { ignoreBuildErrors: true },
   serverExternalPackages: ['mongoose', 'mongodb', 'sharp'],
 };
 module.exports = nextConfig;
