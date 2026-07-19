@@ -14,7 +14,7 @@ import { Artist } from '@/types';
 import { numberFormat, stringUtils } from '@/utils';
 import { ArtistSkeleton } from '@/components/ui/LoadingSkeleton';
 
-const fallbackArtists: any[] = [
+const fallbackArtists: Artist[] = [
   {
     id: 'vybz-kartel',
     name: 'Vybz Kartel',

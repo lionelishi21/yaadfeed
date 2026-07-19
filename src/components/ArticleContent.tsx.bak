@@ -183,7 +183,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
     
     // Extract headings for TOC
     const extractedHeadings: { id: string, text: string }[] = [];
-    highlightedContent = highlightedContent.replace(/<h([23])[^>]*>([\s\S]*?)<\/h\1>/gi, (match, level, text) => {
+    highlightedContent = highlightedContent.replace(/<h([23])[^>]*>(.*?)<\/h\1>/gi, (match, level, text) => {
       const cleanText = text.replace(/<[^>]+>/g, "").trim();
       if (!cleanText) return match;
       const id = cleanText.toLowerCase().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim();

@@ -284,6 +284,7 @@ export class NewsService {
     source?: string;
     limit?: number;
     search?: string;
+    artistId?: string;
   } = {}): Promise<NewsItem[]> {
     const collection = await getNewsCollection();
     
@@ -299,6 +300,10 @@ export class NewsService {
     
     if (filters.search) {
       query.$text = { $search: filters.search };
+    }
+
+    if (filters.artistId) {
+      query.artistIds = filters.artistId;
     }
     
     // Only fetch necessary fields for better performance
