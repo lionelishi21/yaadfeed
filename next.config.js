@@ -15,7 +15,6 @@ const nextConfig = {
     ],
   },
   typescript: { ignoreBuildErrors: true },
-  eslint: { ignoreDuringBuilds: true },
   serverExternalPackages: ['mongoose', 'mongodb', 'sharp'],
 };
 module.exports = nextConfig;
