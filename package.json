@@ -43,4 +43,4 @@
   "devDependencies": {
     "@aws-amplify/cli": "^14.5.1"
   }
-}\n
+}
