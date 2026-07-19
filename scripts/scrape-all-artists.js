@@ -3,7 +3,7 @@ async function scrapeAllArtistsAndNews() {
   try {
     // Trigger the scraping via the API endpoint
     console.log('📊 Triggering scraping via API...');
-    const response = await fetch('http://localhost:4000/api/scrape-artists', {
+    const response = await fetch('http://localhost:3000/api/scrape-artists', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

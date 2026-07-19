@@ -181,6 +181,11 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
     // Highlight configured keywords
     let highlightedContent = highlightKeywords(processedContent, ARTICLE_HIGHLIGHT_KEYWORDS);
     
+    // Safely convert Markdown headings to HTML headings
+    highlightedContent = highlightedContent
+      .replace(/### ([^\n<]+)/g, '<h3>$1</h3>')
+      .replace(/## ([^\n<]+)/g, '<h2>$1</h2>');
+      
     // Extract headings for TOC
     const extractedHeadings: { id: string, text: string }[] = [];
     highlightedContent = highlightedContent.replace(/<h([23])[^>]*>([\s\S]*?)<\/h\1>/gi, (match, level, text) => {
