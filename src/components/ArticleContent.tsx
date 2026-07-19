@@ -283,7 +283,11 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
               <div className="mb-8 p-6 bg-yard-gold/5 border-l-4 border-yard-gold rounded-r-md">
                 <h3 className="text-yard-gold font-bold text-sm uppercase tracking-wider mb-2">Quick Summary</h3>
                 <p className="text-white/90 text-lg font-medium leading-relaxed">
-                  {article.summary.replace(/<!\[CDATA\[|]]>/g, '')}
+                  {article.summary
+                    .replace(/<!\[CDATA\[|]]>/g, '')
+                    .replace(/<[^>]+>/g, '')
+                    .replace(/Read More(?:\s*\(\s*Source:\s*[^)]+\))?/gi, '')
+                    .trim()}
                 </p>
               </div>
             )}
@@ -304,16 +308,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
                 className="object-cover"
               />
             </div>
-            {article.summary && (
-              <div className="my-8 py-8 px-8 border-l-4 border-[#E8B84B] bg-[#E8B84B]/5 mb-10 clear-left">
-                <div className="font-serif text-2xl italic text-[#E8B84B] leading-[1.46] mb-3">
-                  "{article.summary}"
-                </div>
-                <div className="text-[11px] text-white/30 font-bold tracking-[0.1em] uppercase">
-                  — YardVybz
-                </div>
-              </div>
-            )}
+
             <article 
               className="yf-article max-w-none" 
               dangerouslySetInnerHTML={{ __html: htmlContent }} 
