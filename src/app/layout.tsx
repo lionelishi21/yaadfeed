@@ -109,10 +109,7 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
         {/* Effective CPM Network */}
-        <Script 
-          src="https://pl30357558.effectivecpmnetwork.com/0c/37/4a/0c374a1acbf1b10324b793a817601b67.js" 
-          strategy="afterInteractive"
-        />
+        <script src="https://pl30357558.effectivecpmnetwork.com/0c/37/4a/0c374a1acbf1b10324b793a817601b67.js"></script>
       </head>
       <body className={`${bebasNeue.variable} ${dmSans.variable} ${playfairDisplay.variable} font-sans bg-[#0B0B0B] text-white overflow-x-hidden`}>
         <Providers>
