@@ -4,6 +4,7 @@ import Script from 'next/script'
 import { Bebas_Neue, DM_Sans, Playfair_Display } from 'next/font/google'
 import './globals.css'
 import Providers from '@/components/providers'
+import Preloader from '@/components/Preloader'
 
 const bebasNeue = Bebas_Neue({ 
   weight: '400',
@@ -89,18 +90,19 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="google-adsense-account" content="ca-pub-8872711759728449" />
-        {/* Google Analytics GA4 - inline for reliable detection */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-FDTRC2Z5PP"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-FDTRC2Z5PP');
-            `,
-          }}
+        {/* Google Analytics GA4 */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-FDTRC2Z5PP"
+          strategy="afterInteractive"
         />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-FDTRC2Z5PP');
+          `}
+        </Script>
         {/* Google AdSense */}
         <Script
           async
@@ -113,6 +115,7 @@ export default function RootLayout({
       </head>
       <body className={`${bebasNeue.variable} ${dmSans.variable} ${playfairDisplay.variable} font-sans bg-[#0B0B0B] text-white overflow-x-hidden`}>
         <Providers>
+          <Preloader />
           {children}
         </Providers>
       </body>
