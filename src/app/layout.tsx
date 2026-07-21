@@ -5,6 +5,7 @@ import { Bebas_Neue, DM_Sans, Playfair_Display } from 'next/font/google'
 import './globals.css'
 import Providers from '@/components/providers'
 import Preloader from '@/components/Preloader'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const bebasNeue = Bebas_Neue({ 
   weight: '400',
@@ -91,18 +92,7 @@ export default function RootLayout({
       <head>
         <meta name="google-adsense-account" content="ca-pub-8872711759728449" />
         {/* Google Analytics GA4 */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-FDTRC2Z5PP"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-FDTRC2Z5PP');
-          `}
-        </Script>
+        <GoogleAnalytics gaId="G-FDTRC2Z5PP" />
         {/* Google AdSense */}
         <Script
           async
