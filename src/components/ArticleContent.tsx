@@ -13,7 +13,9 @@ import ClientHeader from '@/components/ClientHeader';
 import AudioPlayer from '@/components/AudioPlayer';
 import SocialShare from '@/components/SocialShare';
 import { ARTICLE_HIGHLIGHT_KEYWORDS } from '@/config/keywords';
-import { EffectiveBannerAd2, EffectiveNativeAd, EffectiveSmartLink } from '@/components/ads/EffectiveCPMAds';
+import { EffectiveBannerAd2, EffectiveNativeAd } from '@/components/ads/EffectiveCPMAds';
+
+import { useSession } from 'next-auth/react';
 
 interface ArticleContentProps {
   article: any;
@@ -22,6 +24,7 @@ interface ArticleContentProps {
 }
 
 export default function ArticleContent({ article, relatedArticles, slug }: ArticleContentProps) {
+  const { data: session } = useSession();
   // Use the article's actual image if available (relative or absolute). Otherwise generate AI image, else placeholder
   const getImageUrl = async (article: any, width: number, height: number): Promise<string> => {
     const provided = article?.imageUrl;
@@ -141,6 +144,17 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
       </a>
     );
   };
+
+  // Track article read
+  useEffect(() => {
+    if (session?.user && article?.id) {
+      fetch('/api/user/read', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ articleId: article.id }),
+      }).catch(err => console.error('Failed to track read:', err));
+    }
+  }, [session, article?.id]);
 
   useEffect(() => {
     const loadImages = async () => {
@@ -338,7 +352,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
           <div className="p-6 md:p-12 border-t border-white/5">
             <div className="flex items-center justify-between mb-6">
               <div className="text-[9px] font-bold tracking-[0.14em] text-white/30 uppercase">More Stories</div>
-              <EffectiveSmartLink variant="text" />
+
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {relatedArticles && relatedArticles.length > 0 ? (

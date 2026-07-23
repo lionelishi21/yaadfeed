@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Play, ArrowRight, Calendar, ExternalLink, Music, Newspaper, Eye, Heart, ChevronRight } from 'lucide-react';
 import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
-import { EffectiveBannerAd1, EffectiveNativeAd, EffectiveSmartLink } from '@/components/ads/EffectiveCPMAds';
+import { EffectiveBannerAd1, EffectiveNativeAd } from '@/components/ads/EffectiveCPMAds';
 
 // Use direct DB imports for optimal server-side rendering
 import { NewsService, ArtistService } from '@/lib/mongodb';
@@ -332,10 +332,7 @@ export default async function HomePage() {
           }) : (
             <>
               <div className="text-[#666] text-sm">No upcoming events found.</div>
-              {/* Smart Link Ad in empty events section */}
-              <div className="mt-6">
-                <EffectiveSmartLink variant="card" />
-              </div>
+
             </>
           )}
         </div>
