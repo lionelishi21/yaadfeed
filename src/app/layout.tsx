@@ -91,8 +91,6 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="google-adsense-account" content="ca-pub-8872711759728449" />
-        {/* Google Analytics GA4 */}
-        <GoogleAnalytics gaId="G-FDTRC2Z5PP" />
         {/* Google AdSense */}
         <Script
           async
@@ -109,6 +107,7 @@ export default function RootLayout({
           {children}
         </Providers>
       </body>
+      <GoogleAnalytics gaId="G-FDTRC2Z5PP" />
     </html>
   )
 }
