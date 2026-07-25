@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { Play, ArrowRight, Calendar, ExternalLink, Music, Newspaper, Eye, Heart, ChevronRight } from 'lucide-react';
 import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
-import { EffectiveBannerAd1, EffectiveNativeAd } from '@/components/ads/EffectiveCPMAds';
 
 // Use direct DB imports for optimal server-side rendering
 import { NewsService, ArtistService } from '@/lib/mongodb';
@@ -187,7 +186,6 @@ export default async function HomePage() {
 
       {/* Ad Placement: Between Trending and Featured Story */}
       <section className="py-6 px-6 sm:px-14 bg-yard-dark">
-        <EffectiveBannerAd1 />
       </section>
 
       {/* Featured Story */}
@@ -270,7 +268,6 @@ export default async function HomePage() {
 
       {/* Ad Placement: Between Artist Spotlight and News */}
       <section className="py-8 px-6 sm:px-14 bg-yard-dark">
-        <EffectiveNativeAd />
       </section>
 
       {/* Latest News Grid */}

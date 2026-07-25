@@ -13,7 +13,6 @@ import ClientHeader from '@/components/ClientHeader';
 import AudioPlayer from '@/components/AudioPlayer';
 import SocialShare from '@/components/SocialShare';
 import { ARTICLE_HIGHLIGHT_KEYWORDS } from '@/config/keywords';
-import { EffectiveBannerAd2, EffectiveNativeAd } from '@/components/ads/EffectiveCPMAds';
 
 import { useSession } from 'next-auth/react';
 
@@ -316,7 +315,6 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
 
             {/* Ad: After summary, before article body */}
             <div className="my-8">
-              <EffectiveBannerAd2 />
             </div>
 
             <div className="mb-10 relative w-full h-[300px] md:float-right md:w-[400px] md:ml-8 md:mb-6 rounded-sm overflow-hidden border border-white/10">
@@ -391,7 +389,6 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
 
           {/* Ad: Before comments - high engagement zone */}
           <div className="px-6 md:px-12 pb-8">
-            <EffectiveNativeAd />
           </div>
 
             {/* Comments Section */}
