@@ -13,6 +13,7 @@ import Button from '@/components/ui/Button';
 import { NewsItem, NewsCategory } from '@/types';
 import { formatters, stringUtils } from '@/utils';
 import { InArticleAd, MultiplexAd, SidebarRectangleAd } from '@/components/ads/AdPlacements';
+import { useSession } from 'next-auth/react';
 
 // Optimized image component with lazy loading
 const OptimizedImage = ({ src, alt, width, height, className, priority = false }: {
@@ -94,6 +95,8 @@ const NewsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
   const [pageAnimation, setPageAnimation] = useState(false);
+  const [readArticles, setReadArticles] = useState<string[]>([]);
+  const { data: session } = useSession();
 
   const categories: { value: NewsCategory | 'all'; label: string; icon: any }[] = [
     { value: 'all', label: 'All News', icon: Sparkles },
@@ -159,6 +162,20 @@ const NewsPage = () => {
     // Reduced animation delay for better performance
     setTimeout(() => setPageAnimation(true), 50);
   }, []);
+
+  // Fetch read articles if user is logged in
+  useEffect(() => {
+    if (session?.user) {
+      fetch('/api/user/read')
+        .then(res => res.json())
+        .then(data => {
+          if (data.readArticles) {
+            setReadArticles(data.readArticles);
+          }
+        })
+        .catch(err => console.error('Error fetching read articles:', err));
+    }
+  }, [session]);
 
   // Debounced search for better performance
   const debouncedSearch = useCallback((query: string) => {
@@ -304,6 +321,11 @@ const NewsPage = () => {
                             <span className="border border-yard-gold/50 text-yard-gold px-2.5 py-0.5 text-[10px] font-bold tracking-[1px] uppercase">
                               {stringUtils.capitalize(featuredArticle.category)}
                             </span>
+                            {readArticles.includes(featuredArticle.id) && (
+                              <span className="border border-jamaica-green-500 text-jamaica-green-500 px-2.5 py-0.5 text-[10px] font-bold tracking-[1px] uppercase flex items-center">
+                                Read
+                              </span>
+                            )}
                             <span className="text-[#aaa] text-xs flex items-center">
                               <Clock className="w-3.5 h-3.5 mr-1.5" />
                               {formatters.relative(featuredArticle.publishedAt)}
@@ -359,6 +381,11 @@ const NewsPage = () => {
                             <span className="text-yard-gold text-[9px] font-bold tracking-[1px] uppercase">
                               {stringUtils.capitalize(article.category)}
                             </span>
+                            {readArticles.includes(article.id) && (
+                              <span className="border border-jamaica-green-500 text-jamaica-green-500 px-1.5 py-0.5 text-[8px] font-bold tracking-[1px] uppercase">
+                                Read
+                              </span>
+                            )}
                           </div>
                           <h4 className="text-sm font-semibold text-white line-clamp-2 mb-2 group-hover:text-yard-gold transition-colors leading-snug">
                             {article.title}
@@ -400,10 +427,19 @@ const NewsPage = () => {
                           height={250}
                           className="w-full h-full object-cover opacity-70 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                         />
-                        <div className="absolute top-3 left-3 bg-yard-dark/80 backdrop-blur-sm border border-white/10 px-2 py-0.5">
-                          <span className="text-yard-gold text-[9px] font-bold tracking-[1px] uppercase">
-                            {stringUtils.capitalize(article.category)}
-                          </span>
+                        <div className="absolute top-3 left-3 flex flex-col gap-1">
+                          <div className="bg-yard-dark/80 backdrop-blur-sm border border-white/10 px-2 py-0.5 inline-block">
+                            <span className="text-yard-gold text-[9px] font-bold tracking-[1px] uppercase">
+                              {stringUtils.capitalize(article.category)}
+                            </span>
+                          </div>
+                          {readArticles.includes(article.id) && (
+                            <div className="bg-yard-dark/80 backdrop-blur-sm border border-jamaica-green-500 px-2 py-0.5 inline-block">
+                              <span className="text-jamaica-green-500 text-[9px] font-bold tracking-[1px] uppercase">
+                                Read
+                              </span>
+                            </div>
+                          )}
                         </div>
                       </div>
                       

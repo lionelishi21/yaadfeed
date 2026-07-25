@@ -9,8 +9,7 @@ import { UserService } from './mongodb';
 import { clientPromise } from './mongodb';
 
 export const authOptions: NextAuthOptions = {
-  // Temporarily disable MongoDB adapter to fix stack overflow
-  // adapter: MongoDBAdapter(clientPromise as any),
+  adapter: MongoDBAdapter(clientPromise as any),
   providers: [
     CredentialsProvider({
       id: 'credentials',
@@ -27,7 +26,7 @@ export const authOptions: NextAuthOptions = {
         try {
           const user = await UserService.getUserByEmail(credentials.email);
           
-          if (!user) {
+          if (!user || !user.password) {
             return null;
           }
 

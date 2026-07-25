@@ -133,13 +133,14 @@ export interface NewsItem {
 export interface User {
   _id?: string;
   email: string;
-  password: string;
+  password?: string; // Optional for social login users
   name: string;
   role: 'admin' | 'user';
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
   lastLogin?: Date;
+  readArticles?: string[]; // Array of read article IDs or slugs
 }
 
 export interface Poll {
@@ -774,6 +775,35 @@ export class UserService {
     const collection = await getUsersCollection();
     const user = await collection.findOne({ email });
     return user !== null;
+  }
+
+  static async markArticleAsRead(userId: string, articleId: string): Promise<void> {
+    const collection = await getUsersCollection();
+    const { ObjectId } = await loadMongo();
+    try {
+      await collection.updateOne(
+        { _id: new ObjectId(userId) as any },
+        { $addToSet: { readArticles: articleId } as any }
+      );
+    } catch (e) {
+      // If user id is a string, fallback to string query
+      await collection.updateOne(
+        { _id: userId as any },
+        { $addToSet: { readArticles: articleId } as any }
+      );
+    }
+  }
+
+  static async getUserReadArticles(userId: string): Promise<string[]> {
+    const collection = await getUsersCollection();
+    const { ObjectId } = await loadMongo();
+    let user = null;
+    try {
+      user = await collection.findOne({ _id: new ObjectId(userId) as any });
+    } catch (e) {
+      user = await collection.findOne({ _id: userId as any });
+    }
+    return user?.readArticles || [];
   }
 }
 

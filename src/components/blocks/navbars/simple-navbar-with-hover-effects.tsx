@@ -162,10 +162,9 @@ const Logo = () => {
   return (
     <Link
       href="/"
-      className="relative z-20 flex items-center gap-2 text-lg font-bold"
+      className="relative z-20 flex items-center"
     >
-      <Image src={logoImg} alt="YardVybz Logo" className="h-7 w-7 object-contain" />
-      <span className="font-bold text-background">YardVybz</span>
+      <Image src={logoImg} alt="YardVybz" className="h-8 w-auto object-contain" />
     </Link>
   );
 };

@@ -2,6 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import logoImg from '@/assets/logo.png';
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 
@@ -73,14 +75,12 @@ const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
             {/* Brand Section */}
             <div className="lg:col-span-2">
-              <div className="flex items-center gap-2.5 mb-6 group">
-                <svg width="34" height="30" viewBox="0 0 34 30" fill="none">
-                  <rect width="34" height="30" rx="3" fill="#E8B84B"></rect>
-                  <path d="M9 7 L17 16 L25 7" stroke="#0A0A0A" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" fill="none"></path>
-                  <line x1="17" y1="16" x2="17" y2="24" stroke="#0A0A0A" strokeWidth="3.5" strokeLinecap="round"></line>
-                  <circle cx="9" cy="7" r="2.5" fill="#0A0A0A" opacity=".4"></circle>
-                </svg>
-                <span className="font-bebas text-xl tracking-[3px] text-white mt-1">YARD<span className="text-yard-gold">VYBZ</span></span>
+              <div className="flex items-center mb-6 group">
+                <Image
+                  src={logoImg}
+                  alt="YardVybz"
+                  className="h-10 w-auto object-contain"
+                />
               </div>
               <p className="text-gray-400 mb-8 max-w-xs text-sm leading-relaxed">
                 Jamaica's premier platform for news, music, and cultural content. 

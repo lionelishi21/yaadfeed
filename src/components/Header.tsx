@@ -73,9 +73,13 @@ const Header = () => {
       }`}>
         <div className="flex items-center justify-between px-4 sm:px-14 h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0 group">
-            <Image src={logoImg} alt="YardVybz Logo" className="h-8 w-8 object-contain transform group-hover:scale-105 transition-transform" />
-            <span className="font-bebas text-xl tracking-[3px] text-white mt-1">YARD<span className="text-yard-gold">VYBZ</span></span>
+          <Link href="/" className="flex items-center flex-shrink-0 group py-1">
+            <Image 
+              src={logoImg} 
+              alt="YardVybz" 
+              priority
+              className="h-9 w-auto sm:h-10 sm:w-auto max-h-10 object-contain transform group-hover:scale-105 transition-transform" 
+            />
           </Link>
 
           {/* Desktop Navigation */}

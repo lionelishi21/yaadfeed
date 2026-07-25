@@ -29,12 +29,12 @@ export default function Preloader({ isLoading, children }: PreloaderProps) {
           <p className="text-lg text-gray-600">Jamaica's Premier News & Music Platform</p>
         </motion.div>
 
-        {/* Loading Logo GIF */}
-        <div className="relative mb-8">
+        {/* Loading Logo */}
+        <div className="relative mb-8 flex justify-center">
           <img
-            src="/logo.gif"
+            src="/logo.png"
             alt="Loading YardVybz"
-            className="h-20 w-20 mx-auto rounded-full object-contain"
+            className="h-16 w-auto mx-auto object-contain filter drop-shadow-[0_0_10px_rgba(232,184,75,0.5)]"
           />
         </div>
 
