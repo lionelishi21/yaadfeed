@@ -2,8 +2,9 @@
 
 export const dynamic = "force-dynamic";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Check, Mail, Star, Users, Zap, Shield, X } from 'lucide-react';
+import { FaPaypal } from 'react-icons/fa';
 import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
 import Card from '@/components/ui/Card';
@@ -16,6 +17,14 @@ const NewsletterPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.search.includes('success=true')) {
+      setShowSuccess(true);
+      // Clean up the URL
+      window.history.replaceState({}, '', '/newsletter');
+    }
+  }, []);
 
   const features = [
     {
@@ -78,11 +87,9 @@ const NewsletterPage = () => {
       return;
     }
 
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setShowSuccess(true);
-    }, 2000);
+    // Redirect to PayPal subscription checkout
+    const paypalUrl = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick-subscriptions&business=billing@yardvybz.news&lc=US&item_name=YardVybz+Premium+Subscription&no_note=1&no_shipping=1&src=1&a3=5.00&p3=1&t3=M&currency_code=USD&return=${encodeURIComponent(window.location.origin + '/newsletter?success=true')}&cancel_return=${encodeURIComponent(window.location.origin + '/newsletter')}`;
+    window.location.href = paypalUrl;
   };
 
   if (showSuccess) {
@@ -215,10 +222,11 @@ const NewsletterPage = () => {
                 <Button 
                   type="submit" 
                   loading={isSubmitting}
-                  className="w-full py-3 text-lg"
+                  className="w-full py-3 text-lg flex items-center justify-center space-x-2 bg-[#0070ba] hover:bg-[#003087] text-white border-none"
                   size="lg"
                 >
-                  Subscribe for $5/month
+                  <FaPaypal className="w-5 h-5" />
+                  <span>Subscribe for $5/month</span>
                 </Button>
               </form>
 

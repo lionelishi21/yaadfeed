@@ -6,6 +6,7 @@ import Image from 'next/image';
 import logoImg from '@/assets/logo.png';
 import { Menu, X, Search, User, LogOut, Settings } from 'lucide-react';
 import { useSession, signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import AuthModal from '@/components/auth/AuthModal';
 
 const Header = () => {
@@ -15,7 +16,9 @@ const Header = () => {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   
+  const router = useRouter();
   const { data: session, status } = useSession();
 
   useEffect(() => {
@@ -177,6 +180,15 @@ const Header = () => {
               <Search className="absolute left-4 text-gray-500 w-5 h-5" />
               <input
                 type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && searchQuery.trim()) {
+                    router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+                    setIsSearchOpen(false);
+                    setSearchQuery('');
+                  }
+                }}
                 placeholder="Search articles, artists, events..."
                 className="w-full bg-[#111] pl-12 pr-12 py-3 border border-[#222] text-white font-sans text-sm focus:outline-none focus:border-yard-gold"
                 autoFocus

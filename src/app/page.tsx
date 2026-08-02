@@ -65,6 +65,7 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen bg-yard-dark text-white font-sans overflow-x-hidden">
       <ClientHeader />
+      <main>
         
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-16 px-6 sm:px-14">
@@ -335,6 +336,7 @@ export default async function HomePage() {
         </div>
       </section>
 
+      </main>
       <Footer />
     </div>
   );

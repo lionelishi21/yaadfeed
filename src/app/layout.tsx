@@ -5,6 +5,7 @@ import { Bebas_Neue, DM_Sans, Playfair_Display } from 'next/font/google'
 import './globals.css'
 import Providers from '@/components/providers'
 import Preloader from '@/components/Preloader'
+import CookieBanner from '@/components/CookieBanner'
 import { GoogleAnalytics } from '@next/third-parties/google'
 
 const bebasNeue = Bebas_Neue({ 
@@ -91,6 +92,22 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="google-adsense-account" content="ca-pub-8872711759728449" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "YardVybz",
+              "url": "https://yardvybz.news",
+              "description": "Jamaican News, Gossip, Music & Culture",
+              "publisher": {
+                "@type": "Organization",
+                "name": "YardVybz"
+              }
+            })
+          }}
+        />
         {/* Google AdSense */}
         <Script
           async
@@ -103,6 +120,7 @@ export default function RootLayout({
         <Providers>
           <Preloader />
           {children}
+          <CookieBanner />
         </Providers>
       </body>
       <GoogleAnalytics gaId="G-FDTRC2Z5PP" />
