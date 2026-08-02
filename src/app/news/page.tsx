@@ -239,39 +239,35 @@ const NewsPage = () => {
           </div>
 
           {/* Search and Filters Section */}
-          <div className={`mt-12 bg-[#0f0f0f] border border-white/5 p-4 transform transition-all duration-500 delay-100 ${pageAnimation ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
-            <div className="flex flex-col md:flex-row md:items-center gap-4">
-              <div className="relative flex-grow">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                  <Search className="h-5 w-5 text-[#555]" />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Search stories, artists, or topics..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-[#141414] border border-[#222] text-white pl-11 pr-4 py-3.5 focus:outline-none focus:border-yard-gold/50 transition-colors text-sm placeholder:text-[#555]"
-                />
+          <div className={`mt-10 max-w-3xl mx-auto transform transition-all duration-500 delay-100 ${pageAnimation ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                <Search className="h-4 w-4 text-[#555] group-focus-within:text-yard-gold transition-colors" />
               </div>
-              
-              {/* Removed Source Filter */}
+              <input
+                type="text"
+                placeholder="Search stories, artists, or topics..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-[#0a0a0a]/80 backdrop-blur-md border border-white/10 rounded-full text-white pl-12 pr-6 py-3.5 focus:outline-none focus:border-yard-gold/50 transition-colors text-[13px] placeholder:text-[#555] shadow-[0_4_20px_rgba(0,0,0,0.5)]"
+              />
             </div>
 
             {/* Categories */}
-            <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-[#222]">
+            <div className="flex overflow-x-auto scrollbar-hide gap-2 mt-5 pb-2 px-1">
               {categories.map((category) => {
                 const IconComponent = category.icon;
                 return (
                   <button
                     key={category.value}
                     onClick={() => setSelectedCategory(category.value)}
-                    className={`flex items-center space-x-2 px-4 py-2 text-[12px] font-bold tracking-[0.8px] uppercase transition-colors ${
+                    className={`flex flex-shrink-0 items-center space-x-1.5 px-4 py-2 text-[11px] font-bold tracking-[0.8px] uppercase rounded-full transition-all duration-300 ${
                       selectedCategory === category.value
-                        ? 'bg-yard-gold text-yard-dark'
-                        : 'bg-transparent border border-white/10 text-[#888] hover:text-white hover:border-white/30'
+                        ? 'bg-yard-gold text-yard-dark shadow-[0_0_15px_rgba(232,184,75,0.2)] scale-105'
+                        : 'bg-[#141414] border border-white/5 text-[#888] hover:text-white hover:bg-[#1a1a1a] hover:border-white/10'
                     }`}
                   >
-                    <IconComponent className="w-4 h-4" />
+                    <IconComponent className="w-3.5 h-3.5" />
                     <span>{category.label}</span>
                   </button>
                 );
