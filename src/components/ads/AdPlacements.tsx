@@ -22,7 +22,7 @@ export function HeaderBannerAd() {
     <ins
       className="adsbygoogle"
       style={{ display: 'block' }}
-      data-ad-client="ca-pub-6524318430609026"
+      data-ad-client="ca-pub-8872711759728449"
       data-ad-slot="1234567890"
       data-ad-format="auto"
       data-full-width-responsive="true"
@@ -138,7 +138,7 @@ export function MobileStickyAd() {
         <ins
           className="adsbygoogle"
           style={{ display: 'block', minHeight: '60px' }}
-          data-ad-client="ca-pub-6524318430609026"
+          data-ad-client="ca-pub-8872711759728449"
           data-ad-slot="2345678901"
           data-ad-format="auto"
           data-full-width-responsive="true"

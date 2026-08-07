@@ -1,8 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-// lazy to keep bundle small
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions);
+    
+    // Check if user is logged in and is an admin
+    if (!session?.user || (session.user as any).role !== 'admin') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { connectToDatabase } = await import('@/lib/mongodb');
     const { db } = await connectToDatabase();
     const newsCollection = db.collection('news_items');
@@ -27,7 +35,9 @@ export async function GET(request: NextRequest) {
         needsImageGeneration: 1,
         imageStatus: 1,
         viewCount: 1,
-        isPopular: 1
+        isPopular: 1,
+        status: 1
+
       }
     }).sort({ createdAt: -1 }).limit(100).toArray();
 
@@ -51,7 +61,9 @@ export async function GET(request: NextRequest) {
       needsImageGeneration: !!article.needsImageGeneration,
       imageStatus: article.imageStatus,
       viewCount: article.viewCount || 0,
-      isPopular: !!article.isPopular
+      isPopular: !!article.isPopular,
+      status: article.status || 'published'
+
     }));
 
     return NextResponse.json({

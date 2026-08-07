@@ -128,6 +128,7 @@ export interface NewsItem {
   createdAt: Date;
   updatedAt: Date;
   audioBase64?: string;
+  status?: 'draft' | 'published';
 }
 
 export interface User {
@@ -286,6 +287,7 @@ export class NewsService {
     limit?: number;
     search?: string;
     artistId?: string;
+    status?: 'draft' | 'published' | 'all';
   } = {}): Promise<NewsItem[]> {
     const collection = await getNewsCollection();
     
@@ -306,6 +308,15 @@ export class NewsService {
     if (filters.artistId) {
       query.artistIds = filters.artistId;
     }
+
+    if (filters.status === 'all') {
+      // Don't filter by status
+    } else if (filters.status) {
+      query.status = filters.status;
+    } else {
+      // By default, exclude drafts (so we return published and legacy items without status)
+      query.status = { $ne: 'draft' };
+    }
     
     // Only fetch necessary fields for better performance
     const projection = {
@@ -323,6 +334,7 @@ export class NewsService {
       keywords: 1,
       isPopular: 1,
       viewCount: 1,
+      status: 1,
       createdAt: 1,
       updatedAt: 1
     };
@@ -361,7 +373,8 @@ export class NewsService {
     const news: Omit<NewsItem, '_id'> = {
       ...newsData,
       createdAt: now,
-      updatedAt: now
+      updatedAt: now,
+      status: newsData.status || 'draft'
     };
     
     try {

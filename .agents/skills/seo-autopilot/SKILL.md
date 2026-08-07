@@ -11,11 +11,12 @@ When the user asks you to run the SEO Autopilot, follow these steps exactly:
 2. Identify 1 to 3 high-volume keyword phrases from those trends.
 
 ## Step 2: Content Generation (The SEO Standard)
-For each keyword phrase, generate a comprehensive, highly engaging article that includes:
+For each keyword phrase, generate a comprehensive, highly engaging article. Before writing, randomly select a target word count between 600 and 1500 words for the article to ensure natural variation. Include:
 1. **SEO Meta Data:** A compelling title tag (under 60 characters) and a meta description summary (under 160 characters).
 2. **Structure:** Use proper HTML tags (`<h3>`, `<p>`, `<blockquote>`, `<ul>`, `<li>`) so the formatting looks professional when rendered on the site.
 3. **Keyword Density:** Naturally weave the primary keyword phrase into the first paragraph, a few subheadings, and the conclusion. Do not sound robotic.
 4. **Readability:** Keep paragraphs relatively short and use formatting (bolding, italics) to make the text skimmable.
+5. **Length Requirement:** Ensure the article body meets the random target word count you selected (between 600 - 1500 words). Expand on topics deeply, use examples, and provide thorough analysis to meet this word count without fluff.
 
 ## Step 3: Visual Generation
 Use the `generate_image` tool to create a high-quality, relevant image for the article. Use prompts like "high quality photography, cinematic lighting, photorealistic" to ensure premium visuals.
