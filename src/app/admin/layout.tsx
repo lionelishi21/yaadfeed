@@ -8,7 +8,12 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  let session = null;
+  try {
+    session = await getServerSession(authOptions);
+  } catch (error) {
+    console.error("Error fetching session in admin layout:", error);
+  }
 
   if (!session?.user || (session.user as any).role !== 'admin') {
     redirect('/');

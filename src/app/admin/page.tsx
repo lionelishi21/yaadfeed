@@ -1,8 +1,16 @@
 import { NewsService } from '@/lib/mongodb';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboardPage() {
-  const allArticles = await NewsService.getAllNews({ status: 'all', limit: 1000 });
+  let allArticles: any[] = [];
+  try {
+    allArticles = await NewsService.getAllNews({ status: 'all', limit: 1000 });
+  } catch (error) {
+    console.error("Error fetching articles in admin:", error);
+  }
+
   const publishedCount = allArticles.filter(a => a.status !== 'draft').length;
   const draftCount = allArticles.filter(a => a.status === 'draft').length;
 
