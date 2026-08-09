@@ -143,48 +143,48 @@ export default function AdminDashboard() {
       description: 'Create new AI-powered articles',
       href: '/platform/admin/articles',
       icon: FileText,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50'
+      color: 'text-blue-400',
+      bgColor: 'bg-blue-500/10'
     },
     {
       title: 'Manage Ads',
       description: 'AdSense optimization & analytics',
       href: '/platform/admin/ads',
       icon: DollarSign,
-      color: 'text-green-600',
-      bgColor: 'bg-green-50'
+      color: 'text-green-400',
+      bgColor: 'bg-green-500/10'
     },
     {
       title: 'Generate Images',
       description: 'AI image creation & management',
       href: '/platform/admin/images',
       icon: Image,
-      color: 'text-purple-600',
-      bgColor: 'bg-purple-50'
+      color: 'text-purple-400',
+      bgColor: 'bg-purple-500/10'
     },
     {
       title: 'View Analytics',
       description: 'Traffic & performance metrics',
       href: '/platform/admin/analytics',
       icon: BarChart3,
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-50'
+      color: 'text-orange-400',
+      bgColor: 'bg-orange-500/10'
     },
     {
       title: 'Music & Artists',
       description: 'Manage artist profiles',
       href: '/platform/admin/music',
       icon: Music,
-      color: 'text-pink-600',
-      bgColor: 'bg-pink-50'
+      color: 'text-pink-400',
+      bgColor: 'bg-pink-500/10'
     },
     {
       title: 'SEO Optimization',
       description: 'Improve search rankings',
       href: '/platform/admin/seo',
       icon: TrendingUp,
-      color: 'text-indigo-600',
-      bgColor: 'bg-indigo-50'
+      color: 'text-indigo-400',
+      bgColor: 'bg-indigo-500/10'
     }
   ];
 
@@ -222,61 +222,61 @@ export default function AdminDashboard() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-yard-dark/10 backdrop-blur-md p-6 rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20">
+        <div className="bg-yard-dark p-6 rounded-none shadow-lg border border-[#1a1a1a]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-400">Total Articles</p>
               <p className="text-2xl font-bold text-white">{stats.totalArticles.toLocaleString()}</p>
-              <p className="text-sm text-green-600 mt-1">+12% from last month</p>
+              <p className="text-sm text-green-500 mt-1">+12% from last month</p>
             </div>
-            <div className="p-3 bg-blue-50">
-              <FileText className="w-6 h-6 text-blue-600" />
+            <div className="p-3 bg-blue-500/10">
+              <FileText className="w-6 h-6 text-blue-400" />
             </div>
           </div>
         </div>
 
-        <div className="bg-yard-dark/10 backdrop-blur-md p-6 rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20">
+        <div className="bg-yard-dark p-6 rounded-none shadow-lg border border-[#1a1a1a]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-400">Monthly Views</p>
               <p className="text-2xl font-bold text-white">{stats.monthlyViews.toLocaleString()}</p>
-              <p className="text-sm text-green-600 mt-1">+18% from last month</p>
+              <p className="text-sm text-green-500 mt-1">+18% from last month</p>
             </div>
-            <div className="p-3 bg-green-50">
-              <Eye className="w-6 h-6 text-green-600" />
+            <div className="p-3 bg-green-500/10">
+              <Eye className="w-6 h-6 text-green-400" />
             </div>
           </div>
         </div>
 
-        <div className="bg-yard-dark/10 backdrop-blur-md p-6 rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20">
+        <div className="bg-yard-dark p-6 rounded-none shadow-lg border border-[#1a1a1a]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-400">Ad Revenue</p>
               <p className="text-2xl font-bold text-white">${stats.adRevenue.toFixed(2)}</p>
-              <p className="text-sm text-green-600 mt-1">+25% from last month</p>
+              <p className="text-sm text-green-500 mt-1">+25% from last month</p>
             </div>
-            <div className="p-3 bg-yellow-50">
-              <DollarSign className="w-6 h-6 text-yellow-600" />
+            <div className="p-3 bg-yellow-500/10">
+              <DollarSign className="w-6 h-6 text-yellow-400" />
             </div>
           </div>
         </div>
 
-        <div className="bg-yard-dark/10 backdrop-blur-md p-6 rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20">
+        <div className="bg-yard-dark p-6 rounded-none shadow-lg border border-[#1a1a1a]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-400">AI Images</p>
               <p className="text-2xl font-bold text-white">{stats.totalImages}</p>
-              <p className="text-sm text-purple-600 mt-1">95% cost savings</p>
+              <p className="text-sm text-purple-400 mt-1">95% cost savings</p>
             </div>
-            <div className="p-3 bg-purple-50">
-              <Image className="w-6 h-6 text-purple-600" />
+            <div className="p-3 bg-purple-500/10">
+              <Image className="w-6 h-6 text-purple-400" />
             </div>
           </div>
         </div>
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-yard-dark/10 backdrop-blur-md rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20 p-6">
+      <div className="bg-yard-dark rounded-none shadow-lg border border-[#1a1a1a] p-6">
         <h2 className="text-xl font-semibold text-white mb-4">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {quickActions.map((action) => {
@@ -285,14 +285,14 @@ export default function AdminDashboard() {
               <Link
                 key={action.href}
                 href={action.href}
-                className="p-4 border border-white/20 bg-yard-dark/5 backdrop-blur hover:shadow-md transition-shadow group rounded-none"
+                className="p-4 border border-[#222] bg-[#111] hover:bg-[#1a1a1a] hover:border-yard-gold/30 transition-all group rounded-none"
               >
                 <div className="flex items-start space-x-3">
                   <div className={`p-2 ${action.bgColor} group-hover:scale-110 transition-transform`}>
                     <Icon className={`w-5 h-5 ${action.color}`} />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-medium text-white group-hover:text-green-600 transition-colors">
+                    <h3 className="font-medium text-white group-hover:text-yard-gold transition-colors">
                       {action.title}
                     </h3>
                     <p className="text-sm text-gray-400 mt-1">{action.description}</p>
@@ -312,20 +312,20 @@ export default function AdminDashboard() {
       {/* Dashboard Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Activity */}
-        <div className="lg:col-span-2 bg-yard-dark/10 backdrop-blur-md rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20 p-6">
+        <div className="lg:col-span-2 bg-yard-dark rounded-none shadow-lg border border-[#1a1a1a] p-6">
           <h2 className="text-xl font-semibold text-white mb-4">Recent Activity</h2>
           <div className="space-y-4">
             {recentActivity.map((activity) => {
               const Icon = getIconComponent(activity.icon);
               return (
-                <div key={activity.id} className="flex items-center space-x-3 p-3 bg-yard-dark/5 backdrop-blur">
+                <div key={activity.id} className="flex items-center space-x-3 p-3 bg-[#111] border border-[#222]">
                   <div className={`p-2 ${
-                    activity.status === 'success' ? 'bg-green-100' :
-                    activity.status === 'warning' ? 'bg-yellow-100' : 'bg-blue-100'
+                    activity.status === 'success' ? 'bg-green-500/10' :
+                    activity.status === 'warning' ? 'bg-yellow-500/10' : 'bg-blue-500/10'
                   }`}>
                     <Icon className={`w-4 h-4 ${
-                      activity.status === 'success' ? 'text-green-600' :
-                      activity.status === 'warning' ? 'text-yellow-600' : 'text-blue-600'
+                      activity.status === 'success' ? 'text-green-400' :
+                      activity.status === 'warning' ? 'text-yellow-400' : 'text-blue-400'
                     }`} />
                   </div>
                   <div className="flex-1">
@@ -339,7 +339,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* System Status */}
-        <div className="bg-yard-dark/10 backdrop-blur-md rounded-none shadow-[inset_0_1px_0_rgba(255,255,255,0.2)] border border-white/20 p-6">
+        <div className="bg-yard-dark rounded-none shadow-lg border border-[#1a1a1a] p-6">
           <h2 className="text-xl font-semibold text-white mb-4">System Status</h2>
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -379,7 +379,7 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-gray-200">
+          <div className="mt-6 pt-4 border-t border-[#1a1a1a]">
             <h3 className="text-sm font-medium text-white mb-2">Performance</h3>
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
@@ -395,30 +395,30 @@ export default function AdminDashboard() {
       </div>
 
       {/* Traffic Magnet Status */}
-      <div className="bg-green-500/20 backdrop-blur-md border border-white/20 rounded-none p-6 text-white">
-        <div className="flex items-center justify-between">
+      <div className="bg-yard-gold/10 border border-yard-gold/30 rounded-none p-6 text-white shadow-lg relative overflow-hidden">
+        <div className="flex items-center justify-between relative z-10">
           <div>
-            <h2 className="text-xl font-semibold mb-2">🚀 Traffic Magnet Status</h2>
-            <p className="text-green-100 mb-4">
+            <h2 className="text-xl font-semibold mb-2 text-yard-gold">🚀 Traffic Magnet Status</h2>
+            <p className="text-gray-300 mb-4">
               Your YardVybz platform is performing exceptionally well!
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="text-center">
-                <p className="text-2xl font-bold">{stats.conversionRate}%</p>
-                <p className="text-sm text-green-100">Conversion Rate</p>
+              <div className="text-center p-3 bg-[#111] border border-[#222]">
+                <p className="text-2xl font-bold text-white">{stats.conversionRate}%</p>
+                <p className="text-sm text-gray-400">Conversion Rate</p>
               </div>
-              <div className="text-center">
-                <p className="text-2xl font-bold">24/7</p>
-                <p className="text-sm text-green-100">Active Monitoring</p>
+              <div className="text-center p-3 bg-[#111] border border-[#222]">
+                <p className="text-2xl font-bold text-white">24/7</p>
+                <p className="text-sm text-gray-400">Active Monitoring</p>
               </div>
-              <div className="text-center">
-                <p className="text-2xl font-bold">95%</p>
-                <p className="text-sm text-green-100">Cost Savings</p>
+              <div className="text-center p-3 bg-[#111] border border-[#222]">
+                <p className="text-2xl font-bold text-white">95%</p>
+                <p className="text-sm text-gray-400">Cost Savings</p>
               </div>
             </div>
           </div>
-          <div className="hidden lg:block">
-            <Globe className="w-24 h-24 text-green-200 opacity-50" />
+          <div className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/4">
+            <Globe className="w-48 h-48 text-yard-gold opacity-10" />
           </div>
         </div>
       </div>

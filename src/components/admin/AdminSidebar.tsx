@@ -102,7 +102,7 @@ export default function AdminSidebar({ className = '' }: AdminSidebarProps) {
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsMobileOpen(true)}
-        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-green-600 text-white rounded-lg shadow-lg"
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-yard-gold text-yard-dark rounded-lg shadow-lg"
       >
         <Menu className="w-6 h-6" />
       </button>
@@ -110,7 +110,7 @@ export default function AdminSidebar({ className = '' }: AdminSidebarProps) {
       {/* Mobile Overlay */}
       {isMobileOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="lg:hidden fixed inset-0 bg-black bg-opacity-70 z-40"
           onClick={() => setIsMobileOpen(false)}
         />
       )}
@@ -120,19 +120,19 @@ export default function AdminSidebar({ className = '' }: AdminSidebarProps) {
         fixed lg:static inset-y-0 left-0 z-50 
         ${isCollapsed ? 'w-16' : 'w-64'} 
         ${isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-        bg-white border-r border-gray-200 shadow-lg transition-all duration-300 ease-in-out
+        bg-yard-dark border-r border-[#1a1a1a] shadow-lg transition-all duration-300 ease-in-out
         ${className}
       `}>
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
+        <div className="flex items-center justify-between p-4 border-b border-[#1a1a1a]">
           {!isCollapsed && (
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                <Shield className="w-5 h-5 text-white" />
+              <div className="w-8 h-8 bg-yard-gold rounded-lg flex items-center justify-center">
+                <Shield className="w-5 h-5 text-yard-dark" />
               </div>
               <div>
-                <h1 className="font-bold text-lg text-gray-900">YardVybz</h1>
-                <p className="text-xs text-gray-500">Admin Panel</p>
+                <h1 className="font-bold text-lg text-white">YardVybz</h1>
+                <p className="text-xs text-gray-400">Admin Panel</p>
               </div>
             </div>
           )}
@@ -141,7 +141,7 @@ export default function AdminSidebar({ className = '' }: AdminSidebarProps) {
             {/* Desktop Collapse Button */}
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}
-              className="hidden lg:block p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded"
+              className="hidden lg:block p-1.5 text-gray-400 hover:text-white hover:bg-[#1a1a1a] rounded"
             >
               <Menu className="w-4 h-4" />
             </button>
@@ -149,7 +149,7 @@ export default function AdminSidebar({ className = '' }: AdminSidebarProps) {
             {/* Mobile Close Button */}
             <button
               onClick={() => setIsMobileOpen(false)}
-              className="lg:hidden p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded"
+              className="lg:hidden p-1.5 text-gray-400 hover:text-white hover:bg-[#1a1a1a] rounded"
             >
               <X className="w-4 h-4" />
             </button>
@@ -170,12 +170,12 @@ export default function AdminSidebar({ className = '' }: AdminSidebarProps) {
                 className={`
                   flex items-center space-x-3 p-3 rounded-lg transition-colors group
                   ${isActive 
-                    ? 'bg-green-100 text-green-700 border border-green-200' 
-                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                    ? 'bg-yard-gold/10 text-yard-gold border border-yard-gold/30' 
+                    : 'text-gray-400 hover:bg-[#1a1a1a] hover:text-white'
                   }
                 `}
               >
-                <Icon className={`w-5 h-5 ${isActive ? 'text-green-700' : 'text-gray-400 group-hover:text-gray-600'}`} />
+                <Icon className={`w-5 h-5 ${isActive ? 'text-yard-gold' : 'text-gray-400 group-hover:text-white'}`} />
                 {!isCollapsed && (
                   <div className="flex-1 min-w-0">
                     <p className="font-medium truncate">{item.title}</p>
@@ -188,11 +188,11 @@ export default function AdminSidebar({ className = '' }: AdminSidebarProps) {
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-gray-200">
+        <div className="p-4 border-t border-[#1a1a1a]">
           <button
             onClick={handleSignOut}
             className={`
-              w-full flex items-center space-x-3 p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors
+              w-full flex items-center space-x-3 p-3 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors
               ${isCollapsed ? 'justify-center' : ''}
             `}
           >
@@ -201,7 +201,7 @@ export default function AdminSidebar({ className = '' }: AdminSidebarProps) {
           </button>
           
           {!isCollapsed && (
-            <div className="mt-3 pt-3 border-t border-gray-200">
+            <div className="mt-3 pt-3 border-t border-[#1a1a1a]">
               <p className="text-xs text-gray-500 text-center">
                 YardVybz Admin v1.0
               </p>

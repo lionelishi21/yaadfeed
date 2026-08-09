@@ -549,8 +549,23 @@ export class NewsService {
 
   static async updateNews(slugOrId: string, updates: Partial<Omit<NewsItem, '_id' | 'createdAt'>>): Promise<NewsItem | null> {
     const collection = await getNewsCollection();
-    const query = { $or: [{ slug: slugOrId }, { _id: slugOrId as any }] };
-    const updateDoc: any = { $set: { ...updates, updatedAt: new Date() } };
+    
+    // Convert to ObjectId if valid to support updating by ID
+    const { ObjectId } = await loadMongo();
+    let queryId: any = slugOrId;
+    if (ObjectId.isValid(slugOrId) && new ObjectId(slugOrId).toString() === slugOrId) {
+      queryId = new ObjectId(slugOrId);
+    }
+    
+    const query = { $or: [{ slug: slugOrId }, { _id: queryId }] };
+    
+    // Remove _id from updates to prevent immutable field error
+    const updateData = { ...updates };
+    if ('_id' in updateData) {
+      delete (updateData as any)._id;
+    }
+    
+    const updateDoc: any = { $set: { ...updateData, updatedAt: new Date() } };
     await collection.updateOne(query, updateDoc);
     return await collection.findOne(query) || null;
   }
