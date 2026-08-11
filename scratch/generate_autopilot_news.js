@@ -1,112 +1,119 @@
-require('dotenv').config({ path: '.env.local' });
-const fs = require('fs');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const { MongoClient } = require('mongodb');
+const fs = require('fs');
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
-const s3Client = new S3Client({
+const s3 = new S3Client({
   region: 'us-east-1',
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID || '', // Make sure this is in your env if using real S3
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
   }
 });
 
-const mongoUri = process.env.MONGODB_URI;
-const dbName = process.env.MONGODB_DB || 'yardvybes';
-const bucketName = 'yaadfeed-news-media-1785480321';
+const uri = process.env.MONGODB_URI;
+if (!uri) {
+  console.error("MONGODB_URI is missing in .env");
+  process.exit(1);
+}
 
-const articles = [
-  {
-    title: "Dream Weekend 2026: The Ultimate Guide to Jamaica's Biggest Summer Party",
-    slug: 'dream-weekend-2026-jamaica-summer-party-guide',
-    summary: 'Everything you need to know about Dream Weekend 2026 in Montego Bay. Discover the top events, hottest artists, and why this is the must-attend Jamaican party of the summer.',
-    imagePath: '/Users/lionelfrancis/.gemini/antigravity-ide/brain/864e0d86-d915-4684-9018-2b4fdd06f127/dream_weekend_2026_1785634994484.png',
-    imageKey: 'news/dream_weekend_2026_' + Date.now() + '.png',
-    category: 'entertainment',
-    content: `
-      <p>As August rolls in, all roads in Jamaica lead to one destination for entertainment lovers: Montego Bay. The highly anticipated <strong>Dream Weekend 2026</strong> has officially kicked off, cementing its status as the Caribbean's premier party series. Whether you are a local reveler or flying in from the diaspora, this five-day festival is the undeniable highlight of the "Emancipendence" season.</p>
-      
-      <h3>What Makes Dream Weekend 2026 Unmissable?</h3>
-      <p>Since its inception, Dream Weekend has set the gold standard for destination events. This year, organizers have promised a production level that surpasses previous years, blending world-class musical performances with luxury VIP experiences.</p>
-      
-      <p>The festival is famous for its diverse lineup of themed events. From the high-energy daytime beach parties to the sophisticated all-white night galas, there is a vibe curated for every type of partygoer. The core appeal of <strong>Dream Weekend 2026</strong> lies in its seamless fusion of dancehall, soca, hip-hop, and afrobeat, ensuring the dancefloor never cools down.</p>
-      
-      <h3>Top Artists and Entertainment</h3>
-      <p>While the celebrity guest list is always a closely guarded secret until the last minute, attendees can expect performances from the absolute elite of Jamaican music. Top-tier dancehall artists, internationally renowned DJs, and surprise international acts are slated to touch the stage.</p>
-      
-      <ul>
-        <li><strong>Daytime Beach Raves:</strong> High-energy sets with sand between your toes.</li>
-        <li><strong>Food Inclusive Experiences:</strong> Taste authentic Jamaican jerk and premium culinary offerings.</li>
-        <li><strong>VIP Cabanas:</strong> For those looking for an exclusive, bottle-service experience.</li>
-      </ul>
-      
-      <blockquote>"Dream Weekend isn't just a party; it's a cultural phenomenon that brings the global Jamaican diaspora together in one place," says event coordinator Mark Harris.</blockquote>
-      
-      <h3>Planning Your Trip to Montego Bay</h3>
-      <p>If you are heading down for <strong>Dream Weekend 2026</strong>, preparation is key. Hotels and Airbnbs in Montego Bay and surrounding parishes are completely booked out months in advance. Attendees are encouraged to utilize the official shuttle services provided by the organizers to navigate the heavy traffic between venues.</p>
-      
-      <p>As the beats drop and the rum flows this weekend, Montego Bay will undoubtedly be the entertainment capital of the Caribbean. Stay tuned to YaadFeed for exclusive photo galleries and reviews of the biggest events from the weekend!</p>
-    `,
-    tags: ['Dream Weekend 2026', 'Jamaica', 'Montego Bay', 'Entertainment', 'Party', 'Emancipendence']
-  }
-];
+const client = new MongoClient(uri);
 
-async function main() {
-  let mongoClient;
+async function run() {
   try {
-    mongoClient = new MongoClient(mongoUri);
-    await mongoClient.connect();
-    const db = mongoClient.db(dbName);
+    await client.connect();
+    const db = client.db('yardvybes');
     const collection = db.collection('news_items');
 
-    for (const article of articles) {
-      console.log(`Uploading image for ${article.title}...`);
-      const fileContent = fs.readFileSync(article.imagePath);
-      
-      const uploadParams = {
-        Bucket: bucketName,
-        Key: article.imageKey,
-        Body: fileContent,
-        ContentType: 'image/png'
-      };
+    const imagePath = '/Users/lionelfrancis/.gemini/antigravity-ide/brain/b212b7c9-7dba-4cb2-b025-d71993844884/vybz_kartel_stage_return_1786454196535.png';
+    const imageKey = `news/vybz_kartel_return_${Date.now()}.png`;
 
-      await s3Client.send(new PutObjectCommand(uploadParams));
-      const s3Url = `https://${bucketName}.s3.us-east-1.amazonaws.com/${article.imageKey}`;
-      console.log(`Image uploaded successfully: ${s3Url}`);
-
-      const now = new Date();
-      const newsItem = {
-        title: article.title,
-        slug: article.slug,
-        url: `https://yardvybz.news/news/${article.slug}`,
-        summary: article.summary,
-        content: article.content,
-        category: article.category,
-        imageUrl: s3Url,
-        publishedAt: now,
-        createdAt: now,
-        updatedAt: now,
-        source: 'SEO Autopilot',
-        author: 'YardVybz Staff',
-        tags: article.tags
-      };
-
-      await collection.updateOne(
-        { slug: article.slug },
-        { $set: newsItem },
-        { upsert: true }
-      );
-      console.log(`Article inserted into database: ${article.title}`);
+    // Try to upload to S3 if credentials exist
+    let imageUrl = '';
+    if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY) {
+      console.log('Uploading image to S3...');
+      const imageBuffer = fs.readFileSync(imagePath);
+      await s3.send(new PutObjectCommand({
+        Bucket: 'yaadfeed-news-media-1785480321',
+        Key: imageKey,
+        Body: imageBuffer,
+        ContentType: 'image/png',
+        ACL: 'public-read'
+      }));
+      imageUrl = `https://yaadfeed-news-media-1785480321.s3.us-east-1.amazonaws.com/${imageKey}`;
+      console.log('Image uploaded:', imageUrl);
+    } else {
+      console.log('No AWS credentials found, using local/placeholder path.');
+      imageUrl = '/images/jamaica-tourism.jpg'; // fallback
     }
+
+    const title = "Vybz Kartel's Unprecedented Impact on Modern Dancehall and the Excitement Surrounding His Triumphant Return";
+    const slug = "vybz-kartel-impact-modern-dancehall-return";
     
-    console.log("SEO Autopilot articles processed successfully.");
-  } catch (err) {
-    console.error("Error generating news:", err);
+    // An article at least 1000 words long
+    const content = `
+      <p>In the vibrant, pulsating heart of Jamaica's music scene, one name continues to echo through the streets of Kingston and across the globe with undeniable authority: Vybz Kartel. Born Adidja Azim Palmer, the "Worl' Boss" has transcended the boundaries of traditional dancehall to become a cultural phenomenon, an architectural pillar of modern Caribbean music, and an enduring symbol of artistic resilience. Even during his prolonged absence from the physical stage, Kartel's influence has not waned; rather, it has expanded, morphing into a mythic presence that continues to dictate the cadence, slang, and stylistic evolution of the genre.</p>
+      
+      <h3>The Genesis of a Dancehall Titan</h3>
+      <p>To understand Vybz Kartel's impact, one must look back at his meteoric rise in the early 2000s. Emerging as a protégé of Bounty Killer, Kartel quickly distinguished himself with a lyrical dexterity that was unparalleled. His ability to weave complex metaphors with raw, unvarnished street narratives revolutionized dancehall lyricism. He didn't just sing about the ghetto; he painted vivid, visceral portraits of it. Songs like "Picture This" and "Tek Buddy" showcased a controversial yet undeniably brilliant penmanship that captivated the masses.</p>
+      <p>Kartel's early career was marked by his fierce rivalry with Mavado, an era that defined the "Gaza vs. Gully" feud. This wasn't merely a musical clash; it was a cultural division that swept across Jamaica and the diaspora. The rivalry pushed both artists to their creative limits, resulting in a prolific output of music that remains foundational to modern dancehall. It demonstrated Kartel's ability to command an army of loyal followers, the Gaza Nation, whose devotion is comparable to the fanaticism seen in global pop culture phenomena.</p>
+
+      <h3>Redefining the Sound and Slang of Jamaica</h3>
+      <p>Beyond his musical output, Vybz Kartel is a linguistic innovator. He has single-handedly injected dozens of phrases into the Jamaican vernacular, which have subsequently permeated global pop culture. Words and phrases like "Up to the time," "Gaza," "Teacha," and "Fierce" were popularized through his tracks and quickly adopted by youth worldwide. His influence on language highlights the profound connection he shares with the streets—a connection that remains authentic despite his immense fame.</p>
+      <p>Musically, Kartel was instrumental in shifting the tempo and rhythmic structure of dancehall. He embraced electronic influences, auto-tune, and unconventional beats long before they became industry standards. His willingness to experiment paved the way for the current generation of dancehall artists, who seamlessly blend Caribbean sounds with hip-hop, Afrobeat, and EDM. Artists like Popcaan, who was directly mentored by Kartel, and others like Skillibeng and Masicka, openly acknowledge the "Teacha's" influence on their sound and career trajectories.</p>
+
+      <h3>The Phenomenon of Incarceration and Unstoppable Output</h3>
+      <p>Perhaps the most astonishing aspect of Vybz Kartel's career is his productivity following his incarceration in 2011. While a prison sentence would spell the end for most artists, for Kartel, it seemed to serve as a bizarre crucible for boundless creativity. Through means that have long been the subject of speculation and legend, Kartel continued to release a staggering volume of music from behind bars. Hits like "Fever," "Any Weather," and "Mhm Hm" dominated the airwaves, clubs, and sound systems globally.</p>
+      <p>This relentless output ensured that his presence was felt in every corner of the dancehall world. He remained a staple on Billboard charts and international playlists, proving that his talent could not be confined by physical walls. This era of his career solidified his status as a legendary figure—an artist whose voice was so powerful it transcended his physical reality.</p>
+
+      <h3>The Cultural Shift: Bleaching and Controversy</h3>
+      <p>It is impossible to discuss Vybz Kartel without addressing the controversies that have shadowed his career. His decision to lighten his skin, commonly known as bleaching, sparked intense national and international debate regarding colorism, self-hate, and beauty standards in post-colonial Jamaica. Kartel addressed this directly in his music with songs like "Coloring Book," turning a deeply sociological issue into a cultural talking point.</p>
+      <p>While many criticized him, others saw it as a provocative statement on identity and the complex realities of race in Jamaica. Kartel's ability to remain at the center of cultural discourse, whether through his music, his appearance, or his legal battles, is a testament to his magnetic, polarizing persona. He forces society to confront uncomfortable truths, mirroring the raw reality of the environment that shaped him.</p>
+
+      <h3>The Anticipation of a Triumphant Return</h3>
+      <p>Recent developments regarding his legal status have sent shockwaves of anticipation through the music world. The possibility of Vybz Kartel returning to the stage has ignited a frenzy among fans and industry insiders alike. The prospect of a "Worl' Boss" concert in Kingston is not merely viewed as a musical event; it is anticipated as a historic cultural milestone.</p>
+      <p>Imagine the scene: the National Stadium in Kingston packed to capacity, the air thick with anticipation, the iconic Jamaican flag colors illuminating the stage. The roar of the crowd as Kartel steps out would be deafening, a collective release of over a decade of pent-up energy. Such an event would undoubtedly be the largest dancehall concert in history, drawing fans from every continent.</p>
+      <p>A triumphant return would also have significant implications for the genre itself. It would serve as a massive injection of adrenaline into the Jamaican music industry, potentially shifting the global spotlight back to Kingston in a major way. It would provide an opportunity for Kartel to physically interact with the generation of artists he influenced from afar, potentially sparking collaborations that could define the next decade of Caribbean music.</p>
+
+      <h3>The Global Footprint of the Worl' Boss</h3>
+      <p>Kartel's influence extends far beyond the shores of Jamaica. International superstars like Drake, Rihanna, and Major Lazer have drawn heavily from his sound and style. Drake's "Controlla" and Rihanna's "Work" owe a significant debt to the rhythmic templates popularized by Kartel. He has collaborated with major international acts, proving that his brand of authentic, unfiltered dancehall has universal appeal.</p>
+      <p>His music is a staple in clubs from London to Tokyo, New York to Nairobi. This global reach underscores the power of his artistry. He managed to capture the essence of Jamaican street culture and package it in a way that resonates with people across diverse cultural backgrounds. It is a rare feat that only a true musical genius can accomplish.</p>
+
+      <h3>Conclusion: The Enduring Legacy</h3>
+      <p>In conclusion, Vybz Kartel is more than just a dancehall artist; he is a living legend whose impact on music and culture is immeasurable. From his unparalleled lyrical skills and linguistic innovations to his astonishing ability to remain relevant while incarcerated, Kartel has rewritten the rules of the music industry. As the world waits with bated breath for his potential return to the physical stage, one thing remains absolutely certain: the "Worl' Boss" will forever reign supreme in the annals of dancehall history. His legacy is etched in the very fabric of Jamaican culture, and his music will continue to inspire, provoke, and entertain for generations to come. The return of Vybz Kartel is not just a highly anticipated concert; it is the resurrection of a cultural icon, ready to reclaim his physical throne in a kingdom he never truly left.</p>
+    `;
+
+    const article = {
+      title,
+      slug,
+      url: `https://www.yardvybz.news/news/${slug}`,
+      summary: "An in-depth look at Vybz Kartel's immense influence on dancehall, his enduring legacy, and the global anticipation surrounding his potential return to the stage.",
+      content: content,
+      category: 'entertainment',
+      imageUrl,
+      publishedAt: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      source: 'YardVybz Exclusive',
+      author: 'YardVybz Staff',
+      tags: ['Vybz Kartel', 'Dancehall', 'Jamaica', 'Music', 'Entertainment'],
+      status: 'published'
+    };
+
+    console.log('Inserting article into database...');
+    const result = await collection.updateOne(
+      { slug: article.slug },
+      { $set: article },
+      { upsert: true }
+    );
+    console.log('Article inserted successfully.', result);
+
+  } catch (error) {
+    console.error('Error:', error);
   } finally {
-    if (mongoClient) {
-      await mongoClient.close();
-    }
+    await client.close();
   }
 }
 
-main();
+run();
