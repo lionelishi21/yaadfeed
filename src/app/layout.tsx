@@ -6,6 +6,7 @@ import './globals.css'
 import Providers from '@/components/providers'
 import Preloader from '@/components/Preloader'
 import CookieBanner from '@/components/CookieBanner'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 
 const bebasNeue = Bebas_Neue({ 
@@ -122,20 +123,7 @@ export default function RootLayout({
           {children}
           <CookieBanner />
         </Providers>
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-FDTRC2Z5PP"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-FDTRC2Z5PP');
-          `}
-        </Script>
+        <GoogleAnalytics gaId="G-FDTRC2Z5PP" />
       </body>
     </html>
   )
