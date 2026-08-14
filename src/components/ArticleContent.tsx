@@ -12,6 +12,7 @@ import { formatters, stringUtils, contentUtils, highlightKeywords } from '@/util
 import ClientHeader from '@/components/ClientHeader';
 import AudioPlayer from '@/components/AudioPlayer';
 import SocialShare from '@/components/SocialShare';
+import EzoicAd from '@/components/ads/EzoicAd';
 import { ARTICLE_HIGHLIGHT_KEYWORDS } from '@/config/keywords';
 
 import { useSession } from 'next-auth/react';
@@ -315,6 +316,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
 
             {/* Ad: After summary, before article body */}
             <div className="my-8">
+              <EzoicAd />
             </div>
 
             <div className="mb-10 relative w-full h-[300px] md:float-right md:w-[400px] md:ml-8 md:mb-6 rounded-sm overflow-hidden border border-white/10">
@@ -389,6 +391,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
 
           {/* Ad: Before comments - high engagement zone */}
           <div className="px-6 md:px-12 pb-8">
+            <EzoicAd />
           </div>
 
             {/* Comments Section */}
@@ -400,6 +403,7 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
           {/* Sidebar */}
           <aside className="hidden lg:block w-[320px] shrink-0">
             <div className="sticky top-28 space-y-8">
+              <EzoicAd />
               {headings.length > 0 && (
                 <div className="bg-[#090909] border border-white/10 rounded-xl p-6">
                   <h3 className="text-[#E8B84B] font-bold text-[11px] tracking-[0.15em] uppercase mb-5">
