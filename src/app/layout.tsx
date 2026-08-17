@@ -136,7 +136,25 @@ export default function RootLayout({
           {children}
           <CookieBanner />
         </Providers>
-        <GoogleAnalytics gaId="G-FDTRC2Z5PP" />
+        {/* Google Analytics - Direct integration for reliable tracking */}
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=G-FDTRC2Z5PP`}
+        />
+        <Script
+          id="google-analytics-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-FDTRC2Z5PP', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
       </body>
     </html>
   )
