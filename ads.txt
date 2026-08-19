@@ -1,3 +1,0 @@
-google.com, pub-8872711759728449, DIRECT, f08c47fec0942fa0
-# Ezoic Ads.txt Manager Integration for yardvybz.news
-# Automated updates via https://srv.adstxtmanager.com/19390/yardvybz.news

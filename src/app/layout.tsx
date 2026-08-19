@@ -7,6 +7,7 @@ import Providers from '@/components/providers'
 import Preloader from '@/components/Preloader'
 import CookieBanner from '@/components/CookieBanner'
 import { GoogleAnalytics } from '@next/third-parties/google'
+import PushNotificationManager from '@/components/PushNotificationManager'
 
 
 const bebasNeue = Bebas_Neue({ 
@@ -132,6 +133,7 @@ export default function RootLayout({
       </head>
       <body className={`${bebasNeue.variable} ${dmSans.variable} ${playfairDisplay.variable} font-sans bg-[#0B0B0B] text-white overflow-x-hidden`}>
         <Providers>
+          <PushNotificationManager />
           <Preloader />
           {children}
           <CookieBanner />
@@ -139,7 +141,7 @@ export default function RootLayout({
         {/* Google Analytics - Direct integration for reliable tracking */}
         <Script
           strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-FDTRC2Z5PP`}
+          src={`https://www.googletagmanager.com/gtag/js?id=G-1N9X600LMX`}
         />
         <Script
           id="google-analytics-init"
@@ -149,7 +151,7 @@ export default function RootLayout({
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-FDTRC2Z5PP', {
+              gtag('config', 'G-1N9X600LMX', {
                 page_path: window.location.pathname,
               });
             `,
