@@ -93,6 +93,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Consent Framework Banner */}
+        <script data-cfasync="false" type="text/javascript" src="https://cache.consentframework.com/js/pa/53612/c/boATi/stub?source=google-tag"></script>
+        <script data-cfasync="false" type="text/javascript" src="https://choices.consentframework.com/js/pa/53612/c/boATi/cmp?source=google-tag" async></script>
+
         {/* Ezoic Privacy Scripts (Loaded First) */}
         <script data-cfasync="false" src="https://cmp.gatekeeperconsent.com/min.js" />
         <script data-cfasync="false" src="https://the.gatekeeperconsent.com/cmp.min.js" />
