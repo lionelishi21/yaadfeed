@@ -5,6 +5,7 @@ console.log("=========================");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {},
   trailingSlash: false,
   images: {
     unoptimized: true,
