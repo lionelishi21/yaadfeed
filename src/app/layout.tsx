@@ -123,6 +123,18 @@ export default function RootLayout({
             })
           }}
         />
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1N9X600LMX"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-1N9X600LMX');
+            `
+          }}
+        />
         {/* Google AdSense */}
         <Script
           async
@@ -138,25 +150,6 @@ export default function RootLayout({
           {children}
           <CookieBanner />
         </Providers>
-        {/* Google Analytics - Direct integration for reliable tracking */}
-        <Script
-          strategy="afterInteractive"
-          src={`https://www.googletagmanager.com/gtag/js?id=G-1N9X600LMX`}
-        />
-        <Script
-          id="google-analytics-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-1N9X600LMX', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
       </body>
     </html>
   )
