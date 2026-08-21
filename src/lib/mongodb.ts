@@ -153,6 +153,13 @@ export interface Poll {
   updatedAt: Date;
 }
 
+export interface PushSubscription {
+  _id?: string;
+  token: string;
+  createdAt: Date;
+  lastUsedAt: Date;
+}
+
 export async function connectToDatabase(): Promise<{ db: Db; client: MongoClient }> {
   if (client && db && isConnected) {
     log('Using existing MongoDB connection', 'info');
@@ -202,6 +209,7 @@ export async function connectToDatabase(): Promise<{ db: Db; client: MongoClient
     const newsCollection = db.collection('news_items');
     const usersCollection = db.collection('users');
     const artistsCollection = db.collection('artists');
+    const pushSubscriptionsCollection = db.collection('push_subscriptions');
     
     await Promise.all([
       // News indexes for better performance
@@ -224,7 +232,11 @@ export async function connectToDatabase(): Promise<{ db: Db; client: MongoClient
       artistsCollection.createIndex({ name: 1 }),
       artistsCollection.createIndex({ genres: 1 }),
       artistsCollection.createIndex({ isActive: 1 }),
-      artistsCollection.createIndex({ createdAt: -1 })
+      artistsCollection.createIndex({ createdAt: -1 }),
+
+      // Push subscriptions indexes
+      pushSubscriptionsCollection.createIndex({ token: 1 }, { unique: true }),
+      pushSubscriptionsCollection.createIndex({ lastUsedAt: -1 })
     ]);
     
     isConnected = true;
@@ -266,6 +278,11 @@ export async function getArtistsCollection() {
 export async function getPollsCollection() {
   const { db } = await connectToDatabase();
   return db.collection<Poll>('polls');
+}
+
+export async function getPushSubscriptionsCollection() {
+  const { db } = await connectToDatabase();
+  return db.collection<PushSubscription>('push_subscriptions');
 }
 
 export async function closeConnection(): Promise<void> {
@@ -386,6 +403,22 @@ export class NewsService {
         import('./facebookService').then(({ FacebookService }) => {
           FacebookService.postArticle(insertedArticle as unknown as NewsItem).catch(console.error);
         });
+
+        // Fire and forget push notification
+        if (insertedArticle.status === 'published') {
+          import('./push').then(({ PushNotificationService }) => {
+            PushSubscriptionService.getAllTokens().then((tokens) => {
+              if (tokens.length > 0) {
+                PushNotificationService.sendToTokens(tokens, {
+                  title: `New Article: ${insertedArticle.title}`,
+                  body: insertedArticle.summary || 'Tap to read the latest news on YaadFeed.',
+                  url: `https://yardvybz.news/news/${insertedArticle.slug}`,
+                  imageUrl: insertedArticle.imageUrl
+                }).catch(console.error);
+              }
+            });
+          }).catch(console.error);
+        }
       }
       
       return insertedArticle || null;
@@ -968,4 +1001,36 @@ export class ArtistService {
   }
 }
 
-export default NewsService; 
+export default NewsService;
+
+export class PushSubscriptionService {
+  static async addToken(token: string): Promise<boolean> {
+    try {
+      const collection = await getPushSubscriptionsCollection();
+      const now = new Date();
+      await collection.updateOne(
+        { token },
+        { 
+          $set: { lastUsedAt: now },
+          $setOnInsert: { token, createdAt: now }
+        },
+        { upsert: true }
+      );
+      return true;
+    } catch (error) {
+      console.error('Error saving push token:', error);
+      return false;
+    }
+  }
+
+  static async getAllTokens(): Promise<string[]> {
+    try {
+      const collection = await getPushSubscriptionsCollection();
+      const subscriptions = await collection.find({}).toArray();
+      return subscriptions.map(sub => sub.token);
+    } catch (error) {
+      console.error('Error fetching push tokens:', error);
+      return [];
+    }
+  }
+}

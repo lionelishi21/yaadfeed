@@ -28,6 +28,7 @@
     "dayjs": "^1.11.21",
     "dotenv": "^17.4.2",
     "firebase": "^12.17.1",
+    "firebase-admin": "^14.3.0",
     "framer-motion": "^12.42.0",
     "lucide-react": "^1.21.0",
     "marked": "^18.0.10",

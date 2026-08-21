@@ -15,6 +15,21 @@ export default function PushNotificationManager() {
   }, []);
 
   useEffect(() => {
+    const saveToken = async (token: string) => {
+      try {
+        await fetch('/api/push/subscribe', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token }),
+        });
+        console.log('FCM Token saved successfully.');
+      } catch (error) {
+        console.error('Error saving FCM token:', error);
+      }
+    };
+
     const setupMessaging = async () => {
       const messaging = await initializeMessaging();
       if (!messaging) return;
@@ -31,7 +46,7 @@ export default function PushNotificationManager() {
             });
             if (currentToken) {
               console.log('FCM Token:', currentToken);
-              // TODO: Send this token to your server to send push notifications to this user
+              await saveToken(currentToken);
             }
           }
         } catch (error) {
@@ -45,6 +60,7 @@ export default function PushNotificationManager() {
             });
             if (currentToken) {
               console.log('FCM Token:', currentToken);
+              await saveToken(currentToken);
             }
          } catch (e) {
             console.error('Error getting token', e);
