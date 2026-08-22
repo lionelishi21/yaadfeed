@@ -4,10 +4,9 @@
 export const dynamic = "force-dynamic";
 
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Clock, MessageCircle, Send, CheckCircle } from 'lucide-react';
+import { Mail, Clock, MessageCircle, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
-import Button from '@/components/ui/Button';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -18,22 +17,35 @@ const ContactPage = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError('');
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 3000);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        setIsSubmitted(true);
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({ name: '', email: '', subject: '', message: '' });
+        }, 4000);
+      } else {
+        // Fallback: direct email link
+        setError('Message could not be sent automatically. Please email us directly at info@yardvybz.news');
+      }
+    } catch {
+      setError('Message could not be sent automatically. Please email us directly at info@yardvybz.news');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -43,36 +55,9 @@ const ContactPage = () => {
     });
   };
 
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: 'Email Us',
-      details: ['info@yardvybz.news'],
-      description: 'We typically respond within 24 hours'
-    },
-    {
-      icon: Phone,
-      title: 'Call Us',
-      details: ['+1 (876) 555-YAAD', '+1 (876) 555-0123'],
-      description: 'Monday - Friday, 9:00 AM - 6:00 PM EST'
-    },
-    {
-      icon: MapPin,
-      title: 'Visit Us',
-      details: ['123 Hope Road', 'Kingston 6, Jamaica'],
-      description: 'Come say hello at our office'
-    },
-    {
-      icon: Clock,
-      title: 'Business Hours',
-      details: ['Mon - Fri: 9:00 AM - 6:00 PM', 'Sat: 10:00 AM - 2:00 PM'],
-      description: 'Closed on Sundays and holidays'
-    }
-  ];
-
   const departments = [
     { value: 'general', label: 'General Inquiry' },
-    { value: 'support', label: 'Technical Support' },
+    { value: 'correction', label: 'Story Correction or Tip' },
     { value: 'content', label: 'Content Submission' },
     { value: 'partnership', label: 'Partnership' },
     { value: 'advertising', label: 'Advertising' },
@@ -91,73 +76,68 @@ const ContactPage = () => {
             Get in <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Touch</span>
           </h1>
           <p className="text-2xl lg:text-3xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-            We'd love to hear from you. Connect with the YardVybz team and let's build something amazing together.
+            {"We'd love to hear from you — story tips, corrections, partnerships, or just a hello."}
           </p>
         </div>
       </section>
 
-      {/* Contact Information */}
-      <section className="py-20 bg-yard-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-white mb-6">
-              Contact <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Information</span>
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Multiple ways to reach us. Choose what works best for you.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {contactInfo.map((info, index) => {
-              const IconComponent = info.icon;
-              return (
-                <div key={index} className="text-center border border-[#222] bg-[#111] p-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-yard-gold to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-soft">
-                    <IconComponent className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-4">{info.title}</h3>
-                  <div className="space-y-2 mb-4">
-                    {info.details.map((detail, idx) => (
-                      <div key={idx} className="text-yard-gold font-semibold">{detail}</div>
-                    ))}
-                  </div>
-                  <p className="text-gray-400 text-sm">{info.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form */}
-      <section className="py-20 bg-yard-dark">
+      {/* Contact Info Cards */}
+      <section className="py-16 bg-yard-dark">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-white mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div className="border border-[#222] bg-[#111] p-8">
+              <div className="w-14 h-14 bg-gradient-to-r from-yard-gold to-yellow-600 rounded-xl flex items-center justify-center mb-5">
+                <Mail className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Email Us</h3>
+              <a href="mailto:info@yardvybz.news" className="text-yard-gold hover:underline text-lg font-semibold">
+                info@yardvybz.news
+              </a>
+              <p className="text-gray-400 text-sm mt-2">For editorial, advertising, and general inquiries</p>
+            </div>
+
+            <div className="border border-[#222] bg-[#111] p-8">
+              <div className="w-14 h-14 bg-gradient-to-r from-yard-gold to-yellow-600 rounded-xl flex items-center justify-center mb-5">
+                <Clock className="w-7 h-7 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-3">Response Times</h3>
+              <p className="text-gray-300 font-semibold">General: within 48 hours</p>
+              <p className="text-gray-300 font-semibold">Corrections: within 24 hours</p>
+              <p className="text-gray-400 text-sm mt-2">Monday – Friday</p>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black text-white mb-4">
               Send us a <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Message</span>
             </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Have a question, suggestion, or just want to say hello? We're all ears!
+            <p className="text-xl text-gray-400">
+              {"Have a question, story tip, or correction? We're all ears."}
             </p>
           </div>
           
           <div className="border border-[#222] bg-[#111] p-8 lg:p-12">
             {isSubmitted ? (
               <div className="text-center py-12">
-                <div className="w-20 h-20 bg-gradient-to-r from-yard-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-soft">
+                <div className="w-20 h-20 bg-gradient-to-r from-yard-gold to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6">
                   <CheckCircle className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-4">Message Sent Successfully!</h3>
-                <p className="text-gray-400 mb-6">
-                  Thank you for reaching out. We'll get back to you as soon as possible.
+                <h3 className="text-2xl font-bold text-white mb-4">Message Sent!</h3>
+                <p className="text-gray-400 mb-4">
+                  {"Thank you for reaching out. We'll get back to you as soon as possible."}
                 </p>
-                <div className="text-yard-gold font-semibold">
-                  YardVybz Team
-                </div>
+                <p className="text-yard-gold font-semibold">— The YardVybz Editorial Team</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
+                {error && (
+                  <div className="flex items-start gap-3 p-4 border border-red-500/30 bg-red-500/10 rounded">
+                    <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+                    <p className="text-red-300 text-sm">{error}</p>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-semibold text-gray-300 mb-2">
@@ -170,8 +150,8 @@ const ContactPage = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent shadow-soft transition-all duration-200"
-                      placeholder="Enter your full name"
+                      className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent transition-all duration-200"
+                      placeholder="Your full name"
                     />
                   </div>
                   
@@ -186,8 +166,8 @@ const ContactPage = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent shadow-soft transition-all duration-200"
-                      placeholder="Enter your email address"
+                      className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent transition-all duration-200"
+                      placeholder="your@email.com"
                     />
                   </div>
                 </div>
@@ -202,7 +182,7 @@ const ContactPage = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent shadow-soft transition-all duration-200"
+                    className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent transition-all duration-200"
                   >
                     <option value="">Select a subject</option>
                     {departments.map((dept) => (
@@ -224,31 +204,29 @@ const ContactPage = () => {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent shadow-soft transition-all duration-200 resize-none"
+                    className="w-full px-4 py-3 border border-[#333] bg-[#222] text-white rounded-xl focus:ring-2 focus:ring-yard-gold/30 focus:border-transparent transition-all duration-200 resize-none"
                     placeholder="Tell us what's on your mind..."
                   />
                 </div>
                 
                 <div className="text-center">
-                  <Button
+                  <button
                     type="submit"
-                    variant="glamour"
-                    size="lg"
                     disabled={isSubmitting}
-                    className="w-full md:w-auto"
+                    className="inline-flex items-center gap-2 bg-yard-gold text-yard-dark font-bold text-lg px-10 py-4 hover:bg-yellow-400 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <>
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                        Sending Message...
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-yard-dark"></div>
+                        Sending...
                       </>
                     ) : (
                       <>
-                        <Send className="w-5 h-5 mr-2" />
+                        <Send className="w-5 h-5" />
                         Send Message
                       </>
                     )}
-                  </Button>
+                  </button>
                 </div>
               </form>
             )}
@@ -257,67 +235,38 @@ const ContactPage = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 bg-yard-dark">
+      <section className="py-16 bg-yard-dark border-t border-[#1a1a1a]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-white mb-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-black text-white mb-4">
               Frequently Asked <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Questions</span>
             </h2>
-            <p className="text-xl text-gray-400">
-              Quick answers to common questions
-            </p>
           </div>
           
-          <div className="space-y-6">
+          <div className="space-y-4">
             {[
               {
-                question: "How quickly do you respond to inquiries?",
-                answer: "We typically respond to all inquiries within 24 hours during business days. For urgent matters, we'll get back to you as soon as possible."
+                question: "How do I report an error in an article?",
+                answer: "Select 'Story Correction or Tip' in the contact form above, or email us at info@yardvybz.news. We take corrections seriously and will investigate and update the article within 24 hours if a factual error is confirmed."
               },
               {
-                question: "Can I submit content to YardVybz?",
-                answer: "Absolutely! We welcome content submissions from our community. Please use the contact form above and select 'Content Submission' as your subject."
+                question: "Can I submit a story or press release to YardVybz?",
+                answer: "Absolutely. We welcome story tips, press releases, and community submissions. Select 'Content Submission' in the form above. All submissions are reviewed by our editorial team before publication."
               },
               {
                 question: "Do you offer advertising opportunities?",
-                answer: "Yes! We have various advertising options available. Contact us with 'Advertising' as your subject and we'll send you our media kit."
+                answer: "Yes — we offer display advertising and sponsored content options. Select 'Advertising' in the subject dropdown and we will send you our current media kit with rates and audience demographics."
               },
               {
                 question: "How can I partner with YardVybz?",
-                answer: "We're always open to partnerships that align with our mission. Send us a message with 'Partnership' as your subject and let's discuss possibilities."
+                answer: "We're open to content partnerships, event partnerships, and community collaborations that align with our mission. Send us a message with 'Partnership' as the subject."
               }
             ].map((faq, index) => (
               <div key={index} className="border border-[#222] bg-[#111] p-6">
                 <h3 className="text-lg font-bold text-white mb-3">{faq.question}</h3>
-                <p className="text-gray-400">{faq.answer}</p>
+                <p className="text-gray-400 leading-relaxed">{faq.answer}</p>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-yard-dark via-[#111] to-yard-gray">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-yard-dark/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
-            <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">
-              Let's Build Something Amazing
-            </h2>
-            <p className="text-white/90 text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
-              Whether you have a question, want to collaborate, or just want to say hello, 
-              we're here to help make Jamaica's digital presence stronger.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-yard-dark/90 backdrop-blur-lg text-yard-gold hover:bg-yard-dark shadow-soft hover:shadow-soft-xl transition-all duration-300 text-xl font-bold px-8 py-4">
-                Start a Conversation
-              </Button>
-              <Button 
-                variant="outline" 
-                className="border-white/80 bg-yard-dark/10 backdrop-blur-lg text-white hover:bg-yard-dark hover:text-yard-gold shadow-soft text-xl font-bold px-8 py-4"
-              >
-                Learn More
-              </Button>
-            </div>
           </div>
         </div>
       </section>

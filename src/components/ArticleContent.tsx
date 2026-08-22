@@ -90,11 +90,12 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
     return categoryMap[category.toLowerCase()] || categoryMap['general'];
   };
 
-  const [heroImage, setHeroImage] = useState<string>('');
-  const [relatedImage, setRelatedImage] = useState<string>('');
+  const [heroImage, setHeroImage] = useState<string>(article?.imageUrl || '');
+  const [relatedImage, setRelatedImage] = useState<string>(article?.imageUrl || '');
   const [loading, setLoading] = useState(true);
-  const [htmlContent, setHtmlContent] = useState<string>('');
-  const [headings, setHeadings] = useState<{ id: string, text: string }[]>([]);
+  // Use server-pre-rendered HTML as initial value so Googlebot sees full content immediately
+  const [htmlContent, setHtmlContent] = useState<string>(article?.preRenderedHtml || '');
+  const [headings, setHeadings] = useState<{ id: string, text: string }[]>(article?.preRenderedHeadings || []);
   const [activeHeading, setActiveHeading] = useState<string | null>(null);
 
   const renderEmbed = (embed: any, idx: number) => {
@@ -337,7 +338,29 @@ export default function ArticleContent({ article, relatedArticles, slug }: Artic
           {/* Social Share Buttons */}
           <SocialShare url={`/news/${slug}`} title={article.title} />
 
-          {/* Author / Source Box */}
+          {/* E-E-A-T Author Box */}
+          <div className="px-6 py-8 md:px-12 my-8 border-t border-b border-white/10 bg-[#0a0a0a]">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-yard-gold to-[#9a7020] flex items-center justify-center shrink-0 border-2 border-yard-dark">
+                <span className="text-xl font-bold text-yard-dark">YV</span>
+              </div>
+              <div>
+                <h4 className="text-white font-bold text-lg mb-1">
+                  Written by {article.author || 'YardVybz Staff'}
+                </h4>
+                <p className="text-gray-400 text-sm mb-2 leading-relaxed max-w-2xl">
+                  The YardVybz editorial team delivers independent, accurate, and original journalism covering Jamaican news, culture, sports, and the global diaspora.
+                </p>
+                <div className="flex items-center gap-4 text-xs font-semibold text-yard-gold uppercase tracking-wider">
+                  <Link href="/about" className="hover:text-yellow-400 transition-colors">About the Author</Link>
+                  <span className="text-white/20">•</span>
+                  <Link href="/editorial-policy" className="hover:text-yellow-400 transition-colors">Editorial Policy</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tags */}
           {article.tags && article.tags.length > 0 && (
             <div className="px-6 pb-8 md:px-12 md:pb-10 flex flex-wrap gap-2">
               {article.tags.map((tag: string, index: number) => (

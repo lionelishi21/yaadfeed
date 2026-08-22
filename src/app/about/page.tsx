@@ -4,61 +4,40 @@
 export const dynamic = "force-dynamic";
 
 import React from 'react';
-import { Users, Globe, Award, Heart, Music, Newspaper, Calendar, Star } from 'lucide-react';
+import { Globe, Award, Heart, Music, Newspaper, Star } from 'lucide-react';
 import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
-import Button from '@/components/ui/Button';
+import Link from 'next/link';
 
 const AboutPage = () => {
-  const stats = [
-    { icon: Users, value: '50K+', label: 'Active Users', description: 'Across Jamaica and the diaspora' },
-    { icon: Newspaper, value: '1000+', label: 'Articles Published', description: 'Daily news and updates' },
-    { icon: Music, value: '500+', label: 'Featured Artists', description: 'From reggae legends to rising stars' },
-    { icon: Calendar, value: '200+', label: 'Events Listed', description: 'Concerts, festivals, and cultural events' },
-  ];
-
   const values = [
     {
       icon: Heart,
-      title: 'Authenticity',
-      description: 'We stay true to Jamaican culture and values, providing genuine content that reflects the spirit of the island.'
+      title: 'Authenticity First',
+      description: 'We stay true to Jamaican culture and values, publishing content that genuinely reflects the spirit, language, and lived experience of the island and its diaspora — not a sanitized, outsider-approved version of it.'
     },
     {
       icon: Globe,
-      title: 'Global Reach',
-      description: 'Connecting Jamaicans worldwide while preserving and promoting our rich cultural heritage.'
+      title: 'Global Diaspora Connection',
+      description: 'With Jamaicans spread across the UK, Canada, the United States, and beyond, YardVybz serves as a digital bridge — keeping the diaspora plugged in to everything happening back home and celebrating Jamaican achievement worldwide.'
     },
     {
       icon: Award,
-      title: 'Excellence',
-      description: 'Committed to delivering high-quality content, accurate news, and exceptional user experiences.'
+      title: 'Editorial Integrity',
+      description: 'Every story we publish is reviewed for accuracy before it goes live. We correct errors promptly, cite our sources, and maintain a clear separation between news reporting and editorial opinion. Read our full Editorial Policy for details.'
     },
     {
       icon: Star,
-      title: 'Innovation',
-      description: 'Embracing modern technology to bring Jamaica\'s culture to the digital age.'
+      title: 'Culture Over Clickbait',
+      description: "We reject sensationalism in favour of substance. Whether it's breaking political news from Kingston, an in-depth interview with a rising dancehall star, or a deep dive into Jamaica's Olympic legacy, we always lead with quality."
     }
   ];
 
-  const team = [
-    {
-      name: 'Marcus Johnson',
-      role: 'Founder & CEO',
-      bio: 'Born and raised in Kingston, Marcus has a deep passion for Jamaican culture and digital innovation.',
-      image: '/images/placeholder-business.jpg'
-    },
-    {
-      name: 'Aisha Thompson',
-      role: 'Head of Content',
-      bio: 'Award-winning journalist with 15+ years covering Caribbean culture and entertainment.',
-      image: '/images/placeholder-business.jpg'
-    },
-    {
-      name: 'David Clarke',
-      role: 'Technical Director',
-      bio: 'Tech enthusiast dedicated to building platforms that serve the Jamaican community.',
-      image: '/images/placeholder-business.jpg'
-    }
+  const coverageAreas = [
+    { icon: Newspaper, title: 'News & Politics', desc: 'Comprehensive coverage of Jamaican national news, parliamentary developments, government policy, and the issues shaping daily life across the island.' },
+    { icon: Music, title: 'Music & Entertainment', desc: 'From dancehall to reggae, soca to afrobeats with Caribbean crossover, we cover the artists, albums, events, and industry news that matter to fans worldwide.' },
+    { icon: Globe, title: 'Diaspora Life', desc: 'Stories about Jamaican communities in the UK, USA, Canada, and beyond — celebrating achievements, addressing challenges, and keeping connections alive.' },
+    { icon: Award, title: 'Sports', desc: 'Track and field, cricket, football, and more. Jamaica produces world-class athletes across disciplines, and we cover them with the depth their achievements deserve.' },
   ];
 
   return (
@@ -73,101 +52,54 @@ const AboutPage = () => {
             About <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">YardVybz</span>
           </h1>
           <p className="text-2xl lg:text-3xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Jamaica's premier digital platform connecting the diaspora with the heartbeat of the island
+            {"Jamaica's premier digital platform connecting the diaspora with the heartbeat of the island"}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="glamour" size="lg">
-              Our Mission
-            </Button>
-            <Button variant="outline" className="border-white/30 text-white hover:bg-yard-dark hover:text-yard-gold">
-              Meet the Team
-            </Button>
-          </div>
         </div>
       </section>
 
-      {/* Mission Section */}
+      {/* Mission Section — substantive editorial content for E-E-A-T */}
       <section className="py-20 bg-yard-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-white mb-6">
-              Our <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Mission</span>
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              To be the digital bridge that connects Jamaicans worldwide, preserving our culture, 
-              amplifying our voices, and celebrating our achievements on a global stage.
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-black text-white mb-8">
+            Our <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Mission</span>
+          </h2>
+          
+          <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
+            <p>
+              YardVybz was founded on a simple but powerful conviction: that Jamaicans around the world deserve a dedicated, trustworthy digital home where they can stay informed about everything happening in Jamaica — from political developments in Gordon House to the latest dancehall drops, from grassroots business innovation to the global success of Jamaican athletes on the world stage.
             </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h3 className="text-3xl font-bold text-white mb-6">
-                Connecting the Jamaican Diaspora
-              </h3>
-              <p className="text-lg text-gray-400 mb-6 leading-relaxed">
-                YardVybz was born from a simple idea: to create a digital home where Jamaicans 
-                everywhere could stay connected to their roots, culture, and community.
-              </p>
-              <p className="text-lg text-gray-400 mb-8 leading-relaxed">
-                Whether you're in Kingston, London, Toronto, or New York, we bring Jamaica to you 
-                through authentic news, music, events, and cultural content that matters.
-              </p>
-              <Button variant="glamour">
-                Learn More
-              </Button>
-            </div>
-            <div className="relative">
-              <div className="bg-[#1a1a1a] rounded-3xl p-8 shadow-soft">
-                <div className="text-center">
-                  <Heart className="w-20 h-20 text-yard-gold mx-auto mb-6" />
-                  <h4 className="text-2xl font-bold text-white mb-4">Jamaica to the World</h4>
-                  <p className="text-gray-400">
-                    Sharing our culture, music, and stories with the world while keeping 
-                    the diaspora connected to home.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-20 bg-yard-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-white mb-6">
-              YardVybz by the <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Numbers</span>
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => {
-              const IconComponent = stat.icon;
-              return (
-                <div key={index} className="text-center border border-[#222] bg-[#111] p-8">
-                  <div className="w-16 h-16 bg-gradient-to-r from-yard-gold to-yellow-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-soft">
-                    <IconComponent className="w-8 h-8 text-white" />
-                  </div>
-                  <div className="text-3xl font-black text-yard-gold mb-2">{stat.value}</div>
-                  <div className="text-lg font-semibold text-white mb-2">{stat.label}</div>
-                  <div className="text-gray-400 text-sm">{stat.description}</div>
-                </div>
-              );
-            })}
+            <p>
+              Jamaica punches far above its weight on the global stage. A nation of under three million people has produced icons in music, sport, literature, and business — from Bob Marley and Usain Bolt to Louise Bennett and Michael Lee-Chin. Yet too often, international media coverage reduces Jamaica to a tourist destination or a source of music samples. YardVybz exists to change that narrative and give the full picture.
+            </p>
+            <p>
+              We publish original reporting, analysis, and cultural commentary across categories including politics, business, sports, entertainment, music, and diaspora life. Our editorial team works to go beyond the headlines, providing the context and depth that our readers — whether they are in Kingston, London, Toronto, or New York — need to truly understand what is happening at home.
+            </p>
+            <p>
+              We believe in the power of the Jamaican story told by people who genuinely know and love the culture. That is why we invest in original content rather than simply aggregating headlines from elsewhere. Every article on YardVybz is created or curated with the goal of being genuinely useful, informative, and worth your time.
+            </p>
+            <p>
+              Our commitment extends to accuracy and transparency. We cite our sources, correct mistakes promptly, and clearly distinguish between news reporting and editorial opinion. We maintain a published{' '}
+              <Link href="/editorial-policy" className="text-yard-gold underline hover:text-yellow-400 transition-colors">
+                Editorial Policy
+              </Link>{' '}
+              that sets out our standards for sourcing, fact-checking, corrections, and editorial independence.
+            </p>
+            <p>
+              Whether you are a second-generation Jamaican in Birmingham who wants to feel connected to your roots, a business professional tracking investment opportunities on the island, a music fan following the next generation of dancehall artists, or simply someone who loves everything Jamaican culture has to offer — YardVybz is built for you. We are proud to serve this community, and we take that responsibility seriously.
+            </p>
           </div>
         </div>
       </section>
 
       {/* Values Section */}
-      <section className="py-20 bg-yard-dark">
+      <section className="py-20 bg-yard-dark border-t border-[#1a1a1a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-black text-white mb-6">
               Our <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Values</span>
             </h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              The principles that guide everything we do at YardVybz
+              The principles that guide every story we publish at YardVybz
             </p>
           </div>
           
@@ -188,58 +120,52 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 bg-yard-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-white mb-6">
-              Meet Our <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Team</span>
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              The passionate individuals behind YardVybz's mission
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {team.map((member, index) => (
-              <div key={index} className="border border-[#222] bg-[#111] p-8 text-center">
-                <div className="w-24 h-24 bg-gradient-to-r from-yard-gold to-yellow-600 rounded-full mx-auto mb-6 shadow-soft overflow-hidden">
-                  <img 
-                    src={member.image} 
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
+      {/* What We Cover */}
+      <section className="py-20 bg-yard-dark border-t border-[#1a1a1a]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-black text-white mb-8">
+            What We <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Cover</span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-300">
+            {coverageAreas.map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <div key={i} className="flex gap-4 p-6 border border-[#222] bg-[#111]">
+                  <Icon className="w-6 h-6 text-yard-gold shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-white font-bold text-lg mb-2">{item.title}</h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{member.name}</h3>
-                <div className="text-yard-gold font-semibold mb-4">{member.role}</div>
-                <p className="text-gray-400 text-sm leading-relaxed">{member.bio}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-yard-dark via-[#111] to-yard-gray">
+      <section className="py-20 bg-gradient-to-br from-yard-dark via-[#111] to-yard-gray border-t border-[#1a1a1a]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-yard-dark/10 backdrop-blur-lg rounded-3xl p-12 border border-white/20 shadow-soft">
+          <div className="bg-yard-dark/10 backdrop-blur-lg p-12 border border-white/10">
             <h2 className="text-4xl lg:text-5xl font-black text-white mb-6">
-              Join the YardVybz Family
+              Get Involved
             </h2>
-            <p className="text-white/90 text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
-              Be part of the movement that's bringing Jamaica to the world and keeping 
-              the diaspora connected to home.
+            <p className="text-white/80 text-xl mb-8 max-w-2xl mx-auto leading-relaxed">
+              Have a story tip, a correction, or want to submit content? We would love to hear from the community.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-yard-dark/90 backdrop-blur-lg text-yard-gold hover:bg-yard-dark shadow-soft hover:shadow-soft-xl transition-all duration-300 text-xl font-bold px-8 py-4">
-                Get Started
-              </Button>
-              <Button 
-                variant="outline" 
-                className="border-white/80 bg-yard-dark/10 backdrop-blur-lg text-white hover:bg-yard-dark hover:text-yard-gold shadow-soft text-xl font-bold px-8 py-4"
+              <Link
+                href="/contact"
+                className="inline-block bg-yard-gold text-yard-dark font-bold text-lg px-8 py-4 hover:bg-yellow-400 transition-colors"
               >
                 Contact Us
-              </Button>
+              </Link>
+              <Link
+                href="/editorial-policy"
+                className="inline-block border border-white/30 text-white font-bold text-lg px-8 py-4 hover:bg-white/5 transition-colors"
+              >
+                Editorial Policy
+              </Link>
             </div>
           </div>
         </div>

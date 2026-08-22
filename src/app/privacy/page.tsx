@@ -4,84 +4,17 @@
 export const dynamic = "force-dynamic";
 
 import React from 'react';
-import { Shield, Eye, Lock, Users, Globe, Calendar, Settings, Mail } from 'lucide-react';
+import { Shield, Eye, Lock, Users, Globe, Calendar, Settings, Mail, Cookie } from 'lucide-react';
 import ClientHeader from '@/components/ClientHeader';
 import Footer from '@/components/Footer';
-import Button from '@/components/ui/Button';
-import Head from 'next/head';
+import Link from 'next/link';
 
 const PrivacyPage = () => {
-  const lastUpdated = 'January 15, 2024';
-
-  const privacyPrinciples = [
-    {
-      icon: Shield,
-      title: 'Data Protection',
-      description: 'We implement industry-standard security measures to protect your personal information.'
-    },
-    {
-      icon: Eye,
-      title: 'Transparency',
-      description: 'We\'re clear about what data we collect, how we use it, and who we share it with.'
-    },
-    {
-      icon: Lock,
-      title: 'User Control',
-      description: 'You have full control over your data and can request deletion at any time.'
-    },
-    {
-      icon: Users,
-      title: 'Community First',
-      description: 'Your privacy is essential to building a trusted community platform.'
-    }
-  ];
-
-  const dataCollection = [
-    {
-      category: 'Account Information',
-      examples: ['Name, email address, profile picture', 'Authentication credentials', 'Account preferences and settings'],
-      purpose: 'To provide personalized services and maintain your account'
-    },
-    {
-      category: 'Usage Data',
-      examples: ['Pages visited, articles read', 'Search queries and interactions', 'Device and browser information'],
-      purpose: 'To improve our services and provide relevant content'
-    },
-    {
-      category: 'Content',
-      examples: ['Comments, posts, and submissions', 'User-generated content', 'Feedback and communications'],
-      purpose: 'To enable community features and content moderation'
-    }
-  ];
-
-  const dataSharing = [
-    {
-      title: 'We Never Share',
-      items: ['Personal information with advertisers', 'Your data with third-party marketers', 'Individual user data without consent']
-    },
-    {
-      title: 'We May Share',
-      items: ['Aggregated, anonymized statistics', 'Information required by law enforcement', 'Data with your explicit consent']
-    }
-  ];
-
-  const userRights = [
-    'Access your personal data',
-    'Correct inaccurate information',
-    'Request deletion of your data',
-    'Export your data',
-    'Opt-out of marketing communications',
-    'Control privacy settings'
-  ];
+  const lastUpdated = 'August 22, 2026';
 
   return (
-    <>
-      <Head>
-        <title>Privacy Policy | YardVybz</title>
-        <meta name="description" content="Learn how YardVybz collects, uses, and protects your data." />
-      </Head>
-      <div className="min-h-screen bg-yard-dark">
-        <ClientHeader />
+    <div className="min-h-screen bg-yard-dark">
+      <ClientHeader />
       
       {/* Hero Section */}
       <section className="relative bg-yard-gray border-b border-[#1a1a1a] text-white py-20 overflow-hidden">
@@ -90,208 +23,239 @@ const PrivacyPage = () => {
           <h1 className="text-5xl lg:text-6xl font-black mb-6 leading-tight">
             Privacy <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Policy</span>
           </h1>
-          <p className="text-2xl lg:text-3xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-            How we protect and respect your privacy on YardVybz
+          <p className="text-xl text-white/80 mb-6 max-w-3xl mx-auto leading-relaxed">
+            How YardVybz collects, uses, and protects your personal information
           </p>
-          <div className="flex items-center justify-center gap-4 text-white/80">
-            <Calendar className="w-5 h-5" />
+          <div className="flex items-center justify-center gap-2 text-white/60 text-sm">
+            <Calendar className="w-4 h-4" />
             <span>Last updated: {lastUpdated}</span>
           </div>
         </div>
       </section>
 
-      {/* Privacy Principles */}
-      <section className="py-20 bg-yard-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-white mb-6">
-              Our Privacy <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Principles</span>
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              The fundamental principles that guide how we handle your personal information
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {privacyPrinciples.map((principle, index) => {
-              const IconComponent = principle.icon;
-              return (
-                <div key={index} className="border border-[#222] bg-[#111] p-8">
-                  <div className="w-16 h-16 bg-[#1a1a1a] rounded-2xl flex items-center justify-center mb-6">
-                    <IconComponent className="w-8 h-8 text-yard-gold" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{principle.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{principle.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* Policy Content */}
+      <section className="py-16 bg-yard-dark">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
-      {/* Data Collection */}
-      <section className="py-20 bg-yard-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-white mb-6">
-              What Data We <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Collect</span>
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Transparent information about the data we collect and why we need it
-            </p>
+          {/* Introduction */}
+          <div>
+            <h2 className="text-3xl font-black text-white mb-6">Introduction</h2>
+            <div className="space-y-4 text-gray-300 leading-relaxed">
+              <p>
+                YardVybz ("we", "our", or "us") operates the website <strong className="text-white">yardvybz.news</strong>. This Privacy Policy explains how we collect, use, disclose, and safeguard your personal information when you visit our website, create an account, read articles, leave comments, or interact with our services.
+              </p>
+              <p>
+                By using YardVybz, you consent to the practices described in this policy. If you do not agree with this policy, please do not use our website. We may update this policy periodically — the "Last updated" date at the top of this page reflects the most recent revision, and we encourage you to review it regularly.
+              </p>
+            </div>
           </div>
-          
-          <div className="space-y-8">
-            {dataCollection.map((item, index) => (
-              <div key={index} className="border border-[#222] bg-[#111] p-8">
-                <h3 className="text-2xl font-bold text-white mb-4">{item.category}</h3>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  <div>
-                    <h4 className="text-lg font-semibold text-yard-gold mb-3">Examples:</h4>
-                    <ul className="space-y-2">
-                      {item.examples.map((example, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-gray-400">
-                          <div className="w-2 h-2 bg-yard-gold rounded-full mt-2 flex-shrink-0"></div>
-                          {example}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-semibold text-yard-gold mb-3">Purpose:</h4>
-                    <p className="text-gray-400">{item.purpose}</p>
-                  </div>
+
+          {/* What We Collect */}
+          <div>
+            <h2 className="text-3xl font-black text-white mb-6">Information We Collect</h2>
+            
+            <div className="space-y-6">
+              <div className="border border-[#222] bg-[#111] p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Users className="w-6 h-6 text-yard-gold" />
+                  <h3 className="text-xl font-bold text-white">Account Information</h3>
                 </div>
+                <p className="text-gray-400 mb-3">When you register for a YardVybz account, we collect:</p>
+                <ul className="space-y-2 text-gray-400">
+                  <li className="flex items-start gap-2"><span className="text-yard-gold mt-1.5">•</span> Your name and email address</li>
+                  <li className="flex items-start gap-2"><span className="text-yard-gold mt-1.5">•</span> Your chosen username and encrypted password</li>
+                  <li className="flex items-start gap-2"><span className="text-yard-gold mt-1.5">•</span> Profile information you choose to provide (profile photo, bio)</li>
+                  <li className="flex items-start gap-2"><span className="text-yard-gold mt-1.5">•</span> OAuth tokens if you sign in with Google or Apple</li>
+                </ul>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Data Sharing */}
-      <section className="py-20 bg-yard-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-white mb-6">
-              How We <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Share</span> Data
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Clear guidelines on when and how your data might be shared
-            </p>
+              <div className="border border-[#222] bg-[#111] p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Eye className="w-6 h-6 text-yard-gold" />
+                  <h3 className="text-xl font-bold text-white">Usage Data</h3>
+                </div>
+                <p className="text-gray-400 mb-3">When you browse our site, we automatically collect:</p>
+                <ul className="space-y-2 text-gray-400">
+                  <li className="flex items-start gap-2"><span className="text-yard-gold mt-1.5">•</span> Pages visited, articles read, and time spent on each page</li>
+                  <li className="flex items-start gap-2"><span className="text-yard-gold mt-1.5">•</span> Referral source (how you arrived at our site)</li>
+                  <li className="flex items-start gap-2"><span className="text-yard-gold mt-1.5">•</span> Browser type, device type, and operating system</li>
+                  <li className="flex items-start gap-2"><span className="text-yard-gold mt-1.5">•</span> IP address (anonymised for analytics purposes)</li>
+                  <li className="flex items-start gap-2"><span className="text-yard-gold mt-1.5">•</span> Search queries entered on our site</li>
+                </ul>
+              </div>
+
+              <div className="border border-[#222] bg-[#111] p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <Cookie className="w-6 h-6 text-yard-gold" />
+                  <h3 className="text-xl font-bold text-white">Cookies & Tracking Technologies</h3>
+                </div>
+                <p className="text-gray-400 mb-3">
+                  We use cookies and similar tracking technologies to improve your experience, remember your preferences, and serve relevant advertising. These include:
+                </p>
+                <ul className="space-y-2 text-gray-400">
+                  <li className="flex items-start gap-2"><span className="text-yard-gold mt-1.5">•</span> <strong className="text-gray-300">Essential cookies:</strong> Required for the site to function (e.g., login sessions, CSRF protection)</li>
+                  <li className="flex items-start gap-2"><span className="text-yard-gold mt-1.5">•</span> <strong className="text-gray-300">Analytics cookies:</strong> Google Analytics to understand how visitors use our site (anonymised)</li>
+                  <li className="flex items-start gap-2"><span className="text-yard-gold mt-1.5">•</span> <strong className="text-gray-300">Advertising cookies:</strong> Google AdSense and partner networks to serve relevant ads. These networks may use cookies to personalise ads based on your browsing history.</li>
+                  <li className="flex items-start gap-2"><span className="text-yard-gold mt-1.5">•</span> <strong className="text-gray-300">Preference cookies:</strong> Remembering your site settings and reading history</li>
+                </ul>
+                <p className="text-gray-400 mt-4">
+                  You can manage cookies through your browser settings or through our cookie consent banner. Note that disabling certain cookies may limit site functionality.
+                </p>
+              </div>
+            </div>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {dataSharing.map((section, index) => (
-              <div key={index} className="border border-[#222] bg-[#111] p-8">
-                <h3 className="text-2xl font-bold text-white mb-6">{section.title}</h3>
-                <ul className="space-y-3">
-                  {section.items.map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-gray-400">
-                      <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
-                        section.title === 'We Never Share' ? 'bg-red-500' : 'bg-yard-gold'
-                      }`}></div>
-                      {item}
+
+          {/* How We Use It */}
+          <div>
+            <h2 className="text-3xl font-black text-white mb-6">How We Use Your Information</h2>
+            <div className="border border-[#222] bg-[#111] p-6 space-y-3 text-gray-400">
+              <p>We use the information we collect to:</p>
+              <ul className="space-y-2 mt-3">
+                {[
+                  'Provide, operate, and improve YardVybz and its features',
+                  'Personalise the content and articles shown to you based on your reading history',
+                  'Send you email newsletters if you have subscribed (with easy unsubscribe)',
+                  'Respond to your messages, support requests, and editorial inquiries',
+                  'Detect, prevent, and address technical issues and abuse',
+                  'Comply with legal obligations and enforce our Terms of Service',
+                  'Analyse aggregated usage trends to improve our editorial and product strategy',
+                  'Serve contextually relevant advertising through Google AdSense and partner networks',
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="text-yard-gold mt-1.5">•</span> {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Advertising */}
+          <div>
+            <h2 className="text-3xl font-black text-white mb-6">Advertising & Third-Party Partners</h2>
+            <div className="border border-[#222] bg-[#111] p-6 space-y-4 text-gray-400">
+              <p>
+                YardVybz is supported by advertising revenue. We work with Google AdSense and other advertising partners to display ads on our site. These partners may use cookies and similar technologies to serve ads based on your previous visits to our site and other sites on the internet.
+              </p>
+              <p>
+                <strong className="text-gray-300">Google AdSense:</strong> Google uses the DoubleClick cookie to serve ads based on a user's prior visits to our website or other websites. You may opt out of personalised advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-yard-gold hover:underline">Google Ad Settings</a> or <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-yard-gold hover:underline">aboutads.info</a>.
+              </p>
+              <p>
+                We do not sell your personal data to advertisers. Ad partners receive anonymised or aggregated data only.
+              </p>
+            </div>
+          </div>
+
+          {/* Data Sharing */}
+          <div>
+            <h2 className="text-3xl font-black text-white mb-6">Data Sharing</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="border border-red-900/40 bg-red-900/10 p-6">
+                <h3 className="text-xl font-bold text-white mb-4">We Never Share</h3>
+                <ul className="space-y-2 text-gray-400">
+                  {['Your personal data with advertisers for direct marketing', 'Your email address with third-party marketers', 'Individual user data without your explicit consent', 'Data in ways not described in this policy'].map((item, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <span className="text-red-400 mt-1.5">✕</span> {item}
                     </li>
                   ))}
                 </ul>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* User Rights */}
-      <section className="py-20 bg-yard-dark">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-black text-white mb-6">
-              Your <span className="bg-gradient-to-r from-yard-gold to-yellow-600 bg-clip-text text-transparent">Rights</span>
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              You have complete control over your personal information
-            </p>
-          </div>
-          
-          <div className="border border-[#222] bg-[#111] p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {userRights.map((right, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-yard-gold rounded-full"></div>
-                  <span className="text-gray-300 font-medium">{right}</span>
-                </div>
-              ))}
+              <div className="border border-[#222] bg-[#111] p-6">
+                <h3 className="text-xl font-bold text-white mb-4">We May Share</h3>
+                <ul className="space-y-2 text-gray-400">
+                  {['Aggregated, anonymised site analytics', 'Information required by law or a valid legal order', 'Data with service providers acting on our behalf (e.g., hosting, email delivery)', 'Data in the event of a merger or acquisition (with notice to users)'].map((item, i) => (
+                    <li key={i} className="flex items-start gap-2">
+                      <span className="text-yard-gold mt-1.5">•</span> {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            
-            <div className="mt-8 text-center">
+          </div>
+
+          {/* Your Rights */}
+          <div>
+            <h2 className="text-3xl font-black text-white mb-6">Your Rights</h2>
+            <div className="border border-[#222] bg-[#111] p-6">
               <p className="text-gray-400 mb-6">
-                To exercise any of these rights, contact us using the information below.
+                Depending on your location, you may have certain rights under applicable privacy laws including GDPR (European users) and CCPA (California users):
               </p>
-              <Button variant="glamour">
-                Contact Privacy Team
-              </Button>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {[
+                  'Access the personal data we hold about you',
+                  'Correct inaccurate or incomplete information',
+                  'Request deletion ("right to be forgotten") of your data',
+                  'Export a copy of your data in a portable format',
+                  'Opt out of personalised advertising',
+                  'Withdraw consent for optional data processing',
+                  'Lodge a complaint with your local data protection authority',
+                  'Opt out of marketing emails at any time',
+                ].map((right, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="w-2.5 h-2.5 bg-yard-gold rounded-full shrink-0"></div>
+                    <span className="text-gray-300 text-sm">{right}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 pt-6 border-t border-[#222]">
+                <p className="text-gray-400 text-sm">
+                  To exercise any of these rights, email us at{' '}
+                  <a href="mailto:info@yardvybz.news" className="text-yard-gold hover:underline">info@yardvybz.news</a>.
+                  We will respond within 30 days.
+                </p>
+              </div>
             </div>
           </div>
+
+          {/* Data Security */}
+          <div>
+            <h2 className="text-3xl font-black text-white mb-6">Data Security</h2>
+            <div className="border border-[#222] bg-[#111] p-6 text-gray-400 space-y-4">
+              <p>
+                We implement industry-standard security measures to protect your personal information, including encrypted data transmission (HTTPS/TLS), hashed password storage, and access controls that restrict who within our organisation can access user data.
+              </p>
+              <p>
+                While we take data security seriously, no method of internet transmission or electronic storage is 100% secure. If you discover a security vulnerability, please disclose it responsibly by emailing <a href="mailto:info@yardvybz.news" className="text-yard-gold hover:underline">info@yardvybz.news</a>.
+              </p>
+            </div>
+          </div>
+
+          {/* Children */}
+          <div>
+            <h2 className="text-3xl font-black text-white mb-6">Children's Privacy</h2>
+            <div className="border border-[#222] bg-[#111] p-6 text-gray-400">
+              <p>
+                YardVybz is not directed at children under the age of 13 (or 16 in the EU). We do not knowingly collect personal information from children. If you believe we have inadvertently collected information from a child, please contact us immediately at{' '}
+                <a href="mailto:info@yardvybz.news" className="text-yard-gold hover:underline">info@yardvybz.news</a>{' '}
+                and we will delete it promptly.
+              </p>
+            </div>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h2 className="text-3xl font-black text-white mb-6">Contact & Policy Updates</h2>
+            <div className="border border-[#222] bg-[#111] p-6 space-y-4 text-gray-400">
+              <p>
+                For any questions about this Privacy Policy, to exercise your rights, or to report a data concern, please contact us:
+              </p>
+              <div className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-yard-gold" />
+                <a href="mailto:info@yardvybz.news" className="text-yard-gold hover:underline font-semibold">info@yardvybz.news</a>
+              </div>
+              <p className="text-sm">
+                We will notify you of any significant changes to this policy via email (if you are registered) or via a prominent notice on our website. The "Last updated" date above always reflects the most current version.
+              </p>
+              <p className="text-sm">
+                This policy was last updated on <strong className="text-gray-300">{lastUpdated}</strong>.
+              </p>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* Contact & Updates */}
-      <section className="py-20 bg-yard-dark">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="border border-[#222] bg-[#111] p-12">
-            <h2 className="text-4xl font-black text-white mb-6">
-              Questions About Privacy?
-            </h2>
-            <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-              Our privacy team is here to help with any questions about how we handle your data
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 text-left">
-              <div>
-                <h3 className="text-lg font-semibold text-white mb-4">Privacy Inquiries</h3>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <Mail className="w-4 h-4 text-yard-gold" />
-                    <a href="mailto:info@yardvybz.news" className="text-yard-gold hover:underline">
-                      info@yardvybz.news
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Settings className="w-4 h-4 text-yard-gold" />
-                    <span>Privacy Settings in your account dashboard</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div>
-                <h3 className="text-lg font-semibold text-white mb-4">Policy Updates</h3>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-yard-gold" />
-                    <span>Last updated: {lastUpdated}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Globe className="w-4 h-4 text-yard-gold" />
-                    <span>We'll notify you of any significant changes</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="glamour" size="lg">
-                Update Privacy Settings
-              </Button>
-              <Button variant="outline">
-                Download Full Policy
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-        <Footer />
-      </div>
-    </>
+      <Footer />
+    </div>
   );
 };
 
